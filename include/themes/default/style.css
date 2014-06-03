@@ -1,0 +1,710 @@
+/* Parametres du fond */
+body {
+background-color   :#E8E8EC;
+background-repeat  :no-repeat;
+background-position:center top;
+text-align         : center;
+font-size          :SMALL;
+color              :black;
+
+}
+
+h1 {
+font-family     :arial, sans-serif;
+font-size       :MEDIUM;
+color           :black;
+background-color:transparent;
+text-align      :center;
+font-weight     : bold;
+}
+
+h2 {
+font-family     :arial, sans-serif;
+font-size       :MEDIUM;
+color           :#5C4040;
+background-color:transparent;
+text-align      :center;
+}
+
+/* Paramètre Grand titre elements */ 
+h3 {
+font-family     :verdana, sans-serif;
+font-size       :LARGE;
+color           :#009EDF;
+background-color:white;
+text-align      :center;
+font-weight     : bold;
+}
+
+h4 {
+font-family     :verdana, sans-serif;
+font-size       :LARGE;
+color           :#422f15;
+background-color:transparent;
+text-align      :center;
+}
+
+h5 {
+font-family     :verdana, sans-serif;
+font-size       :MEDIUM;
+color           :#422f15;
+background-color:transparent;
+text-align      :center;
+font-weight     : bold;
+}
+
+h6 {
+font-family     :verdana, sans-serif;
+font-size       :MEDIUM;
+color           :#422f15;
+background-color:transparent;
+text-align      :center;
+}
+
+/* Intitulé des pages dans la barre menu centrale  */
+p {
+font-family     :verdana, sans-serif;
+font-size       :medium;
+color           :#009EDF;
+background-color:transparent;
+text-align      :center;
+margin-left     :0px;
+margin-right    :0px;
+}
+
+li {
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:#422f15;
+background-color:transparent;
+text-align:center;
+margin-left:0px;
+margin-right:0px;
+}
+
+/* Paramètre des liens */
+a:link {
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:black;
+background-color:transparent;
+text-decoration:underline;
+}
+
+/* Paramètre des liens déjà visité */
+a:visited {
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:black;
+background-color:transparent;
+text-decoration:underline;
+}
+
+/* Paramètre des liens survolé */ 
+a:hover {
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:black;
+background-color:transparent;
+text-decoration:underline;
+}
+
+.tbrien {
+border-color:#422f15;
+border-style:solid;
+border-width:0px;
+text-align:left;
+border-spacing: 1px 
+}
+
+.rien {
+border-style:solid; 
+border-width:0px; 
+border-color:#422f15; 
+background-color:transparent;
+}
+
+rien.rien2 {
+background-color:#FFFFCC;
+}
+
+div#bandeau {
+width:1000px;
+height:170px;
+background-color:#009EDF;
+padding: 10px;
+}
+
+div#bandeau2 {
+width:1000px;
+height:600px;
+background-color:white;
+padding: 10px;
+}
+
+div#contenu {
+width:1100px;
+height:630px;
+
+}
+div#piedpage {
+width:1000px;
+height:100px;
+background-color:white;
+}
+div#pied {
+margin-top: 50px;
+position: relative;
+height:120px;
+}
+
+div#pied_gauche {
+font-size:large;
+position: absolute;
+top: 30px;
+left: 1em;
+width:30%;
+}
+
+div#pied_centre{ 
+width:30%;
+position: absolute;
+top: 30px;
+right: 30%;
+}
+
+div#pied_droite {
+width:30%;
+position: absolute;
+top: 30px;
+right: 1em;
+}
+
+/* Paramètre option vidéo projection */
+div#bloprojection {
+background-color: #009EDF;
+color:#000000;
+margin: 5px 5px;
+padding-bottom: 10px;
+float:left;
+width:195px;
+height:180px;
+font-weight:bold
+}
+
+table {
+border-color:#009EDF;
+border-style:solid;
+border-width:0px;
+text-align:center;
+border-spacing: 0px;
+}
+
+/* Paramètre tableaux */
+caption {
+padding-top: 10px;
+padding-bottom: 10px;
+background-color: #009EDF;
+font-size:MEDIUM;
+color:white;
+height:30px;
+font-weight: bold;
+text-align:center;
+}
+
+table.page {
+width:900px;
+background-color:#E8E8EC;
+border-style:solid;
+/*border-width:20px;*/
+border-color:#E8E8EC;
+border-spacing: 10px ;
+margin-left: auto; 
+margin-right: auto;
+padding-top:20px;
+}
+
+/* Paramètre de fond des element de la page */
+tr {
+margin-left: auto;
+margin-right: auto;
+text-align:center; 
+vertical-align:middle;
+font-family:verdana, sans-serif;
+font-size:small;
+color:#000000;
+padding:4px;
+border-color:#D3D3D7;
+border: 1px;
+background-color:white;
+}
+
+tr.texte0 {
+background-color: white;
+text-align: center;
+border-width:1px;
+font-size:small;
+}
+
+tr.highlight{
+margin-left: auto;
+margin-right: auto;
+text-align:center; 
+vertical-align:middle;
+font-family:verdana, sans-serif;
+font-size:small;
+color:white;
+padding:4px;
+border: 0px none;
+background-color:#009EDF;
+}
+
+tr.texte1 {
+background-color: #959595;
+text-align: center;
+border-width:1px;
+font-size:small;
+}
+
+td.nombre1 {
+background-color: #BFBFBF;
+text-align: center;
+}
+
+/* Paramètre Nom colonne tableau */
+th {
+background-color:#009EDF;
+padding-top:10px;
+padding-bottom:10px;
+padding-right:10px;
+padding-left:10px;
+color:white;
+Font-size:1.3em;
+font-weight: bold;
+text-align: center;
+}
+th a:link{
+background-color:#009EDF;
+color:white;
+text-align: center;
+font-weight: bold;
+}
+
+/* Paramètre Nom colonne tableau après visite */
+th a:visited{
+background-color: #009EDF;
+color:white;
+font-weight: bold;
+text-align: center;
+}
+
+/* Paramètre Nom colonne tableau survolé */
+th a:hover{
+background-color: #009EDF;
+color:white;
+font-weight: bold;
+text-align: center;
+}
+
+/*
+td {
+font-family:verdana, sans-serif;
+font-size:x-small;
+color:#000000;
+text-align: left;
+padding:4px;
+vertical-align: top;
+border: 1px;
+background-color:#E5E5E5;
+}
+*/
+
+/* Paramètre écriture dans tableau */
+td.highlight {
+margin-left: auto;
+margin-right: auto;
+text-align:center; 
+vertical-align:middle;
+font-family:verdana, sans-serif;
+font-size:medium;
+color:#000000;
+padding:4px;
+border: 1px ;
+}
+
+td.page{
+text-align:center;
+}
+
+td.td2{
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:#000000;
+text-align:center;
+background-color:#99DEFF;
+border-color:transparent;
+border-style:solid;
+border-width:0px;
+padding:0;
+}
+
+td.texte0 {
+background-color: white;
+text-align: center;
+}
+
+td.texte_left {
+background-color: #E5E5E5;
+text-align: left;
+}
+
+td.nombre0 {
+background-color: #E5E5E5;
+text-align: center;
+}
+
+td.install {
+background-color: #bbbbbb;
+text-align: center;
+width: 150px;
+}
+
+td.texte1 {
+margin-left: auto;
+margin-right: auto;
+text-align:center; 
+vertical-align:middle;
+background-color: white;
+}
+
+.photo { 
+background-color:#fafbfc; 
+border:1px solid #b0b0b0; 
+margin:3px; 
+}
+
+.OPTION { 
+background-color: #FFEFD5 ; 
+}
+
+.SELECT { 
+background-color: #FFEFD5 ; 
+}
+
+.TEXTAREA { 
+background-color: #FFEFD5 ; 
+color: red ; 
+}
+
+.BUTTON { font-family: arial, helvetica, sans-serif ; 
+border-width: 2pt ;
+font-size: 16pt ; 
+color: #422f15 ; 
+top: 250px ; 
+background-color: #F5DEB3 ; 
+}
+
+.libelle {
+background-color: #E5E5E5;
+text-align: left;
+}
+
+.titre {
+background-color:#7F7F7F;
+border: 2px ;
+}
+
+.boiteaction {
+background-color:transparent;
+width:100%;
+text-align:center;
+}
+
+.td2montant{
+background-color:#E5E5E5;
+border-color:transparent;
+}
+
+.td3{
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:#000000;
+text-align:left;
+background-color:#CC6633;
+border-color:transparent;
+border-style:solid;
+border-width:0px;
+padding:0;
+}
+
+.td4{
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:#000000;
+text-align:left;
+background-color:transparent;
+}
+
+.tdgraph{
+font-family:verdana, sans-serif;
+font-size:SMALL;
+color:#000000;
+text-align:left;
+background-image:url(../image/fond.gif);
+border-color:transparent;
+border-style:solid;
+border-width:1px;
+padding:0;
+}
+
+.titretableau {
+background-color: #CEA062;
+color: #000000;
+}
+
+.submit {
+background-color: #009EDF;
+color:white;
+font-weight: bold;
+text-align: center;
+}
+
+.totaltexte {
+font-size:SMALL;
+background-color: #C79546;
+color:red;
+font-weight: bold;
+}
+
+.totalmontant {
+font-size:SMALL;
+color:red;
+font-weight: bold;
+text-align:right;
+background-color: #C79546;
+}
+	
+.boiteaction td, form, input {
+/*padding: 0;*/
+/*margin: 0;*/
+/*margin-left: auto;
+margin-right: auto;
+width: 300px; largeur obligatoire pour être centré */
+} 
+
+/***** menu CSS *****/
+@media print {
+/*A l'impression on cache le menu, marche au moins pour IE, Moz et Opéra.*/
+.menu, .ssmenu {
+visibility:hidden;
+}
+}
+
+.menu, .ssmenu {
+/* Il est important de laisser une largeur, au cas où le Javascript soit désactivé.
+margin aussi */
+background-color:#AA8922;
+font-size:12px;
+font-weight:bold;
+border:0px solid #EFB;
+color:#ffffcc;
+color:white;
+width:150px;
+padding:5px;
+margin:1em;
+}
+
+.menu {
+text-align:center;
+background:#CEA062;
+border-color:#004455;
+}
+
+.ssmenu {
+background:#CEA062;
+border-color:#ABCDEF;
+}
+
+.menu span, .ssmenu span {
+/* pour cacher les ; en fin de <li>, ce qui permet aux synthèse vocales de prendre une
+pause dans l'élocution */
+display:none;
+}
+
+.ssmenu ul, .ssmenu li {
+/* Les items (les <li>) des sous-menus, notamment pour enlever les puces des liste */
+padding:0;
+margin:0;
+list-style-type:none;
+}
+
+.menu a:link, .ssmenu a:link, .menu a:visited, .ssmenu a:visited {
+/* Les liens qui ne sont pas sous le curseur. */
+font-family:MS Sans Serif, sans-serif, Verdana, Arial;
+text-decoration:none;
+color:#FEB;
+padding:2px 0px;
+/* Ne pas modifier le block */
+display:block;
+/*	Un width:100% fait planter Mozilla, sans le width:100% c'est IE et Opera... La combinaison
+aucun width et height:100% marche sur tous, donc ne pas toucher ces 2 lignes */
+height:100%;
+margin:0px;
+margin:0px;
+/*	width:100%;*/
+voice-family: "\"}\"";
+voice-family:inherit;
+}
+
+.menu a, .ssmenu a, .menu a:visited, .ssmenu a:visited {
+width :auto;
+}
+
+.ssmenu ul:hover, .ssmenu a:hover, .ssmenu a:focus, .menu a:hover, .menu a:focus {
+/* Les liens sous le curseur.
+On change les couleurs du texte et de fond, et on enlève le soulignement.
+*/
+background-color:#C79546;
+color:#034;
+text-decoration:none;
+}
+.pagination {background-color:#009EDF; }
+.pagination a {color: black; font-size: large }
+.pagination a:hover {color: white; text-decoration: none;}
+.pagination a:visited {color: black; text-decoration: none;} 
+
+/*AGENDA*/
+.liste {
+width:250px;
+margin-bottom:3px;
+margin-top:30px;
+background-color:#f0f0f0;
+color:#000000;
+border: 3px solid #009EDF;
+}
+
+.tableau {
+margin-top:0px;
+border: medium solid #009EDF;
+border-collapse: collapse;
+margin-left:auto;
+margin-right:auto;
+width:700px;
+height:300px;
+text-align:left;
+cursor:default;
+}
+
+.tableau caption {
+text-align:center;
+background-color:#009EDF;
+font-family:"Trebuchet MS",Verdana,Helvetica,sans-serif;
+font-weight:bold;
+font-size:20pt;
+color:white;
+padding:25px;
+margin-top:3px;
+}
+
+.tableau th {
+font-family:"Myriad Pro Light",Verdana,Helvetica,sans-serif;
+border: thin solid #999999;
+padding: 2px;
+background-color: white;
+color: #009EDF;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+.tableau td {
+font-family      :Verdana, Arial, Helvetica,serif;
+border           : thin solid #999999;
+padding          : 10px;
+font-weight      :bold;
+cursor           :pointer;
+}
+
+.desactive {
+background-color :#dddddd;
+}
+
+td.ferier {
+background-color :#9cbdfb;
+}
+
+.special {
+background-color :#16f26e;
+color            :#990000;
+text-decoration  :blink;
+}
+
+#notif {
+padding          :5px 10px;
+margin-top       :10px;
+border           :2px solid #000000;
+width            :250px;
+background-color :#996633;
+color            :#FFFFFF;
+font-size        :15pt;
+}
+
+#lien {margin-top:20px;}
+#lien a,#lien a  :visited{
+padding          :10px 30px;
+background-color :#336633;
+color            :#FFFFFF;
+border           :1px solid #333333;
+text-decoration  :none;
+}
+
+#lien a          :hover{
+background-color :#339900;
+}
+
+#btn_up {
+position         : fixed;
+bottom           : 15px;
+right            : 25px;
+cursor           : pointer;
+display          :none;
+}
+/* Page d'attente avec barre de progression*/
+.bar, .progression{
+display              : block;
+height               : 20px;
+width                : 500px;
+
+-moz-border-radius   : 15px;
+-webkit-border-radius: 15px;
+-o-border-radius     : 15px;
+border-radius        : 15px;
+}
+
+.bar {
+background-color     : white;
+margin-left          : auto;
+margin-right         : auto;
+-moz-box-shadow      : 1px 1px 4px #999;
+-webkit-box-shadow   : 1px 1px 4px #999;
+-o-box-shadow        : 1px 1px 4px #999;
+box-shadow           : 1px 1px 4px #999;
+}
+
+.progression {
+background-color     : #158bc8;
+}
+
+.precent {
+color                : white;
+display              : block;
+text-align           : center;
+}
+
+
+/*
+Bref... pour résumer, ce qu'il y a à modifier à la base, c'est :
+- couleurs, police, bordure et largeur des menu et ssmenu.
+- l'effet spécial IE pour les ssmenu
+- police et couleurs des liens "non survolés" et "survolés".
+*/

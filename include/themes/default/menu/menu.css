@@ -1,0 +1,269 @@
+/* ######### Shared basic style for mega drop down menu DIV ######### */
+
+.mega{
+width:200px; /*default width of mega menu*/
+padding:10px;
+position:absolute;
+visibility:hidden;
+border:0px solid black;
+border-top-width:1px;
+background:white;
+color:#009EDF;
+-webkit-box-shadow: 5px 5px 5px #c8c8c8; /*css 3 shadows*/
+-moz-box-shadow: 5px 5px 5px #c8c8c8;
+/*box-shadow: 5px 5px 5px #c8c8c8;*/
+}
+
+}
+.mega .column{ /*each link column within a mega menu*/
+float:left;
+width:49%;
+}
+
+.mega a{
+text-decoration:none;
+}
+
+.mega a[rel]:after{ /*add "images/down.png" to anchor links, or those with a rel attribute */
+content:" " url(images/down.png);
+}
+
+.mega .column ul{
+margin:0;
+margin-left:5px;
+padding:0;
+list-style:none;
+}
+
+.mega .column ul li{
+margin-bottom:3px;
+}
+
+.mega .ulmenu{ /*style any UL within mega menu with class="ulmenu"*/
+margin:0;
+padding:0;
+border:1px solid gray;
+border-bottom-width:0;
+list-style:none;
+}
+
+.mega .ulmenu a{
+display:block;
+border-bottom:1px solid gray;
+padding:5px;
+}
+
+.mega .ulmenu a:hover{
+background:lightyellow;
+
+}
+
+/* ######### Style for Solid Block Mega Menu ######### */
+
+/* Bordure menu déroulant */
+.solidblocktheme{ 
+border:0px solid #cd0000;
+padding:0; /*remove default padding inside mega menu*/
+}
+
+.solidblocktheme p, .solidblocktheme .column{
+padding:5px; /*add padding inside p and .column elements within mega menu*/
+width:auto;
+}
+
+/*  */
+.menublock{
+position: relative;
+height:100px; 
+width: 900px;
+text-align: center;
+padding-right:7%;
+} 
+
+/* Div qui encadre div logo et div menu */
+#header{ 
+margin:auto;
+widht : 1000pc;
+}
+
+/* Paramètre barre de menu ORIGINAL */
+.solidblockmenu{
+font: bold 13px Arial;
+width: 109%;
+overflow: hidden;
+margin-bottom: 2em; 
+
+border: 0px solid #009EDF;
+border-width: 0px 0;
+color:white;
+background: #009EDF;
+}
+
+/* Paramètre Logo de la barre menu */
+#logo{
+float:left;
+}
+
+#logo ul {
+	margin-top : 0;
+	}
+ 
+.solidblockmenu li{
+display: inline;
+}
+
+/* Paramètre ligne séparatrice bouton menu */ 
+.solidblockmenu li a{
+float: left;
+color: white;
+padding: 9px 11px;
+text-decoration: none;
+border-right: 0px solid white;
+}
+
+/*************************** Paramètres des bouton du menu ***************************/ 
+#accueil{
+background-image: url("images/accueil.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#accueil:hover{
+background-image: url("images/accueil_v2.png");
+}
+
+#spectateurs{
+background-image: url("images/kontact_contacts.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#spectateurs:hover{
+background-image: url("images/kontact_contacts_2.png");
+}
+
+#reservations{
+background-image: url("images/commandes.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#reservations:hover{
+background-image: url("images/commandes_v2.png");
+}
+
+#billetterie{
+background-image: url("images/billetterie.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#billetterie:hover{
+background-image: url("images/billetterie_v2.png");
+}
+
+#spectacle{
+background-image: url("images/spectacle.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#spectacle:hover{
+background-image: url("images/spectacle_v2.png");
+}
+
+#caisse{
+background-image: url("images/caisse.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#caisse:hover{
+background-image: url("images/caisse_v2.png");
+}
+
+#statistique{
+background-image: url("images/stat.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#statistique:hover{
+background-image: url("images/stat_v2.png");
+}
+
+#mailing{
+background-image: url("images/mailing.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#mailing:hover{
+background-image: url("images/mailing_v2.png");
+}
+
+#impression{
+background-image: url("images/print.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#impression:hover{
+background-image: url("images/print_v2.png");
+}
+
+#outils{
+background-image: url("images/outil.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#outils:hover{
+background-image: url("images/outil_v2.png");
+}
+
+#quitter{
+background-image: url("images/sortir.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#quitter:hover{
+background-image: url("images/sortir_v2.png");
+}
+/*************************** ------------------------------ ***************************/
+
+
+/* Titre page menu déjà visité */
+.solidblockmenu li a:visited{
+color: white;
+}
+
+/* Titre page menu survolé */
+.solidblockmenu li a:hover, .solidblockmenu li a.selected{ /*Selected Tab style*/
+color:#009EDF;
+background: white;
+}
+
