@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -57,7 +57,7 @@ include_once("include/fonction.php");
 							<th><?php echo $lang_ville; ?></th>
 							<th><?php  echo $lang_tele;?></th>
 							<th><?php echo $lang_email; ?></th>
-							<th></th>
+    							<th></th>
 						</tr>
 					</thead>
 					<tbody>

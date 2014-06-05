@@ -1,9 +1,9 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -13,9 +13,9 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 
-$list_fer=array(7);//Liste pour les jours ferié; EX: $list_fer=array(7,1)==>tous les dimanches et les Lundi seront des jours fériers
+$list_fer=array(7);//Liste pour les jours feriï¿½; EX: $list_fer=array(7,1)==>tous les dimanches et les Lundi seront des jours fï¿½riers
 
-$sql="select date_spectacle from factux_article";
+$sql="select date_spectacle from ". $tblpref ."article";
 $req=mysql_query($sql);
 $k=0;
 while($data=mysql_fetch_array($req))
@@ -28,18 +28,18 @@ if($k==0)
 if(isset($_GET['admin']))
 	$lien_redir="agenda_gestion.php";
 else
-	$lien_redir="agenda_date_info.php";//Lien de redirection apres un clic sur une date, NB la date selectionner va etre ajouter à ce lien afin de la récuperer ultérieurement 
+	$lien_redir="agenda_date_info.php";//Lien de redirection apres un clic sur une date, NB la date selectionner va etre ajouter ï¿½ ce lien afin de la rï¿½cuperer ultï¿½rieurement 
 if(isset($_GET['admin']))
-	$clic=1;//1==>Activer les clic sur tous les dates; 2==>Activer les clic uniquement sur les dates speciaux; 3==>Désactiver les clics sur tous les dates
+	$clic=1;//1==>Activer les clic sur tous les dates; 2==>Activer les clic uniquement sur les dates speciaux; 3==>Dï¿½sactiver les clics sur tous les dates
 else
 	$clic=2;
 $col1="#d6f21a";//couleur au passage du souris pour les dates normales
 
 $col2="#8af5b5";//couleur au passage du souris pour les dates speciaux
 
-$col3="#6a92db";//couleur au passage du souris pour les dates férié
+$col3="#6a92db";//couleur au passage du souris pour les dates fï¿½riï¿½
 
-$mois_fr = Array("", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août","Septembre", "Octobre", "Novembre", "Décembre");
+$mois_fr = Array("", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout","Septembre", "Octobre", "Novembre", "Decembre");
 
 
 if(isset($_GET['mois']) && isset($_GET['annee']))
@@ -156,9 +156,9 @@ $titre=$mois_fr[$mois]." : ".$annee;
 			</table>
 			<?php
 				if(isset($_GET['mod']))
-					echo "<div id='notif'>Calendrier modifié</div>";
+					echo "<div id='notif'>Calendrier modifiï¿½</div>";
 				elseif(isset($_GET['add']))
-					echo "<div id='notif'>Evénement ajouté</div>";
+					echo "<div id='notif'>Evï¿½nement ajoutï¿½</div>";
 			?>
 		</td>
 </tr>

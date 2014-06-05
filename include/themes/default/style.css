@@ -222,6 +222,7 @@ border-spacing: 10px ;
 margin-left: auto; 
 margin-right: auto;
 padding-top:20px;
+margin-top:20px;
 }
 
 /* Paramètre de fond des element de la page */
@@ -470,18 +471,18 @@ text-align: center;
 }
 
 .totaltexte {
-font-size:SMALL;
-background-color: #C79546;
-color:red;
+font-size:medium;
+background-color: #009EDF;
+color:white;
 font-weight: bold;
 }
 
 .totalmontant {
-font-size:SMALL;
-color:red;
+font-size:medium;
+color:white;
 font-weight: bold;
 text-align:right;
-background-color: #C79546;
+background-color: #009EDF;
 }
 	
 .boiteaction td, form, input {

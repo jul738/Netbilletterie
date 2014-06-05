@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -14,7 +14,7 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -71,7 +71,7 @@ if (document.client.nom.value == "")	{
 	}
  
 if (document.client.mail.value != document.client.mail2.value)	{
-		msg += "Veuillez resaisir le mail à l'identique'\n";
+		msg += "Veuillez resaisir le mail a l'identique'\n";
 		document.client.mail2.style.backgroundColor = "#F3C200";
 	}
  
@@ -87,7 +87,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-				<h3>Formulaire de création de spectateur</h3>
+				<h3>Formulaire de creation de spectateur</h3>
 		</td>
 			<?php
 			if($message!=''){
@@ -114,7 +114,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 												BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
 												AND selection=1
 												ORDER BY nom_tarif ASC";
-												$result3 = mysql_query( $rqSql3 ) or die( "Exécution requête $rqSql3 impossible.");?>
+												$result3 = mysql_query( $rqSql3 ) or die( "Execution requete $rqSql3 impossible.");?>
 								</td>
 									<script type="text/javascript">
 									function verif_formulaire(){
@@ -143,7 +143,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 								</td>
 							<tr>
 								<input type="hidden" name="listeville" value='<?php if ( $num==""){echo $client;} else {echo $num;} ?>'>
-								<td class="submit" colspan="6"> <input type="submit" name="Submit" value="Créer une réservation pour <?php $nom=stripslashes($nom); echo "$civ $nom"; ?>"> </td>
+								<td class="submit" colspan="6"> <input type="submit" name="Submit" value="Creer une reservation pour <?php $nom=stripslashes($nom); echo "$civ $nom"; ?>"> </td>
 							</tr>
 						</table></center>
 						</form>
@@ -193,20 +193,42 @@ if (document.client.mail.value != document.client.mail2.value)	{
 				<tr> 
 					<td class="texte1"><?php echo $lang_tele; ?></td>
 					<td class="texte1"><input name="tel" type="text" id="tel" value="<?php echo $indicatif_tel; ?>"></td>
-				</tr>
+				</tr> 
 				<tr> 
 					<td  class="texte0"><?php echo $lang_email; ?></td>
 					<td class="texte1"><input name="mail" type="text" onKeyUp="javascript:couleur(this);"></td>
 				</tr>
 				<tr>
-					<td  class="texte0">Confirmer l'<?php echo $lang_email; ?></td>
-					<td class="texte1"><input name="mail2" type="text" onKeyUp="javascript:couleur(this);" ></td>
+					<td  class="texte1">Confirmer l'<?php echo $lang_email; ?></td>
+					<td class="texte0"><input name="mail2" type="text" onKeyUp="javascript:couleur(this);" ></td>
 				</tr>
-				<tr> 
-					<td class="submit" colspan="2">
-						<input type="image" name="Submit" src="image/valider.png" value="Démarrer"  border="0">
+                                
+                                <tr> 
+					<td class="texte0"><?php echo $lang_abonne_jp; ?></td>
+					<td class="texte0">
+						<SELECT name="abonne_jp">
+							<OPTION VALUE="non">Non</OPTION>
+							<OPTION VALUE="oui">Oui</OPTION>
+						</select>
 					</td>
 				</tr>
+                                
+                                                                <tr> 
+					<td class="texte1"><?php echo $lang_abonne_chanson; ?></td>
+					<td class="texte1">
+						<SELECT name="abonne_chanson">
+							<OPTION VALUE="non">Non</OPTION>
+							<OPTION VALUE="oui">Oui</OPTION>
+						</select>
+					</td>
+				</tr>
+                                
+				<tr> 
+					<td class="submit" colspan="2">
+						<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">
+					</td>
+				</tr>
+                                
 			</table>
 		</form>
 		</td>

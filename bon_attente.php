@@ -116,8 +116,7 @@ $annee_2= $annee_1 -1;
                                             BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
                                             ORDER BY date_spectacle";
 			 $result = mysql_query( $rqSql )
-             or die( "Exécution requète impossible.");
-                         print_r($result); ?>
+             or die( "Exécution requète impossible.");?>
         <td class="texte0">
             <SELECT NAME='article'>
             <OPTION VALUE=0><?php echo $lang_choisissez; ?></OPTION>

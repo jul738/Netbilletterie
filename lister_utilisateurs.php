@@ -137,8 +137,8 @@ include_once("include/finhead.php");
             <td class="highlight"><?php echo $cli; ?></td>
             <td class="highlight"><?php echo $print_user; ?></td>
             <td class="highlight"><?php echo $menu; ?></td>
-            <td class="highlight"><a href="editer_utilisateur.php?num_user=<?php echo $num_user ?>"><img src="image/edit.gif" border="0" alt="<?php echo $lang_editer ;?>r"></a></td>
-            <td class="highlight"><a href="del_utilisateur.php?num_user=<?php echo $num_user ?>"><img src="image/delete.jpg" border="0" alt="<?php echo $lang_suprimer ;?>r" onClick='return confirmDelete2()'></a></td>
+            <td class="highlight"><a href="editer_utilisateur.php?num_user=<?php echo $num_user ?>"><img src="image/edit.png" border="0" alt="<?php echo $lang_editer ;?>r"></a></td>
+            <td class="highlight"><a href="del_utilisateur.php?num_user=<?php echo $num_user ?>"><img src="image/delete.png" border="0" alt="<?php echo $lang_suprimer ;?>r" onClick='return confirmDelete2()'></a></td>
 
         <?php
         }

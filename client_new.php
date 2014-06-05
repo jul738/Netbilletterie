@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -28,11 +28,16 @@ $tel=isset($_POST['tel'])?$_POST['tel']:"";
 $fax=isset($_POST['fax'])?$_POST['fax']:"";
 $ville= ucwords($ville);
 $nom= ucwords($nom);
+$abonne_jp=isset($_POST['abonne_jp'])?$_POST['abonne_jp']:"";
+$abonne_chanson=isset($_POST['abonne_chanson'])?$_POST['abonne_chanson']:"";
 
-$sql2 = "SELECT * FROM ".$tblpref."client
-WHERE nom= '".$nom."'
-AND rue= '".$rue."'
-AND ville= '".$ville."'";
+
+$sql2 = "SELECT * FROM ".$tblpref."client , ".$tblpref."abonne
+WHERE nom= 'client.".$nom."'
+AND rue= 'client.".$rue."'
+AND abonne_jp= 'abonne.".$abonne_jp."'
+AND abonne_chanson= 'abonne.".$abonne_chanson."'
+AND ville= 'client.".$ville."'";
 $req2 = mysql_query($sql2) or die('Erreur SQL2 !<br>'.$sql2.'<br>'.mysql_error());
 while($data = mysql_fetch_array($req2))
     {
@@ -44,9 +49,11 @@ while($data = mysql_fetch_array($req2))
     $mail1 =$data['mail'];
     $civ1 = $data['civ'];
     $tel1 = $data['tel'];
+    $abonne_jp1 = $data['abonne_jp'];
+    $abonne_chanson1 = $data['abonne_chanson'];
     
     if ($nom1!=""){
-        echo "<h3><font color=red>$civ1 $nom1 demeurant: $rue1 à $ville1<br> Dont le mail est: $mail1 <br>est déjà sur la liste</font></h3><hr> <a href='form_client.php'>Retour au formulaire de saisie </a><br><a href='form_commande.php'>Ou aller directement à la saisie de commande</a> ";
+        echo "<h3><font color=red>$civ1 $nom1 demeurant: $rue1 a $ville1<br> Dont le mail est: $mail1 , et egalement abonne a : $abonne_chanson1 , $abonne_jp1 <br>est deja sur la liste</font></h3><hr> <a href='form_client.php'>Retour au formulaire de saisie </a><br><a href='form_commande.php'>Ou aller directement a la saisie de commande</a> ";
         exit;
     }
 
@@ -80,6 +87,10 @@ $message= "<h1> $lang_er_mo_pa</h1>";
 $sql1 = "INSERT INTO " . $tblpref ."client(nom, nom2, rue, ville, cp, num_tva, login, pass, mail, civ, tel, fax) VALUES ('$nom', '$nom_sup', '$rue', '$ville', '$code_post', '$num_tva', '$login', '$pass', '$mail_cli', '$civ', '$tel', '$fax')";
 mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 
+// Requete gestion des Abonnement // 
+$sql100 = "INSERT INTO " . $tblpref ."abonne(abonne_jp, abonne_chanson) VALUES ('$abonne_jp', '$abonne_chanson')";
+mysql_query($sql100) or die('Erreur SQL !<br>'.$sql100.'<br>'.mysql_error());
+
 $sql3 = "SELECT * FROM " . $tblpref ."client
 WHERE nom= '".$nom."'
 ";
@@ -89,7 +100,7 @@ while($data = mysql_fetch_array($req3))
     $client = $data['num_client'];
 	$nom=StripSlashes($data['nom']);
 
-$message= "<center><h2>Le client <font color=red>$civ $nom </font> a bien été enregistré </h2></center>";
+$message= "<center><h2>Le client <font color=#009EDF>$civ $nom </font> a bien ete enregistre </h2></center>";
 
 include("form_client.php");}
 ?>

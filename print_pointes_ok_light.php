@@ -3,11 +3,11 @@ window.print() ;
 </script>
 	
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 
 require_once("include/verif.php");
 $date_debut=isset($_GET['date_debut'])?$_GET['date_debut']:"";
@@ -23,7 +23,7 @@ include_once("include/utils.php");
 include_once("include/themes/default/style_print.css");
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -58,9 +58,9 @@ $annee_2= $annee_1 -1;
 <div><img src="<?php echo $logo;?>"  width="200" align="left" >
 <?php echo "<h4>$slogan $annee_2-$annee_1</h4>$c_postal $ville <br/>$tel <br/> $mail";?></div>
 <br/><br/><br/>
-				<h1>Régie de spectacle Commune de Lentilly 217</h1>
+				<h1>Rï¿½gie de spectacle Commune de Lentilly 217</h1>
 				 <h2><?php if ( $regie != ''){
-								echo "N° régie: $regie";
+								echo "Nï¿½ rï¿½gie: $regie";
 								}
 								?>
 				</h2>
@@ -68,19 +68,19 @@ $annee_2= $annee_1 -1;
 								echo "Saison culturelle $annee_2 - $annee_1.  Liste de tous les enregistrements. ";
 								}
 								if ( $date_debut != ''){
-								echo "Pour la période du $date_debut au $date_fin";
+								echo "Pour la pï¿½riode du $date_debut au $date_fin";
 								}
 								?>
 				</h2>
 <table class="liste" cellspacing="0"  cellpadding="0">
 <tr>
 
-	<th>Montant <br/>Chèques</th>
-	<th>Montant <br/>Espèces</th>
+	<th>Montant <br/>Chï¿½ques</th>
+	<th>Montant <br/>Espï¿½ces</th>
 	<th>Montant <br/>M ra</th>
-	<th>Montant <br/>Site billet réduc</th>
+	<th>Montant <br/>Site billet rï¿½duc</th>
 	<?php 
-	//on recupère les infos des tarifs
+	//on recupï¿½re les infos des tarifs
 	$sql = "SELECT * 
 			FROM " . $tblpref ."tarif
 			WHERE saison BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -91,19 +91,19 @@ $annee_2= $annee_1 -1;
 		$nom_tarif=$data['nom_tarif'];
 		$prix_tarif= $data['prix_tarif'];
 	?>
-	<th width='10%'><?php echo "$nom_tarif <br/> à $prix_tarif"; ?> </th>
+	<th width='10%'><?php echo "$nom_tarif <br/> ï¿½ $prix_tarif"; ?> </th>
 	<?php  
 	} 
 	?>
-	<th width='10%'>Titulaire <br/> Chèque</th>
+	<th width='10%'>Titulaire <br/> Chï¿½que</th>
 	<th width='10%'>Etablissement <br/>bancaire</th>
 	
 </tr>
 	<?php
 //======================================================================================
-	//on boucle sur les bons de commandes paiement par cheque et puis Espèces
+	//on boucle sur les bons de commandes paiement par cheque et puis Espï¿½ces
 //==========================================================================================
-	$tableau_paiement = array("Chèque", "Espèces", "M ra", "Site billet réduc");
+	$tableau_paiement = array("Chï¿½que", "Espï¿½ces", "M ra", "Site billet rï¿½duc");
 	for($nbr=0;$nbr<sizeof($tableau_paiement);$nbr++)
 	{
 		$paiement=$tableau_paiement[$nbr];
@@ -133,16 +133,16 @@ $annee_2= $annee_1 -1;
 			?>
 			<tr>
 				<?php
-				if ($paiement=='Chèque') {
+				if ($paiement=='Chï¿½que') {
 					echo "<td class='top'>$tva $devise</td><td class='top'></td><td class='top'></td><td class='top'></td>";
 				} 
-				if ($paiement=='Espèces') {
+				if ($paiement=='Espï¿½ces') {
 				echo "<td class='top'></td><td class='top'>$tva $devise</td><td class='top'></td><td class='top'></td>";
 				}
 				if ($paiement=='M ra') {
 					echo "<td class='top'></td><td class='top'></td><td class='top'>$tva $devise</td><td class='top'></td>";
 				}
-				if ($paiement=='Site billet réduc') {
+				if ($paiement=='Site billet rï¿½duc') {
 					echo "<td class='top'></td><td class='top'></td><td class='top'></td><td class='top'>$tva $devise</td><td class='top'></td>";
 				} ?>
 				<td class="top" colspan=" <?php echo "$nombre_tarif"; ?>" style="border-bottom:1px solid;"></td>
@@ -154,7 +154,7 @@ $annee_2= $annee_1 -1;
 
 			<?php
 					
-			//on recupère les infos de chaque enregistrement
+			//on recupï¿½re les infos de chaque enregistrement
 			$sql11 = "SELECT article, quanti, ".$tblpref."tarif.id_tarif, ".$tblpref."tarif.prix_tarif, nom_tarif, to_tva_art FROM `".$tblpref."cont_bon`, ".$tblpref."article, ".$tblpref."tarif 
 						WHERE ".$tblpref."tarif.id_tarif=".$tblpref."cont_bon.id_tarif
 						AND ".$tblpref."article.num=".$tblpref."cont_bon.article_num
@@ -180,7 +180,7 @@ $annee_2= $annee_1 -1;
 					if ($id_tarif_boucle==$id_tarif) 
 					{
 						
-						//on recupère infos du carnet au depart de la saison et la quantité vendu depuis jusqu'à ce bon en filtrant par tarif
+						//on recupï¿½re infos du carnet au depart de la saison et la quantitï¿½ vendu depuis jusqu'ï¿½ ce bon en filtrant par tarif
 						$sql10 = "
 						SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
 						FROM ". $tblpref."cont_bon CB, ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
@@ -199,7 +199,7 @@ $annee_2= $annee_1 -1;
 							$id_tarif = $data['id_tarif'];
 							$nom_tarif = $data['nom_tarif'];
 
-							//Pour chaque enregistrement le N° du premier billet vendu
+							//Pour chaque enregistrement le Nï¿½ du premier billet vendu
 							if ($t!=$id_tarif){
 								 $q='';
 							}
@@ -268,7 +268,7 @@ $annee_2= $annee_1 -1;
 		<th> Prix</th>
 		<th> Nombre</th>
 		<th>Chiffre d'affaire</th>
-		<th>N° des tickets</th>
+		<th>Nï¿½ des tickets</th>
 	</tr>
 	<?php
 	$sql6="SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
@@ -346,7 +346,7 @@ $annee_2= $annee_1 -1;
 	
 		<?php
 			$sql8="SELECT  SUM( tot_tva ) AS total, paiement
-					FROM factux_bon_comm BC
+					FROM " . $tblpref ."bon_comm BC
 					WHERE attente='0'
 					AND BC.fact ='ok'
 					AND paiement!='Gratuit'";

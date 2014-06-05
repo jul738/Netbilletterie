@@ -1,9 +1,9 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -18,7 +18,7 @@ $date_fin=isset($_GET['date_fin'])?$_GET['date_fin']:"";
 $date02 = "$annee-$mois-$jour";
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -99,7 +99,7 @@ window.print() ;
 							<th> Prix</th>
 							<th> Nombre</th>
 							<th>Chiffre d'affaire</th>
-							<th>N° des tickets</th>
+							<th>Nï¿½ des tickets</th>
 						</tr>
 						<?php
 						$sql6="SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
@@ -167,7 +167,7 @@ window.print() ;
 	</tr>
 </table>
 <br/>
-<h1> Récapitulatifs des paiements</h1>
+<h1> Rï¿½capitulatifs des paiements</h1>
 <table WIDTH="300px">
 	<tr>
 		<th align="left">Total</th>
@@ -176,7 +176,7 @@ window.print() ;
 	
 		<?php
 			$sql8="SELECT  SUM( tot_tva ) AS total, paiement 
-					FROM factux_bon_comm BC
+					FROM " . $tblpref ."bon_comm BC
 					WHERE attente='0'
 					AND fact='ok'";
 				if ( $date_debut == ''){

@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -34,19 +34,19 @@ include_once("include/finhead.php");
 		<td  class="page" align="center">
 			<form action="admin_modif.php" method="post" >
 				<table class="boiteaction">
-					<caption>Paramètre de Net-Billetterie</caption>
+					<caption>Parametre de Net-Billetterie</caption>
 					<tr>
 						<th>Nom de la salle de spectacle</th>
 						<td align=left> <input name="entrep_nom" type="text" id="lieu" size="60" maxlength="40" value="<?php echo $entrep_nom;?>">
 						</td>
 					</tr>
 					<tr>
-						<th>adresse du siège social</th>
+						<th>adresse du siege social</th>
 						<td align=left> <input name="social" type="text" id="lieu" size="60" maxlength="40" value="<?php echo $social;?>">
 						</td>
 					</tr>
 					<tr>
-						<th>Téléphonne de la salle de spectacle</th>
+						<th>Telephonne de la salle de spectacle</th>
 						<td align=left> <input name="tel" type="text" id="lieu" size="60" maxlength="40" value="<?php echo $tel;?>">
 						</td>
 					</tr>
@@ -61,7 +61,7 @@ include_once("include/finhead.php");
 						</td>
 					</tr>
 					<tr>
-						<th>Devise utilisée pour la facturation</th>
+						<th>Devise utilisee pour la facturation</th>
 						<td align=left> <input name="devise" type="text" id="lieu" size="10" maxlength="40" value="<?php echo $devise;?>">
 						</td>
 					</tr>
@@ -83,12 +83,12 @@ include_once("include/finhead.php");
 								</script>
 						<td align=left> <input name="logo"  type="text" SIZE="60" readonly="readonly" onclick="openKCFinder(this)"
 							value="<?php if ($logo!=""){echo $logo;} else {echo"Choisir une image jpg";}?>" /><br/> Cliquez dans la case ci dessus pour choisir un fichier image jpg<br/> 
-							puis cliquer sur upload pour choisir l'image à télécharger depuis votre ordinateur<br/>et enfin double cliquer sur cette dernière.<br/> 
+							puis cliquer sur upload pour choisir l'image a telecharger depuis votre ordinateur<br/>et enfin double cliquer sur cette derniere.<br/> 
 							Attention! le format de l'image "jpg" uniquement
 						</td>
 					</tr>
 					<tr>
-						<th>Langue utilisée (seulement en fr pour l'instant)</th>
+						<th>Langue utilisee (seulement en fr pour l'instant)</th>
 						<td align=left> <input name="lang" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $lang;?>">
 						</td>
 					</tr>
@@ -98,27 +98,27 @@ include_once("include/finhead.php");
 						</td>
 					</tr>
 					<tr>
-						<th>Code postal pour préremplir les formulaires des fiches spectateurs</th>
+						<th>Code postal pour preremplir les formulaires des fiches spectateurs</th>
 						<td align=left> <input name="c_postal" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $c_postal;?>">
 						</td>
 					</tr>
 					<tr>
-						<th>Ville pour préremplir les formulaires des fiches spectateurs</th>
+						<th>Ville pour preremplir les formulaires des fiches spectateurs</th>
 						<td align=left> <input name="ville" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $ville;?>">
 						</td>
 					<tr>
 						<tr>
-						<th>Indicatif téléphonique pour préremplir les formulaires des fiches spectateurs</th>
+						<th>Indicatif telephonique pour preremplir les formulaires des fiches spectateurs</th>
 						<td align=left> <input name="indicatif_tel" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $indicatif_tel;?>">
 						</td>
 					</tr>
 					<tr>
-						<th>Serveur smtp utilisé pour l'envoi des mails</th>
+						<th>Serveur smtp utilise pour l'envoi des mails</th>
 						<td align=left> <input name="smtp" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $smtp;?>">
 						</td>
 					</tr>
 					<tr>
-						<th>Port utilisé pour l'envoi des mails smtp</th>
+						<th>Port utilisï¿½ pour l'envoi des mails smtp</th>
 						<td align=left> <input name="port" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $port;?>">
 						</td>
 					</tr>
@@ -138,17 +138,17 @@ include_once("include/finhead.php");
 						</td>
 					</tr>
 					<tr>
-						<th>Mois et jour du début de la saison<br/> (pour le début au 1er sept. ecrire 09-01)</th>
+						<th>Mois et jour du debut de la saison<br/> (pour le debut au 1er sept. ecrire 09-01)</th>
 						<td align=left> <input name="debut_saison" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $debut_saison;?>">
 						</td>
 					</tr>
 					<tr>
-						<th>Mois et jour de la fin de la saison <br/>(pour la fin au 31 aout écrire 08-31)</th>
+						<th>Mois et jour de la fin de la saison <br/>(pour la fin au 31 aout ecrire 08-31)</th>
 						<td align=left> <input name="fin_saison" type="text" id="lieu" size="40" maxlength="40" value="<?php echo $fin_saison;?>">
 						</td>
 					</tr>
 					</tr>
-						<td class="submit" colspan="2"> <input type="image" name="Submit" src="image/valider.png" value="Démarrer"  border="0">
+						<td class="submit" colspan="2"> <input type="image" name="Submit" src="image/valider.png" value="Dï¿½marrer"  border="0">
 						</td>
 					</tr>
 				</table>

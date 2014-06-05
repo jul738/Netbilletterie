@@ -77,13 +77,12 @@ position: relative;
 height:100px; 
 width: 900px;
 text-align: center;
-padding-right:7%;
-} 
+}
 
 /* Div qui encadre div logo et div menu */
 #header{ 
 margin:auto;
-widht : 1000pc;
+width :1250px;
 }
 
 /* Paramètre barre de menu ORIGINAL */
@@ -92,21 +91,22 @@ font: bold 13px Arial;
 width: 109%;
 overflow: hidden;
 margin-bottom: 2em; 
-
 border: 0px solid #009EDF;
 border-width: 0px 0;
 color:white;
 background: #009EDF;
+margin-top:50px;
 }
 
 /* Paramètre Logo de la barre menu */
 #logo{
 float:left;
+margin-top : -13px;
 }
 
 #logo ul {
-	margin-top : 0;
-	}
+margin-top : 0;
+}
  
 .solidblockmenu li{
 display: inline;

@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -22,7 +22,7 @@ $date_today= date("Y-m-d");
 
     <tr>
         <td class="page" align="center">
-             <h3>Liste détaillée des commandes de billets </h3>
+             <h3>Liste dï¿½taillï¿½e des commandes de billets </h3>
         </td>
     </tr>
     <tr>
@@ -31,7 +31,7 @@ $date_today= date("Y-m-d");
                 <center>
                     <table>
                       <caption>
-                      Liste détaillée des commandes en choisissant les dates.
+                      Liste dï¿½taillï¿½e des commandes en choisissant les dates.
                       </caption>
                       <tr>
                         <td class="texte0">Choisir les dates entre le (aaaa-mm-jj)</td>
@@ -55,7 +55,7 @@ $date_today= date("Y-m-d");
                 <center>
                     <table>
                       <caption>
-                      Liste détaillée des commandes pointées "ok" en choisissant les dates
+                      Liste dï¿½taillï¿½e des commandes pointï¿½es "ok" en choisissant les dates
                       </caption>
                       <tr>
                         <td class="texte0">Choisir les dates entre le (aaaa-mm-jj)</td>
@@ -90,7 +90,7 @@ $date_today= date("Y-m-d");
             $annee = date("Y");
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -121,8 +121,8 @@ $annee_2= $annee_1 -1;
             if ($user_com == y) {
             $sql = "SELECT num_bon, fact, nom, 
 					DATE_FORMAT(date,'%d-%m-%Y') AS date, tot_tva as ttc, paiement
-					FROM factux_bon_comm
-					RIGHT JOIN factux_client on factux_bon_comm.client_num = num_client
+					FROM " . $tblpref ."bon_comm
+					RIGHT JOIN " . $tblpref ."client on " . $tblpref ."bon_comm.client_num = num_client
 					WHERE date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
 					AND attente='0'
                              ";
@@ -139,31 +139,31 @@ $annee_2= $annee_1 -1;
             $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
 /* pagination */
-// Paramétrage de la requête (ne pas modifier le nom des variable)
+// Paramï¿½trage de la requï¿½te (ne pas modifier le nom des variable)
 
 //=====================================================
-// Nombre d'enregistrements par page à afficher
+// Nombre d'enregistrements par page ï¿½ afficher
 $parpage = 500;
 //=====================================================
 
 
 //==============================================================================
-// Déclaration et initialisation des variables (ici ne rien modifier)
+// Dï¿½claration et initialisation des variables (ici ne rien modifier)
 //==============================================================================
 
-// On définit le suffixe du lien url qui affichera les pages
+// On dï¿½finit le suffixe du lien url qui affichera les pages
 // $_SERVEUR['PHP_SELF'] donne l'arborescence de la page courante
 $url = $_SERVER['PHP_SELF']."?limit=";
 
-$total = mysql_query($sql); // Résultat total de la requête $sql
+$total = mysql_query($sql); // Rï¿½sultat total de la requï¿½te $sql
 $nblignes = mysql_num_rows($total); // Nbre total d'enregistrements
-// On calcule le nombre de pages à afficher en arrondissant
-// le résultat au nombre supérieur grâce à la fonction ceil()
+// On calcule le nombre de pages ï¿½ afficher en arrondissant
+// le rï¿½sultat au nombre supï¿½rieur grï¿½ce ï¿½ la fonction ceil()
 $nbpages = ceil($nblignes/$parpage); 
 
- // Si une valeur 'limit' est passée par url, on vérifie la validité de
-// cette valeur par mesure de sécurité avec la fonction validlimit()
- // cette fonction retourne automatiquement le résultat de la requête
+ // Si une valeur 'limit' est passï¿½e par url, on vï¿½rifie la validitï¿½ de
+// cette valeur par mesure de sï¿½curitï¿½ avec la fonction validlimit()
+ // cette fonction retourne automatiquement le rï¿½sultat de la requï¿½te
  $result = validlimit($nblignes,$parpage,$sql); 
 
 
@@ -175,7 +175,7 @@ $nbpages = ceil($nblignes/$parpage);
     <center>
         <table class="boiteaction">
             
-                    <caption> Les commandes détaillées de la saison culturelle <?php echo "$annee_2 - $annee_1"; ?></caption> 
+                    <caption> Les commandes dï¿½taillï¿½es de la saison culturelle <?php echo "$annee_2 - $annee_1"; ?></caption> 
                     
                
                 <tr>
@@ -183,8 +183,8 @@ $nbpages = ceil($nblignes/$parpage);
                     <th width=60px;><a href="lister_detail_commandes.php?ordre=nom"><?php echo $lang_client; ?></a></th>
                     <th><a href="lister_detail_commandes.php?ordre=date"><?php echo $lang_date; ?></a></th>
                     <th><?php echo $lang_total_ttc; ?></th>
-                    <th>Réglé?</th>
-					<th>Pointé?</th>
+                    <th>Rï¿½glï¿½?</th>
+					<th>Pointï¿½?</th>
 					<th></th>
                     <th>NBR</th>
 					<th>Spectacle</th>
@@ -220,10 +220,10 @@ $nbpages = ceil($nblignes/$parpage);
 					<td class="highlight"><?php echo "$fact"; ?></td>
 					<td class="highlight">Billets</td>
 					<?php 
-					$sql11 = "SELECT article, quanti, factux_tarif.id_tarif, factux_tarif.prix_tarif, nom_tarif, to_tva_art FROM `factux_cont_bon`, factux_article, factux_tarif 
-								WHERE factux_tarif.id_tarif=factux_cont_bon.id_tarif
-								AND factux_article.num=factux_cont_bon.article_num
-								And factux_cont_bon.bon_num=$num_bon";
+					$sql11 = "SELECT article, quanti, " . $tblpref ."tarif.id_tarif, " . $tblpref ."tarif.prix_tarif, nom_tarif, to_tva_art FROM `" . $tblpref ."cont_bon`, " . $tblpref ."article, " . $tblpref ."tarif 
+								WHERE " . $tblpref ."tarif.id_tarif=" . $tblpref ."cont_bon.id_tarif
+								AND " . $tblpref ."article.num=" . $tblpref ."cont_bon.article_num
+								And " . $tblpref ."cont_bon.bon_num=$num_bon";
 					$req11 = mysql_query($sql11) or die('Erreur SQL11 !<br>'.$sql11.'<br>'.mysql_error());
 					while($data = mysql_fetch_array($req11))
             {
@@ -235,7 +235,7 @@ $nbpages = ceil($nblignes/$parpage);
 					  $id_tarif = $data['id_tarif'];
 					$sql10 = "
 					SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
-					FROM factux_cont_bon CB, factux_bon_comm BC, factux_tarif T, factux_article ART
+					FROM " . $tblpref ."cont_bon CB, " . $tblpref ."bon_comm BC, " . $tblpref ."tarif T, " . $tblpref ."article ART
 					WHERE CB.bon_num = BC.num_bon
 					AND BC.attente=0
 					AND CB.id_tarif=T.id_tarif
@@ -288,7 +288,7 @@ $nbpages = ceil($nblignes/$parpage);
         <td>
              <?php
 //=====================================================
-// Menu de pagination que l'on place après la requête 
+// Menu de pagination que l'on place aprï¿½s la requï¿½te 
 //======================================================
  echo "<div class='pagination'>";
  echo pagination($url,$parpage,$nblignes,$nbpages,$initial);
@@ -302,7 +302,7 @@ return $page;
 }
  echo "</div>";
 
- mysql_free_result($result); // Libère le résultat de la mémoire
+ mysql_free_result($result); // Libï¿½re le rï¿½sultat de la mï¿½moire
  ?>
         </td>
     </tr>

@@ -1,9 +1,9 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -13,7 +13,7 @@ include('include/head.php');
 include('include/finhead.php');
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $today=date ("Y-m-d");
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
@@ -92,11 +92,11 @@ $annee_2= $annee_1 -1;
 								<tr><td>
 									<SELECT NAME='num'>
 											<?php
-											$rqSql_article = "SELECT num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date FROM " . $tblpref ."article
+											$rqSql_article = "SELECT num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date FROM ". $tblpref ."article
 													WHERE  date_spectacle
 														BETWEEN '$today' AND '$annee_1-$fin_saison'
 													ORDER BY date_spectacle";
-											$result_article = mysql_query( $rqSql_article )or die( "Exécution requête impossible_article.");
+											$result_article = mysql_query( $rqSql_article )or die( "Execution requete impossible_article.");
 											while ( $row = mysql_fetch_array( $result_article)) 
 												{
 													$article= stripslashes($row["article"]);
@@ -111,7 +111,7 @@ $annee_2= $annee_1 -1;
 								<tr>
 									<td class="submit" colspan="6"> 
 									<input type="hidden" name="date" value="<?php echo"$jour/$mois/$annee";?>" >
-										<input type="image" name="Submit" src="image/valider.png" value="Démarrer"  border="0">
+										<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">
 									</td>
 								</tr>
 							</table>
@@ -124,7 +124,7 @@ $annee_2= $annee_1 -1;
 	</tr>
 		<?php 
 			if ($user_admin != 'n'){ ?>
-	<tr><td><a href="form_commande_caisse_postdate.php"><img src="image/billetterie_v2.png">Effectuer un enregistrement de caisse postdaté.</a></td></tr>
+	<tr><td><a href="form_commande_caisse_postdate.php"><img src="image/billetterie_v2.png">Effectuer un enregistrement de caisse postdate.</a></td></tr>
 	<?php } ?>
 	<tr>
 		<td>
