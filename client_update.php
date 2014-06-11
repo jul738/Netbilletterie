@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -28,6 +28,9 @@ include_once("include/config/var.php");
 	$tel=isset($_POST['tel'])?$_POST['tel']:"";
 	$fax=isset($_POST['fax'])?$_POST['fax']:"";
 	$actif=isset($_POST['actif'])?$_POST['actif']:"";
+        $abonne_chanson=isset($_POST['abonne_chanson'])?$_POST['abonne_chanson']:"";
+        $abonne_jp=isset($_POST['abonne_jp'])?$_POST['abonne_jp']:"";
+        
 $message='';
 if($pass != $pass2)
     {
@@ -52,7 +55,7 @@ if($nom=='' || $rue=='' || $ville=='' || $code_post=='' || $ville=='')
 $sql = "SELECT * FROM " . $tblpref ."client WHERE login = '".$login."'";
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 $test = mysql_num_rows($req);
-if ($test > 0) { 
+if ($test > 0) {
 echo "<h1> $lang_er_mo_pa";
     include('form_client.php');
     exit;
@@ -61,6 +64,10 @@ echo "<h1> $lang_er_mo_pa";
 
 $sql2 = "UPDATE " . $tblpref ."client SET `fax`='" . $fax . "', `tel`='" . $tel . "', `civ`='" . $civ . "', `nom`='" . $nom . "', `mail`='" . $mail_cli . "', `num_tva`='" . $num_tva . "', `nom2`='" . $nom_sup . "', `rue`='" .$rue . "', `ville`='" . $ville . "', `cp`='" . $code_post . "', `actif`='" . $actif . "' WHERE `num_client` = '" . $num . "'";
 mysql_query($sql2) OR die("<p>Erreur Mysql<br/>$sql2<br/>".mysql_error()."</p>");
+
+// Requete pour metre a jour les abonnement lors d'un edit spectateur // 
+$sql23 = "UPDATE ". $tblpref ."abonne SET `abonne_chanson`='". $abonne_chanson . "', `abonne_jp`='". $abonne_jp ."' WHERE `num_abonne`='". $num ."'";
+mysql_query($sql23) OR die("<p>Erreur Mysql<br/>$sql23<br/>".mysql_error()."</p>");
 
 if($pass2 !='' and $login != '')
     {
@@ -92,7 +99,7 @@ $to = "$mail_cli";
 $from = "$mail_admin" ;
 
 $subject2 = "$lang_cre_mo_pa" ;
-$message_mail =  "Cher client<br>Votre mot de passe a ete créé par l'administrateur<br><b>Login: $login Mot de passe: $pass2</b><br><br>vous pouver changer ce mot de passe en ligne mais pas le login. <br>Ce mot de pass est encodé dans notre base de donnée .<br>Si vous le perdiez, veuilliez prévevir l <a href=$mail_admin>administrateur</a> pour qu'il vous en donne un nouveau ";
+$message_mail =  "Cher client<br>Votre mot de passe a ete cree par l'administrateur<br><b>Login: $login Mot de passe: $pass2</b><br><br>vous pouver changer ce mot de passe en ligne mais pas le login. <br>Ce mot de pass est encode dans notre base de donnee .<br>Si vous le perdiez, veuilliez prevevir l <a href=$mail_admin>administrateur</a> pour qu'il vous en donne un nouveau ";
 $header = 'From: '.$from."\n"
  .'MIME-Version: 1.0'."\n"
  .'Content-Type: text/html; charset= ISO-8859-1'."\n"

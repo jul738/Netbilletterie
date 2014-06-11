@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -15,12 +15,12 @@ include_once("include/head.php");
 ?>
 <table width="760" border="0" class="page" align="center">
 <tr>
-<td class="page" align="center">
+<td class="page" align="center" style="background-color:#E8E8EC">
 </td>
 </tr>
 <tr>
-<td  class="page" align="center">
-<tr><TD>
+<td  style="background-color:#E8E8EC" class="page" align="center">
+<tr><TD> 
 <?php
 $num=isset($_GET['num'])?$_GET['num']:"";
 $sql = " SELECT * FROM " . $tblpref ."client WHERE num_client='$num'";
@@ -39,6 +39,8 @@ while($data = mysql_fetch_array($req))
 	$tel = stripslashes($data['tel']);
 	$fax = stripslashes($data['fax']);
 	$actif = stripslashes($data['actif']);
+    $abonne_chanson = stripslashes($data['abonne_chanson']);
+    $abonne_jp = stripslashes($data['abonne_jp']);
 }
 ?>
 <form name="edit_client" method="post" action="client_update.php" onsubmit="return confirmUpdate()" >
@@ -47,7 +49,7 @@ while($data = mysql_fetch_array($req))
     <?php echo "$lang_client_modifier $nom"; ?> 
     </caption>
 		    <tr> 
-      <td class="texte1"><?php echo Civilité; ?></td>
+      <td class="texte1"><?php echo Civilite; ?></td>
       <td class="texte1"> <input name="civ" type="text" id="civ" value="<?php echo "$civ"; ?>"></td>
     </tr>
     <tr> 
@@ -68,7 +70,7 @@ while($data = mysql_fetch_array($req))
 	</tr>
     
 	<tr> 
-      <td class="texte0">Télephone</td>
+      <td class="texte0">Telephone</td>
       <td class="texte0"> <input name="tel" type="text" id="tel" value="<?php echo "$tel"; ?>"></td>
     </tr>
 
@@ -76,6 +78,26 @@ while($data = mysql_fetch_array($req))
       <td class="texte1"><?php echo $lang_email; ?> </td>
       <td class="texte1"> <input name="mail" type="text" id="mail"  value="<?php echo "$mail"; ?>"> </td>
     </tr>
+    
+               <tr> 
+					<td class="texte0"><?php echo $lang_abonne_jp; ?></td>
+					<td class="texte0">
+						<SELECT name="abonne_jp">
+							<OPTION VALUE="non">Non</OPTION>
+							<OPTION VALUE="oui">Oui</OPTION>
+						</select>
+					</td>
+				</tr>
+                                
+               <tr> 
+					<td class="texte1"><?php echo $lang_abonne_chanson; ?></td>
+					<td class="texte1">
+						<SELECT name="abonne_chanson">
+							<OPTION VALUE="non">Non</OPTION>
+							<OPTION VALUE="oui">Oui</OPTION>
+						</select>
+					</td>
+				</tr> 
     
     <tr>
 		<td class="texte0">Ce spectateur est</td>

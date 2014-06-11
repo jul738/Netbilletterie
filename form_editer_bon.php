@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -38,10 +38,10 @@ $attente=isset($_POST['attente'])?$_POST['attente']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
 $voir=isset($_POST['voir'])?$_POST['voir']:"";
 
-//on change le bon s'il vient de la liste d'attente en modifant le champ attente à 0
+//on change le bon s'il vient de la liste d'attente en modifant le champ attente ï¿½ 0
 if($attente=='1'){
 $sql22 = "UPDATE `".$tblpref."bon_comm` SET `attente` = '0' WHERE `num_bon` = '$num_bon'";
-mysql_query($sql22) or die("Erreur SQL22 !<br>'.$sql22.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour à la liste</a>");
+mysql_query($sql22) or die("Erreur SQL22 !<br>'.$sql22.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 }
 
 if($num_bon=='')
@@ -54,11 +54,11 @@ if($num_bon=='')
 
 
 
-		//on recupére les info du bon de commande
+		//on recupï¿½re les info du bon de commande
 $sql = "SELECT  coment, client_num, nom, paiement, fact, ctrl, user FROM ".$tblpref."bon_comm 
 	RIGHT JOIN ".$tblpref."client on ".$tblpref."bon_comm.client_num = ".$tblpref."client.num_client
 	WHERE num_bon = $num_bon";
-$req = mysql_query($sql) or die("Erreur SQL !<br>'.$sql.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour à la liste</a>");
+$req = mysql_query($sql) or die("Erreur SQL !<br>'.$sql.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 $data = mysql_fetch_array($req);
 $paiement = $data["paiement"];
 $paiement=stripslashes($paiement);
@@ -71,17 +71,17 @@ $pointage=$data['fact'];
 $ctrl=$data['ctrl'];
 $user = $data['user'];
 
-		//on recupére les enregistrements du bon de commande
+		//on recupï¿½re les enregistrements du bon de commande
 $sql5 = "SELECT ".$tblpref."cont_bon.num, ".$tblpref."cont_bon.id_tarif, print, quanti, uni, article, tot_art_htva, to_tva_art, actif, DATE_FORMAT(date_spectacle,'%d-%m-%Y') AS date, stock, ".$tblpref."tarif.nom_tarif
         FROM ".$tblpref."cont_bon 
 		RIGHT JOIN ".$tblpref."article on ".$tblpref."cont_bon.article_num = ".$tblpref."article.num
 	    RIGHT JOIN ".$tblpref."tarif on ".$tblpref."cont_bon.id_tarif = ".$tblpref."tarif.id_tarif
 		WHERE  bon_num = $num_bon
 		ORDER BY ".$tblpref."tarif.nom_tarif, ".$tblpref."article.date_spectacle ASC";
-$req5 = mysql_query($sql5) or die("Erreur SQL5 !<br>'.$sql5.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour à la liste</a>");
+$req5 = mysql_query($sql5) or die("Erreur SQL5 !<br>'.$sql5.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -108,16 +108,16 @@ if ($annee_1=='')
 }
 $annee_2= $annee_1 -1;
 //=============================================
-//on recupère les infos des spectacles
+//on recupï¿½re les infos des spectacles
 $rqSql1 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
                                             FROM ".$tblpref."article
                                             WHERE stock > '0'
                                             AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
                                             ORDER BY date_spectacle ASC";
 $result = mysql_query( $rqSql1 )
-             or die( "ExÃ©cution requêtes impossible1.<br> <a href='lister_commandes.php'>retour à la liste</a>");
+             or die( "ExÃ©cution requï¿½tes impossible1.<br> <a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 
-	//on recupère les infos du spectateur	pas utile a cvoir si on meu supprimer??????
+	//on recupï¿½re les infos du spectateur	pas utile a cvoir si on meu supprimer??????
 /* $rqSql = "SELECT num_client, nom FROM ".$tblpref."client WHERE actif != 'non'";
 if ($user_com == r) { 
 $rqSql = "SELECT num_client, nom FROM ".$tblpref."client WHERE actif != 'non'
@@ -129,12 +129,12 @@ $rqSql = "SELECT num_client, nom FROM ".$tblpref."client WHERE actif != 'non'
 $result2 = mysql_query( $rqSql )
              or die('Erreur SQL !<br>'.$rqSql2.'<br>'.mysql_error()); */
 			 
-//on recupère les differents tarifs 
+//on recupï¿½re les differents tarifs 
 if ($id_tarif!=""){
 $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif 
 			WHERE id_tarif=$id_tarif";
 $result33 = mysql_query( $rqSql33 )
- or die( "ExÃ©cution requÃ©tess impossible2.<br> <a href='lister_commandes.php'>retour à la liste</a>");
+ or die( "ExÃ©cution requÃ©tess impossible2.<br> <a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 while ( $row = mysql_fetch_array( $result33)) {
 		$id_tarif = $row["id_tarif"];
 		$nom_tarif = $row["nom_tarif"];
@@ -161,7 +161,7 @@ function edition()
 			<?php
 			//les infos du bon => nom du spectateur
 			$sql_nom = "SELECT  nom, nom2 FROM ".$tblpref."client WHERE num_client = $num_client";
-			$req = mysql_query($sql_nom) or die("Erreur SQL_nom !<br>'.$sql_nom.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour à la liste</a>");
+			$req = mysql_query($sql_nom) or die("Erreur SQL_nom !<br>'.$sql_nom.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 			while($data = mysql_fetch_array($req))
 				{
 					$nom = $data['nom'];
@@ -174,7 +174,7 @@ function edition()
 			<?php
 			if ($voir!=''){
 			?>
-			<h3><a href="lister_commandes.php"><img src="image/retour.png" alt= "Retour à la liste des réservations">Revenir à la liste des réservations</a></h3>
+			<h3><a href="lister_commandes.php"><img src="image/retour.png" alt= "Retour ï¿½ la liste des rï¿½servations">Revenir ï¿½ la liste des rï¿½servations</a></h3>
 			<?php
 			}
 			?>
@@ -188,7 +188,7 @@ function edition()
 					<?php  
 					if ($pointage=="ok"){
 					?>
-					<th>N° billet(s)</th>
+					<th>Nï¿½ billet(s)</th>
 					<?php } ?>
 					<th><? echo $lang_article ;?></th>
 					<th>Montant total</th>
@@ -232,7 +232,7 @@ function edition()
 							?>
 					<td class='<?php echo couleur_alternee (TRUE,"nombre"); ?>'><?php echo $quanti; ?></td>
 					<?php
-					//on recupère infos du carnet au depart de la saison et la quantité vendu depuis jusqu'à ce bon en filtrant par tarif
+					//on recupï¿½re infos du carnet au depart de la saison et la quantitï¿½ vendu depuis jusqu'ï¿½ ce bon en filtrant par tarif
 					$sql10 = "SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
 								FROM ". $tblpref."cont_bon CB, ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
 								WHERE CB.bon_num = BC.num_bon
@@ -242,7 +242,7 @@ function edition()
 								AND ART.num=CB.article_num
 								AND	BC.num_bon <=$num_bon
 								AND CB.id_tarif=$id_tarif";
-					$req10 = mysql_query($sql10) or die("Erreur SQL10 !<br>'.$sql10.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour à la liste</a>");
+					$req10 = mysql_query($sql10) or die("Erreur SQL10 !<br>'.$sql10.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 			if ($pointage=="ok"){
 					while($data = mysql_fetch_array($req10))
 				{    
@@ -253,7 +253,7 @@ function edition()
 					<td  WIDTH=20% class='<?php echo couleur_alternee (FALSE); ?>'>
 						<?php 
 						 
-							 //Pour chaque enregistrement le N° du premier billet vendu
+							 //Pour chaque enregistrement le Nï¿½ du premier billet vendu
 							 if ($t!=$id_tarif){
 								 $q='';
 								 }
@@ -261,7 +261,7 @@ function edition()
 							 else {$q=$q+$quanti;}
 							$du=$carnet+$quanti01-intval($q);
  
-							 //Pour chaque enregistrement le N° du dernier billet vendu
+							 //Pour chaque enregistrement le Nï¿½ du dernier billet vendu
 							 $au=$carnet+$quanti01-1;
 //							 echo "carnet=$carnet- quanti01 =$quanti01-quanti_q=$q- quanti_boucle$quanti-au=$au<br>";
 
@@ -270,7 +270,7 @@ function edition()
 							$billet=$du;
 							for($i=0; $i<$quanti; $i++)
 							{
-								echo "N°".sprintf('%1$04d',$billet).", ";
+								echo "NÂ°".sprintf('%1$04d',$billet).", ";
 							 	$billet++;
 							}
 								echo "<br/>";
@@ -324,7 +324,7 @@ function edition()
 					//on change le total sur bon de commande
 					if($total==""){$total="0";}
 					$sql7 = "UPDATE ".$tblpref."bon_comm SET tot_tva = $total WHERE num_bon = $num_bon";
-					  mysql_query($sql7) OR die("Erreur SQL7 !<br>'.$sql7.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour à la liste</a>");
+					  mysql_query($sql7) OR die("Erreur SQL7 !<br>'.$sql7.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 					?>
 			</table>
 		</td>
@@ -355,7 +355,7 @@ function edition()
 										WHERE stock > '0'
 										AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
 										ORDER BY date_spectacle ASC";
-						$result = mysql_query( $rqSql )or die( "ExÃ©cution requÃªte impossible3.<br> <a href='lister_commandes.php'>retour à la liste</a>");
+						$result = mysql_query( $rqSql )or die( "ExÃ©cution requÃªte impossible3.<br> <a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 						?>
 					</td>
 					<td class="texte_left">
@@ -394,7 +394,7 @@ function edition()
 										WHERE saison BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
 										AND selection='1'
 										ORDER BY nom_tarif ASC" ;
-								$result3 = mysql_query( $rqSql3 ) or die( "ExÃ©cution requÃ©tesssss impossible.<br> <a href='lister_commandes.php'>retour à la liste</a>");
+								$result3 = mysql_query( $rqSql3 ) or die( "ExÃ©cution requÃ©tesssss impossible.<br> <a href='lister_commandes.php'>retour ï¿½ la liste</a>");
 						?>		   
 					<SELECT NAME='id_tarif'>
 						
@@ -415,7 +415,7 @@ function edition()
 					<td class="submit" colspan="9"> 
 						<input name="nom" type="hidden"  value='<?php echo $nom; ?>'> 
 						<input name="num_bon" type="hidden"  value='<?php echo $num_bon; ?>'>
-						<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter à l'abonnement">Compléter l'abonnement par cette nouvelle selection</td>
+						<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter ï¿½ l'abonnement">Complï¿½ter l'abonnement par cette nouvelle selection</td>
 							<?php 
 							} }
 							else {
@@ -437,7 +437,7 @@ function edition()
 			<table>
 				<tr>
 				<?php 
-				//si le billet n'a encore jamais été imprimé
+				//si le billet n'a encore jamais ï¿½tï¿½ imprimï¿½
 						if($print!='ok'){ ?>
 					<td >
 					<h3 >Imprimer les billets
@@ -469,14 +469,14 @@ function edition()
 									if ($user_dev != 'n'){ 
 										if($ctrl=='non'){
 													?>
-											<input type="radio" name="ctrl" value="ok">Contrôlé
-											<input type="radio" name="ctrl" value="non" checked="checked">Non contrôlé
+											<input type="radio" name="ctrl" value="ok">Contrï¿½lï¿½
+											<input type="radio" name="ctrl" value="non" checked="checked">Non contrï¿½lï¿½
 												<?php 
 													} 
 										if($ctrl=='ok'){
 													?>
-											<input type="radio" name="ctrl" value="ok" checked="checked">Contrôlé
-											<input type="radio" name="ctrl" value="non" >Non contrôlé
+											<input type="radio" name="ctrl" value="ok" checked="checked">Contrï¿½lï¿½
+											<input type="radio" name="ctrl" value="non" >Non contrï¿½lï¿½
 												<?php 
 													}
 									} 
@@ -494,7 +494,7 @@ function edition()
 							<input type="hidden" name="bon_num" value='<?php echo $num_bon; ?>'>
 							<input type="hidden" name="id_tarif" value=<?php echo $id_tarif ?>>
 							<input type="hidden" name="client" value=<?php echo $num_client ?>>					
-							<input type="image" name="Submit" src="image/valider.png" value="Démarrer"  border="0" >
+							<input type="image" name="Submit" src="image/valider.png" value="Dï¿½marrer"  border="0" >
 								
 
 				  </td>    

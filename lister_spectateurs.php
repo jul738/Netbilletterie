@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -62,24 +62,26 @@ while($data = mysql_fetch_array($req2))
   
   }
  else {
-   echo "$article le $date - La liste d'attente est à $stock places";
+   echo "$article le $date - La liste d'attente est a $stock places";
     }
-  ?><br><br>
+    ?> <br><br>
   <?php if ($user_admin != n) { ?>
-  <a href="form_mailing.php?article=<?php echo $article_numero;?>">Envoyer un mail à tous ces spectateurs</a><br> <?php } ?>
+  <a href="form_mailing.php?article=<?php echo $article_numero;?>">Envoyer un mail a tous ces spectateurs</a><br> <?php } ?>
   <a href="fpdf/liste_spectateurs.php?article=<?php echo $article_numero;?>" target="_blank">Imprimer la liste de tous ces spectateurs</a></caption>
-  <tr>
-      <?php } ?>
 
- <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=civ"><?php echo $lang_civ; ?> </a></th>
- <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom"><?php echo $lang_nom; ?></a></th>
+        
+      <?php } ?>
+        
+<tr>        
+<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=civ"><?php echo $lang_civ; ?> </a></th>
+<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom"><?php echo $lang_nom; ?></a></th>
 <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue"><?php echo $lang_rue; ?></a></th>
 <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp"><?php echo $lang_code_postal; ?></a></th>
 <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville"><?php echo $lang_ville; ?></a></th>
 <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=tel"><?php  echo $lang_tele;?></a></th>
 <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=mail"><?php echo $lang_email; ?></a></th>
 <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom_tarif">Type de tarif</a></th>
-<th>NBR</th>
+<th>Nombre</th>
 
 </tr>
 <?php

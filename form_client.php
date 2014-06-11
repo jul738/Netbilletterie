@@ -205,7 +205,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
                                 
                                 <tr> 
 					<td class="texte0"><?php echo $lang_abonne_jp; ?></td>
-					<td class="texte0">
+					<td class="texte1">
 						<SELECT name="abonne_jp">
 							<OPTION VALUE="non">Non</OPTION>
 							<OPTION VALUE="oui">Oui</OPTION>

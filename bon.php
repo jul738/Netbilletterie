@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -15,7 +15,7 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 
 ///=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -49,7 +49,7 @@ $annee_2= $annee_1 -1;
     <td  class="page" align="center">
     <?php
 
-    //on recupère les infos par post ou get
+    //on recupï¿½re les infos par post ou get
     $client=isset($_POST['listeville'])?$_POST['listeville']:"";
     $date=isset($_POST['date'])?$_POST['date']:"";
     $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
@@ -71,7 +71,7 @@ $annee_2= $annee_1 -1;
     exit;
     }
 
-    //on recupère les info du client pour la 1er ligne de la page
+    //on recupï¿½re les info du client pour la 1er ligne de la page
     $sql_nom = "SELECT  nom, nom2 FROM " . $tblpref ."client WHERE num_client = $client";
     $req = mysql_query($sql_nom) or die('Erreur SQL_nom !<br>'.$sql.'<br>'.mysql_error());
     while($data = mysql_fetch_array($req))
@@ -84,7 +84,7 @@ $annee_2= $annee_1 -1;
     <?PHP
     }
 
-    // on créer un bon de commmande		
+    // on creer un bon de commmande		
     $sql1 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user) VALUES ('$client', '$annee-$mois-$jour', '$id_tarif', '$user_nom')";
     mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
     // on affiche les infos du bon de commande
@@ -111,7 +111,7 @@ $annee_2= $annee_1 -1;
           AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
           ORDER BY date_spectacle ASC";
           $result11 = mysql_query( $rqSql11 )
-          or die( "Exécution requête impossible.");
+          or die( "Execution requete impossible.");
           ?> </td> </tr>
           <?php
 
@@ -132,7 +132,7 @@ $annee_2= $annee_1 -1;
           <?php } ?>
 
           <tr>
-          <td class="texte0">Choisir la quantité d'entrée par spectacle </td>
+          <td class="texte0">Choisir la quantite d'entree par spectacle </td>
           <td class="texte_left" colspan="3">
           <input type="text" name="quanti" value="1" SIZE="1"></td>
 
@@ -140,13 +140,13 @@ $annee_2= $annee_1 -1;
           <tr>
           <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
           <?php
-          //pour n 'affichés que les articles  en stock
+          //pour n 'affichï¿½s que les articles  en stock
           $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
                     FROM " . $tblpref ."article
                     WHERE stock > '0'
                     AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
                     ORDER BY date_spectacle ASC";
-          $result = mysql_query( $rqSql )or die( "Exécution requête impossible.");
+          $result = mysql_query( $rqSql )or die( "Execution requete impossible.");
           ?>
           <td class="texte_left">
             <?php                                                    
@@ -186,7 +186,7 @@ $annee_2= $annee_1 -1;
               <?php
                 $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif FROM " . $tblpref ."tarif WHERE id_tarif=$id_tarif ";
                 $result3 = mysql_query( $rqSql3 )
-                or die( "Exécution requête impossible.");
+                or die( "Execution requete impossible.");
                 while ( $row = mysql_fetch_array( $result3)) 
                 {
                   $id_tarif = $row["id_tarif"];
@@ -201,14 +201,14 @@ $annee_2= $annee_1 -1;
                 }
                 ?>
               <?php
-              //on recupère les tarif pour la selection du form
+              //on recupï¿½re les tarif pour la selection du form
                 $rqSql4= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM ".$tblpref."tarif
                 WHERE saison BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
                 AND id_tarif<>$id_tarif
                 AND selection='1'
                 ORDER BY nom_tarif ASC";
                 $result4 = mysql_query( $rqSql4 )
-                or die( "Exécution requête impossible.");
+                or die( "Execution requete impossible.");
                 while ( $row = mysql_fetch_array( $result4)) 
                 {
                   $id_tarif = $row["id_tarif"];

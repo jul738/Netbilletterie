@@ -13,6 +13,8 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 ?>
+
+<!--
 <script type="text/javascript">
 function verif_formulaire()
 		{
@@ -28,10 +30,12 @@ function verif_formulaire()
 					}
 		}
 </script>
+-->
+
 <table border="0" class="page" align="center">
     <tr>
         <td class="page" align="center">
-                <h3>Formulaire de reservation ou d'abonnement</h3>
+                <h3>Creer un Abonnement</h3>
         </td>
     </tr>
     <tr>
@@ -66,7 +70,7 @@ function verif_formulaire()
 			<table>
 				<tr>
 					<td>
-						<form name="formu" method="post" action="bon.php" onSubmit="return verif_formulaire()">
+                                            <form name="formu" method="post" action="new_suite_abonnement.php" onSubmit="return verif_formulaire()">
 							<table>
 								<caption><?php echo "$lang_cre_bon"; ?></caption>
 								<tr>
@@ -121,23 +125,19 @@ if ($annee_1=='')
 }
 $annee_2= $annee_1 -1;
 //=============================================
-											$rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
-													 WHERE saison
-													 BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-													 AND nom_tarif<>'gratuit'
-													 AND selection='1'
-													 ORDER BY nom_tarif ASC";
+											$rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle, saison
+                                                                                                    FROM abonnement";
 											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
 									<td class="texte0" colspan='2'>
-									   <SELECT NAME='id_tarif'>
-											<OPTION VALUE="">Choisir le<?php echo "$lang_tarif";?></OPTION>
+									   <SELECT NAME='num_abonnement'>
+											<OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
 											<?php
 											while ( $row = mysql_fetch_array( $result3)) {
-													$id_tarif = $row["id_tarif"];
-													$nom_tarif = $row["nom_tarif"];
-													$prix_tarif = $row["prix_tarif"];
+													$num_abonnement = $row["num_abonnement"];
+													$nom_abonnement = $row["nom_abonnement"];
+													$tarif_abonnement = $row["tarif_abonnement"];
 													?>
-											<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
+											<OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
 											<?php }
 												if ($user_admin != 'n'){
 													//tarif gratuit pour admin 
@@ -150,9 +150,9 @@ $annee_2= $annee_1 -1;
 													{
 																	$nom_tarif = $data['nom_tarif'];
 																	$prix_tarif = $data['prix_tarif'];
-																	$id_tarif =$data['id_tarif'];
+																	$num_abonnement =$data['num_abonnement'];
 											?>
-										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
+										<OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
 											<?php
 													}
 												}?>
@@ -163,7 +163,7 @@ $annee_2= $annee_1 -1;
 								<tr>
 									<td class="submit" colspan="6"> 
 									<input type="hidden" name="date" value="<?php echo"$jour/$mois/$annee";?>" >
-									<input type="image" name="Submit" src="image/valider.png" value="D�marrer"  border="0"></td>
+									<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0"></td>
 								</tr>
 							</table>
 						</form>	
@@ -171,10 +171,6 @@ $annee_2= $annee_1 -1;
 				</tr>
 			</center>
 			</table>
-		</td>
-	</tr>
-	<tr>
-		<td class="texte0"><h1><a href="form_commande_soir.php"><img src="image/billetterie_v2.png">Formulaire pour les enregistrements le jour du spectacle </a></h1>
 		</td>
 	</tr>
 </table>
