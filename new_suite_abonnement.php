@@ -15,7 +15,7 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 
 ///=============================================
-//pour que les articles soit class�s par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -49,7 +49,7 @@ $annee_2= $annee_1 -1;
     <td  class="page" align="center">
     <?php
 
-    //on recup�re les infos par post ou get
+    //on recupere les infos par post ou get
     $client=isset($_POST['listeville'])?$_POST['listeville']:"";
     $date=isset($_POST['date'])?$_POST['date']:"";
     $num_abonnement=isset($_POST['num_abonnement'])?$_POST['num_abonnement']:"";
@@ -59,7 +59,7 @@ $annee_2= $annee_1 -1;
     {
     $client=isset($_GET['listeville'])?$_GET['listeville']:"";
     $date=isset($_GET['date'])?$_GET['date']:"";
-    $id_tarif=isset($_GET['num_abonnement'])?$_GET['num_abonnement']:"";
+    $num_abonnement=isset($_GET['num_abonnement'])?$_GET['num_abonnement']:"";
     }
 
     list($jour, $mois,$annee) = preg_split('/\//', $date, 3);
@@ -71,7 +71,7 @@ $annee_2= $annee_1 -1;
     exit;
     }
 
-    //on recup�re les info du client pour la 1er ligne de la page
+    //on recupere les info du client pour la 1er ligne de la page
     $sql_nom = "SELECT  nom, nom2 FROM " . $tblpref ."client WHERE num_client = $client";
     $req = mysql_query($sql_nom) or die('Erreur SQL_nom !<br>'.$sql.'<br>'.mysql_error());
     while($data = mysql_fetch_array($req))
@@ -87,10 +87,11 @@ $annee_2= $annee_1 -1;
     // on creer un abonnement	
     $sql1 = "INSERT INTO " . $tblpref ."abonnement_comm(client_num, date, num_abonnement, user) VALUES ('$client', '$annee-$mois-$jour', '$num_abonnement', '$user_nom')";
     mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
+   
     // on affiche les infos de l'abonnement
-    $sql_num = "SELECT  num_abo_com FROM " . $tblpref ."abonnement_comm WHERE client_num = $client order by num_abo_com desc limit 1 ";
+    $sql_num = "SELECT  num_abo_com  FROM " . $tblpref ."abonnement_comm WHERE client_num = $client order by num_abo_com desc limit 1 ";
     $req = mysql_query($sql_num) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-    while($data = mysql_fetch_array($req))
+    while($data = mysql_fetch_array($req));
     {
     $num_abo_com = $data['nom_abo_com'];
     ?>
@@ -109,7 +110,7 @@ $annee_2= $annee_1 -1;
           FROM " . $tblpref ."abonnement
           WHERE selection = '1'";
           $result11 = mysql_query( $rqSql11 )
-          or die( "Execution requete impossible.");
+          or die( "Execution requete -rqSql11- impossible.");
           ?> </td> </tr>
        
          <?php
@@ -137,17 +138,18 @@ $annee_2= $annee_1 -1;
 
           </tr>
           <tr>
-          <td class="texte0">Choisir le  <?php echo "$lang_abonnement"; ?></td>
+          <td class="texte0">Choisir les spectacles </td>
           
           <td class="texte_left">
               <?php
-          //pour n 'affiches que les abonnement selectionnable
-          $rqSql = "SELECT `num_abo_com` , nombre_spectacle
-            FROM abonnement AS ab, abonnement_comm AS ac
-            WHERE ac.client_num = '32'
-            AND ab.num_abonnement = ac.num_abonnement";
-          $result = mysql_query( $rqSql )or die( "Execution requete impossible.");
-
+          // Pour n 'affiches que les spectable selectionnable
+           $rqSql = "SELECT ac.num_abo_com , ab.nombre_spectacle
+           FROM abonnement AS ab, abonnement_comm AS ac
+           WHERE ac.client_num = '$numclient'
+           AND ab.num_abonnement = ac.num_abonnement ";
+           $result = mysql_query( $rqSql )or die( "Execution requete -rqSql- impossible.");
+           
+           
             $i=1;
             while ( $row = mysql_fetch_array( $result)) 
             {
@@ -156,26 +158,35 @@ $annee_2= $annee_1 -1;
               $nombre_spectacle= $row["nombre_spectacle"];
 
             ?>
+            
+            
+            <?php
+           // lister les spectacles
+           $sql_liste_article = "SELECT article FROM article WHERE actif != 'non'";
+           $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
+            ?>
               
             <?php 
               $i++; 
-
+              //Permet d'affiher autant de spectacle que compris dans l'abonnement selectionne
               for($nb = 1; $nb <= $nombre_spectacle; $nb++)
               { 
               ?>
-              <select>
-                  <option value=""></option>
+              <select name="liste_choix_spectacle">
+                  <OPTION VALUE="">Choisir un spectacle</OPTION>              
+                  	<?php
+
+			?>
+                  
               </select>
               <?php  
                             }
             }
             ?>
-          <tr>
-            <td class="texte0">Choisir le<?php echo "$lang_liste_abo";?>
+            <td class="texte0">Choisir la <?php echo "$lang_liste_abo";?>
               <?php
-                $rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement FROM " . $tblpref ."abonnement WHERE tarif_abonnement=$tarif_abonnement ";
-                $result3 = mysql_query( $rqSql3 )
-                or die( "Execution requete impossible.");
+                $rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement FROM ". $tblpref ."abonnement WHERE tarif_abonnement = $tarif_abonnement ";
+                $result3 = mysql_query( $rqSql3 ) or die( "Execution requete -rqSql3- impossible.");
                 while ( $row = mysql_fetch_array( $result3)) 
                 {
                   $num_abonnement = $row["num_abonnement"];
@@ -191,11 +202,12 @@ $annee_2= $annee_1 -1;
                 ?>
               <?php
               //on recupere les abonnement pour la selection du form
-                $rqSql4= "SELECT num_abonnement, nom_abonnement, tarif_abonnement FROM ".$tblpref."abonnement
-                WHERE selection='1'
+                $rqSql4= "SELECT num_abonnement, nom_abonnement, tarif_abonnement
+                FROM ".$tblpref."abonnement
+                WHERE selection='1'         
                 ORDER BY nom_abonnement ASC";
                 $result4 = mysql_query( $rqSql4 )
-                or die( "Execution requete impossible.");
+                or die( "Execution requete -rqSql4- impossible.");
                 while ( $row = mysql_fetch_array( $result4)) 
                 {
                   $num_abonnement = $row["num_abonnement"];

@@ -140,7 +140,7 @@ $annee_2= $annee_1 -1;
           <tr>
           <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
           <?php
-          //pour n 'affich�s que les articles  en stock
+          //pour n 'affiches que les articles  en stock
           $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
                     FROM " . $tblpref ."article
                     WHERE stock > '0'
