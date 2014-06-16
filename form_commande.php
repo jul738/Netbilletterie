@@ -31,7 +31,7 @@ function verif_formulaire()
 <table border="0" class="page" align="center">
     <tr>
         <td class="page" align="center">
-                <h3>Formulaire de reservation ou d'abonnement</h3>
+                <h3>Creer une Reservation </h3>
         </td>
     </tr>
     <tr>

@@ -71,7 +71,7 @@ $annee_2= $annee_1 -1;
     exit;
     }
 
-    //on recup�re les info du client pour la 1er ligne de la page
+    //on recupere les info du client pour la 1er ligne de la page
     $sql_nom = "SELECT  nom, nom2 FROM " . $tblpref ."client WHERE num_client = $client";
     $req = mysql_query($sql_nom) or die('Erreur SQL_nom !<br>'.$sql.'<br>'.mysql_error());
     while($data = mysql_fetch_array($req))

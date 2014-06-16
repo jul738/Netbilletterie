@@ -421,7 +421,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 						if($print!='ok'){ ?>
 					<td style="text-align: center;">
 					<h3>Imprimer les billets
-						<a href="print_tickets.php?num_bon=<?php echo"$num_bon";?>" onclick="edition();return false;"><img border=0 src= image/billetterie.png ></a></h3> 
+						<a href="print_tickets.php?num_bon=<?php echo"$num_bon";?>" onclick="edition();return false;"><img border=0 src= image/billetterie_v2.png ></a></h3> 
 					</td>
 						<?php 
 						}

@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Jos� Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -98,7 +98,7 @@ function verif_formulaire()
 								<tr>
 										<?php
 										//=============================================
-//pour que les articles soit class�s par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -125,14 +125,14 @@ if ($annee_1=='')
 }
 $annee_2= $annee_1 -1;
 //=============================================
-											$rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle, saison
-                                                                                                    FROM abonnement";
-											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
+											$rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle
+                                                                                                  FROM abonnement";
+											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete -rqSql3- impossible.");?>
 									<td class="texte0" colspan='2'>
 									   <SELECT NAME='num_abonnement'>
 											<OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
 											<?php
-											while ( $row = mysql_fetch_array( $result3)) {
+											 while ( $row = mysql_fetch_array( $result3)) {
 													$num_abonnement = $row["num_abonnement"];
 													$nom_abonnement = $row["nom_abonnement"];
 													$tarif_abonnement = $row["tarif_abonnement"];
@@ -141,16 +141,17 @@ $annee_2= $annee_1 -1;
 											<?php }
 												if ($user_admin != 'n'){
 													//tarif gratuit pour admin 
-														$sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date FROM ".$tblpref."tarif
-													WHERE saison
-														BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-														AND nom_tarif='gratuit'";
+														$sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date
+                                                                                                                                    FROM ".$tblpref."tarif
+                                                                                                                                    WHERE saison
+                                                                                                                                    BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
+                                                                                                                                    AND nom_tarif='gratuit'";
 													$reqtarifgratuit = mysql_query($sqltarifgratuit) or die('Erreur SQLtarifgratuit !<br>'.$sqltarifgratuit.'<br>'.mysql_error());
 													while($data = mysql_fetch_array($reqtarifgratuit))
 													{
 																	$nom_tarif = $data['nom_tarif'];
 																	$prix_tarif = $data['prix_tarif'];
-																	$num_abonnement =$data['num_abonnement'];
+																	$num_tarif =$data['id_tarif'];
 											?>
 										<OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
 											<?php
