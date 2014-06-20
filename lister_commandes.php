@@ -50,7 +50,7 @@ include_once("include/finhead.php");
             }
 
 //=============================================
-//pour que les articles soit class�s par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -125,16 +125,16 @@ $annee_2= $annee_1 -1;
                     while($data = mysql_fetch_array($req))
                     {
                       $num_bon = $data['num_bon'];
-            $pointage = $data['fact'];
-            $ctrl = $data['ctrl'];
+                      $pointage = $data['fact'];
+                      $ctrl = $data['ctrl'];
                       $paiement = $data['paiement'];
                       $tva = $data["tot_tva"];
                       $date = $data["date"];
                       $id_tarif = $data["id_tarif"];
                       $nom = $data['nom'];
                       $nom=stripslashes($nom);
-                            $nom = htmlentities($nom, ENT_QUOTES);
-                            $nom_html = htmlentities (urlencode ($nom));
+                      $nom = htmlentities($nom, ENT_QUOTES);
+                      $nom_html = htmlentities (urlencode ($nom));
                       $soir = $data['soir'];
                       $soir=stripslashes($soir);
                       if ($soir=="0"){$soir="";}

@@ -19,12 +19,12 @@ echo "<h1>$lang_article_droit";
 exit;  
 }
 
-$num_bon=isset($_GET['num_bon'])?$_GET['num_bon']:"";
+$num_bon=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 $sql = "SELECT mail, login, num_client, num_bon, ctrl, fact, attente, coment, tot_tva, nom, id_tarif,
 					DATE_FORMAT(date,'%d-%m-%Y') AS date, tot_tva as ttc, paiement, banque, titulaire_cheque, DATE_FORMAT(date_fact,'%d-%m-%Y') AS date_fact
-					FROM ".$tblpref."bon_comm
-					RIGHT JOIN ".$tblpref."client on ".$tblpref."bon_comm.client_num = num_client
-					WHERE num_bon=$num_bon";
+					FROM ".$tblpref."abonnement_comm
+					RIGHT JOIN ".$tblpref."client on ".$tblpref."abonnement_comm.client_num = num_client
+					WHERE num_abo_com=$num_abo_com";
 					$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 					while($data = mysql_fetch_array($req)){
 						$ctrl = $data['ctrl'];
@@ -46,7 +46,7 @@ $sql = "SELECT mail, login, num_client, num_bon, ctrl, fact, attente, coment, to
 // Fonction qui supprime l'effet des magic quotes
 /*function stripslashes_r($var) 
 {
-        if(is_array($var)) // Si la variable pass�e en argument est un array, on appelle la fonction stripslashes_r dessus
+        if(is_array($var)) // Si la variable passee en argument est un array, on appelle la fonction stripslashes_r dessus
         {
                 return array_map('stripslashes_r', $var);
         }
@@ -56,7 +56,7 @@ $sql = "SELECT mail, login, num_client, num_bon, ctrl, fact, attente, coment, to
         }
 }
  
-if(get_magic_quotes_gpc()) // Si les magic quotes sont activ�s, on les d�sactive avec notre super fonction ! ;)
+if(get_magic_quotes_gpc()) // Si les magic quotes sont actives, on les desactive avec notre super fonction ! ;)
 {
    $_GET = stripslashes_r($_GET);
    $_POST = stripslashes_r($_POST);
@@ -70,7 +70,7 @@ if(get_magic_quotes_gpc()) // Si les magic quotes sont activ�s, on les d�sac
 	<tr>
 		<td>
 			<center>
-				<form action="paiement_update.php" method="post" name="" id="">
+				<form action="paiement_update_abo.php" method="post" name="" id="">
 					<table class="boiteaction">
 						<tr class="texte">
 							<th>N</th>
@@ -85,7 +85,7 @@ if(get_magic_quotes_gpc()) // Si les magic quotes sont activ�s, on les d�sac
 							<th>Commentaire</th>
 						</tr>
 						<tr>
-							<td><?php echo"$num_bon" ?> </td>
+							<td><?php echo"$num_abo_com" ?> </td>
 							<td><?php echo"$nom" ?></td>
 							<td><?php echo"$date" ?></td>
 							<td><?php echo"$total" ?></td>

@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -24,7 +24,7 @@ include_once("include/finhead.php");
 
 	<tr>
 		<td class="page" align="center">
-			 <h3>Liste des réservations 
+			 <h3>Liste des reservations 
 				 <?php if ($user_admin == 'y'||$user_dev=='y'){?>
 				<SCRIPT LANGUAGE="JavaScript">
 				if(window.print)
@@ -50,7 +50,7 @@ include_once("include/finhead.php");
             }
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -98,10 +98,10 @@ $annee_2= $annee_1 -1;
             $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql2.'<br>'.mysql_error());
 
 /* pagination */
-// Paramétrage de la requête (ne pas modifier le nom des variable)
+// Paramï¿½trage de la requï¿½te (ne pas modifier le nom des variable)
 
 //=====================================================
-// Nombre d'enregistrements par page à afficher
+// Nombre d'enregistrements par page ï¿½ afficher
 if ( isset ( $_GET['parpage'] ) && $_GET['parpage'] != '')
 	{
 	$parpage=$_GET[parpage];
@@ -114,22 +114,22 @@ else
 
 
 //==============================================================================
-// Déclaration et initialisation des variables (ici ne rien modifier)
+// Dï¿½claration et initialisation des variables (ici ne rien modifier)
 //==============================================================================
 
-// On définit le suffixe du lien url qui affichera les pages
+// On dï¿½finit le suffixe du lien url qui affichera les pages
 // $_SERVEUR['PHP_SELF'] donne l'arborescence de la page courante
 $url = $_SERVER['PHP_SELF']."?limit=";
 
-$total = mysql_query($sql); // Résultat total de la requête $sql
+$total = mysql_query($sql); // Rï¿½sultat total de la requï¿½te $sql
 $nblignes = mysql_num_rows($total); // Nbre total d'enregistrements
-// On calcule le nombre de pages à afficher en arrondissant
-// le résultat au nombre supérieur grâce à la fonction ceil()
+// On calcule le nombre de pages ï¿½ afficher en arrondissant
+// le rï¿½sultat au nombre supï¿½rieur grï¿½ce ï¿½ la fonction ceil()
 $nbpages = ceil($nblignes/$parpage); 
 
- // Si une valeur 'limit' est passée par url, on vérifie la validité de
-// cette valeur par mesure de sécurité avec la fonction validlimit()
- // cette fonction retourne automatiquement le résultat de la requête
+ // Si une valeur 'limit' est passï¿½e par url, on vï¿½rifie la validitï¿½ de
+// cette valeur par mesure de sï¿½curitï¿½ avec la fonction validlimit()
+ // cette fonction retourne automatiquement le rï¿½sultat de la requï¿½te
  $result = validlimit($nblignes,$parpage,$sql); 
 
  //=====================================================
@@ -147,7 +147,7 @@ mysql_query($sql4) OR die("<p>Erreur Mysql<br/>$sql4<br/>".mysql_error()."</p>")
         <table class="boiteaction">
             <caption> Les commandes de la saison culturelle <?php echo "$annee_2 - $annee_1"; ?> </caption>
                 <FORM method="get" action="lister_commandes.php">
-                Nombre de lignes affichées :
+                Nombre de lignes affichees :
                     <SELECT name="parpage" onchange='submit()'>
                     <OPTION VALUE="<?php echo$parpage;?>"><?php if ($parpage=="10000"){echo "Tout";}else{echo$parpage;}?></OPTION>
                     
@@ -164,11 +164,11 @@ mysql_query($sql4) OR die("<p>Erreur Mysql<br/>$sql4<br/>".mysql_error()."</p>")
                     <th><a href="lister_commandes.php?ordre=nom&parpage=<?php echo$parpage;?>"><?php echo $lang_client; ?></a></th>
                     <th><?php echo $lang_date; ?></th>
                     <th><a href="lister_commandes.php?ordre=ttc&parpage=<?php echo$parpage;?>"><?php echo $lang_total_ttc; ?></a></th>
-                    <th><a href="lister_commandes.php?ordre=paiement&parpage=<?php echo$parpage;?>">Réglé?</a></th>
+                    <th><a href="lister_commandes.php?ordre=paiement&parpage=<?php echo$parpage;?>">Regle?</a></th>
 					<?php if ($user_admin == 'y'||$user_dev=='y') 
 						{ ?>                  
-					<th><a href="lister_commandes.php?ordre=fact&parpage=<?php echo$parpage;?>">Encaissé</a></th>
-					<th><a href="lister_commandes.php?ordre=fact&parpage=<?php echo$parpage;?>">Contrôlé</a></th>
+					<th><a href="lister_commandes.php?ordre=fact&parpage=<?php echo$parpage;?>">Encaisse</a></th>
+					<th><a href="lister_commandes.php?ordre=fact&parpage=<?php echo$parpage;?>">Controle</a></th>
 					<?php }?>
                     <th><a href="lister_commandes.php?ordre=coment&parpage=<?php echo$parpage;?>">Commentaires</a></th>
                     <th colspan="6"><?php echo $lang_action; ?></th>
@@ -278,7 +278,7 @@ mysql_query($sql4) OR die("<p>Erreur Mysql<br/>$sql4<br/>".mysql_error()."</p>")
         <td>
              <?php
 //=====================================================
-// Menu de pagination que l'on place après la requête 
+// Menu de pagination que l'on place aprï¿½s la requï¿½te 
 //======================================================
  echo "<div class='pagination'>";
  echo pagination($url,$parpage,$nblignes,$nbpages,$initial);
@@ -292,7 +292,7 @@ return $page;
 }
  echo "</div>";
 
- mysql_free_result($result); // Libère le résultat de la mémoire
+ mysql_free_result($result); // Libï¿½re le rï¿½sultat de la mï¿½moire
  ?>
         </td>
     </tr>

@@ -332,7 +332,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 										<p <?php echo"$style"; ?>><?php echo"$option1"; ?></p>
 										<?php } ?>
 					<tr>
-						<td class="texte0">Choisir la quantit�  d'entr�e par spectacle </td>
+						<td class="texte0">Choisir la quantite  d'entree par spectacle </td>
 						<td class="texte_left" colspan="3">
 							 <input type="text" name="quanti" value="1" SIZE="1"></td>
 

@@ -163,7 +163,7 @@ $annee_2= $annee_1 -1;
 								<tr>
 									<td class="submit" colspan="6"> 
 									<input type="hidden" name="date" value="<?php echo"$jour/$mois/$annee";?>" >
-									<input type="image" name="Submit" src="image/valider.png" value="D�marrer"  border="0"></td>
+									<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0"></td>
 								</tr>
 							</table>
 						</form>	
