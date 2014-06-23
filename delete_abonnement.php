@@ -14,6 +14,32 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
-?>
 
-Cette page supprime les abonnement via une Rq Sql 
+// On récupère le numero de vente de l'abonnement
+$num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
+
+?>
+<!-- test variable $num_abo_com : (<?php // echo $num_abo_com ; ?>) -->
+
+<form>
+    <table>
+    <CAPTION>L'abonnement a ete supprime avec succes !</CAPTION>
+    
+            <!-- lister les abonnement -->
+            <form action='lister_abonnement.php'> <br/>
+                        <input type="submit" name="Submit" value="Lister les abonnement" onclick="self.location.href='new_abonnement.php'"><br/><br/>
+                    </form>
+
+            <!-- Bouton pour créer un nouvel  -->
+                    <form action='new_abonnement.php'> <br/>
+                        <input type="submit" name="Submit" value="Ajouter un autre abonnement" onclick="self.location.href='new_abonnement.php'"><br/><br/>
+                    </form>
+    </table>
+</form>
+<?php
+$req_delete_abo = "DELETE 
+                   FROM abonnement_comm
+                   WHERE num_abo_com = '$num_abo_com'";
+$delete_abo = mysql_query( $req_delete_abo )or die( "Il y à eu une erreur lors de la supression de l'abonnement");
+
+?>

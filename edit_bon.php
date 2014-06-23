@@ -11,7 +11,9 @@ include_once("include/config/var.php");
 include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
+include_once("include/head.php");
 include_once("include/finhead.php");
+include_once("include/configav.php");
 ?>
 
 <table width="760" border="0" class="page" align="center">

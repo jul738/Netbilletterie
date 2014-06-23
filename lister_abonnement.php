@@ -12,7 +12,6 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 ?>
 
-
 <?php
 //=============================================
 //pour que les articles soit classes par saison
@@ -49,13 +48,10 @@ $req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement,
                         WHERE ac.num_abonnement = a.num_abonnement
                         AND c.num_client = ac.client_num
                         ORDER BY ac.num_abo_com ASC";
-                      //RIGHT JOIN client on abonnement_comm.client_num = num_client";
-                      //RIGHT JOIN abonnement on abonnement_com.num_abonnement = num_abonnement";
-                      // jointure changer nom du spectateur + nom abonnement
 $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_abo !<br>'.$req_liste_abo_vendu.'<br>'.mysql_error());
 ?>
 <table  class="page" align="center">
-
+<?php echo $horaire_spectacle_1_vendu ;?>
   <tr>
     <td class="page" align="center">
         <h3>Liste des Abonnements </h3>
@@ -70,7 +66,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
             <tr>
                 <th><small>Num Abo            </small></th>
                 <th><small>Spectateur         </small></th>
-                <th><small>Date               </small></th>
+                <th><small>Date de creation   </small></th>
                 <th><small>Abo                </small></th>
                 <th><small>Qte                </small></th>
                 <th><small>Choix Spectacle    </small></th>
@@ -83,16 +79,15 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                 <th><small>Modifier           </small></th>
                 <th><small>Supprimer          </small></th>
                 <th><small>Imprimer           </small></th>
-                <th><small>Envoyer            </small></th>
+                <th><small>Mail               </small></th>
                 
             </tr>
     </thead>
     <tbody>
             <tr>
                 <?php
-                $nb=0;
                 $taille = count($liste_abo_vendu);
-                while ($nb < $taille)
+                for($nb = 1; $nb <= $taille ; $nb++)
                 {
                     while($data = mysql_fetch_array($liste_abo_vendu))
                         {
@@ -123,16 +118,16 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         <td> <?php echo $choix_spectacle_5 ; ?> </td>
                         <td> <?php echo $choix_spectacle_6 ; ?> </td>
                         <td> <?php echo $choix_spectacle_7 ; ?> </td>
-                        <td><a href='edit_abonnement.php?num_abo_com=  <?php echo  "$num_abo_com"; ?>' >
-                                <img border="0" alt="voir" src="image/edit.png" Title="Modifier l'abonnement">        </a></td>
-                        <td><a href='delete_abonnement.php?num_abo_com= <?php echo "$num_abo_com"; ?>' >
+                        <td><a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
+                                <img border="0" alt="voir" src="image/edit.png" Title="Modifier l'abonnement"></a></td>
+                        <td><a href='delete_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="supprimer" src="image/delete.png" Title="Supprimer l'abonnement"></a></td>
-                        <td><a href='edit_abonnement.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
-                                <img border="0" alt="mail" src="image/print.png" Title="I">                           </a></td>
-                        <td><a href='edit_abonnement.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
-                                <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail">              </a></td>
+                        <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
+                                <img border="0" alt="mail" src="image/print.png" Title="I"></a></td>
+                        <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
+                                <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail"></a></td>
                 </tr>
- <?php $nb++;   }   //Fin 1er while ?> 
+          <?php } //Fin du for ?> 
     </tbody>
 </table>
 
