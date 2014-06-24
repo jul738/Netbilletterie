@@ -15,33 +15,77 @@ include_once("include/head.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
 
-// on récupère les info envoye par new_suite_abonnement.php & edit_abonnement
-$quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
-$num_abonnement=isset($_POST['num_abonnement'])?$_POST['num_abonnement']:"";
-$num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
-
-//rajoute
-$client=isset($_POST['client'])?$_POST['client']:"";
-$num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
-$nom=isset($_POST['nom'])?$_POST['nom']:"";
-$paiement=isset($_POST['paiement'])?$_POST['paiement']:"";
-$nombre_spectacle=isset($_POST['nombre_spectacle'])?$_POST['nombre_spectacle']:"";
-$choix_spectacle_1_vendu=isset($_POST['liste_choix_spectacle_1'])?$_POST['liste_choix_spectacle_1']:"";
-$choix_spectacle_2_vendu=isset($_POST['liste_choix_spectacle_2'])?$_POST['liste_choix_spectacle_2']:"";
-$choix_spectacle_3_vendu=isset($_POST['liste_choix_spectacle_3'])?$_POST['liste_choix_spectacle_3']:"";
-$choix_spectacle_4_vendu=isset($_POST['liste_choix_spectacle_4'])?$_POST['liste_choix_spectacle_4']:"";
-$choix_spectacle_5_vendu=isset($_POST['liste_choix_spectacle_5'])?$_POST['liste_choix_spectacle_5']:"";
-$choix_spectacle_6_vendu=isset($_POST['liste_choix_spectacle_6'])?$_POST['liste_choix_spectacle_6']:"";
-$choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_choix_spectacle_7']:"";
-
-if($num_abonnement==''){
-$num_abonnement=isset($_POST['num_abonnement'])?$_POST['num_abonnement']:"";
-$num_client=isset($_POST['nom'])?$_POST['nom']:"";
-}
+// on récupère le numero de vente de l'abonnement
+$num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 ?>
 
-<?php print_r() ; ?>
+Ceci est le $num_bon_com : <?php echo $num_abo_com ; ?> </br>
+
+<?php
+// On récupère toutes les information sur la vente en fonction du numero de vente de l'abonnement 
+$req_recup_info_vente = "SELECT num_abo_com, client_num, num_abonnement, date, quanti, nombre_place, choix_spectacle_1, choix_spectacle_2, choix_spectacle_3, choix_spectacle_4, choix_spectacle_5, choix_spectacle_6, choix_spectacle_7 
+                         FROM abonnement_comm
+                         WHERE num_abo_com = '$num_abo_com'";
+$recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( "Execution requete -req_recup_info_vente- impossible.");
+           
+    while($data = mysql_fetch_array($recup_info_vente_brut))
+    {
+    $client_num = $data['client_num'];
+    $date = $data['date'];
+    $quanti = $data['quanti'];
+    $nombre_spectacle = $data['nombre_place'];
+    $num_abonnement = $data['num_abonnement'];
+    $choix_spectacle_1 = $data['choix_spectacle_1'];
+    $choix_spectacle_2 = $data['choix_spectacle_2'];
+    $choix_spectacle_3 = $data['choix_spectacle_3'];
+    $choix_spectacle_4 = $data['choix_spectacle_4'];
+    $choix_spectacle_5 = $data['choix_spectacle_5'];
+    $choix_spectacle_6 = $data['choix_spectacle_6'];    
+    $choix_spectacle_7 = $data['choix_spectacle_7'];    
+    }
+    
+// On fais des requetes pour récupérer les information des différente table en utilisant les variable récup au dessus (ex : nom spectacle, nom spectateur, prix abo, ect)
+
+// Nom spectateur
+$req_recup_nom_spec = "SELECT num_client, nom
+                       FROM client
+                       WHERE num_client = '$client_num'";
+$recup_nom_spec_brut = mysql_query($req_recup_nom_spec) or die ( "Execution requete -req_recup_nom_spec- impossible.");      
+    while($data = mysql_fetch_array($recup_nom_spec_brut))
+    {
+    $nom = ['nom'];    
+    }
+    
+// recup Nom abonnement & nombre_spectacle
+$req_recup_abo = "SELECT num_abonnement, nom_abonnement, tarif_abonnement
+                  FROM abonnement 
+                  WHERE num_abonnement = '$num_abonnement'";
+$recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_recup_abo- impossible.");      
+    while($data = mysql_fetch_array($recup_abo_brut))
+    {
+    $nom_abonnement = ['nom_abonnement'];
+    $tarif_abonnement = ['tarif_abonnement'];
+    }
+
+// récup horaire spectacle choix & date & nom
+    
+    // Pour le spectacle numero 1    
+    $req_recup_article_1 = "SELECT num, article, type_article, date_spectacle, horaire 
+                            FROM article
+                            WHERE num = '$choix_spectacle_1'";
+    $recup_article_brut_1 = mysql_query($req_recup_article_1 ) or die ( "Execution requete -req_recup_article_1 - impossible.");      
+        while($data = mysql_fetch_array($recup_article_brut_1))
+        {
+        $num_spectacle_1 = ['num'];
+        $nom_spectacle_1 = ['article'];
+        $type_spectacle_1 = ['type_article'];
+        $date_spectacle_1 = ['date_spectacle'];
+        $horaire_spectacle_1 = ['horaire'];
+        }
+
+?>
+
 <br/>
 <br/>
 <br/>
@@ -88,7 +132,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
             // Horaire & date du spectacle 1
             $req_horaire_spectacle_1 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_1_vendu'";
+                                        WHERE num = ' $choix_spectacle_1'";
             $horaire_spectacle_brut_1 = mysql_query( $req_horaire_spectacle_1 )or die( "Execution requete -req_horaire_spectacle_1- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_1))
@@ -101,7 +145,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
              // Horaire  & date du spectacle 2
             $req_horaire_spectacle_2 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_2_vendu'";
+                                        WHERE num = ' $choix_spectacle_2'";
             $horaire_spectacle_brut_2 = mysql_query( $req_horaire_spectacle_2 )or die( "Execution requete -req_horaire_spectacle_2- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_2))
@@ -114,7 +158,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
             // Horaire & date du spectacle 3
             $req_horaire_spectacle_3 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_3_vendu'";
+                                        WHERE num = ' $choix_spectacle_3'";
             $horaire_spectacle_brut_3 = mysql_query( $req_horaire_spectacle_3 )or die( "Execution requete -req_horaire_spectacle_3- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_3))
@@ -127,7 +171,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
             // Horaire & date du spectacle 4
             $req_horaire_spectacle_4 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_4_vendu'";
+                                        WHERE num = ' $choix_spectacle_4'";
             $horaire_spectacle_brut_4 = mysql_query( $req_horaire_spectacle_4 )or die( "Execution requete -req_horaire_spectacle_4- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_4))
@@ -140,7 +184,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
             // Horaire & date du spectacle 5
             $req_horaire_spectacle_5 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_5_vendu'";
+                                        WHERE num = ' $choix_spectacle_5'";
             $horaire_spectacle_brut_5 = mysql_query( $req_horaire_spectacle_5 )or die( "Execution requete -req_horaire_spectacle_5- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_5))
@@ -153,7 +197,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
             // Horaire & date du spectacle 6
             $req_horaire_spectacle_6 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_1_vendu'";
+                                        WHERE num = ' $choix_spectacle_6'";
             $horaire_spectacle_brut_6 = mysql_query( $req_horaire_spectacle_6 )or die( "Execution requete -req_horaire_spectacle_6- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_6))
@@ -166,7 +210,7 @@ $num_client=isset($_POST['nom'])?$_POST['nom']:"";
             // Horaire & date du spectacle 7
             $req_horaire_spectacle_7 = "SELECT horaire, date_spectacle, type_article
                                         FROM article
-                                        WHERE num = '$choix_spectacle_7_vendu'";
+                                        WHERE num = ' $choix_spectacle_7'";
             $horaire_spectacle_brut_7 = mysql_query( $req_horaire_spectacle_7 )or die( "Execution requete -req_horaire_spectacle_7- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_7))

@@ -107,8 +107,8 @@ $annee_2= $annee_1 -1;
                     <th>Regle?</th>
           <?php if ($user_admin == 'y'||$user_dev=='y') 
             { ?>                  
-          <th>Encaisse</th>
-          <th>Controle</th>
+                    <th>Encaisse</th>
+                    <th>Controle</th>
           <?php }?>
                     <th>Commentaires</th>
                     <th><small>Voir</small></th>

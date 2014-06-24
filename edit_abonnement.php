@@ -19,20 +19,28 @@ include_once("include/configav.php");
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 ?>
-Test variable : <br/>
-Ceci est le numero de vente de l'abonnement :  <?php echo $num_abo_com; ?> <br/><br/><br/>
 
+<!-- Test variable : <br/>
+Ceci est le numero de vente de l'abonnement :  <?php // echo $num_abo_com; ?>
+-->
         <?php
 // choix de l'abonnement (à renseigner dans $num_abonnement_new)
         $rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle
                   FROM abonnement";
-        $result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete -rqSql3- impossible.");?>
+        $result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete -rqSql3- impossible.");
+        ?>
 
+<!-- Formulaire d'edition d'abonnement -->
 <form method='post' action='new_fin_abonnement.php'>
-<table align="center">
-    <caption>Recomposer l'abonnement</caption>
-    <tr>
-        <th class="texte0" colspan='2'>
+<table border="0" class="page" align="center">
+    <tr>    
+        <td class="page" align="center">
+            <h3> Edition de l'Abonnement </h3>
+        </td>
+    </tr>
+    
+    <tr>   
+        <td class="page" align="center" style="background-color: #009EDF">
         <SELECT NAME='num_abonnement'>
             <OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
             <?php
@@ -62,15 +70,17 @@ Ceci est le numero de vente de l'abonnement :  <?php echo $num_abo_com; ?> <br/>
             ?>
             <OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
         </SELECT>
-        </th>
+        </td>
     </tr>
             <?php
                         } // fin du while
-                } //fin du if ?>
+                } //fin du if 
+            ?>
 
 
-            <!-- saisir quantite ($quanti) -->
+            
     <tr>
+            <!-- saisir quantite ($quanti) -->
             <th>Choisir la quantite : 
                       <input type="text" name="quanti" value="1" SIZE="1"></th>
     </tr>
@@ -91,8 +101,6 @@ Ceci est le numero de vente de l'abonnement :  <?php echo $num_abo_com; ?> <br/>
                 $nombre_spectacle= $row["nombre_spectacle"];
                 
                 //On affiche un champs  select pour chaque spectacle
-                
-              
                     for($nb = 1; $nb <= $nombre_spectacle; $nb++)
                             {
                                 
@@ -115,7 +123,7 @@ Ceci est le numero de vente de l'abonnement :  <?php echo $num_abo_com; ?> <br/>
                                     $liste_spectacle_contenu_horaire = $liste_spectacle["horaire"];
                                     $liste_spectacle_contenu_date = $liste_spectacle["date_spectacle"];                                    
                                     ?>
-                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> / <?php echo $liste_spectacle_contenu_horaire; ?> / <?php echo $liste_spectacle_contenu_date; ?></OPTION>
+                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> [ <?php echo $liste_spectacle_contenu_horaire; ?> ] <?php echo $liste_spectacle_contenu_date; ?></OPTION>
                                     <?php
                                 }
                                 ?>
@@ -127,14 +135,8 @@ Ceci est le numero de vente de l'abonnement :  <?php echo $num_abo_com; ?> <br/>
             ?>
                 </th>
     </tr>
--> Verifier les variables avant requete update ! 
-            <?php
-            //Mise a jour de la vente de l'abonnement //Update sur new_fin_abonnement /!\
-            //$req_update_abonnement = "UPDATE abonnement_comm 
-            //                          SET quanti = '$quanti', choix_spectacle_1 = 'liste_choix_spectacle_1', choix_spectacle_2 = 'liste_choix_spectacle_2', choix_spectacle_3 = 'liste_choix_spectacle_3', choix_spectacle_4 = 'liste_choix_spectacle_4', choix_spectacle_5 = 'liste_choix_spectacle_5', choix_spectacle_6 = 'liste_choix_spectacle_6', choix_spectacle_7 = 'liste_choix_spectacle_7'
-            //                          WHERE num_abo_com = $num_abo_com";
-            //$update_abonnement = mysql_query($req_update_abonnement) or die('Erreur Req_liste_abo !<br>'.$req_update_abonnement.'<br>'.mysql_error());
-            
+    
+            <?php      
             
 //On récupère les information sur la vente de l'abonnement pour les envoier au récap : new_fin_abonnement
 $req_recup_info_abonnement = "SELECT ac.num_abonnement, a.nom_abonnement, c.num_client, c.nom
@@ -153,16 +155,17 @@ $recup_info_abonnement_brut = mysql_query( $req_recup_info_abonnement )or die( "
                                 }
             ?>
     <tr>
-        <th> <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com ;?>'> </th>
-        <th> <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement ;?>'> </th>
-        <th> <input  name="nom_abonnement" id="nom_abonnement" type="hidden" value='<?php echo $nom_abonnement ;?>'> </th>
-        <th> <input  name="nombre_spectacle" id="nombre_spectacle" type="hidden" value='<?php echo $nombre_spectacle ;?>'> </th>
-        <th> <input  name="tarif_abonnement" id="tarif_abonnement" type="hidden" value='<?php echo $tarif_abonnement ;?>'> </th>
-        <th> <input  name="num_client" id="num_client" type="hidden" value='<?php echo $num_client ;?>'> </th>
-        <th> <input  name="nom" id="nom" type="hidden" value='<?php echo $nom ;?>'> </th>
-        <th> <input type="image" name="Submit" src='image/valider.png'> </th>
+        <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com ;?>'>
+        <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement ;?>'>
+        <input  name="nom_abonnement" id="nom_abonnement" type="hidden" value='<?php echo $nom_abonnement ;?>'>
+        <input  name="nombre_spectacle" id="nombre_spectacle" type="hidden" value='<?php echo $nombre_spectacle ;?>'>
+        <input  name="tarif_abonnement" id="tarif_abonnement" type="hidden" value='<?php echo $tarif_abonnement ;?>'>
+        <input  name="num_client" id="num_client" type="hidden" value='<?php echo $num_client ;?>'>
+        <input  name="nom" id="nom" type="hidden" value='<?php echo $nom ;?>'>
     </tr>
-    
+    <tr>
+        <th> <input type="image" name="Submit" src='image/valider.png'> </th>
+    </tr>    
 </table>
 </form>
 <?php

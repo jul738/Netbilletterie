@@ -50,13 +50,14 @@ $req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement,
                         ORDER BY ac.num_abo_com ASC";
 $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_abo !<br>'.$req_liste_abo_vendu.'<br>'.mysql_error());
 ?>
+
 <table  class="page" align="center">
 <?php echo $horaire_spectacle_1_vendu ;?>
-  <tr>
-    <td class="page" align="center">
-        <h3>Liste des Abonnements </h3>
-  </tr>
-    <td>
+    <tr>
+        <td class="page" align="center">
+            <h3>Liste des Abonnements </h3>
+    </tr>
+        <td>
 </table>
 
 <table id="datatables" class="display">
@@ -69,18 +70,18 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                 <th><small>Date de creation   </small></th>
                 <th><small>Abo                </small></th>
                 <th><small>Qte                </small></th>
-                <th><small>Choix Spectacle    </small></th>
-                <th><small>Choix Spectacle    </small></th>
-                <th><small>Choix Spectacle    </small></th>
-                <th><small>Choix Spectacle    </small></th>
-                <th><small>Choix Spectacle    </small></th>
-                <th><small>Choix Spectacle    </small></th>
-                <th><small>Choix Spectacle    </small></th>
+                <th><small>Spectacle 1        </small></th>
+                <th><small>Spectacle 2        </small></th>
+                <th><small>Spectacle 3        </small></th>
+                <th><small>Spectacle 4        </small></th>
+                <th><small>Spectacle 5        </small></th>
+                <th><small>Spectacle 6        </small></th>
+                <th><small>Spectacle 7        </small></th>
+                <th><small>Voir               </small></th>
                 <th><small>Modifier           </small></th>
                 <th><small>Supprimer          </small></th>
                 <th><small>Imprimer           </small></th>
                 <th><small>Mail               </small></th>
-                
             </tr>
     </thead>
     <tbody>
@@ -118,14 +119,16 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         <td> <?php echo $choix_spectacle_5 ; ?> </td>
                         <td> <?php echo $choix_spectacle_6 ; ?> </td>
                         <td> <?php echo $choix_spectacle_7 ; ?> </td>
+                        <td><a href='voir_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
+                                <img border="0" alt="voir" src="image/voir.png" Title="Voir les details"></a></td>
                         <td><a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="voir" src="image/edit.png" Title="Modifier l'abonnement"></a></td>
                         <td><a href='delete_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="supprimer" src="image/delete.png" Title="Supprimer l'abonnement"></a></td>
                         <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
-                                <img border="0" alt="mail" src="image/print.png" Title="I"></a></td>
+                                <img border="0" alt="mail" src="image/print.png" Title="Imprimer l'abonnement"></a></td>
                         <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
-                                <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail"></a></td>
+                                <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail au spectateur"></a></td>
                 </tr>
           <?php } //Fin du for ?> 
     </tbody>

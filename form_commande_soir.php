@@ -93,10 +93,10 @@ $annee_2= $annee_1 -1;
 									<SELECT NAME='num'>
 											<?php
 											$rqSql_article = "SELECT num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date FROM ". $tblpref ."article
-													WHERE  date_spectacle
-														BETWEEN '$today' AND '$annee_1-$fin_saison'
-													ORDER BY date_spectacle";
-											$result_article = mysql_query( $rqSql_article )or die( "Execution requete impossible_article.");
+													  WHERE  date_spectacle
+												          BETWEEN '$today' AND '$annee_1-$fin_saison'
+													  ORDER BY date_spectacle";
+											$result_article = mysql_query( $rqSql_article )or die( "Execution requete -rqSql_article- impossible");
 											while ( $row = mysql_fetch_array( $result_article)) 
 												{
 													$article= stripslashes($row["article"]);
