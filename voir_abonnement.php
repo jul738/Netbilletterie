@@ -335,7 +335,7 @@ mysql_query($req_choix_spectacle) or die('Erreur SQL !<br>'.$req_choix_spectacle
 
 
 ?>
-<div id="pageadd">
+<div class="page">
 <h3> L'abonnement de <?php echo"$nom"; ?> a bien ete enregistre. </h3>
 
 <table border="0" class="page" align="center">

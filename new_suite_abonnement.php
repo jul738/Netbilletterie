@@ -129,13 +129,13 @@ $annee_2= $annee_1 -1;
         $req_num_abo = mysql_query($sql_num) or die ( "Execution requete -sql_num- impossible.");
            
     while($data = mysql_fetch_assoc($req_num_abo))
-    {
+        {
     $num_abo_com = $data['num_abo_com'];
     ?>
      Abonnement numero : <?php echo"$num_abo_com  saisi par \"$user_nom\"";?><br/>
      Veuillez renseigner les <?php echo "$nombre_spectacle" ?> spectacles : <br/><br/>
     <?PHP
-    }
+        }
     ?>
       <center>
           <form name='formu2' method='post' action='new_fin_abonnement.php'>
@@ -190,7 +190,7 @@ $annee_2= $annee_1 -1;
                                 
                                 <?php
                                  // lister les numero et les nom des spectacle active (meme ceux complet)
-                                $sql_liste_article = "SELECT num, article
+                                $sql_liste_article = "SELECT num, article, type_article, horaire, date_spectacle
                                    FROM article 
                                    WHERE actif != 'non'";
                                 $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
@@ -199,8 +199,11 @@ $annee_2= $annee_1 -1;
                                 {
                                     $liste_spectacle_contenu_nom = $liste_spectacle["article"];
                                     $liste_spectacle_contenu_num = $liste_spectacle["num"];
+                                    $liste_spectacle_contenu_type_article = $liste_spectacle["type_article"];
+                                    $liste_spectacle_contenu_horaire = $liste_spectacle["horaire"];
+                                    $liste_spectacle_contenu_date_spectacle = $liste_spectacle["date_spectacle"];
                                     ?>
-                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_nom; ?></OPTION>
+                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> <?php echo $liste_spectacle_contenu_date_spectacle; ?> [<?php echo $liste_spectacle_contenu_horaire; ?>]</OPTION>
                                     <?php
                                 }
                                 ?>

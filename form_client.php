@@ -203,6 +203,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 					<td class="texte0"><input name="mail2" type="text" onKeyUp="javascript:couleur(this);" ></td>
 				</tr>
                                 
+                                <!--
                                 <tr> 
 					<td class="texte0"><?php echo $lang_abonne_jp; ?></td>
 					<td class="texte1">
@@ -213,7 +214,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 					</td>
 				</tr>
                                 
-                                                                <tr> 
+                                <tr> 
 					<td class="texte1"><?php echo $lang_abonne_chanson; ?></td>
 					<td class="texte1">
 						<SELECT name="abonne_chanson">
@@ -222,6 +223,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 						</select>
 					</td>
 				</tr>
+                                -->
                                 
 				<tr> 
 					<td class="submit" colspan="2">

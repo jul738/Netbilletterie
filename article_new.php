@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -34,6 +34,9 @@ $article=AddSlashes($article);
 $lieu=AddSlashes($lieu);
 $article=ucfirst($article);
 
+//rajoute
+$type_article=isset($_POST['type_article'])?$_POST['type_article']:"";
+
 if($article=='' || $stock==''|| $lieu==''|| $horaire==''|| $jour==''|| $annee==''|| $mois=='')
 {
 echo "<center><h1>$lang_oubli_champ";
@@ -42,8 +45,8 @@ exit;
 }
 
 
-$sql1 = "INSERT INTO ".$tblpref."article(article, lieu, horaire, date_spectacle, commentaire, stock, stomin, stomax, image_article) 
-									VALUES ('$article', '$lieu', '$horaire', '$date', '$commentaire', '$stock', '$stomin', '$stomax', '$cheminimage')";
+$sql1 = "INSERT INTO ".$tblpref."article(article, lieu, horaire, date_spectacle, commentaire, stock, stomin, stomax, image_article, type_article) 
+									VALUES ('$article', '$lieu', '$horaire', '$date', '$commentaire', '$stock', '$stomin', '$stomax', '$cheminimage', '$type_article')";
 mysql_query($sql1) or die('Erreur SQL1 !<br>'.$sql1.'<br>'.mysql_error());
 $commentaire=StripSlashes($commentaire);
 $message1= "<center><h2>$lang_nouv_art: $article </h2>";

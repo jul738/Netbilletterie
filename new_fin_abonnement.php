@@ -191,7 +191,7 @@ $prix_abonnement_brut = mysql_query( $req_prix_abonnement )or die( "Execution re
                             //afficher le nom de l'abonnement choisi 
                             $req_nom_abonnement = "SELECT nom_abonnement 
                                                    FROM abonnement
-                                                   WHERE num_abonnement = $num_abonnement ";
+                                                   WHERE num_abonnement = '$num_abonnement'";
                             $nom_abonnement_brut = mysql_query( $req_nom_abonnement )or die( "Execution requete -req_nom_abonnement- impossible.");
 
                               while($data = mysql_fetch_array($nom_abonnement_brut))

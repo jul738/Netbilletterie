@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -15,7 +15,7 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -42,7 +42,7 @@ if ($annee_1=='')
 }
 $annee_2= $annee_1 -1;
 //=============================================
-//on recupère les infos des tarifs
+//on recupï¿½re les infos des tarifs
 $sql = "SELECT * FROM " . $tblpref ."tarif
 WHERE saison BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'";
 if ($user_admin == 'n')
@@ -61,7 +61,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql2.'<br>'.mysql_error());
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-		    	<h3>Liste des différents tarifs 
+		    	<h3>Liste des differents tarifs 
 			<?php if ($user_admin != 'n'){?>
 			<SCRIPT LANGUAGE="JavaScript">
 				if(window.print)
@@ -119,7 +119,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql2.'<br>'.mysql_error());
 			    		<th><a href="lister_tarif.php?ordre=nom_tarif"> <?php echo $lang_tarif; ?></a></th>
 					<th><a href="lister_tarif.php?ordre=prix_tarif"><?php echo $lang_prix_tarif; ?></a></th>
 					<th>Num&eacute;ro du ticket au d&eacute;part du carnet</th>
-					<th>sélectionnable</th>
+					<th>selectionnable</th>
 					<th colspan="2"><?php echo $lang_action; ?></th>
   				</tr>
 				<?php
@@ -152,7 +152,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql2.'<br>'.mysql_error());
 		</td>
 	</tr>
 	<tr>
-		<td><a href="form_tarif.php" rel="menu5"><img border ="0" src="image/tarif.png" alt="Tarifs">Créer un Tarifs</a>
+		<td><a href="form_tarif.php" rel="menu5"><img border ="0" src="image/tarif.png" alt="Tarifs">Creer un Tarifs</a>
 		</td>
 	</tr>
 </table>
