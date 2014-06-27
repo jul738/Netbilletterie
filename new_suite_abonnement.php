@@ -86,6 +86,16 @@ $annee_2= $annee_1 -1;
     ?>
         
         <?php
+            //On recupere le type_abonnement pour faire un tri sur la liste des choix propose
+        $req_recup_type = "SELECT type_abonnement
+                           FROM abonnement
+                           WHERE num_abonnement = '$num_abonnement'";
+        $recup_type_brut = mysql_query($req_recup_type) or die( "Execution requete -req_recup_type- impossible.");
+        while($data = mysql_fetch_array($recup_type_brut))
+                    {
+                    $type_abonnement = $data['type_abonnement'];
+                    }
+        
         // On récupère le nombre de place diponible dans cette abonnement grace à l'ID de l'abonnement
         $rqnbspectacle = "SELECT nombre_spectacle
                           FROM abonnement
@@ -191,8 +201,9 @@ $annee_2= $annee_1 -1;
                                 <?php
                                  // lister les numero et les nom des spectacle active (meme ceux complet)
                                 $sql_liste_article = "SELECT num, article, type_article, horaire, date_spectacle
-                                   FROM article 
-                                   WHERE actif != 'non'";
+                                                      FROM article 
+                                                      WHERE actif != 'non'
+                                                      AND type_article = '$type_abonnement'";
                                 $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
 
                                 while ( $liste_spectacle = mysql_fetch_array( $liste_article))  

@@ -51,14 +51,14 @@ $req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement,
 $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_abo !<br>'.$req_liste_abo_vendu.'<br>'.mysql_error());
 ?>
 
-<table  class="page" align="center">
+<table border="0" class="page" align="center">
 <?php echo $horaire_spectacle_1_vendu ;?>
     <tr>
         <td class="page" align="center">
             <h3>Liste des Abonnements </h3>
     </tr>
         <td>
-</table>
+
 
 <table id="datatables" class="display">
     
@@ -87,11 +87,10 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
     <tbody>
             <tr>
                 <?php
-                $taille = count($liste_abo_vendu);
-                for($nb = 1; $nb <= $taille ; $nb++)
+                $nombre="1";
+		while($data = mysql_fetch_array($liste_abo_vendu))
                 {
-                    while($data = mysql_fetch_array($liste_abo_vendu))
-                        {
+
                         $num_abo_com = $data['num_abo_com'];
                         $nom = $data['nom'];
                         $date = $data['date'];
@@ -104,7 +103,13 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         $choix_spectacle_5 = $data['choix_spectacle_5'];
                         $choix_spectacle_6 = $data['choix_spectacle_6'];
                         $choix_spectacle_7 = $data['choix_spectacle_7'];
-                        }
+                    if($nombre & 1)
+                        {
+                        $line="0";
+                        }else  
+                            {
+                            $line="1";
+                            } 
                 ?>
 
                         <td> <?php echo $num_abo_com       ; ?> </td>
@@ -130,7 +135,8 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail au spectateur"></a></td>
                 </tr>
-          <?php } //Fin du for ?> 
+          <?php } //Fin du while ?> 
+                </table>
     </tbody>
 </table>
 

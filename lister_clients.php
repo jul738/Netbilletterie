@@ -76,7 +76,7 @@ include_once("include/fonction.php");
                                                         <th><?php echo $lang_abonne_chanson; ?></th>
                                                         <th><?php echo $lang_abonne_jp; ?></th> 
 							<th><?php echo $lang_email; ?></th>                                                        
-    							<th></th>
+    							<th>Modifie</th>
 						</tr>
 					</thead>
 					<tbody>

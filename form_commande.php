@@ -174,7 +174,7 @@ $annee_2= $annee_1 -1;
 		</td>
 	</tr>
 	<tr>
-		<td class="texte0"><h1><a href="form_commande_soir.php"><img src="image/billetterie_v2.png">Formulaire pour les enregistrements le jour du spectacle </a></h1>
+            <td class="texte0"><h1><a href="form_commande_soir.php"><img src="image/billetterie_v2.png">Formulaire pour les enregistrements le jour du spectacle </a></h1>
 		</td>
 	</tr>
 </table>

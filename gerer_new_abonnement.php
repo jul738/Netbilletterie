@@ -39,8 +39,8 @@ include_once("include/finhead.php");
             <tr>
                 <td>
                     <SELECT name="type_abonnement">
-                        <OPTION VALUE="Spectacle">Concert</OPTION>
-                        <OPTION VALUE="Concert">Spectacles Jeunes Public</OPTION>
+                        <OPTION VALUE="Concert">Concert</OPTION>
+                        <OPTION VALUE="Spectacle">Spectacles Jeunes Public</OPTION>
                     </SELECT>
                 </td>
                 <td>

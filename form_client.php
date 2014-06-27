@@ -202,29 +202,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 					<td  class="texte1">Confirmer l'<?php echo $lang_email; ?></td>
 					<td class="texte0"><input name="mail2" type="text" onKeyUp="javascript:couleur(this);" ></td>
 				</tr>
-                                
-                                <!--
-                                <tr> 
-					<td class="texte0"><?php echo $lang_abonne_jp; ?></td>
-					<td class="texte1">
-						<SELECT name="abonne_jp">
-							<OPTION VALUE="non">Non</OPTION>
-							<OPTION VALUE="oui">Oui</OPTION>
-						</select>
-					</td>
-				</tr>
-                                
-                                <tr> 
-					<td class="texte1"><?php echo $lang_abonne_chanson; ?></td>
-					<td class="texte1">
-						<SELECT name="abonne_chanson">
-							<OPTION VALUE="non">Non</OPTION>
-							<OPTION VALUE="oui">Oui</OPTION>
-						</select>
-					</td>
-				</tr>
-                                -->
-                                
+                                                                
 				<tr> 
 					<td class="submit" colspan="2">
 						<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">

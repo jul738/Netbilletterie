@@ -55,6 +55,12 @@ $annee = date("Y");?>
                     <SELECT name="type_article">
                         <OPTION VALUE="Spectacle">Spectacle</OPTION>
                         <OPTION VALUE="Concert">Concert</OPTION>
+                        <OPTION VALUE="Chorale">Chorale</OPTION>
+                        <OPTION VALUE="Theatre">Theatre</OPTION>
+                        <OPTION VALUE="Conference_Debat">Conference et Debat</OPTION>
+                        <OPTION VALUE="Experience_numerique">Experience Numerique</OPTION>
+                        <OPTION VALUE="Art_numerique">Art numerique</OPTION>
+                        <OPTION VALUE="Autre">Autre</OPTION>
                     </select>
                 </td>
 	    </tr>      

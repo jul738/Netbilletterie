@@ -233,7 +233,7 @@ mysql_query($sql4) OR die("<p>Erreur Mysql<br/>$sql4<br/>".mysql_error()."</p>")
 						<input type="hidden" name="num_bon" value="<?php echo $num_bon ?>" />
 						<input type="hidden" name="nom" value="<?php echo $nom ?>" />	
 						<input type="hidden" name="user" value="adm" />
-						<input type="image" src="image/printer.gif" style=" border: none; margin: 0;" alt="<?php echo $lang_imprimer; ?>" Title="Imprimer"/>
+						<img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail au spectateur"></a>
 						</form>
                     </td>
 
