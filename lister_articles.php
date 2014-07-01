@@ -93,9 +93,10 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
   <caption><?php echo $lang_articles_liste; ?></caption>
   <tr> 
-  <th> Image</th>
+                <th> Image</th>
                 <th><a href="lister_articles.php?ordre=type_article"> Type </a></th>
 		<th><a href="lister_articles.php?ordre=article"> <?php echo $lang_article; ?></a></th>
+                <th>Representation</th>
 		<th><a href="lister_articles.php?ordre=lieu">Lieu</a></th>
 		<th><a href="lister_articles.php?ordre=horaire">horaire</a></th>
 		<th><a href="lister_articles.php?ordre=date_spectacle">date</a></th>
@@ -115,6 +116,7 @@ while($data = mysql_fetch_array($req))
 		$article = $data['article'];	
                 $type_article = $data['type_article'];
 		$article_html = stripslashes($article);
+                $numero_representation = $data['numero_representation'];
 		$lieu = $data['lieu'];
 		$lieu_html=stripslashes($lieu);
 		$horaire = $data['horaire'];
@@ -129,10 +131,10 @@ while($data = mysql_fetch_array($req))
 		$image = $data['image_article'];
 		list($annee, $mois, $jour) = explode("-", $date);
                 if ($stock<=0 ) {
-  	$stock="<h3>$stock</h3>";
+                $stock="<h3>$stock</h3>";
 		}
 		if ($stock <= $min ||$stock >= $max  ) { 
-  	$stock="<h1>$stock</h1>";
+                $stock="<h1>$stock</h1>";
 		}
 		
 		$nombre = $nombre +1;
@@ -146,7 +148,8 @@ while($data = mysql_fetch_array($req))
 		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
 		<td class="highlight"><img src="<?php echo$image; ?>" height="100"></td>
                 <td class="highlight"><?php echo $type_article; ?></td>	
-		<td class="highlight"><?php echo $article_html; ?></td>	
+		<td class="highlight"><?php echo $article_html; ?></td>	 
+                <td class="highlight"><small><?php echo $numero_representation; ?></small></td>
 		<td class="highlight"><?php echo $lieu_html; ?></td>
 		<td class="highlight"><?php echo $horaire; ?></td>
 		<td class="highlight"><?php echo $jour . '-' . $mois . '-' . $annee; ?></td>		

@@ -10,6 +10,8 @@ include_once("include/config/common.php");
 
 include_once("include/language/$lang.php");
 $article=isset($_POST['article'])?$_POST['article']:"";
+$numero_representation=isset($_POST['numero_representation'])?$_POST['numero_representation']:"";
+$type_article=isset($_POST['type_article'])?$_POST['type_article']:"";
 $article = AddSlashes($article);
 $num=isset($_POST['num'])?$_POST['num']:"";
 $lieu=isset($_POST['lieu'])?$_POST['lieu']:"";
@@ -25,7 +27,7 @@ $image=isset($_POST['image'])?$_POST['image']:"";
 
 
 mysql_select_db($db) or die ("Could not select $db database");
-$sql2 = "UPDATE `" . $tblpref ."article` SET `article`='".$article."', `lieu`='".$lieu."', `horaire`='".$horaire."', `date_spectacle`='".$date."',`stock`='".$stock."',`stomin`='".$min."',`stomax`='".$max."', `commentaire`='".$commentaire."', `image_article`='".$image."' 
+$sql2 = "UPDATE `" . $tblpref ."article` SET `article`='".$article."', `lieu`='".$lieu."', `horaire`='".$horaire."', `date_spectacle`='".$date."',`stock`='".$stock."',`stomin`='".$min."',`stomax`='".$max."', `commentaire`='".$commentaire."', `image_article`='".$image."', `type_article`='".$type_article."', `numero_representation`='".$numero_representation."' 
 WHERE `num` ='".$num."' LIMIT 1 ";
 
 mysql_query($sql2) OR die("<p>Erreur Mysql<br/>$sql2<br/>".mysql_error()."</p>");

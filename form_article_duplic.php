@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -22,6 +22,8 @@ while($data = mysql_fetch_array($req))
     {
 		$article = $data['article'];
 		$num =$data['num'];
+                $type_article = $data['type_article'];
+                $numero_representation = $data['numero_representation'];
 		$lieu =$data['lieu'];
 		$horaire =$data['horaire'];
 		$date =$data['date_spectacle'];
@@ -57,11 +59,21 @@ exit;
 	<center>
 		<table>
 		  <caption>
-		  Changer la date, horaire, lieu ...
+		  Modification de l'evenement : 
 		  </caption>
 		<tr> 
 			<td class='<?php echo couleur_alternee (); ?>'> <?php echo "$lang_art_no"; ?> </td>
 			<td align=left> <input name="article" type="text" id="article" size="80" maxlength="40" value="<?php echo $article;?> ">
+			</td>
+		</tr>
+                <tr> 
+			<td class='<?php echo couleur_alternee (); ?>'> Type d'evenement </td>
+			<td align=left> <input name="type_article" type="text" id="type_article" size="80" maxlength="40" value="<?php echo $type_article;?> ">
+			</td>
+		</tr>
+                <tr> 
+			<td class='<?php echo couleur_alternee (); ?>'> Numero de la representation </td>
+			<td align=left> <input name="numero_representation" type="number" id="numero_representation" size="80" maxlength="40" value="<?php echo $numero_representation;?> ">
 			</td>
 		</tr>
 		<tr> 
@@ -81,7 +93,7 @@ exit;
 				Jour(JJ)<input name="jour" type="text" id="jour" size="8" maxlength="2" value="<?php echo $jour;?>">
 				Mois(MM)
 				<input name="mois" type="text" id="mois" size="8" maxlength="2" value="<?php echo $mois;?>">
-				Année (AAAA)
+				Annee (AAAA)
 				<input name="annee" type="text" id="annee" size="16" maxlength="4" value="<?php echo $annee;?>">
 			</td>
 		 <tr> 
@@ -101,13 +113,13 @@ exit;
 			<td class='<?php echo couleur_alternee (); ?>'><?php echo"$lang_stomax"; ?></td>
 			<td align=left><input name='stomax' type='text' value="<?php echo $max;?> "></td>
 		  </tr>
-			   <!-- On limite le fichier à 100Ko -->
+			   <!-- On limite le fichier a 100Ko -->
 		<tr>
 			<td class='<?php echo couleur_alternee (); ?>'><img src="<?php echo$image_article; ?>" height="100"></td>
 		</tr>
             <td class="submit" colspan="2">
 			<input type="hidden" name="image" value="<?php echo $image_article;?>">
-			<input type="image" name="Submit" src="image/valider.png" value="Démarrer"  border="0"> 
+			<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0"> 
             </td>
         </tr>
         </table>

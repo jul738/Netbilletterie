@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -14,7 +14,7 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -105,7 +105,7 @@ $annee_2= $annee_1 -1;
 						<th>Poucentage</th>
 					</tr>
 						<?php
-						//on recupère la sommes des commandes passées dans la periode de la saison
+						//on recupere la sommes des commandes passees dans la periode de la saison
 						$sql = "SELECT SUM( to_tva_art ) as total
 								FROM ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC
 								WHERE CB.bon_num = BC.num_bon
@@ -115,7 +115,7 @@ $annee_2= $annee_1 -1;
 						$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());;
 						$data = mysql_fetch_array($req);
 						$total = $data ["total"];
-										//on recup les infos groupées par specatcles
+										//on recup les infos groupï¿½es par specatcles
 						$sql = "SELECT CB.article_num, SUM(to_tva_art) total, article, SUM(quanti) nombre
 								FROM ".$tblpref."cont_bon CB, ".$tblpref."article ART, ".$tblpref."bon_comm BC
 								WHERE CB.article_num = ART.num
@@ -204,7 +204,7 @@ $annee_2= $annee_1 -1;
 				exit;
 			}?><br>
 		<h1> Chiffre d'affaires de la saison culturel est actuellement de <?php echo montant_financier ($tot5); ?></h1>	<br>	
-			<h3>Réparti de la manière suivante 
+			<h3>Reparti de la maniere suivante 
 				<?php if ($user_admin != 'n'||$user_dev!='n'){?>
 				<SCRIPT LANGUAGE="JavaScript">
 				if(window.print)
@@ -221,7 +221,7 @@ $annee_2= $annee_1 -1;
 							<th> Nombre</th>
 							<th>Chiffre d'affaire</th>
 							<th>Pourcentage</th>
-							<th>N° des tickets</th>
+							<th>Numero des tickets</th>
 						</tr>
 						<?php
 						$sql6="SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet

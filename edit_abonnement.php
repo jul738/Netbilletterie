@@ -18,75 +18,66 @@ include_once("include/configav.php");
 //On recupere l'ID de l'abonnement
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
+//On recupere le nom de l'abonnment que le client avais (pour savoir ce que l'on modifie) 
+                            $req_recup_nom_abo = "SELECT ac.num_abo_com, ac.num_abonnement, a.nom_abonnement
+                                                  FROM abonnement a, abonnement_comm ac
+                                                  WHERE ac.num_abo_com = '$num_abo_com'
+                                                  AND a.num_abonnement = ac.num_abonnement";
+                            $req_recup_nom_abo_brut = mysql_query( $req_recup_nom_abo )or die( "Execution requete -req_recup_nom_abo- impossible.");
+
+                              while($data = mysql_fetch_array($req_recup_nom_abo_brut))
+                                {
+                                $nom_abonnement = $data['nom_abonnement'];
+                                }  
+                                
+//On recupere le nom du client
+                            $req_recup_client = "SELECT ac.num_abo_com, ac.num_abonnement, c.nom
+                                                 FROM client c, abonnement_comm ac
+                                                 WHERE ac.num_abo_com = '$num_abo_com'
+                                                 AND c.num_client = ac.client_num";
+                            $req_recup_client_brut = mysql_query( $req_recup_client )or die( "Execution requete -req_recup_client- impossible.");
+
+                              while($data = mysql_fetch_array($req_recup_client_brut))
+                                {
+                                $nom_du_client = $data['nom'];
+                                }  
+                                
+//On recupere le type_abonnement pour faire un tri sur la liste des choix propose
+        $req_recup_type = "SELECT type_abonnement
+                           FROM abonnement
+                           WHERE num_abonnement = '$num_abonnement'";
+        $recup_type_brut = mysql_query($req_recup_type) or die( "Execution requete -req_recup_type- impossible.");
+        while($data = mysql_fetch_array($recup_type_brut))
+                    {
+                    $type_abonnement = $data['type_abonnement'];
+                    }
+                    echo $type_abonnement;
+                    echo $num_abonnement ;
 ?>
 
-<!-- Test variable : <br/>
-Ceci est le numero de vente de l'abonnement :  <?php // echo $num_abo_com; ?>
--->
-        <?php
-// choix de l'abonnement (à renseigner dans $num_abonnement_new)
-        $rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle
-                  FROM abonnement";
-        $result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete -rqSql3- impossible.");
-        ?>
 
-<!-- Formulaire d'edition d'abonnement -->
-<form method='post' action='new_fin_abonnement.php'>
+
 <table border="0" class="page" align="center">
-    <tr>    
-        <td class="page" align="center">
-            <h3> Edition de l'Abonnement </h3>
-        </td>
-    </tr>
-    
-    <tr>   
-        <td class="page" align="center" style="background-color: #009EDF">
-        <SELECT NAME='num_abonnement'>
-            <OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
-            <?php
-            while ( $row = mysql_fetch_array( $result3))
-                  {
-            $num_abonnement = $row["num_abonnement"];
-            $nom_abonnement = $row["nom_abonnement"];
-            $tarif_abonnement = $row["tarif_abonnement"];
-            ?>
-            <OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
-            <?php }
-            
-                if ($user_admin != 'n')
-                {                
-                //tarif gratuit pour admin
-                $sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date
-                                    FROM ".$tblpref."tarif
-                                    WHERE saison
-                                    BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-                                    AND nom_tarif='gratuit'";
-                $reqtarifgratuit = mysql_query($sqltarifgratuit) or die('Erreur SQLtarifgratuit !<br>'.$sqltarifgratuit.'<br>'.mysql_error());
-                        while($data = mysql_fetch_array($reqtarifgratuit))
-                        {
-                        $nom_tarif = $data['nom_tarif'];
-                        $prix_tarif = $data['prix_tarif'];
-                        $num_tarif =$data['id_tarif'];
-            ?>
-            <OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
-        </SELECT>
-        </td>
-    </tr>
-            <?php
-                        } // fin du while
-                } //fin du if 
-            ?>
-
-
-            
-    <tr>
-            <!-- saisir quantite ($quanti) -->
-            <th>Choisir la quantite : 
-                      <input type="text" name="quanti" value="1" SIZE="1"></th>
-    </tr>
-    <tr>
+	<tr>
+		<td class="page" align="center">
+                    <h3>Modification de l'abonnement "<?php echo"$nom_abonnement" ; ?>" de <?php echo"$nom_du_client"; ?>   :</h3>	
+                </td>
+        </tr>
+        <tr>
+	    <td>
+	        <table class="boiteaction">
+	            <caption> Edition de l'abonnement :</caption>
+            </td>
+        </tr>
+        <form method='post' action='new_fin_abonnement.php'>
+        <tr>
+            <th> Choisir la quantite : 
+                      <input type="text" name="quanti" value="1" SIZE="1">
+            </th>
+        </tr>
+        <tr>
             <th>
-            <?php
+<?php
             // Choisir les spectacles (renseigner dans $nom_spectacle_x_vendu)
                       $rqSql = "SELECT ac.num_abo_com , ab.nombre_spectacle
                                 FROM abonnement AS ab, abonnement_comm AS ac
@@ -94,7 +85,7 @@ Ceci est le numero de vente de l'abonnement :  <?php // echo $num_abo_com; ?>
                                 AND ab.num_abonnement = ac.num_abonnement ";
            $result = mysql_query( $rqSql )or die( "Execution requete -rqSql- impossible.");
            
-            $i=1;
+                    $i=1;
             while ( $row = mysql_fetch_array( $result)) 
             {
                // $num_abonnement_test = $row["num_abonnement"];
@@ -133,10 +124,9 @@ Ceci est le numero de vente de l'abonnement :  <?php // echo $num_abo_com; ?>
 
             }
             ?>
-                </th>
-    </tr>
-    
-            <?php      
+            </th>
+        </tr>
+<?php      
             
 //On récupère les information sur la vente de l'abonnement pour les envoier au récap : new_fin_abonnement
 $req_recup_info_abonnement = "SELECT ac.num_abonnement, a.nom_abonnement, c.num_client, c.nom
@@ -153,7 +143,7 @@ $recup_info_abonnement_brut = mysql_query( $req_recup_info_abonnement )or die( "
                                 $num_client = $data['num_client'];
                                 $nom = $data['nom'];
                                 }
-            ?>
+?>
     <tr>
         <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com ;?>'>
         <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement ;?>'>
@@ -165,7 +155,8 @@ $recup_info_abonnement_brut = mysql_query( $req_recup_info_abonnement )or die( "
     </tr>
     <tr>
         <th> <input type="image" name="Submit" src='image/valider.png'> </th>
-    </tr>    
+    </tr>  
+</table>    
 </table>
 </form>
 <?php

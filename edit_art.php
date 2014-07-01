@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 include_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -28,6 +28,7 @@ while($data = mysql_fetch_array($req))
     {
 		$article = $data['article'];
 		$article=stripslashes($article);
+                $numero_representation = $data['numero_representation'];
 		$num =$data['num'];
 		$lieu =$data['lieu'];
 		$horaire =$data['horaire'];
@@ -52,7 +53,9 @@ while($data = mysql_fetch_array($req))
 				<form action="article_update.php" method="post" name="id_tarif" id="id_tarif">
 					<table class="boiteaction">
 						<tr class="texte">
-							<th><?php  echo "$lang_article " ?></th>
+							<th><?php  echo "$lang_article" ;?></th>
+                                                        <th> Type d'evenement </th>
+                                                        <th>Representation numero</th>
 							<th>Lieu</th>
 							<th>Horaire</th>
 							<th>Date (aaaa-mm-jj)</th>
@@ -62,14 +65,28 @@ while($data = mysql_fetch_array($req))
 							<th>Commentaire</th>
 						</tr>
 						<tr>
-							<td><input name="article" type="text" size="15" value ="<?php echo"$article" ?> "></td>
-							<td><input name="lieu" type="text" size="10" value ="<?php echo"$lieu" ?>"></td>
-							<td><input name="horaire" type="text" size="10" value ="<?php echo"$horaire" ?>"></td>
-							<td><input name="date" type="text" size="20" value ="<?php echo"$date" ?>"></td>
-							<td><input name="stock" type="text" size="5" value ="<?php echo"$stock" ?>"></td>
-							<td><input name="max" type="text" size="5" value ="<?php echo"$max" ?>"></td>
-							<td><input name="min" type="text" size="5" value ="<?php echo"$min" ?>"></td>
-							<td><input name="commentaire" type="text" size="30" value ="<?php echo"$commentaire" ?>"></td>
+							<td><input name="article" type="text" size="15" value ="<?php echo"$article" ; ?> "></td>
+                                                        <td class="texte1">
+                                                            <SELECT name="type_article">
+                                                                <OPTION VALUE="Spectacle">Spectacle</OPTION>
+                                                                <OPTION VALUE="Spectacle_JP">Spectacle Jeune Public</OPTION>
+                                                                <OPTION VALUE="Concert">Concert</OPTION>
+                                                                <OPTION VALUE="Chorale">Chorale</OPTION>
+                                                                <OPTION VALUE="Theatre">Theatre</OPTION>
+                                                                <OPTION VALUE="Conference_Debat">Conference et Debat</OPTION>
+                                                                <OPTION VALUE="Experience_numerique">Experience Numerique</OPTION>
+                                                                <OPTION VALUE="Art_numerique">Art numerique</OPTION>
+                                                                <OPTION VALUE="Autre">Autre</OPTION>
+                                                            </select>
+                                                        </td>
+                                                        <td><input name="numero_representation" type="number" size="1" value ="<?php echo"$numero_representation" ;?>"></td>
+							<td><input name="lieu" type="text" size="10" value ="<?php echo"$lieu" ;?>"></td>
+							<td><input name="horaire" type="text" size="10" value ="<?php echo"$horaire" ;?>"></td>
+							<td><input name="date" type="text" size="20" value ="<?php echo"$date" ;?>"></td>
+							<td><input name="stock" type="text" size="5" value ="<?php echo"$stock" ;?>"></td>
+							<td><input name="max" type="text" size="5" value ="<?php echo"$max" ;?>"></td>
+							<td><input name="min" type="text" size="5" value ="<?php echo"$min" ;?>"></td>
+							<td><input name="commentaire" type="text" size="30" value ="<?php echo"$commentaire" ;?>"></td>
 						</tr>
 						<tr>
 						<th  colspan="2">Image<br/> <img src="<?php echo $image;?>"  height="100" ></th>
@@ -89,13 +106,13 @@ while($data = mysql_fetch_array($req))
 								</script>
 						<td  colspan="6" align="left"> <input name="image"  type="text" SIZE="60" readonly="readonly" onclick="openKCFinder(this)"
 							value="<?php if ($image!=""){echo $image;} else {echo"Choisir une image jpg";}?>" /><br/> Cliquez dans la case ci dessus pour choisir un fichier image: hauteur 100px<br/> 
-							puis cliquer sur upload pour choisir l'image à télécharger depuis votre ordinateur<br/>et enfin double cliquer sur cette dernière.
+							puis cliquer sur upload pour choisir l'image a telecharger depuis votre ordinateur<br/>et enfin double cliquer sur cette derniere.
 						</td>
 					</tr>
 						<tr>
 							<td colspan="3" class="submit">
-							<input name="num" type="hidden" value= <?php echo "$num" ?></td>
-							<td><input type="submit" name="Submit" value="Enregistrer les modifications"></td>
+							<input name="num" type="hidden" value= <?php echo "$num" ;?></td>
+							<td class="submit" colspan="4"> <input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0"> 
 							<td colspan="4" class="submit"></td>
 						</tr>
 					</table>

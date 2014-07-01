@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Jos� Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -14,6 +14,7 @@ echo'<link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico" >';
 
 
 $article=isset($_POST['article'])?$_POST['article']:"";
+$numero_representation=isset($_POST['numero_representation'])?$_POST['numero_representation']:"";
 $uni=isset($_POST['uni'])?$_POST['uni']:"";
 $prix=isset($_POST['prix'])?$_POST['prix']:"";
 $taux_tva=isset($_POST['taux_tva'])?$_POST['taux_tva']:"";
@@ -44,9 +45,11 @@ include('form_article.php');
 exit;
 }
 
+//$article_v2 = $article .$numero_representation;
 
-$sql1 = "INSERT INTO ".$tblpref."article(article, lieu, horaire, date_spectacle, commentaire, stock, stomin, stomax, image_article, type_article) 
-									VALUES ('$article', '$lieu', '$horaire', '$date', '$commentaire', '$stock', '$stomin', '$stomax', '$cheminimage', '$type_article')";
+
+$sql1 = "INSERT INTO ".$tblpref."article(article, lieu, horaire, date_spectacle, commentaire, stock, stomin, stomax, image_article, type_article, numero_representation) 
+	 VALUES ('$article', '$lieu', '$horaire', '$date', '$commentaire', '$stock', '$stomin', '$stomax', '$cheminimage', '$type_article', '$numero_representation')";
 mysql_query($sql1) or die('Erreur SQL1 !<br>'.$sql1.'<br>'.mysql_error());
 $commentaire=StripSlashes($commentaire);
 $message1= "<center><h2>$lang_nouv_art: $article </h2>";

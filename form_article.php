@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Jos� Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -48,12 +48,29 @@ $annee = date("Y");?>
             <td align=left> <input name="article" type="text" id="article" size="80" maxlength="40">
             </td>
           </tr>
+          
+          <tr>
+                <td class="texte1"> Representation numero : </td>
+                <td class="texte1">
+                    <SELECT name="numero_representation">
+                        <OPTION VALUE="1">1</OPTION>
+                        <OPTION VALUE="2">2</OPTION>
+                        <OPTION VALUE="3">3</OPTION>
+                        <OPTION VALUE="4">4</OPTION>
+                        <OPTION VALUE="5">5</OPTION>
+                        <OPTION VALUE="6">6</OPTION>
+                        <OPTION VALUE="7">7</OPTION>
+                        <OPTION VALUE="8">8</OPTION>
+                        <OPTION VALUE="9">9</OPTION>
+                        <OPTION VALUE="10">10</OPTION>
+          </tr>
 		                  
             <tr> 
-                <td class="texte1"> Type de representation : </td>
+                <td class="texte1"> Type d'evenement : </td>
                 <td class="texte1">
                     <SELECT name="type_article">
                         <OPTION VALUE="Spectacle">Spectacle</OPTION>
+                        <OPTION VALUE="Spectacle_JP">Spectacle Jeune Public</OPTION>
                         <OPTION VALUE="Concert">Concert</OPTION>
                         <OPTION VALUE="Chorale">Chorale</OPTION>
                         <OPTION VALUE="Theatre">Theatre</OPTION>

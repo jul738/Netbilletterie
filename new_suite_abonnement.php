@@ -87,13 +87,14 @@ $annee_2= $annee_1 -1;
         
         <?php
             //On recupere le type_abonnement pour faire un tri sur la liste des choix propose
-        $req_recup_type = "SELECT type_abonnement
+        $req_recup_type = "SELECT type_abonnement, tarif_abonnement
                            FROM abonnement
                            WHERE num_abonnement = '$num_abonnement'";
         $recup_type_brut = mysql_query($req_recup_type) or die( "Execution requete -req_recup_type- impossible.");
         while($data = mysql_fetch_array($recup_type_brut))
                     {
                     $type_abonnement = $data['type_abonnement'];
+                    $tarif_abonnement = $data['tarif_abonnement'];
                     }
         
         // On récupère le nombre de place diponible dans cette abonnement grace à l'ID de l'abonnement
@@ -105,16 +106,7 @@ $annee_2= $annee_1 -1;
         {
             $nombre_spectacle = $data['nombre_spectacle'];
         }
-        ?>
-                        <!-- TEST VALEUR
-                        Test valeur :  <br/>
-                        $client (id du client) = <?php // echo "$client"; ?> <br/>
-                        $nom = <?php // echo "$nom";?> <br/>
-                        
-                        $num_abonnement (id de l'abonnement) = <?php // echo "$num_abonnement"?>; <br/>
-                        $num_abo_com (id de la vente de l'abonnement) = <?php // echo "$num_abo_com"?>; (vide normale car requete creation vente apres -> valider)<br/> 
-                        $nombre_spectacle = <?php // echo"$nombre_spectacle"?>; <br/> -->
-                        
+        ?>                        
                         <br/><h3><?php echo "$phrase: $nom - $nom2 $lang_bon_cree2 $date <br>";?></h3><br/>
     
     <?php
@@ -189,10 +181,6 @@ $annee_2= $annee_1 -1;
               
                     for($nb = 1; $nb <= $nombre_spectacle; $nb++)
                             {
-                                // autoriser autant de champs 'choisir un spectacle' que l'abonnement le permet
-                                //    for ($nb = $nombre_spectacle; $nb_limite != $nb ;  )
-                                //    {
-                                //    condition
                                 
                             ?>
                                 <SELECT name='liste_choix_spectacle_<?php echo $nb;?>'>
@@ -227,7 +215,7 @@ $annee_2= $annee_1 -1;
               
               <?php
 
-              
+             
               ?>
               
               <br/>
@@ -249,6 +237,7 @@ $annee_2= $annee_1 -1;
               <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement; ?>'>
               <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com; ?>'>
               <input  name="nombre_spectacle" id="nombre_spectacle" type="hidden" value='<?php echo $nombre_spectacle; ?>'>
+              <input  name="tarif_abonnement" id="tarif_abonnement" type="hidden" value='<?php echo $tarif_abonnement; ?>'>
               <input type="image" name="Submit" src='image/valider.png'>
             </td>
           </tr>

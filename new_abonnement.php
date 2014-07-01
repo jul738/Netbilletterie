@@ -33,13 +33,13 @@ return false;
 -->
 
 <table border="0" class="page" align="center">
-<tr>
-<td class="page" align="center">
-<h3>Creer un Abonnement</h3>
-</td>
-</tr>
-<tr>
-<td class="page" align="center" style="background:#E8E8EC;">
+    <tr>
+        <td class="page" align="center">
+            <h3>Creer un Abonnement</h3>
+        </td>
+    </tr>
+    <tr>
+        <td class="page" align="center" style="background:#E8E8EC;">
 <?php
              if ($message!='') {
              echo"<table><tr><td>$message</td></tr></table>";
@@ -62,40 +62,42 @@ return false;
             ";
             }
              ?>
-</td>
-</tr>
-<tr>
-<td>
-<center>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            
+        <center>                
 <table>
-<tr>
-<td>
-<form name="formu" method="post" action="new_suite_abonnement.php" onSubmit="return verif_formulaire()">
-<table>
-<caption><?php echo "$lang_cre_bon"; ?></caption>
-<tr>
-<td class="texte0" >
+    
+    <tr>
+        <td>
+            <form name="formu" method="post" action="new_suite_abonnement.php" onSubmit="return verif_formulaire()">
+                            <table>
+                            <caption><?php echo "$lang_cre_bon"; ?></caption>
+    <tr>
+        <td class="texte0" >
 <?php
-require_once("include/configav.php");
-$rqSql="$rqSql order by nom";
-$result = mysql_query( $rqSql ) or die( "Execution requete impossible.");
+    require_once("include/configav.php");
+        $rqSql="$rqSql order by nom";
+        $result = mysql_query( $rqSql ) or die( "Execution requete impossible.");
 ?>
-<SELECT NAME='listeville'>
-<OPTION VALUE="">Cliquez ici et commencez a ecrire le nom</OPTION>
+                <SELECT NAME='listeville'>
+                <OPTION VALUE="">Cliquez ici et commencez a ecrire le nom</OPTION>
 <?php
-while ( $row = mysql_fetch_array( $result)) {
-$numclient = $row["num_client"];
-$nom = $row["nom"];
-$nom2 = $row["nom2"];
+                while ( $row = mysql_fetch_array( $result)) {
+                $numclient = $row["num_client"];
+                $nom = $row["nom"];
+                $nom2 = $row["nom2"];
 ?>
-<OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
+                <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
 <?php
-}
+                }
 ?>
-</SELECT>
-</td>
-</tr>
-<tr>
+                </SELECT>
+        </td>
+    </tr>
+    <tr>
 <?php
 //=============================================
 //pour que les articles soit classes par saison
@@ -125,56 +127,70 @@ if ($annee_1=='')
 }
 $annee_2= $annee_1 -1;
 //=============================================
-$rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle
-FROM abonnement";
+
+
+    $rqSql3= "SELECT num_abonnement, nom_abonnement, tarif_abonnement, nombre_spectacle
+              FROM abonnement";
 $result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete -rqSql3- impossible.");?>
-<td class="texte0" colspan='2'>
-<SELECT NAME='num_abonnement'>
-<OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
+
+        <td class="texte0" colspan='2'>
+    <SELECT NAME='num_abonnement'>
+    <OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
 <?php
-while ( $row = mysql_fetch_array( $result3)) {
-$num_abonnement = $row["num_abonnement"];
-$nom_abonnement = $row["nom_abonnement"];
-$tarif_abonnement = $row["tarif_abonnement"];
+        while ( $row = mysql_fetch_array( $result3)) 
+                {
+        $num_abonnement = $row["num_abonnement"];
+        $nom_abonnement = $row["nom_abonnement"];
+        $tarif_abonnement = $row["tarif_abonnement"];
 ?>
-<OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
-<?php }
-if ($user_admin != 'n'){
+    <OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
+<?php           }
+
+if ($user_admin != 'n')
+    {
+    
 //tarif gratuit pour admin
 $sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date
-FROM ".$tblpref."tarif
-WHERE saison
-BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-AND nom_tarif='gratuit'";
+                    FROM ".$tblpref."tarif
+                    WHERE saison
+                    BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
+                    AND nom_tarif='gratuit'";
 $reqtarifgratuit = mysql_query($sqltarifgratuit) or die('Erreur SQLtarifgratuit !<br>'.$sqltarifgratuit.'<br>'.mysql_error());
-while($data = mysql_fetch_array($reqtarifgratuit))
-{
-$nom_tarif = $data['nom_tarif'];
-$prix_tarif = $data['prix_tarif'];
-$num_tarif =$data['id_tarif'];
-?>
-<OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
-<?php
-}
-}?>
-</SELECT>
-</td>
-</tr>
-<tr><td>&nbsp;</td></tr>
-<tr>
-<td class="submit" colspan="6">
-<input type="hidden" name="date" value="<?php echo"$jour/$mois/$annee";?>" >
-<input type="image" name="Submit" src="image/valider.png" value="Demarrer" border="0"></td>
-</tr>
+
+        while($data = mysql_fetch_array($reqtarifgratuit))
+            {
+            $nom_tarif = $data['nom_tarif'];
+            $prix_tarif = $data['prix_tarif'];
+            $num_tarif =$data['id_tarif'];
+            ?>
+            <OPTION VALUE='<?php echo $num_abonnement; ?>'><?php echo "$nom_abonnement $tarif_abonnement $devise "; ?></OPTION>
+            <?php
+            } // fin du while
+    } //fin du if ?>
+            
+    </SELECT>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="submit" colspan="6">
+        <input type="hidden" name="date" value="<?php echo"$jour/$mois/$annee";?>" >
+        <input type="image" name="Submit" src="image/valider.png" value="Demarrer" border="0"></td>
+    </tr>
+                        </table>
+            </form>
+        </td>
+    </tr>
+    </center>
 </table>
-</form>
-</td>
-</tr>
-</center>
+            
+        </td>
+    </tr>
 </table>
-</td>
-</tr>
-</table>
+
 <?php
 include_once("include/bas.php");
 ?>
