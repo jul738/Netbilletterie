@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Jos� Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 //include('eviterMessageAvertissement.php');
 
@@ -97,7 +97,7 @@ include('bon_suite.php');
     //on recupere l'prix_tarif
 $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE id_tarif=$id_tarif ";
 				 $result33 = mysql_query( $rqSql33 )
-             or die( "Ex�cution requ�te33 impossible.");
+             or die( "Execution requete33 impossible.");
 						while ( $row = mysql_fetch_array( $result33)) {
     							$id_tarif = $row["id_tarif"];
     							$nom_tarif = $row["nom_tarif"];
@@ -110,12 +110,12 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
   {
       $article=$_POST["article"][$i]."" ;
 
-  //on contr�le s'il y a assez de stock pour article
+  //on controle s'il y a assez de stock pour article
  if ($article!="") 
 	{
 $rqSql11= "SELECT stock, article FROM ".$tblpref."article WHERE num=$article ";
 $result11 = mysql_query( $rqSql11 )
-             or die( "Ex�cution requ�te rqsql11 impossible.");
+             or die( "Execution requete rqsql11 impossible.");
                     while ( $row = mysql_fetch_array( $result11)) {
                             $stock = $row["stock"];
                             $nom_article= stripslashes($row["article"]);}
@@ -124,7 +124,7 @@ $result11 = mysql_query( $rqSql11 )
 				$message1= "<h1>Impossibilite d'enregister <font color=red>$nom_article</font> <br> Car vous avez demande <font color=red>$quanti</font> place(s) et il n'en reste que <font color=red>$stock</font></h1>";
 				continue;
 					}
-//inserer les donn�es dans la table du compte des bons.
+//inserer les donnees dans la table du compte des bons.
 $sql1 = "INSERT INTO ".$tblpref."cont_bon(bon_num, article_num, quanti, prix_tarif, id_tarif, to_tva_art)
 VALUES ('$num_bon', '$article', '$quanti', '$prix_tarif', '$id_tarif', '$mont_tva')";
 
@@ -157,7 +157,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 		<td>
 			<table class='boiteaction'>
 				<?php
-				//On recup�re les info du client
+				//On recupere les info du client
 					$sql_nom = "SELECT  nom, nom2 FROM ".$tblpref."client WHERE num_client = $num_client";
 					$req = mysql_query($sql_nom) or die('Erreur SQL client!<br>'.$sql.'<br>'.mysql_error());
 					while($data = mysql_fetch_array($req))
@@ -172,7 +172,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 						} 
 
 				?>
-			<caption>Actuellement l'abonnement est compos� de</caption>
+			<caption>Actuellement l'abonnement est compose de</caption>
 				<tr>
 					<th><?php echo $lang_quantite ;?></th>
 					<!-- th>N� billet(s)</th-->
@@ -253,7 +253,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 							$billet=$du;
 							for($i=0; $i<$quanti; $i++)
 							 {
-							 echo "N�".sprintf('%1$04d',$billet).", ";
+							 echo "Numero".sprintf('%1$04d',$billet).", ";
 							 $billet++;
 							}
 							 echo "<br/>";

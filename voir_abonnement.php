@@ -67,9 +67,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
 
 // On récupère l'horaire & date & type_article des spectacles pour l'afficher dans le recap
             // Horaire & date du spectacle 1
-            $req_horaire_spectacle_1 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_1'"; // and ac.num_spectacle_1 = a.num
+            $req_horaire_spectacle_1 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_1'
+                                        AND ac.num_spectacle_1 = a.num";
             $horaire_spectacle_brut_1 = mysql_query( $req_horaire_spectacle_1 )or die( "Execution requete -req_horaire_spectacle_1- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_1))
@@ -81,9 +82,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                             }
 
              // Horaire  & date du spectacle 2
-            $req_horaire_spectacle_2 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_2'";
+            $req_horaire_spectacle_2 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_2'
+                                        AND ac.num_spectacle_2 = a.num";
             $horaire_spectacle_brut_2 = mysql_query( $req_horaire_spectacle_2 )or die( "Execution requete -req_horaire_spectacle_2- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_2))
@@ -95,9 +97,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                             }  
                                             
             // Horaire & date du spectacle 3
-            $req_horaire_spectacle_3 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_3'";
+            $req_horaire_spectacle_3 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_3'
+                                        AND ac.num_spectacle_3 = a.num";
             $horaire_spectacle_brut_3 = mysql_query( $req_horaire_spectacle_3 )or die( "Execution requete -req_horaire_spectacle_3- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_3))
@@ -109,9 +112,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                             }                                            
                                             
             // Horaire & date du spectacle 4
-            $req_horaire_spectacle_4 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_4'";
+            $req_horaire_spectacle_4 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_4'
+                                        AND ac.num_spectacle_4 = a.num";
             $horaire_spectacle_brut_4 = mysql_query( $req_horaire_spectacle_4 )or die( "Execution requete -req_horaire_spectacle_4- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_4))
@@ -123,9 +127,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                             }                                            
                                             
             // Horaire & date du spectacle 5
-            $req_horaire_spectacle_5 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_5'";
+            $req_horaire_spectacle_5 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_5'
+                                        AND ac.num_spectacle_5 = a.num";
             $horaire_spectacle_brut_5 = mysql_query( $req_horaire_spectacle_5 )or die( "Execution requete -req_horaire_spectacle_5- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_5))
@@ -137,9 +142,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                             }                                            
                                             
             // Horaire & date du spectacle 6
-            $req_horaire_spectacle_6 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_6'";
+            $req_horaire_spectacle_6 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_6'
+                                        AND ac.num_spectacle_6 = a.num";
             $horaire_spectacle_brut_6 = mysql_query( $req_horaire_spectacle_6 )or die( "Execution requete -req_horaire_spectacle_6- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_6))
@@ -151,9 +157,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                             }
                                             
             // Horaire & date du spectacle 7
-            $req_horaire_spectacle_7 = "SELECT horaire, date_spectacle, type_article, numero_representation, article
-                                        FROM article
-                                        WHERE article = '$choix_spectacle_7'";
+            $req_horaire_spectacle_7 = "SELECT a.horaire, a.date_spectacle, a.type_article, a.numero_representation, a.article, a.num
+                                        FROM article a, abonnement_comm ac
+                                        WHERE article = '$choix_spectacle_7'
+                                        AND ac.num_spectacle_7 = a.num";
             $horaire_spectacle_brut_7 = mysql_query( $req_horaire_spectacle_7 )or die( "Execution requete -req_horaire_spectacle_7- impossible.");
 
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_7))
@@ -254,20 +261,21 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                 </td>
         
         
-        <form>
+            <form>
                 <td>
-                    <a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>'>
-                    <img border="0" alt="voir" src="image/edit.png" Title="Modifier l'abonnement"></a>
+                    <a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>'><img border =0 src="image/edit.png" alt=""> <br> Modifier l'abonnement </a>
                 </td>
-        </form>
+                <td>
+                    <a href='print_ticket_abo.php?num_abo_com=<?php echo "$num_abo_com"; ?>' onclick="edition();return false;"><img border=0 src="image/billetterie_v2.png"><br> Imprimer l'abonnement </a>
+                </td>
+            </form>
         
         </tr> 
         
 </table>
-<!--
-<h3>Imprimer l'abonnement : 
-                <a href="print_ticket_abo.php?num_abo_com=<?php // echo"$numero_vente_abo";?>" onclick="edition();return false;"><img border=0 src= image/billetterie_v2.png ></a></h3> 
--->
+
+
+
 
 <?php
 include_once("include/bas.php");

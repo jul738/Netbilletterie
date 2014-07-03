@@ -89,8 +89,8 @@ $annee_2= $annee_1 -1;
 					   </table>
 					 </form>
 				 </center>
+    
 				  <!--fin du formulaire du choix de saison-->
-
 				  <table class="boiteaction">
 
 					<tr>
@@ -115,7 +115,7 @@ $annee_2= $annee_1 -1;
 						$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());;
 						$data = mysql_fetch_array($req);
 						$total = $data ["total"];
-										//on recup les infos group�es par specatcles
+										//on recup les infos groupees par specatcles
 						$sql = "SELECT CB.article_num, SUM(to_tva_art) total, article, SUM(quanti) nombre
 								FROM ".$tblpref."cont_bon CB, ".$tblpref."article ART, ".$tblpref."bon_comm BC
 								WHERE CB.article_num = ART.num

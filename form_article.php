@@ -44,7 +44,7 @@ $annee = date("Y");?>
           </caption>
 
           <tr> 
-            <td class="texte0"> <?php echo "$lang_art_no"; ?> </td>
+              <td class="texte0"> <?php echo "$lang_art_no"; ?> <small>(sans Apostrophe )</small></td>
             <td align=left> <input name="article" type="text" id="article" size="80" maxlength="40">
             </td>
           </tr>

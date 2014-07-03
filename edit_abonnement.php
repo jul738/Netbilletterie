@@ -53,6 +53,19 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                     }
                     echo $type_abonnement;
                     echo $num_abonnement ;
+                    
+                    
+// recup Nom abonnement & nombre_spectacle
+$req_recup_abo = "SELECT num_abonnement, nom_abonnement, tarif_abonnement
+                  FROM abonnement 
+                  WHERE num_abonnement = '$num_abonnement'";
+$recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_recup_abo- impossible.");      
+    while($data = mysql_fetch_array($recup_abo_brut))
+    {
+    $nom_abonnement = $data['nom_abonnement'];
+    $tarif_abonnement = $data['tarif_abonnement'];
+    }
+
 ?>
 
 

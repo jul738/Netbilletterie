@@ -141,27 +141,24 @@ $annee_2= $annee_1 -1;
     ?>
       <center>
           <form name='formu2' method='post' action='new_fin_abonnement.php'>
-          <table class="boiteaction">
-          <caption>Composer l'abonnement</caption>
+            <table class="boiteaction" style="border-spacing : 20px";>
+                <caption>Composer l'abonnement</caption>
           
-          </td> </tr>
-       
-          <tr>
-          
-          <td class="texte0">Choisir la quantite d'abonnement </td>
-          <td class="texte_left" colspan="3">
-          <input type="text" name="quanti" value="1" SIZE="1"></td>
+            </td>    
+        </tr>
+        <tr>
+            <td class="texte0">Choisir la quantite d'abonnement 
+            </td>
+            <td class="texte_left" colspan="3">
+                <input type="text" name="quanti" value="1" SIZE="1">
+            </td>
 
-          </tr>
-          <tr>
-          <td class="texte0">Choisir les spectacles </td>
-          
-          <td class="texte_left">
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+        </tr>
+        <tr>
+            <td class="texte0">Choisir les spectacles 
+            </td>
+            <td class="texte_left">
+         
                 <?php
           // Pour avoir le nombre de spectacles
            $rqSql = "SELECT ac.num_abo_com , ab.nombre_spectacle
@@ -187,10 +184,11 @@ $annee_2= $annee_1 -1;
                                 <OPTION VALUE="">Choisir un spectacle</OPTION>
                                 
                                 <?php
-                                 // lister les numero et les nom des spectacle active (meme ceux complet)
+                                 // lister les numero et les nom des spectacle active (pas ceux complet)
                                 $sql_liste_article = "SELECT num, article, type_article, horaire, date_spectacle
                                                       FROM article 
                                                       WHERE actif != 'non'
+                                                      AND stock > '0'
                                                       AND type_article = '$type_abonnement'";
                                 $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
 
@@ -212,37 +210,50 @@ $annee_2= $annee_1 -1;
 
             }
                 ?>
-              
-              <?php
 
-             
-              ?>
               
-              <br/>
-              <br/>
-              <br/>
-              
-              
-              <?php include_once("include/paiemment_abo.php"); ?>
-              
-              <br/>
-              <br/>
-              
-            </td>
-          </tr>
-          <tr>
-            <td class="submit" colspan="4">
-              <input  name="num_client" id="num_client" type="hidden" value='<?php echo $client; ?>'>
-              <input  name="nom" id="nom" type="hidden" value='<?php echo $nom; ?>'>
-              <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement; ?>'>
-              <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com; ?>'>
-              <input  name="nombre_spectacle" id="nombre_spectacle" type="hidden" value='<?php echo $nombre_spectacle; ?>'>
-              <input  name="tarif_abonnement" id="tarif_abonnement" type="hidden" value='<?php echo $tarif_abonnement; ?>'>
-              <input type="image" name="Submit" src='image/valider.png'>
-            </td>
-          </tr>
-          </table>
-        </form>                
+                </td>
+           </tr>
+
+           <tr> 
+                <td class="texte0">
+                  Moyen de paiement
+                </td>
+                <td class="texte_left" colspan="3">
+                            <SELECT name='paiement'>
+                                <OPTION VALUE="">Choisir un moyen de paiement</OPTION>
+                                
+                                <?php
+                                 // lister les numero et les nom des spectacle active (pas ceux complet)
+                                $req_recup_paiement = "SELECT id_type_paiement, nom
+                                                       FROM type_paiement ";
+                                $recup_paiement_brut = mysql_query( $req_recup_paiement )or die( "Execution requete -req_recup_paiement- impossible.");
+
+                                while ( $recup_paiement = mysql_fetch_array( $recup_paiement_brut))  
+                                {
+                                    $paiement_nom = $recup_paiement["nom"];
+                                    $paiement_id = $recup_paiement["id_type_paiement"];
+                                    ?>
+                                    <OPTION VALUE='<?php echo $paiement_id; ?>'><?php echo $paiement_nom; ?></OPTION>
+                                    <?php
+                                }
+                                ?>
+                            </SELECT>
+                </td>
+            </tr>
+            <tr>
+                <td class="submit" colspan="4">
+                  <input  name="num_client" id="num_client" type="hidden" value='<?php echo $client; ?>'>
+                  <input  name="nom" id="nom" type="hidden" value='<?php echo $nom; ?>'>
+                  <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement; ?>'>
+                  <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com; ?>'>
+                  <input  name="nombre_spectacle" id="nombre_spectacle" type="hidden" value='<?php echo $nombre_spectacle; ?>'>
+                  <input  name="tarif_abonnement" id="tarif_abonnement" type="hidden" value='<?php echo $tarif_abonnement; ?>'>
+                  <input type="image" name="Submit" src='image/valider.png'>
+                </td>
+            </tr>
+            </table>
+          </form>                
       </center>
     </td>
   </tr>
