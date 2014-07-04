@@ -111,11 +111,14 @@ $annee_2= $annee_1 -1;
     
     <?php
     }
-
+    $date_debut = date('Y-m-d');
+    $date_fin = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day"));
     // on creer une vente d'abonnement	
-    $sql1 = "INSERT INTO ". $tblpref ."abonnement_comm(client_num, date, num_abonnement, user, nombre_place) VALUES ('$client', '$annee-$mois-$jour', '$num_abonnement', '$user_nom', '$nombre_spectacle')";
+    $sql1 = "INSERT INTO ". $tblpref ."abonnement_comm(client_num, date, date_debut, date_fin, num_abonnement, user, nombre_place) VALUES ('$client', '$annee-$mois-$jour', '$date_debut', '$date_fin', '$num_abonnement', '$user_nom', '$nombre_spectacle')";
     mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
    
+
+    
     // on met à jour le bdd
     // requete sql update
     // modifier : orignial pour le 'bon_suite_soir.php'

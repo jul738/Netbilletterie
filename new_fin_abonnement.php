@@ -236,22 +236,39 @@ $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_
                                   $paiement_nom = $data['nom'];
                                         }     
 
-                                
-//On insert la liste des choix spectacle dans la BDD grace au variable de la req du dessus             
-//$req_choix_spectacle ="INSERT INTO abonnement_comm (choix_spectacle_1, choix_spectacle_2, choix_spectacle_3, choix_spectacle_4, choix_spectacle_5, choix_spectacle_6, choix_spectacle_7)
-//                              VALUES ('$nom_spectacle_1_vendu', '$nom_spectacle_2_vendu', '$nom_spectacle_3_vendu', '$nom_spectacle_4_vendu','$nom_spectacle_5_vendu', '$nom_spectacle_6_vendu', '$nom_spectacle_7_vendu')";
-//mysql_query($req_choix_spectacle) or die('Erreur SQL !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
 
-                                
 // On met à jour la BDD -> en rentrent le nom du spectacle mais aussi sont ID, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
 $req_choix_spectacle ="UPDATE abonnement_comm 
                        SET quanti = '$quanti', choix_spectacle_1 = '$nom_spectacle_1_vendu', num_spectacle_1 = '$choix_spectacle_1_vendu' , choix_spectacle_2 = '$nom_spectacle_2_vendu', num_spectacle_2 = '$choix_spectacle_2_vendu' , choix_spectacle_3 = '$nom_spectacle_3_vendu', num_spectacle_3 = '$choix_spectacle_3_vendu' , choix_spectacle_4 = '$nom_spectacle_4_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu' , choix_spectacle_5 = '$nom_spectacle_5_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu' , choix_spectacle_6 = '$nom_spectacle_6_vendu', num_spectacle_6 = '$choix_spectacle_6_vendu' , choix_spectacle_7 = '$nom_spectacle_7_vendu', num_spectacle_7 = '$choix_spectacle_7_vendu'
                        WHERE num_abo_com = $num_abo_com";
 mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
 
+$quanti ; // le nombre de billet a decrementer du stock (article)
+
+//ici on decremnte le stock
+    //Pour le Spectacle 1
+    $sql122 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_1_vendu'";
+    mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
+        //Pour le spectacle 2
+        $sql13 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_2_vendu'";
+        mysql_query($sql13) or die('Erreur SQL13 !<br>'.$sql13.'<br>'.mysql_error());
+            //Pour le spectacle 3
+            $sql14 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_3_vendu'";
+            mysql_query($sql14) or die('Erreur SQL14 !<br>'.$sql14.'<br>'.mysql_error());
+                //Pour le spectacle 4
+                $sql15 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_4_vendu'";
+                mysql_query($sql15) or die('Erreur SQL15 !<br>'.$sql15.'<br>'.mysql_error());
+                    //Pour le spectacle 5
+                    $sql16 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_5_vendu'";
+                    mysql_query($sql16) or die('Erreur SQL16 !<br>'.$sql16.'<br>'.mysql_error());
+                        //Pour le spectacle 6
+                        $sql17 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_6_vendu'";
+                        mysql_query($sql17) or die('Erreur SQL17 !<br>'.$sql17.'<br>'.mysql_error());
+                            //Pour le spectacle 7
+                            $sql18 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$choix_spectacle_7_vendu'";
+                            mysql_query($sql18) or die('Erreur SQL18 !<br>'.$sql18.'<br>'.mysql_error());
 
 ?>
-
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
@@ -333,13 +350,12 @@ $total_ttc = $total + $total_tva  ;
 $total_ht = $total ;
 
 //on recupere la date d aujourd hui
-$date_vente = date('Y m d');
+$date_vente = date('Y-m-d');     
  
 //On enregistre la vente dans la table abonnement_paiement
 $req_creation_vente = "INSERT INTO abonnement_paiement (num_abo_com, num_client, paiement, quantite, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
                        VALUES ('$num_abo_com', '$num_client', '$paiement', '$quanti', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement')";
 mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
-
 ?>
         
         </table>

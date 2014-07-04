@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -26,11 +26,11 @@ echo'<link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico" >';
      <?php $lang_article ?>
      <?php 
 include("include/config/common.php");
-// Requête SQL
+// Requete SQL
 $rqSql = "SELECT num, article, prix_htva FROM " . $tblpref ."article ORDER BY num";
-// Exécution de la requête
+// Execution de la requete
 $result = mysql_query( $rqSql )
-             or die( "Exécution requête impossible.");
+             or die( "Execution requete impossible.");
 $ld = "<SELECT NAME='article'>";
 $ld .= "<OPTION VALUE=0>Choisissez</OPTION>";
 // On boucle sur la table

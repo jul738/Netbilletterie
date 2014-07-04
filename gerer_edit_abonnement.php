@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Jos� Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -29,6 +29,20 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die('Erreur SQL !<br>'.$req_rec
     $tarif_abonnement = $data['tarif_abonnement'];
     $selection = $data['selection'];
                 }
+                
+                
+$req_recup_ancien_val = "SELECT nom_abonnement, nombre_spectacle, tarif_abonnement, type_abonnement
+                         FROM abonnement
+                         WHERE num_abonnement = '$num_abonnement'";
+$recup_ancien_val_brut = mysql_query($req_recup_ancien_val)or die( "Execution requete -req_recup_ancien_val- impossible.");
+        while($data7 = mysql_fetch_array($recup_ancien_val_brut))
+        {
+        $nom_abonnement_ancien = $data7['nom_abonnement'];
+        $nombre_spectacle_ancien = $data7['nombre_spectacle'];
+        $tarif_abonnement_ancien = $data7['tarif_abonnement'];
+        $type_abonnement_ancien = $data7['type_abonnement'];
+        }
+                
 ?>
 
 <form action='gerer_edit_update_abonnement.php' method="POST">
@@ -64,18 +78,19 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die('Erreur SQL !<br>'.$req_rec
             <tr>
                 <td>
                     <SELECT name="type_abonnement_new">
+                        <OPTION VALUE="<?php $type_abonnement_ancien ;?>"> <?php echo $type_abonnement_ancien ;?></OPTION>
                         <OPTION VALUE="Spectacle">Concert</OPTION>
                         <OPTION VALUE="Concert">Spectacles Jeunes Public</OPTION>
                     </SELECT>
                 </td>
                 <td>
-                    <input type="text" name="nom_abonnement_new" SIZE="25">
+                    <input type="text" name="nom_abonnement_new" SIZE="25" value="<?php echo $nom_abonnement_ancien ;?>">
                 </td>
                 <td>
-                    <input type="number" name="nombre_spectacle_new" SIZE="2">
+                    <input type="number" name="nombre_spectacle_new" SIZE="2" value="<?php echo $nombre_spectacle_ancien ;?>">
                 </td>
                 <td>
-                    <input type="number" name="tarif_abonnement_new" SIZE="2">
+                    <input type="number" name="tarif_abonnement_new" SIZE="2" value="<?php echo $tarif_abonnement_ancien ;?>">
                 </td>
                 <td>
                     <SELECT name="selection_new">

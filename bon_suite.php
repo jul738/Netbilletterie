@@ -30,7 +30,7 @@ $id_tarif=isset($_GET['id_tarif'])?$_GET['id_tarif']:"";
 }
 
 //=============================================
-//pour que les articles soit class�s par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -105,7 +105,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
                             $mont_tva = $prix_tarif * $quanti ;
 
 
-//////////////////////////////////ARTICLE  ///////////////////////////////////////////////////
+////////////////////////////////// ARTICLE  ///////////////////////////////////////////////////
   for ($i = 0; $i < count($_POST["article"]); $i++)
   {
       $article=$_POST["article"][$i]."" ;
@@ -146,7 +146,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 			$sql122 = "UPDATE `".$tblpref."article` SET `actif` = '' WHERE `num` =$article";
 			mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
 			}
-} 
+        } 
 }
 
                 ?>
@@ -215,7 +215,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 				<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">				
 					<td class ='highlight'><?php echo"$quanti";?></td>
 					<?php
-					//on recup�re infos du carnet au depart de la saison et la quantit� vendu depuis jusqu'� ce bon en filtrant par tarif
+					//on recupere infos du carnet au depart de la saison et la quantite vendu depuis jusqu'a ce bon en filtrant par tarif
 					$sql10 = "
 					SELECT CB.id_tarif, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
 					FROM ". $tblpref."cont_bon CB, ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
@@ -403,7 +403,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 						<td class="submit" colspan="4">
 							<input type="hidden" name="bon_num"  value='<?php echo $num_bon ?>'>
 							<input type="hidden" name="num_client" value='<?php echo $num_client ?>'>
-							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter a l'abonnement">Completer l'abonnement par cette nouvelle selection</td>
+							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter a l'abonnement">Completer la reservation par cette nouvelle selection</td>
 						</td>
 					</tr>
 				</table>

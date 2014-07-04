@@ -1,5 +1,5 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
 Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
@@ -35,9 +35,7 @@ include_once("include/fonction.php");
 
 		$initial=isset($_GET['initial'])?$_GET['initial']:"";
                                 
-                 // ancienne requete sql sans les abonnement //
-                //$sql = " SELECT * FROM ".$tblpref."client WHERE nom LIKE '$initial%' AND actif='y' AND `num_client`!='1'";
-
+                
                 // requete sql avec les abonnement // 
                 $sql = " SELECT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.civ, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
                 FROM client C, abonne A
@@ -61,6 +59,13 @@ include_once("include/fonction.php");
                 ORDER BY C.nom ASC";                
 		  }
 		$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
+                
+                
+//On recupere la date d aujourd hui (pour tester si abonne oui ou non /Oui si date_ajd est compris entre date_debut et date_fin dans abonnement_comm sinon /Non
+$date_ajd = date('Y-m-d');  
+
+
+
 		?>
 			<center>
 				<table id="datatables" class="display">
@@ -106,6 +111,18 @@ include_once("include/fonction.php");
 								}else{
 								$line="1"; 
 								}
+
+//Rq si abonnement afficher jp afficher oui sinon non / afficher concert oui sinon non 
+$req_recup_abo = "SELECT ab.type_abonnement
+                  FROM abonnement AS ab, abonnement_comm AS ac
+                  WHERE ab.num_abonnement = ac.num_abonnement
+                  AND ac.client_num = '$num'
+                  AND ac.date_fin <= CURRENT_DATE";
+$recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_abo.'<br>'.mysql_error());
+            while ($data5 = mysql_fetch_array($recup_abo_brut))
+            {
+            $type_abonnement = $data5['type_abonnement'];
+            }
 								?>
 					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
 							<td><?php echo $civ; ?></td>
@@ -114,10 +131,10 @@ include_once("include/fonction.php");
 							<td><?php echo $cp; ?></td>
 							<td><?php echo $ville; ?></td>
 							<td><?php echo $tel; ?></td>
-                                                        <td><?php echo $abonne_chanson; ?></td>
-                                                        <td><?php echo $abonne_jp; ?></td>
-							<td><a href="form_mailing.php?nom=<?php echo $num; ?>" ><?php echo "$mail"; ?></a></td>
-							<td><a href='edit_client.php?num=<?php echo "$num" ?>'><img border='0'src='image/edit.png' alt='<?php echo $lang_editer; ?>'></a></td>
+                                                        <td><?php if ($type_abonnement == Concert) {echo "Oui";} else {echo "Non"; } ?></td>
+                                                        <td><?php if ($type_abonnement == Spectacle_JP) {echo "Oui";} else {echo "Non"; } ?></td>
+							<td><a href="form_mailing.php?nom=<?php echo "$num"; ?>" ><?php echo "$mail"; ?></a></td>
+							<td><a href="edit_client.php?num=<?php echo "$num" ?>"><img border='0'src='image/edit.png' alt='<?php echo $lang_editer; ?>'></a></td>
 							<?php
 							} ?>
 					</tr>

@@ -67,7 +67,7 @@ $annee_2= $annee_1 -1;
                 echo"<h1>$lang_statistique_droit";
                 exit;
             }?>
-                  <!--formulaire du choix de saison-->
+                <!--formulaire du choix de saison-->
                 <center>
                     <form action="ca_abonnement.php" method="post">
                         <table >
@@ -89,8 +89,7 @@ $annee_2= $annee_1 -1;
 			</table>
 		    </form>
 		</center>
-    
-				  <!--fin du formulaire du choix de saison-->
+                <!--fin du formulaire du choix de saison-->
 				  
 
                                   
@@ -104,72 +103,61 @@ $annee_2= $annee_1 -1;
 					</tr>
                                         
 <?php
-    //On compte le nombre d'abonnement pour faire un count et lister
-    $req_compter_abonnement = "SELECT COUNT(nom_abonnement) AS nombre_abonnement
-                               FROM abonnement";
-                        $compter_abonnement_brut = mysql_query($req_compter_abonnement)or die('Erreur !<br>'.$req_compter_abonnement.'<br>'.mysql_error());
-                         
-                        while ($data = mysql_fetch_array($compter_abonnement_brut))
-                            {
-                            $nombre_abonnement = $data[nombre_abonnement];
-              
-                                 for($nb = 1; $nb <= $nombre_abonnement; $nb++)
-                                    {
-                                     
                                     //On liste la quantite vendu d abonnement par abonnement 
                                     $req_recup_quanti_abonnement = "SELECT SUM( ac.quanti ) AS quanti, a.nom_abonnement, a.num_abonnement
                                                                     FROM abonnement_comm ac, abonnement a
                                                                     WHERE a.num_abonnement = ac.num_abonnement
                                                                     GROUP BY a.num_abonnement
-                                                                    ORDER BY `quanti` DESC ";
+                                                                    ORDER BY quanti DESC ";
                                     $recup_quanti_vendu_brut = mysql_query($req_recup_quanti_abonnement)or die('Erreur !<br>'.$req_recup_quanti_abonnement.'<br>'.mysql_error());
-
-                                    while ($data = mysql_fetch_array($recup_quanti_vendu_brut))
+                                    while ($data2 = mysql_fetch_assoc($recup_quanti_vendu_brut))
                                                     {
-                                                    $quanti_par_abonnement = $data['quanti'];
-                                                    $nom_des_abonnement = $data['nom_abonnement'];
-                                                    $num_des_abonnment = $data['num_abonnement'];
-echo $num_des_abonnement ;
-                                                    ?>
+                                                    $quanti_par_abonnement = $data2['quanti'];
+                                                    $nom_des_abonnement = $data2['nom_abonnement'];
+                                                    $num_des_abonnement = $data2['num_abonnement'];
+                                                    
+                                                    
+                                                    //Recup le total des vente par abonnement
+                                                    $req_recup_vente_abo_1 = "SELECT SUM(ap.total_ttc) AS total_par_abonnement, a.nom_abonnement
+                                                                              FROM abonnement_paiement ap, abonnement a
+                                                                              WHERE ap.id_abonnement = ".$num_des_abonnement."
+                                                                              GROUP BY a.nom_abonnement";
+                                                    $recup_vente_abo_brut_1 = mysql_query($req_recup_vente_abo_1)or die('Erreur !<br>'.$req_recup_vente_abo_1.'<br>'.mysql_error());
+                                                    while ($data5 = mysql_fetch_array($recup_vente_abo_brut_1))
+                                                        {
+                                                $total_par_abonnement = $data5['total_par_abonnement'];
+                                                        } // fin while $quanti_par_abonnement & $nom_abonnement
+ 
+                                                
+                                                        //Rq on recupere le chiffre total des vente de tous les abonnement reunie
+                                                        $req_recup_tot_abonnement = "SELECT SUM(total_ttc) AS total_vente_abonnement
+                                                                                     FROM abonnement_paiement";
+                                                        $recup_tot_abonnement_brut = mysql_query($req_recup_tot_abonnement)or die('Erreur !<br>'.$req_recup_tot_abonnement.'<br>'.mysql_error());
+                                                        while ($data4 = mysql_fetch_array($recup_tot_abonnement_brut))
+                                                                        {
+                                                                        $total_vente_abonnement = $data4['total_vente_abonnement'];
+                                                        
+    
+                                                                        
+                                //On calcule le pourcentage de vente que represente chaqu'un des abonnements 
+                                $pourcent_par_abonnement = $total_par_abonnement / $total_vente_abonnement * 100 ;
+                                                                                 } // fin while $total_par_abonnement
+                                                
+?>      
                                        
                                     <tr>
                                         <td> <?php echo $nom_des_abonnement ;?> </td>
                                         <td> <?php echo $quanti_par_abonnement ;?> </td>
-                                        <td> <?php echo $total_par_abonnement ;?><?php echo $devise ;?> </td>
-                                        <td> <?php echo stat_baton_horizontal("$pourcent_par_abonnement%", 1) ;?> </td>
+                                        <td> <?php echo $total_par_abonnement ;?> <?php echo $devise ;?> </td>
+                                        <td> <?php echo $pourcent_par_abonnement ;?> % </td>
                                     </tr>
                                             
                                             
-            <?php
-                                    // Rq pour total en euro vendu par abo = $total_par_abonnement
-                                    $rep_recup_total_abonnement = "SELECT SUM(total_ttc) AS total_par_abonnement, id_abonnement
-                                                                   FROM abonnement_paiement
-                                                                   WHERE id_abonnement = '$num_des_abonnement'";
-                                    $recup_total_abonnement_brut = mysql_query($rep_recup_total_abonnement)or die('Erreur !<br>'.$rep_recup_total_abonnement.'<br>'.mysql_error());
-                                    while ($data = mysql_fetch_array($recup_quanti_vendu_brut))
-                                                    {
-                                                    $total_par_abonnement = $data['total_par_abonnement'];
-            
-                            
-        
-                                        //Rq on recupere le chiffre total des vente de tous les abonnement reunie
-                                        $req_recup_tot_abonnement = "SELECT SUM(total_ttc) AS total_vente_abonnement
-                                                                     FROM abonnement_paiement";
-                                        $recup_tot_abonnement_brut = mysql_query($req_recup_tot_abonnement)or die('Erreur !<br>'.$req_recup_tot_abonnement.'<br>'.mysql_error());
-                                            while ($data = mysql_fetch_array($recup_tot_abonnement_brut))
-                                                        {
-                                                        $total_vente_abonnement = $data['total_vente_abonnement'];
-                                                        
-    
-                                //On calcule le pourcentage de vente que represente chaqu'un des abonnements 
-                                $pourcent_par_abonnement = $total_par_abonnement / $total_vente_abonnement * 100 ;
+<?php    
 
-                                                            } //fin while $pourcent_par_abonnement
-                                                        } // fin while $total_par_abonnement
-                                            } // fin while $quanti_par_abonnement & $nom_abonnement
-                                        } // fin du compteur for 
-                                } // fin du while $nombre_abonnement
-            ?>
+
+                                                                                       } //fin while $pourcent_par_abonnement
+?>
                                     </table>
 <?php 
     include("help.php");
