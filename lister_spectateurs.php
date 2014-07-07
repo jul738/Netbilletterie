@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 Jos� Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:Jos� Das Neves pitu69@hotmail.fr*/
+File Authors:Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -26,13 +26,28 @@ exit;
 
 $article_numero=isset($_GET['article'])?$_GET['article']:"";
 
-$sql = " SELECT *
-FROM " . $tblpref ."client C, " . $tblpref ."cont_bon CB, " . $tblpref ."bon_comm BC , " . $tblpref ."tarif T
-WHERE CB.bon_num=BC.num_bon
-AND BC.client_num=C.num_client
-AND CB.article_num = $article_numero
-AND BC.attente=0
-AND CB.id_tarif = T.id_tarif";
+//Lister reservation et billet du soir
+$sql = "SELECT *
+        FROM client C, cont_bon CB, bon_comm BC , tarif T
+        WHERE CB.bon_num=BC.num_bon
+        AND BC.client_num=C.num_client
+        AND CB.article_num = $article_numero
+        AND BC.attente=0
+        AND CB.id_tarif = T.id_tarif";
+
+//Lister Abonement qui comprend ce spectacle
+$sql_abo = "SELECT C.civ, C.nom, C.rue, C.ville, C.cp, C.tel, C.mail, AC.quanti, A.nom_abonnement
+            FROM abonnement_comm AC, client C, abonnement A
+            WHERE AC.client_num = C.num_client
+            AND AC.num_abonnement = A.num_abonnement
+                AND AC.num_spectacle_1 = $article_numero
+                 OR AC.num_spectacle_2 = $article_numero
+                 OR AC.num_spectacle_3 = $article_numero
+                 OR AC.num_spectacle_4 = $article_numero
+                 OR AC.num_spectacle_5 = $article_numero
+                 OR AC.num_spectacle_6 = $article_numero
+                 OR AC.num_spectacle_7 = $article_numero";
+
 
 if ( isset ( $_GET['ordre'] ) && $_GET['ordre'] != '')
 {
@@ -67,23 +82,27 @@ while($data = mysql_fetch_array($req2))
     ?> <br><br>
   <?php if ($user_admin != n) { ?>
   <a href="form_mailing.php?article=<?php echo $article_numero;?>">Envoyer un mail a tous ces spectateurs</a><br> <?php } ?>
-  <a href="fpdf/liste_spectateurs.php?article=<?php echo $article_numero;?>" target="_blank">Imprimer la liste de tous ces spectateurs</a></caption>
+ <!-- <a href="fpdf/liste_spectateurs.php?article=<?php echo $article_numero;?>" target="_blank">Imprimer la liste de tous ces spectateurs</a></caption> -->
 
         
       <?php } ?>
-        
-<tr>        
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=civ"><?php echo $lang_civ; ?> </a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom"><?php echo $lang_nom; ?></a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue"><?php echo $lang_rue; ?></a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp"><?php echo $lang_code_postal; ?></a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville"><?php echo $lang_ville; ?></a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=tel"><?php  echo $lang_tele;?></a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=mail"><?php echo $lang_email; ?></a></th>
-<th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom_tarif">Type de tarif</a></th>
-<th>Nombre</th>
 
-</tr>
+        <tr>
+            <th colspan="9"> Reservations : </th>
+        </tr>
+        
+                <tr>        
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=civ"><?php echo $lang_civ; ?> </a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom"><?php echo $lang_nom; ?></a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue"><?php echo $lang_rue; ?></a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp"><?php echo $lang_code_postal; ?></a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville"><?php echo $lang_ville; ?></a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=tel"><?php  echo $lang_tele;?></a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=mail"><?php echo $lang_email; ?></a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom_tarif">Type de tarif</a></th>
+                    <th>Nombre</th>
+                </tr>
+
 <?php
 $nombre =1;
 while($data = mysql_fetch_array($req))
@@ -108,27 +127,88 @@ while($data = mysql_fetch_array($req))
 		$to_tva_art = $data['to_tva_art'];
 $total_tva = $data['SUM(to_tva_art)'];			
 		
-if($nombre & 1){
-		$line="0";
-		}else{
-		$line="1"; 
-		}
+    if($nombre & 1){
+                    $line="0";
+                    }else{
+                    $line="1"; 
+                    }
 		?>
 		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
-		<td class="highlight"><?php echo $civ; ?></td>
-		<td class="highlight"><?php echo $nom_html; ?></td>
-		<td class="highlight"><?php echo $rue; ?></td>
-		<td class="highlight"><?php echo $cp; ?></td>
-		<td class="highlight"><?php echo $ville; ?></td>
-		<td class="highlight"><?php echo $tel; ?></td>
-		<td class="highlight"><a href="mailto:<?php echo $mail; ?>" ><?php echo "$mail"; ?></a></td>
-		<td class="highlight"><?php echo $nom_tarif; ?></td>
-		<td class="highlight"><?php echo $quanti; ?></td>
+                    <td class="highlight"><?php echo $civ; ?></td>
+                    <td class="highlight"><?php echo $nom_html; ?></td>
+                    <td class="highlight"><?php echo $rue; ?></td>
+                    <td class="highlight"><?php echo $cp; ?></td>
+                    <td class="highlight"><?php echo $ville; ?></td>
+                    <td class="highlight"><?php echo $tel; ?></td>
+                    <td class="highlight"><a href="mailto:<?php echo $mail; ?>" ><?php echo "$mail"; ?></a></td>
+                    <td class="highlight"><?php echo $nom_tarif; ?></td>
+                    <td class="highlight"><?php echo $quanti; ?></td>
+                </tr>
 		
-		
+
 		<?php
 		}
 $aide = client;
+?>
+                <tr>
+                    <td colspan="9"> <!-- Espace de separation --> </td>
+                </tr>
+                
+                <tr>
+                    <th colspan="9"> Abonnements : </th>
+                </tr>
+                <tr>
+                    <th><small> Civilite </small></th>
+                    <th><small> Nom & Prenom </small></th>
+                    <th><small> Rue </small></th>
+                    <th><small> Code postal </small></th>
+                    <th><small> Ville </small></th>
+                    <th><small> Telephone </small></th>
+                    <th><small> e-mail </small></th>
+                    <th><small> Nom de l'abonnement </small></th>
+                    <th><small> Nombre de places</small></th>
+                </tr>
+<?php 
+
+$req_abo = mysql_query($sql_abo) or die('Erreur SQL !<br>'.$sql_abo.'<br>'.mysql_error());
+        
+$nombre_abo =1;
+    while($data2 = mysql_fetch_array($req_abo))
+    {
+    $civ_abo = $data2['civ'];
+    $nom_abo = $data2['nom'];
+    $tel_abo = $data2['tel'];
+    $mail_abo = $data2['mail'];
+    $nom_abonnement_abo = $data2['nom_abonnement'];
+    $quanti_abo = $data2['quanti'];
+    $rue_abo = $data2 ['rue'];
+    $ville_abo = $data2['ville'];
+    $cp_abo = $data2['cp'];
+       
+        if($nombre_abo & 1){
+                    $line="0";
+                    }else{
+                    $line="1"; 
+                    }
+
+
+?>        
+        <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
+		<td class="highlight"><?php echo $civ_abo ;?></td>
+                <td class="highlight"><?php echo $nom_abo ;?></td>
+                <td class="highlight"><?php echo $rue_abo ;?></td>
+                <td class="highlight"><?php echo $ville_abo ;?></td>
+                <td class="highlight"><?php echo $cp_abo ;?></td>
+                <td class="highlight"><?php echo $tel_abo ;?></td>
+                <td class="highlight"><?php echo $mail_abo ;?></td>
+                <td class="highlight"><?php echo $nom_abonnement_abo ;?></td>
+                <td class="highlight"><?php echo $quanti_abo ;?></td>
+        </tr>
+        
+<?php
+
+   } 
+   
 ?>
 <!--tr><td class='totalmontant' colspan="3">TOTAL DU SPECTACLE</td>
 

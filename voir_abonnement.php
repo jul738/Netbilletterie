@@ -21,7 +21,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 <?php
 // On récupère toutes les informations sur la vente en fonction du numero de vente de l'abonnement 
-$req_recup_info_vente = "SELECT num_abo_com, client_num, num_abonnement, date, quanti, nombre_place, choix_spectacle_1, choix_spectacle_2, choix_spectacle_3, choix_spectacle_4, choix_spectacle_5, choix_spectacle_6, choix_spectacle_7 
+$req_recup_info_vente = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, num_abonnement, date, quanti, nombre_place, choix_spectacle_1, choix_spectacle_2, choix_spectacle_3, choix_spectacle_4, choix_spectacle_5, choix_spectacle_6, choix_spectacle_7 
                          FROM abonnement_comm
                          WHERE num_abo_com = '$num_abo_com'";
 
@@ -40,7 +40,13 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( "Execution 
     $choix_spectacle_4 = $data['choix_spectacle_4']; // la requete du dessus est bonne car elle recup seulement le nom, il faut edit les requete du dessous pour avoir la bonne horaire en faisan apelle a 'num_spectacle_1'[abonnement_comm]
     $choix_spectacle_5 = $data['choix_spectacle_5'];
     $choix_spectacle_6 = $data['choix_spectacle_6'];    
-    $choix_spectacle_7 = $data['choix_spectacle_7'];    
+    $choix_spectacle_7 = $data['choix_spectacle_7']; 
+    
+    $date_debut = $data['date_debut'];
+    $date_fin = $data['date_fin'];
+    $ctrl = $data['ctrl'];
+    $fact = $data['fact'];
+    $paiement = $data['paiement'];    
         }
 
 // On fais des requetes pour récupérer les information des différentes tables en utilisant les variables récup au dessus (ex : nom spectacle, nom spectateur, prix abo, ect)
@@ -175,7 +181,7 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-                    <h3>Information sur l'abonnement de <?php echo"$nom"; ?> du <?php echo"$date" ; ?> :</h3>	
+                    <h3>Information sur l'abonnement de <?php echo"$nom"; ?> du [<?php echo"$date_debut" ; ?> au <?php echo "$date_fin" ;?>] :</h3>	
                 </td>
         </tr>
         <tr>
@@ -189,7 +195,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
             <th> Nom du spectateur   </th>  
             <th> Abonnement choisie  </th> 
             <th> Nombre de spetacles </th>
-            <th> Total               </th> 
+            <th> Total               </th>
+            <th>Paiement</th>
+            <th>Controle</th>
+            <th>fact</th>
             <th> Spectacle choix 1   </th>
             <th> Spectacle choix 2   </th>
             <th> Spectacle choix 3   </th>
@@ -205,6 +214,9 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
             <td> <?php echo $nom_abonnement ;?>  </td>
             <td> <?php echo $nombre_spectacle ;?></td>
             <td> <?php $total = $quanti * $tarif_abonnement ; echo "$total"; echo"$devise"; ?></td>
+            <td><?php echo $ctrl ;?></td>
+            <td><?php echo $fact ;?></td>
+            <td><?php echo $paiement ;?></td>
         
             <td>    <b> <?php echo "$choix_spectacle_1" ; ?>     </b><br/> <br/>
                         <?php echo "$horaire_spectacle_1_vendu" ;?>  <br/> <br/>

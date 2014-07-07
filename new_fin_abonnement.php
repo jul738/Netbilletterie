@@ -344,8 +344,8 @@ $quanti ; // le nombre de billet a decrementer du stock (article)
         
 <?php
         //on calcule les information concernant la tva
-$tva = 1.202 ;
-$total_tva = ($total * 1.202) - $total ;
+$tva = 0 ;
+$total_tva = ($total * 1) - $total ;
 $total_ttc = $total + $total_tva  ;
 $total_ht = $total ;
 

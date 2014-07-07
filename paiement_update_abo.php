@@ -23,20 +23,20 @@ $annee = $dateScind[2];
 $date_fact=$annee."-".$mois."-".$jour; 
 $titulaire_cheque=isset($_POST['titulaire_cheque'])?$_POST['titulaire_cheque']:"";
 $pointage=isset($_POST['pointage'])?$_POST['pointage']:"";
-$num_bon=isset($_POST['num_bon'])?$_POST['num_bon']:"";
+$num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
 
 
-$sql22 = "UPDATE `".$tblpref."bon_comm` SET `paiement`='$paiement', `banque`='$banque', `date_fact`='$date_fact', `coment`='$coment', `ctrl`='$ctrl', `titulaire_cheque` = '$titulaire_cheque', `fact`='$pointage'
-WHERE `num_bon` ='".$num_bon."' ";
+$sql22 = "UPDATE `".$tblpref."abonnement_comm` SET `paiement`='$paiement', `banque`='$banque', `date_fact`='$date_fact', `coment`='$coment', `ctrl`='$ctrl', `titulaire_cheque` = '$titulaire_cheque', `fact`='$pointage'
+WHERE `num_abo_com` ='".$num_abo_com."' ";
 mysql_query($sql22) OR die("<p>Erreur Mysql<br/>$sql22<br/>".mysql_error()."</p>");
 
 if($pointage=="ok"){
-$message= "<h1>La reservation <font color=red> Numero $num_bon </font>est enregistree comme encaissee. <br/> Elle ne peux plus etre modifiee. C'est pour cette raison qu'elle n'est plus presentee dans la liste ci-dessous</h1>";
+$message= "<h1>La reservation <font color=red> Numero $num_abo_com </font>est enregistree comme encaissee. <br/> Elle ne peux plus etre modifiee. C'est pour cette raison qu'elle n'est plus presentee dans la liste ci-dessous</h1>";
 }
 else{
-	$message= "<h1>La reservation <font color=red> Numero $num_bon </font> a bien ete modifiee</h1>";
+	$message= "<center><h1>La reservation <font color='#009EDF'> Numero $num_abo_com </font> a bien ete modifiee</h1></center>";
 	}
-require("lister_commandes_non_facturees.php");
+require("lister_commandes_non_fact_abo.php");
  ?> 
 
 

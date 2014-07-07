@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -29,7 +29,7 @@ if ($client_num!=""){
 		$to =$data['mail'];
 		$civ = $data['civ'];
 	}
-	$a="à $civ $nom <br> <font size='1em'>$to</font>";
+	$a="ï¿½ $civ $nom <br> <font size='1em'>$to</font>";
 }
 else {$a="";}
 ?>
@@ -97,7 +97,7 @@ else {$a="";}
 					<?php if ($client_num !="") { echo "<input type='hidden' name='client_num' value='$client_num'>"; } ?>
 					 <input type="hidden" name="article" value="<?php echo "$article_numero"; ?>">
 					 <input type="hidden" name="attente" value="<?php echo "$attente"; ?>">
-					 <input type="image" name="Submit" src="image/envoyer.png" value="Démarrer"  border="0" >
+					 <input type="image" name="Submit" src="image/envoyer.png" value="Demarrer"  border="0" >
 				</td>
 				</tr>
 			  </table>

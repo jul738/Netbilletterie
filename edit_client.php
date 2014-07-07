@@ -78,27 +78,7 @@ while($data = mysql_fetch_array($req))
       <td class="texte1"><?php echo $lang_email; ?> </td>
       <td class="texte1"> <input name="mail" type="text" id="mail"  value="<?php echo "$mail"; ?>"> </td>
     </tr>
-    
-               <tr> 
-					<td class="texte0"><?php echo $lang_abonne_jp; ?></td>
-					<td class="texte0">
-						<SELECT name="abonne_jp">
-							<OPTION VALUE="non">Non</OPTION>
-							<OPTION VALUE="oui">Oui</OPTION>
-						</select>
-					</td>
-				</tr>
-                                
-               <tr> 
-					<td class="texte1"><?php echo $lang_abonne_chanson; ?></td>
-					<td class="texte1">
-						<SELECT name="abonne_chanson">
-							<OPTION VALUE="non">Non</OPTION>
-							<OPTION VALUE="oui">Oui</OPTION>
-						</select>
-					</td>
-				</tr> 
-    
+
     <tr>
 		<td class="texte0">Ce spectateur est</td>
 		<td class="texte0">
