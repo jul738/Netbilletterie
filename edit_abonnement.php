@@ -17,37 +17,6 @@ include_once("include/configav.php");
 
 //On recupere l'ID de l'abonnement
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
-
-//On recupere toutes les donne actuel de l abonnement pour les metre dans les champs par defaut
-$req_recup_ancien_val = "SELECT quanti, choix_spectacle_1, num_spectacle_1, choix_spectacle_2, num_spectacle_2, choix_spectacle_3, num_spectacle_3, choix_spectacle_4, num_spectacle_4, choix_spectacle_5, num_spectacle_5, choix_spectacle_6, num_spectacle_6, choix_spectacle_7, num_spectacle_7
-                         FROM abonnement_comm
-                         WHERE num_abo_com = '$num_abo_com'";
-$recup_ancien_val_brut = mysql_query($req_recup_ancien_val)or die( "Execution requete -req_recup_ancien_val- impossible.");
-        while($data7 = mysql_fetch_array($recup_ancien_val_brut))
-        {
-        $quanti_ancien = $data7['quanti'];    
-            
-        $nom_ancien_choix_1 = $data7['choix_spectacle_1'];
-        $num_ancien_choix_1 = $data7['num_spectacle_1'];
-        
-        $nom_ancien_choix_2 = $data7['choix_spectacle_2'];
-        $num_ancien_choix_2 = $data7['num_spectacle_2'];
-        
-        $nom_ancien_choix_3 = $data7['choix_spectacle_3'];
-        $num_ancien_choix_3 = $data7['num_spectacle_3'];
-        
-        $nom_ancien_choix_4 = $data7['choix_spectacle_4'];
-        $num_ancien_choix_4 = $data7['num_spectacle_4'];
-        
-        $nom_ancien_choix_5 = $data7['choix_spectacle_5'];
-        $num_ancien_choix_5 = $data7['num_spectacle_5'];
-        
-        $nom_ancien_choix_6 = $data7['choix_spectacle_6'];
-        $num_ancien_choix_6 = $data7['num_spectacle_6'];
-        
-        $nom_ancien_choix_7 = $data7['choix_spectacle_7'];
-        $num_ancien_choix_7 = $data7['num_spectacle_7'];
-        }
         
 //On recupere le nom de l'abonnment que le client avais (pour savoir ce que l'on modifie) 
                             $req_recup_nom_abo = "SELECT ac.num_abo_com, ac.num_abonnement, a.nom_abonnement
@@ -122,26 +91,27 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
         <tr>
             <th>
 <?php
+
             // Choisir les spectacles (renseigner dans $nom_spectacle_x_vendu)
                       $rqSql = "SELECT ac.num_abo_com , ab.nombre_spectacle
                                 FROM abonnement AS ab, abonnement_comm AS ac
                                 WHERE ac.num_abo_com = '$num_abo_com'
                                 AND ab.num_abonnement = ac.num_abonnement ";
            $result = mysql_query( $rqSql )or die( "Execution requete -rqSql- impossible.");
-           
+     $num_abo_com;      
                     $i=1;
             while ( $row = mysql_fetch_array( $result)) 
             {
+
                // $num_abonnement_test = $row["num_abonnement"];
                 $nombre_spectacle= $row["nombre_spectacle"];
                 
                 //On affiche un champs  select pour chaque spectacle
                     for($nb = 1; $nb <= $nombre_spectacle; $nb++)
                             {
-                                
                             ?>
                                 <SELECT name='liste_choix_spectacle_<?php echo $nb ;?>'>
-                                <OPTION VALUE=""><?php echo $nom_ancien_choix_.$nb ;?></OPTION>                             
+                                    
                                 
                                 <?php
                                  // lister les numero et les nom des spectacle active (meme ceux complet)
@@ -149,6 +119,12 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                                       FROM article 
                                                       WHERE actif != 'non'";
                                 $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
+                                // Récupérer le nom de l'ancien spectable
+                                $req_recup_ancien_val = "SELECT num_spectacle_".$nb."
+                                                        FROM abonnement_comm
+                                                        WHERE num_abo_com = '$num_abo_com'";
+                               $ancien_id_spectacle= mysql_query($req_recup_ancien_val)or die( "Execution requete -req_recup_ancien_val- impossible.");
+                                $id_spectacle = mysql_fetch_row($ancien_id_spectacle);
 
                                 while ( $liste_spectacle = mysql_fetch_array( $liste_article))  
                                 {
@@ -158,7 +134,8 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                     $liste_spectacle_contenu_horaire = $liste_spectacle["horaire"];
                                     $liste_spectacle_contenu_date = $liste_spectacle["date_spectacle"];                                    
                                     ?>
-                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> [ <?php echo $liste_spectacle_contenu_horaire; ?> ] <?php echo $liste_spectacle_contenu_date; ?></OPTION>
+                                    
+                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>' <?php if ($id_spectacle[0] == $liste_spectacle_contenu_num) { ?> selected <?php } ; ?>><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> [ <?php echo $liste_spectacle_contenu_horaire; ?> ] <?php echo $liste_spectacle_contenu_date; ?></OPTION>
                                     <?php
                                 }
                                 ?>

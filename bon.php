@@ -49,7 +49,7 @@ $annee_2= $annee_1 -1;
     <td  class="page" align="center">
     <?php
 
-    //on recup�re les infos par post ou get
+    //on recupre les infos par post ou get
     $client=isset($_POST['listeville'])?$_POST['listeville']:"";
     $date=isset($_POST['date'])?$_POST['date']:"";
     $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
@@ -105,7 +105,7 @@ $annee_2= $annee_1 -1;
           <?php
 
           // pour ne montrer que les articles dont le stock est "0" ou inf.
-          $rqSql11 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
+          $rqSql11 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax, type_article, horaire
           FROM " . $tblpref ."article
           WHERE stock < '1'
           AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -118,13 +118,15 @@ $annee_2= $annee_1 -1;
           while ( $row = mysql_fetch_array( $result11)) 
           {		
           $article= stripslashes($row["article"]);
+          $type_article = $row["type_article"];
+          $horaire = $row["horaire"];
           $date = $row["date"];
           $stock = $row['stock'];
           if ($stock<=0 ) 
           {
           $stock="Ce spectacle est complet";
           $style= 'style="color:red; background:#cccccc; font-weight:bold;"';
-          $option1="".$article." ---". $date."-- ".$stock."";
+          $option1="$type_article - ".$article." - ". $date." a ".$horaire." - ".$stock."";
           }
 
           ?>
@@ -141,7 +143,7 @@ $annee_2= $annee_1 -1;
           <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
           <?php
           //pour n 'affiches que les articles  en stock
-          $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
+          $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax, type_article, horaire
                     FROM " . $tblpref ."article
                     WHERE stock > '0'
                     AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -155,6 +157,8 @@ $annee_2= $annee_1 -1;
             {
               $num = $row["num"];
               $article= stripslashes($row["article"]);
+              $type_article = $row['type_article'];
+              $horaire = $row['horaire'];
               $date = $row["date"];
               $stock = $row['stock'];
               $min = $row['stomin'];
@@ -167,13 +171,13 @@ $annee_2= $annee_1 -1;
                 {
                   $stock="Attention plus que $stock places";
                   $style= 'style="color:#961a1a; background:#ece9d8;"';
-                  $option="".$article." ---". $date." ---".$stock."";
+                  $option="$type_article - ".$article." - ". $date."a $horaire - ".$stock."";
                 }
                 else 
                 {
                   $stock= "Le stock est de ".$stock." places";
                   $style= 'style="color:black; background-color:##99fe98;"';
-                  $option="".$article." ---". $date." ---".$stock."";
+                  $option="$type_article - ".$article." - ". $date."a $horaire - ".$stock."";
                 }
             ?>
             <input  type="checkbox" VALUE='<?php echo $num; ?>' name="article[]"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>

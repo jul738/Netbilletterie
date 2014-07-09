@@ -115,7 +115,7 @@ $annee_2= $annee_1 -1;
                                                     $quanti_par_abonnement = $data2['quanti'];
                                                     $nom_des_abonnement = $data2['nom_abonnement'];
                                                     $num_des_abonnement = $data2['num_abonnement'];
-                                                    
+
                                                     
                                                     //Recup le total des vente par abonnement
                                                     $req_recup_vente_abo_1 = "SELECT SUM(ap.total_ttc) AS total_par_abonnement, a.nom_abonnement
@@ -145,11 +145,11 @@ $annee_2= $annee_1 -1;
                                                 
 ?>      
                                        
-                                    <tr>
-                                        <td> <?php echo $nom_des_abonnement ;?> </td>
-                                        <td> <?php echo $quanti_par_abonnement ;?> </td>
-                                        <td> <?php echo $total_par_abonnement ;?> <?php echo $devise ;?> </td>
-                                        <td> <?php echo $pourcent_par_abonnement ;?> % </td>
+                                    <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
+                                        <td class="highlight"> <?php echo $nom_des_abonnement ;?> </td>
+                                        <td class="highlight"> <?php echo $quanti_par_abonnement ;?> </td>
+                                        <td class="highlight"> <?php echo $total_par_abonnement ;?> <?php echo $devise ;?> </td>
+                                        <td class="highlight"> <?php echo $pourcent_par_abonnement ;?> % </td>
                                     </tr>
                                             
                                             
@@ -159,6 +159,7 @@ $annee_2= $annee_1 -1;
                                                                                        } //fin while $pourcent_par_abonnement
 ?>
                                     </table>
+</table>
 <?php 
     include("help.php");
     include_once("include/bas.php");

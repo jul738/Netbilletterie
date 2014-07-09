@@ -126,14 +126,12 @@ $annee_2= $annee_1 -1;
 			if ($user_admin != 'n'){ ?>
         <tr><td><a href="form_commande_caisse_postdate.php"><img src="image/billetterie_v2.png"> <br/> Effectuer un enregistrement de caisse postdate.</a></td></tr>
 	<?php } ?>
-	<tr>
-		<td>
-			<?php
-			include_once("include/bas.php");
-			?>
-		</td>
-	</tr>
-</table>
+        </table>
+
+<?php
+include_once("include/bas.php");
+?>
+
 
 
 

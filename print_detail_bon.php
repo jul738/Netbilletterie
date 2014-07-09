@@ -3,11 +3,11 @@ window.print() ;
 </script>
 
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Jose Das Neves pitu69@hotmail.fr*/
 
 $date_debut=isset($_GET['date_debut'])?$_GET['date_debut']:"";
 	list($jour, $mois, $annee) = explode("-", $date_debut);
@@ -23,7 +23,7 @@ include_once("include/config/var.php");
 require_once("include/utils.php");
 include_once("include/themes/default/style_print.css");
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -50,7 +50,7 @@ if ($annee_1=='')
 }
 $annee_2= $annee_1 -1;
 //=============================================
-//on recupère les infos des bons de commandes
+//on recupere les infos des bons de commandes
 $sql="SELECT num_bon, fact, nom, 
 		DATE_FORMAT(date,'%d-%m-%Y') AS date, tot_tva, paiement
 		FROM ". $tblpref."bon_comm
@@ -79,20 +79,20 @@ $req = mysql_query($sql) or die('Erreur SQL0 !<br>'.$sql.'<br>'.mysql_error());
 					echo "Saison culturelle $annee_2 - $annee_1.  Liste de tous les enregistrements. ";
 					}
 					if ( $date_debut != ''){
-					echo "Pour la pèriode du $date_debut au $date_fin";
+					echo "Pour la pï¿½riode du $date_debut au $date_fin";
 					}
 					?>
 		</h2>
 	<table class="liste">
 			<tr>
-				<th>N°</th>
+				<th>Numero</th>
 				<th>Spectateurs</th>
 				<th width="10%">Date</th>
-				<th>Réglé ?</th>
+				<th>Regle ?</th>
 				<th WIDTH=5%>Total versement</th>
-				<th WIDTH=5%>Encaissé</th>
+				<th WIDTH=5%>Encaisse</th>
 				<th>Billets</th>
-				<th WIDTH=3%>Quantité</th>
+				<th WIDTH=3%>Quantite</th>
 				<th>Spectacle</th>
 				<th>Tarif</th>
 				<th WIDTH=3%>Total sur le spectacle</th>
@@ -123,7 +123,7 @@ $req = mysql_query($sql) or die('Erreur SQL0 !<br>'.$sql.'<br>'.mysql_error());
 				 <td colspan="6"></td>
 			</tr>
 					<?php
-//on recupère les infos de chaque enregistrement
+//on recupï¿½re les infos de chaque enregistrement
 			$sql11 = "SELECT article, quanti, ".$tblpref."tarif.id_tarif, ".$tblpref."tarif.prix_tarif, nom_tarif, to_tva_art 
 						FROM `".$tblpref."cont_bon`, ".$tblpref."article, ".$tblpref."tarif 
 						WHERE ".$tblpref."tarif.id_tarif=".$tblpref."cont_bon.id_tarif
@@ -142,7 +142,7 @@ $req = mysql_query($sql) or die('Erreur SQL0 !<br>'.$sql.'<br>'.mysql_error());
 			  $prix_tarif = $data['prix_tarif'];
 			  $to_tva_art = $data['to_tva_art'];
 			  $id_tarif = $data['id_tarif'];
-				//on recupère infos du carnet au depart de la saison et la quantité vendu depuis jusqu'à ce bon en filtrant par tarif
+				//on recupere infos du carnet au depart de la saison et la quantite vendu depuis jusqu'a ce bon en filtrant par tarif
 				$sql10 = "
 					SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
 					FROM ". $tblpref."cont_bon CB, ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
@@ -165,9 +165,9 @@ $req = mysql_query($sql) or die('Erreur SQL0 !<br>'.$sql.'<br>'.mysql_error());
 			<td colspan="6" class="highlight"></td>
 			<td  WIDTH=20% class="highlight">
 				<?php 
-				if ($fact!='ok'){ echo 'pas de billet donné car non encaissé';}
+				if ($fact!='ok'){ echo 'pas de billet donne car non encaisse';}
 				 else {
-					  //Pour chaque enregistrement le N° du premier billet vendu
+					  //Pour chaque enregistrement le Numero du premier billet vendu
 					 if ($t!=$id_tarif){
 						 $q='';
 						 }
@@ -175,13 +175,13 @@ $req = mysql_query($sql) or die('Erreur SQL0 !<br>'.$sql.'<br>'.mysql_error());
 					 else {$q=$q+$quanti;}
 					$du=$carnet+$quanti01-intval($q);
 
-					 //Pour chaque enregistrement le N° du dernier billet vendu
+					 //Pour chaque enregistrement le Numero du dernier billet vendu
 					 $au=$carnet+$quanti01-1;
 							//echo "carnet=$carnet- quanti01 =$quanti01-quanti_q=$q- quanti_boucle$quanti-au=$au<br>";
 							//echo " Billet(s) vendu. ";
 					$billet=$du;
 					for($i=0; $i<$quanti; $i++){
-					 echo "N°".sprintf('%1$04d',$billet).", ";
+					 echo "Numero".sprintf('%1$04d',$billet).", ";
 					 $billet++;
 					}
 					 echo "<br/>";

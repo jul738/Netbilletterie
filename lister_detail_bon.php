@@ -10,18 +10,18 @@ table.liste th      { background: #cecece; }
 table.liste td.col1 { color: #FF0000;border: solid 2px ; }
 </style>
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Jose Das Neves pitu69@hotmail.fr*/
 
 $date_debut=isset($_GET['date_debut'])?$_GET['date_debut']:"";
 $date_fin=isset($_GET['date_fin'])?$_GET['date_fin']:"";
 
 include_once("include/config/common.php");
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -64,7 +64,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
 ?> 
 <page>
-    <a href="lister_detail_commandes.php">Revenir à la liste détaillée des commandes</a>
+    <a href="lister_detail_commandes.php">Revenir a la liste detaillee des commandes</a>
 				<br>
 				<br><h1>Liste des ventes d&#233;taill&#233;es pour la saison culturelle <?php echo $annee_2; ?>-<?php echo $annee_1; ?> </h1>
                                 <br>
@@ -75,21 +75,21 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
                                 $datefin = "$jour-$mois-$annee";
 
                                 ?>
-                                <h2>Réservations et billetterie faites entre le <?php echo $datedebut; ?> et le <?php echo $datefin; ?> </h2>
+                                <h2>Reservations et billetterie faites entre le <?php echo $datedebut; ?> et le <?php echo $datefin; ?> </h2>
                                 <br>
                                 
 				<table class="liste">
 					
 
 						<tr>
-							<th>N°</th>
+							<th>Numero</th>
 							<th>Nom</th>
 							<th>Date</th>
-							<th>Réglé ?</th>
+							<th>Regle ?</th>
 							<th WIDTH=5%>Total versement</th>
-							<th WIDTH=5%>Pointé</th>
+							<th WIDTH=5%>Pointe</th>
 							<th>Billets</th>
-							<th WIDTH=3%>Quantité</th>
+							<th WIDTH=3%>Quantite</th>
 							<th>Spectacle</th>
 							<th>Tarif</th>
 							<th WIDTH=3%>Total sur le spectacle</th>
@@ -123,7 +123,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 							 <td colspan="6"></td>
 						</tr>
 								<?php
-							//on recupère les infos de chaque enregistrement
+							//on recupï¿½re les infos de chaque enregistrement
 							$sql11 = "SELECT article, quanti, ". $tblpref."tarif.id_tarif, ". $tblpref."tarif.prix_tarif, nom_tarif, to_tva_art FROM `". $tblpref."cont_bon`, ". $tblpref."article, ". $tblpref."tarif 
 								WHERE ". $tblpref."tarif.id_tarif=". $tblpref."cont_bon.id_tarif
 								AND ". $tblpref."article.num=". $tblpref."cont_bon.article_num
@@ -138,7 +138,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 								  $prix_tarif = $data['prix_tarif'];
 								  $to_tva_art = $data['to_tva_art'];
 								$id_tarif = $data['id_tarif'];
-							//on recupère infos du carnet au depart de la saison et la quantité vendu depuis jusqu'à ce bon en filtrant par tarif
+							//on recupï¿½re infos du carnet au depart de la saison et la quantite vendu depuis jusqu'a ce bon en filtrant par tarif
 								$sql10 = "
 								SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
 								FROM ". $tblpref."cont_bon CB, ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
@@ -164,14 +164,14 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 									 
 											 $t='';
 											 
-										 //Pour chaque enregistrement le N° du premier billet vendu
+										 //Pour chaque enregistrement le Numero du premier billet vendu
 										 if ($t!='$id_tarif'){
 											 $q='';
 											 }
 										 if ($q==''){$q=$quanti;}
 										 else {$q=$q+$quanti;}
 										$du=$carnet+$quanti01-intval($q);
-										 //Pour chaque enregistrement le N° du dernier billet vendu
+										 //Pour chaque enregistrement le Numero du dernier billet vendu
 										$au=$carnet+$quanti01-1;
 										$billet=$du;
 										for($i=0; $i<$quanti; $i++)

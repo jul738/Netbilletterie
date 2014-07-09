@@ -37,7 +37,7 @@ include_once("include/fonction.php");
                                 
                 
                 // requete sql avec les abonnement // 
-                $sql = " SELECT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.civ, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
+                $sql = " SELECT DISTINCT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.civ, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
                 FROM client C, abonne A
                 WHERE C.num_client = A.num_abonne
                 AND C.nom LIKE '$initial%' 
@@ -118,12 +118,15 @@ $req_recup_abo = "SELECT ab.type_abonnement
                   WHERE ab.num_abonnement = ac.num_abonnement
                   AND ac.client_num = '$num'
                   AND ac.date_fin <= CURRENT_DATE";
+
 $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_abo.'<br>'.mysql_error());
+            $type_abonnement = '';
             while ($data5 = mysql_fetch_array($recup_abo_brut))
             {
             $type_abonnement = $data5['type_abonnement'];
+
             }
-								?>
+            ?>
 					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
 							<td><?php echo $civ; ?></td>
 							<td><?php echo $nom; ?></td>

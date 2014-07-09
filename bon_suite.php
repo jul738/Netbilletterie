@@ -175,7 +175,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 			<caption>Actuellement l'abonnement est compose de</caption>
 				<tr>
 					<th><?php echo $lang_quantite ;?></th>
-					<!-- th>N� billet(s)</th-->
+					<!-- th> Numero billet(s) </th-->
 					<th><?php echo $lang_article ;?></th>
 					<th><?php echo $lang_montant_htva ;?></th>
 					<?php if ($impression=="y") { 
@@ -264,7 +264,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 				} 
 										?>
 					</td-->
-					<td class ='highlight'><?php echo"$article | $date| $nom_tarif";?></td>
+					<td class ='highlight'><?php echo"$type_article | $article | $date| $nom_tarif";?></td>
 					<td class ='highlight'><?php echo"$tot $devise"; ?></td>
 					<?php if ($impression=="y") { 
 						if ($print_user=="y") { ?>
@@ -307,10 +307,10 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 			<!-- Formulaire d'enregistrement de nouveaux articles -->
 			<form name='formu2' method='post' action='bon_suite.php'>
 				<table class="boiteaction">
-				<caption> Compl�ter l'abonnement</caption>
+				<caption> Completer l'abonnement</caption>
 				<?php
 					// pour ne montrer que les articles dont le stock est "0" ou inf.
-							 $rqSql11 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, actif, stock, stomin, stomax
+							 $rqSql11 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, actif, stock, stomin, stomax, horaire, type_article
 														FROM ".$tblpref."article
 														WHERE stock < '1'
 														AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -321,12 +321,14 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 					  <?php
 									while ( $row = mysql_fetch_array( $result11)) {
 											$article = stripslashes($row["article"]);
+                                                                                        $type_article = $row['type_article'];
+                                                                                        $horaire = $row['horaire'];
 											$actif = $row["actif"];
 											$date = $row["date"];
 											$stock = $row['stock'];
 											if ($stock<=0 ) {
-															$style= 'style="color:red; background:#cccccc; font-weight:bold;"';
-															$option1="".$article."---". $date."--".$actif."";
+													$style= 'style="color:red; background:#cccccc; font-weight:bold;"';
+													$option1="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
 											}
 											?>
 										<p <?php echo"$style"; ?>><?php echo"$option1"; ?></p>
@@ -340,7 +342,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 					<tr>
 						<td class="texte0">Choisir le  <?php echo "$lang_article";
 							//pour n'affich�s que les articles  en stock
-							 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
+							 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax, horaire, type_article
 														FROM ".$tblpref."article
 														WHERE stock > '0'
 														AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -353,6 +355,8 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 
 											$num = $row["num"];
 											$article = stripslashes($row["article"]);
+                                                                                        $type_article = $row['type_article'];
+                                                                                        $horaire = $row['horaire'];
 											$date = $row["date"];
 											$stock = $row['stock'];
 											$min = $row['stomin'];
@@ -363,12 +367,12 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 										elseif ($stock <= $min && $stock >= 1  ) {
 											$stock_txt="Attention plus que $stock places";
 											$style= 'style="color:#961a1a; background:#ece9d8;"';
-											$option="".$article." ---". $date." ---".$stock_txt."";
+											$option="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
 										}
 										else {
 											 $stock_txt= "Le stock est de ".$stock." places";
 											 $style= 'style="color:black; background-color:##99fe98;"';
-											 $option="".$article." ---". $date." ---".$stock_txt."";
+											 $option="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
 										}
 								?>
 							<input  type="checkbox" VALUE='<?php echo $num; ?>' name="article[]"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>

@@ -130,9 +130,9 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                                 <img border="0" alt="voir" src="image/edit.png" Title="Modifier l'abonnement"></a></td>
                         <td><a href='delete_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="supprimer" src="image/delete.png" Title="Supprimer l'abonnement"></a></td>
-                        <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
+                        <td><a href='fpdf/abonnement_pdf.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="mail" src="image/print.png" Title="Imprimer l'abonnement"></a></td>
-                        <td><a href='.php?num_abo_com=   <?php echo "$num_abo_com"; ?>' >
+                                <td><a href='/fpdf/bon_pdf.php?num_abo_com=<?php echo "$num_abo_com"; ?>'>
                                 <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail au spectateur"></a></td>
                 </tr>
           <?php } //Fin du while ?> 
