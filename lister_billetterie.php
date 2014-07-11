@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -24,7 +24,7 @@ include_once("include/finhead.php");
 
   <tr>
     <td class="page" align="center">
-       <h3>Liste des réservations 
+       <h3>Liste des reservations 
          <?php if ($user_admin == 'y'||$user_dev=='y'){?>
         <SCRIPT LANGUAGE="JavaScript">
         if(window.print)
@@ -50,7 +50,7 @@ include_once("include/finhead.php");
             }
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -107,11 +107,11 @@ $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, to
                     <th><?php echo $lang_client; ?></th>
                     <th><?php echo $lang_date; ?></th>
                     <th><?php echo $lang_total_ttc; ?></th>
-                    <th>Réglé?</th>
+                    <th>Regle?</th>
           <?php if ($user_admin == 'y'||$user_dev=='y') 
             { ?>                  
-          <th>Encaissé</th>
-          <th>Contrôlé</th>
+          <th>Encaisse</th>
+          <th>Controle</th>
           <?php }?>
                     <th>Commentaires</th>
                     <th><small>Voir</small></th>
@@ -149,7 +149,7 @@ $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, to
                       $coment = $data['coment'];
                       $coment=stripslashes($coment);
                       $ttc = $data['ttc'];
-                      echo "$ctrl";
+                      //echo "$ctrl";
                       ?>
                 <tr>
                     <td><?php echo "$num_bon"; ?></td>

@@ -79,7 +79,7 @@ $req = mysql_query($sql) or die('Erreur SQL0 !<br>'.$sql.'<br>'.mysql_error());
 					echo "Saison culturelle $annee_2 - $annee_1.  Liste de tous les enregistrements. ";
 					}
 					if ( $date_debut != ''){
-					echo "Pour la p�riode du $date_debut au $date_fin";
+					echo "Pour la periode du $date_debut au $date_fin";
 					}
 					?>
 		</h2>

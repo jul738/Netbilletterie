@@ -198,7 +198,7 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
             <th> Total               </th>
             <th>Paiement</th>
             <th>Controle</th>
-            <th>fact</th>
+            <th>Encaisse</th>
             <th> Spectacle choix 1   </th>
             <th> Spectacle choix 2   </th>
             <th> Spectacle choix 3   </th>

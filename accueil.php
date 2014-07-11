@@ -194,7 +194,7 @@ include_once("include/configav.php");
         <tr>
 		<td>
 	      		<table class="boiteaction">
-                            <caption> Cliquer ici pour vous diriger vers la documentation </br> /!\ En Cour /!\</caption>
+                            <caption> Cliquer ici pour vous diriger vers la documentationlis</caption>
 </table>
 </table>
 

@@ -58,9 +58,9 @@ $annee_2= $annee_1 -1;
 <div><img src="<?php echo $logo;?>"  width="200" align="left" >
 <?php echo "<h4>$slogan $annee_2-$annee_1</h4>$c_postal $ville <br/>$tel <br/> $mail";?></div>
 <br/><br/><br/>
-				<h1>R�gie de spectacle Commune de Lentilly 217</h1>
+				<h1>Salle des Rancy</h1>
 				 <h2><?php if ( $regie != ''){
-								echo "N� r�gie: $regie";
+								echo "";
 								}
 								?>
 				</h2>
@@ -68,17 +68,17 @@ $annee_2= $annee_1 -1;
 								echo "Saison culturelle $annee_2 - $annee_1.  Liste de tous les enregistrements. ";
 								}
 								if ( $date_debut != ''){
-								echo "Pour la p�riode du $date_debut au $date_fin";
+								echo "Pour la periode du $date_debut au $date_fin";
 								}
 								?>
 				</h2>
 <table class="liste" cellspacing="0"  cellpadding="0">
 <tr>
 
-	<th>Montant <br/>Ch�ques</th>
-	<th>Montant <br/>Esp�ces</th>
+	<th>Montant <br/>Cheques</th>
+	<th>Montant <br/>Especes</th>
 	<th>Montant <br/>M ra</th>
-	<th>Montant <br/>Site billet r�duc</th>
+	<th>Montant <br/>Site billet reduc</th>
 	<?php 
 	//on recup�re les infos des tarifs
 	$sql = "SELECT * 
@@ -91,11 +91,11 @@ $annee_2= $annee_1 -1;
 		$nom_tarif=$data['nom_tarif'];
 		$prix_tarif= $data['prix_tarif'];
 	?>
-	<th width='10%'><?php echo "$nom_tarif <br/> � $prix_tarif"; ?> </th>
+	<th width='10%'><?php echo "$nom_tarif <br/> a $prix_tarif"; ?> </th>
 	<?php  
 	} 
 	?>
-	<th width='10%'>Titulaire <br/> Ch�que</th>
+	<th width='10%'>Titulaire <br/> Cheque</th>
 	<th width='10%'>Etablissement <br/>bancaire</th>
 	
 </tr>
@@ -103,7 +103,7 @@ $annee_2= $annee_1 -1;
 //======================================================================================
 	//on boucle sur les bons de commandes paiement par cheque et puis Esp�ces
 //==========================================================================================
-	$tableau_paiement = array("Ch�que", "Esp�ces", "M ra", "Site billet r�duc");
+	$tableau_paiement = array("Cheque", "Especes", "M ra", "Site billet reduc");
 	for($nbr=0;$nbr<sizeof($tableau_paiement);$nbr++)
 	{
 		$paiement=$tableau_paiement[$nbr];
@@ -133,16 +133,16 @@ $annee_2= $annee_1 -1;
 			?>
 			<tr>
 				<?php
-				if ($paiement=='Ch�que') {
+				if ($paiement=='Cheque') {
 					echo "<td class='top'>$tva $devise</td><td class='top'></td><td class='top'></td><td class='top'></td>";
 				} 
-				if ($paiement=='Esp�ces') {
+				if ($paiement=='Especes') {
 				echo "<td class='top'></td><td class='top'>$tva $devise</td><td class='top'></td><td class='top'></td>";
 				}
 				if ($paiement=='M ra') {
 					echo "<td class='top'></td><td class='top'></td><td class='top'>$tva $devise</td><td class='top'></td>";
 				}
-				if ($paiement=='Site billet r�duc') {
+				if ($paiement=='Site billet reduc') {
 					echo "<td class='top'></td><td class='top'></td><td class='top'></td><td class='top'>$tva $devise</td><td class='top'></td>";
 				} ?>
 				<td class="top" colspan=" <?php echo "$nombre_tarif"; ?>" style="border-bottom:1px solid;"></td>

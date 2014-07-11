@@ -96,7 +96,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
                 <th> Image</th>
                 <th><a href="lister_articles.php?ordre=type_article"> Type </a></th>
 		<th><a href="lister_articles.php?ordre=article"> <?php echo $lang_article; ?></a></th>
-                <th>Representation</th>
+      <!--          <th>Representation</th>   -->
 		<th><a href="lister_articles.php?ordre=lieu">Lieu</a></th>
 		<th><a href="lister_articles.php?ordre=horaire">horaire</a></th>
 		<th><a href="lister_articles.php?ordre=date_spectacle">date</a></th>
@@ -149,7 +149,7 @@ while($data = mysql_fetch_array($req))
 		<td class="highlight"><img src="<?php echo$image; ?>" height="100"></td>
                 <td class="highlight"><?php echo $type_article; ?></td>	
 		<td class="highlight"><?php echo $article_html; ?></td>	 
-                <td class="highlight"><small><?php echo $numero_representation; ?></small></td>
+ <!--               <td class="highlight"><small><?php // echo  $numero_representation; ?></small></td>  -->
 		<td class="highlight"><?php echo $lieu_html; ?></td>
 		<td class="highlight"><?php echo $horaire; ?></td>
 		<td class="highlight"><?php echo $jour . '-' . $mois . '-' . $annee; ?></td>		

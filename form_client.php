@@ -171,6 +171,7 @@ if (document.client.mail.value != document.client.mail2.value)	{
 							<OPTION VALUE="Mr">Monsieur</OPTION>
 							<OPTION VALUE="Mlle">Mademoiselle</OPTION>
 							<OPTION VALUE="Mlle">Famille</OPTION>
+                                                        <OPTION VALUE="Groupe">Groupe</OPTION>
 						</select>
 					</td>
 				</tr>
@@ -201,22 +202,6 @@ if (document.client.mail.value != document.client.mail2.value)	{
 				<tr>
 					<td  class="texte1">Confirmer l'<?php echo $lang_email; ?></td>
 					<td class="texte0"><input name="mail2" type="text" onKeyUp="javascript:couleur(this);" ></td>
-				</tr>
-                                <tr>
-					<td class="texte0"> Autre personne </td>
-					<td class="texte1"><input name="autre_personne" type="text" id="autre_persone" value=""></td>
-				</tr>
-                                <tr> 
-					<td class="texte0">Enfant 1 :</td>
-					<td class="texte1"><input name="enfant_1" type="text" id="enfant_1" value=""></td>
-				</tr>
-                                <tr> 
-					<td class="texte0">Enfant 2 :</td>
-					<td class="texte1"><input name="enfant_2" type="text" id="enfant_2" value=""></td>
-				</tr>
-                                <tr> 
-					<td class="texte0">Enfant 3 :</td>
-					<td class="texte1"><input name="enfant_3" type="text" id="enfant_3" value=""></td>
 				</tr>
 				<tr> 
 					<td class="submit" colspan="2">

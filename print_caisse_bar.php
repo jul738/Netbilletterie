@@ -1,9 +1,9 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -18,7 +18,7 @@ $date_fin=isset($_GET['date_fin'])?$_GET['date_fin']:"";
 $date02 = "$annee-$mois-$jour";
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -46,7 +46,7 @@ if ($annee_1=='')
 $annee_2= $annee_1 -1;
 //=============================================
 
-//on recupère les infos de la caisse bar par num d'enregistrement
+//on recupï¿½re les infos de la caisse bar par num d'enregistrement
 $sql = "SELECT * FROM " . $tblpref ."enregistrement_caisse
 		WHERE libelle='bar' ";
 		if ( $date_debut ==""){
@@ -60,7 +60,7 @@ $sql = "SELECT * FROM " . $tblpref ."enregistrement_caisse
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
 
-//on recupère le total en caisse
+//on recupï¿½re le total en caisse
 $sql3 = " SELECT IF(total<0,total,0) neg ,
 IF(total>0,total,0) pos, id_enregistrement_caisse
 FROM ".$tblpref."enregistrement_caisse
@@ -99,15 +99,15 @@ window.print() ;
 
 <page >
 
-<a href="impression_caisse.php" class="noImpr"><img src="image/retour.png">Revenir en arriére</a><br/>
+<a href="impression_caisse.php" class="noImpr"><img src="image/retour.png">Revenir en arriere</a><br/>
 <div><img src="<?php echo $logo;?>"  width="200" align="left" >
 <?php echo "<h4>$slogan $annee_2-$annee_1</h4>$c_postal $ville <br/>$tel <br/> $mail";?></div>
 <br/>
 <h1>Caisse buvette</h1>
-	<h2>La caisse des espèces est actuellement de <FONT face="Comic Sans MS" color="red"><?php echo "$total_caisse $devise"; ?></FONT></h2>
+	<h2>La caisse des especes est actuellement de <FONT face="Comic Sans MS" color="red"><?php echo "$total_caisse $devise"; ?></FONT></h2>
 			Avec <br/>
 			<?php
-			//On montre ce qu'il y a dans la caissse à ce moment 
+			//On montre ce qu'il y a dans la caissse ï¿½ ce moment 
 				if($pos!="0"){
 					$sql1 = "SELECT
 							nbr as nbr1, espece, ".$tblpref."caisse.total as total1, libelle FROM `".$tblpref."caisse`, `".$tblpref."enregistrement_caisse`
@@ -147,16 +147,16 @@ window.print() ;
 						echo "Saison culturelle $annee_2 - $annee_1.  Liste de tous les enregistrements. ";
 						}
 						if ( $date_debut != ''){
-						echo "liste des enregistrements pour la pèriode du $date_debut au $date_fin";
+						echo "liste des enregistrements pour la periode du $date_debut au $date_fin";
 						}
 						?></h2></caption>
 	<tr>
-		<th>N°</th>
+		<th>Num</th>
 		<th>date</th>
 		<th>Commentaire</th>
 		<th>Total de <br>l'enregistrement</th>
 		<th>Par ?</th>
-		<th>Types d'espèce</th>
+		<th>Types d'espece</th>
 		<th>Nbr</th>
 		<th>total</th>
 	</tr>

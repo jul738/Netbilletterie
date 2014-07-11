@@ -92,15 +92,12 @@ while($data = mysql_fetch_array($req2))
         </tr>
         
                 <tr>        
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=civ"><?php echo $lang_civ; ?> </a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom"><?php echo $lang_nom; ?></a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue"><?php echo $lang_rue; ?></a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp"><?php echo $lang_code_postal; ?></a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville"><?php echo $lang_ville; ?></a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=tel"><?php  echo $lang_tele;?></a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=mail"><?php echo $lang_email; ?></a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom_tarif">Type de tarif</a></th>
-                    <th>Nombre</th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=civ">Nom</a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom">Prenom</a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue">Telephone</a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp">Mail</a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville">Nom abonnement</a></th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=tel">Nombre place</a></th>
                 </tr>
 
 <?php
@@ -134,11 +131,12 @@ $total_tva = $data['SUM(to_tva_art)'];
                     }
 		?>
 		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
-                    <td class="highlight"><?php echo $civ; ?></td>
+         <!--           <td class="highlight"><?php  // echo $civ; ?></td> -->
                     <td class="highlight"><?php echo $nom_html; ?></td>
-                    <td class="highlight"><?php echo $rue; ?></td>
-                    <td class="highlight"><?php echo $cp; ?></td>
-                    <td class="highlight"><?php echo $ville; ?></td>
+         <!--           <td class="highlight"><?php // echo $rue; ?></td>
+                    <td class="highlight"><?php // echo $cp; ?></td> -->
+                    <td class="highlight"><?php echo $prenom ; ?></td> 
+          <!--          <td class="highlight"><?php // echo $ville; ?></td> -->
                     <td class="highlight"><?php echo $tel; ?></td>
                     <td class="highlight"><a href="mailto:<?php echo $mail; ?>" ><?php echo "$mail"; ?></a></td>
                     <td class="highlight"><?php echo $nom_tarif; ?></td>
@@ -158,15 +156,16 @@ $aide = client;
                     <th colspan="9"> Abonnements : </th>
                 </tr>
                 <tr>
-                    <th><small> Civilite </small></th>
-                    <th><small> Nom & Prenom </small></th>
-                    <th><small> Rue </small></th>
-                    <th><small> Code postal </small></th>
-                    <th><small> Ville </small></th>
+         <!--           <th><small> Civilite </small></th>  -->
+                    <th><small> Nom  </small></th>
+                    <th><small> Prenom  </small></th>
+                <!--    <th><small> Rue </small></th>
+         <!--           <th><small> Code postal </small></th> -->
+          <!--          <th><small> Ville </small></th>  -->
                     <th><small> Telephone </small></th>
-                    <th><small> e-mail </small></th>
-                    <th><small> Nom de l'abonnement </small></th>
-                    <th><small> Nombre de places</small></th>
+                    <th><small> Mail </small></th>
+                    <th><small> Nom abonnement </small></th>
+                    <th><small> Nombre place</small></th>
                 </tr>
 <?php 
 

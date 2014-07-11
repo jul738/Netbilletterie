@@ -41,7 +41,7 @@ $voir=isset($_POST['voir'])?$_POST['voir']:"";
 //on change le bon s'il vient de la liste d'attente en modifant le champ attente � 0
 if($attente=='1'){
 $sql22 = "UPDATE `".$tblpref."bon_comm` SET `attente` = '0' WHERE `num_bon` = '$num_bon'";
-mysql_query($sql22) or die("Erreur SQL22 !<br>'.$sql22.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour � la liste</a>");
+mysql_query($sql22) or die("Erreur SQL22 !<br>'.$sql22.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour a la liste</a>");
 }
 
 if($num_bon=='')
@@ -58,7 +58,7 @@ if($num_bon=='')
 $sql = "SELECT  coment, client_num, nom, paiement, fact, ctrl, user FROM ".$tblpref."bon_comm 
 	RIGHT JOIN ".$tblpref."client on ".$tblpref."bon_comm.client_num = ".$tblpref."client.num_client
 	WHERE num_bon = $num_bon";
-$req = mysql_query($sql) or die("Erreur SQL !<br>'.$sql.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour � la liste</a>");
+$req = mysql_query($sql) or die("Erreur SQL !<br>'.$sql.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour a la liste</a>");
 $data = mysql_fetch_array($req);
 $paiement = $data["paiement"];
 $paiement=stripslashes($paiement);
@@ -78,7 +78,7 @@ $sql5 = "SELECT ".$tblpref."cont_bon.num, ".$tblpref."cont_bon.id_tarif, print, 
 	    RIGHT JOIN ".$tblpref."tarif on ".$tblpref."cont_bon.id_tarif = ".$tblpref."tarif.id_tarif
 		WHERE  bon_num = $num_bon
 		ORDER BY ".$tblpref."tarif.nom_tarif, ".$tblpref."article.date_spectacle ASC";
-$req5 = mysql_query($sql5) or die("Erreur SQL5 !<br>'.$sql5.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour � la liste</a>");
+$req5 = mysql_query($sql5) or die("Erreur SQL5 !<br>'.$sql5.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour a la liste</a>");
 
 //=============================================
 //pour que les articles soit class�s par saison
@@ -134,7 +134,7 @@ if ($id_tarif!=""){
 $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif 
 			WHERE id_tarif=$id_tarif";
 $result33 = mysql_query( $rqSql33 )
- or die( "Exécution requétess impossible2.<br> <a href='lister_commandes.php'>retour � la liste</a>");
+ or die( "Exécution requétess impossible2.<br> <a href='lister_commandes.php'>retour a la liste</a>");
 while ( $row = mysql_fetch_array( $result33)) {
 		$id_tarif = $row["id_tarif"];
 		$nom_tarif = $row["nom_tarif"];
@@ -242,7 +242,7 @@ function edition()
 								AND ART.num=CB.article_num
 								AND	BC.num_bon <=$num_bon
 								AND CB.id_tarif=$id_tarif";
-					$req10 = mysql_query($sql10) or die("Erreur SQL10 !<br>'.$sql10.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour � la liste</a>");
+					$req10 = mysql_query($sql10) or die("Erreur SQL10 !<br>'.$sql10.'<br>.mysql_error()<br><a href='lister_commandes.php'>retour a la liste</a>");
 			if ($pointage=="ok"){
 					while($data = mysql_fetch_array($req10))
 				{    
@@ -270,7 +270,7 @@ function edition()
 							$billet=$du;
 							for($i=0; $i<$quanti; $i++)
 							{
-								echo "N°".sprintf('%1$04d',$billet).", ";
+								echo "Num ".sprintf('%1$04d',$billet).", ";
 							 	$billet++;
 							}
 								echo "<br/>";

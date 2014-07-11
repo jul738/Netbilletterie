@@ -43,7 +43,21 @@ $sql = "SELECT mail, login, client_num, num_abo_com, ctrl, fact, attente, coment
                                                 $bq = $data['banque'];
                                                 $titulaire_cheque = $data['titulaire_cheque'];
                                                 $coment = stripslashes($data['coment']);
+                                                
+                                                
 					}
+                                        
+                    //On recup le prix et le nom de l abonnement 
+                    $sql_prix = "SELECT A.tarif_abonnement, A.nom_abonnement
+                                 FROM abonnement_comm AC, abonnement A
+                                 WHERE AC.num_abonnement = A.num_abonnement
+                                 AND AC.num_abo_com = '$num_abo_com'";
+                    $sql_prix_brut = mysql_query($sql_prix) or die('Erreur SQL ? !<br>'.$sql_prix_brut.'<br>'.mysql_error());
+                    while($data4 = mysql_fetch_array($sql_prix_brut))
+                    {
+                        $tarif_abonnement = $data4['tarif_abonnement'];
+                        $nom_abonnement = $data4['nom_abonnement'];
+                    }
 
 // Fonction qui supprime l'effet des magic quotes
 /*function stripslashes_r($var) 
@@ -90,7 +104,7 @@ if(get_magic_quotes_gpc()) // Si les magic quotes sont actives, on les desactive
 							<td><?php echo"$num_abo_com" ?> </td>
 							<td><?php echo"$nom" ?></td>
 							<td><?php echo"$date" ?></td>
-							<td><?php echo"$total" ?></td>
+							<td><?php echo"$tarif_abonnement" ?><?php echo $devise ;?></td>
 							<td><select name="paiement" >
 								<?php if ($paiement=="non"){ ?>
 								<OPTION VALUE="non">En attente</OPTION>

@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -24,7 +24,7 @@ list($annee, $mois, $jour) = explode("-", $date_today);
 			<form action="print_detail_bon.php" method="get">
 				<center>
 					<table>
-						<b>Liste détaillée de toutes les réservations en cours</b></li>
+						<b>Liste detaillee de toutes les reservations en cours</b></li>
 						<tr>
 							<td><li>Imprimer en choisissant les dates entre le</td>
 							<td> <input name="date_debut" type="text" size="10" maxlength="40"  value="<?php echo $date_today;?>" ></td>
@@ -40,7 +40,7 @@ list($annee, $mois, $jour) = explode("-", $date_today);
 			<form action="print_pointes_ok.php" method="get">
 				<center>
 					<table>
-						<b>Liste détaillée des réservations pour la perception</b></li>
+						<b>Liste detaillee des reservations pour la perception</b></li>
 						<tr>
 							<td><li>Imprimer en choisissant les dates entre le</td>
 							<td> <input name="date_debut" type="text" size="10" maxlength="40"  value="<?php echo $date_today;?>" ></td>
@@ -56,13 +56,12 @@ list($annee, $mois, $jour) = explode("-", $date_today);
 			<form action="print_pointes_ok_light.php" method="get">
 				<center>
 					<table>
-						<b>Détail des encaissements pour la perception</b></li>
+						<b>Detail des encaissements pour la perception</b></li>
 						<tr>
 							<td><li>Imprimer en choisissant les dates entre le</td>
 							<td> <input name="date_debut" type="text" size="10" maxlength="40"  value="<?php echo $date_today;?>" ></td>
 							<td>et le </td>
 							<td> <input name="date_fin" type="text" size="10" maxlength="40" value="<?php echo $date_today;?>"></td>
-							<td>N° de régie<input name="regie" size="10" type="text" value="4711-100"></td>
 
 							<td> <input type="submit" name="Submit" value="Imprimer"></td>
 						</tr>

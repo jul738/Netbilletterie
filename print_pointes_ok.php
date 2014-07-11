@@ -70,7 +70,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 <div><img src="<?php echo $logo;?>"  width="200" align="left" >
 <?php echo "<h4>$slogan $annee_2-$annee_1</h4>$c_postal $ville <br/>$tel <br/> $mail";?></div>
 <br/><br/><br/>
-				<h1>Liste des r�servations encaiss�es</h1>
+				<h1>Liste des reservations encaissees</h1>
 					<h2><?php if ( $date_debut == ''){
 								echo "Saison culturelle $annee_2 - $annee_1.  Liste de tous les enregistrements. ";
 								}
@@ -81,14 +81,14 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 					</h2>
 				<table class="liste">
 						<tr>
-							<th>N�</th>
+							<th>Num</th>
 							<th>Spectateurs</th>
 							<th>Date encaissement</th>
-							<th>R�gl� ?</th>
+							<th>Regle ?</th>
 							<th WIDTH=5%>Total versement</th>
-							<th WIDTH=5%>Encaiss�</th>
-							<th>N� des billets</th>
-							<th WIDTH=3%>Quantit�</th>
+							<th WIDTH=5%>Encaisse</th>
+							<th>Num des billets</th>
+							<th WIDTH=3%>Quantite</th>
 							<th>Spectacle</th>
 							<th>Tarif</th>
 							<th WIDTH=3%>Total sur le spectacle</th>
@@ -242,7 +242,7 @@ exit;
 			<th width="10%"> Prix</th>
 			<th width="10%"> Nombre</th>
 			<th width="15%">Chiffre d'affaire</th>
-			<th>N� des tickets</th>
+			<th>Num des tickets</th>
 		</tr>
 		<?php
 		$sql6="SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
@@ -312,7 +312,7 @@ exit;
 		<?php } ?>
 	</table>
 <br/>
-<h1> R�capitulatifs des paiements</h1>
+<h1> Recapitulatifs des paiements</h1>
 <table width="200">
 	<tr>
 		<th width="50%">Total</th>

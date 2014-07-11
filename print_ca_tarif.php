@@ -99,7 +99,7 @@ window.print() ;
 							<th> Prix</th>
 							<th> Nombre</th>
 							<th>Chiffre d'affaire</th>
-							<th>N� des tickets</th>
+							<th>Num des tickets</th>
 						</tr>
 						<?php
 						$sql6="SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
@@ -167,7 +167,7 @@ window.print() ;
 	</tr>
 </table>
 <br/>
-<h1> R�capitulatifs des paiements</h1>
+<h1> Recapitulatifs des paiements</h1>
 <table WIDTH="300px">
 	<tr>
 		<th align="left">Total</th>

@@ -49,7 +49,7 @@ $annee = date("Y");?>
             </td>
           </tr>
           
-          <tr>
+  <!--        <tr>
                 <td class="texte1"> Representation numero : </td>
                 <td class="texte1">
                     <SELECT name="numero_representation">
@@ -63,7 +63,7 @@ $annee = date("Y");?>
                         <OPTION VALUE="8">8</OPTION>
                         <OPTION VALUE="9">9</OPTION>
                         <OPTION VALUE="10">10</OPTION>
-          </tr>
+          </tr> -->
 		                  
             <tr> 
                 <td class="texte1"> Type d'evenement : </td>
