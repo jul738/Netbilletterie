@@ -23,7 +23,7 @@ $login=isset($_POST['login'])?$_POST['login']:"";
 $pass=isset($_POST['pass'])?$_POST['pass']:"";
 $mail_cli=isset($_POST['mail'])?$_POST['mail']:"";
 $pass2=isset($_POST['pass2'])?$_POST['pass2']:"";
-$civ=isset($_POST['civ'])?$_POST['civ']:"";
+$prenom=isset($_POST['prenom'])?$_POST['prenom']:"";
 $tel=isset($_POST['tel'])?$_POST['tel']:"";
 $fax=isset($_POST['fax'])?$_POST['fax']:"";
 $ville= ucwords($ville);
@@ -31,6 +31,7 @@ $nom= ucwords($nom);
 $abonne_jp=isset($_POST['abonne_jp'])?$_POST['abonne_jp']:"";
 $abonne_chanson=isset($_POST['abonne_chanson'])?$_POST['abonne_chanson']:"";
 
+$nom = strtoupper( $nom );
 
 $sql2 = "SELECT * FROM ".$tblpref."client , ".$tblpref."abonne
 WHERE nom= 'client.".$nom."'
@@ -43,17 +44,17 @@ while($data = mysql_fetch_array($req2))
     {
     $client = $data['num_client'];
     $nom1 = stripslashes($data['nom']);
+    $prenom1 =$data['prenom'];
     $nom2 = $data['nom2'];
     $rue1 = $data['rue'];
     $ville1 = stripslashes($data['ville']);
     $mail1 =$data['mail'];
-    $civ1 = $data['civ'];
     $tel1 = $data['tel'];
     $abonne_jp1 = $data['abonne_jp'];
     $abonne_chanson1 = $data['abonne_chanson'];
     
     if ($nom1!=""){
-        echo "<h3><font color=red>$civ1 $nom1 demeurant: $rue1 a $ville1<br> Dont le mail est: $mail1 , et egalement abonne a : $abonne_chanson1 , $abonne_jp1 <br>est deja sur la liste</font></h3><hr> <a href='form_client.php'>Retour au formulaire de saisie </a><br><a href='form_commande.php'>Ou aller directement a la saisie de commande</a> ";
+        echo "<h3><font color=red> $nom1 $prenom demeurant: $rue1 a $ville1<br> Dont le mail est: $mail1 , et egalement abonne a : $abonne_chanson1 , $abonne_jp1 <br>est deja sur la liste</font></h3><hr> <a href='form_client.php'>Retour au formulaire de saisie </a><br><a href='form_commande.php'>Ou aller directement a la saisie de commande</a> ";
         exit;
     }
 
@@ -84,7 +85,7 @@ $message= "<h1> $lang_er_mo_pa</h1>";
     exit;
 		}
 }
-$sql1 = "INSERT INTO " . $tblpref ."client(nom, nom2, rue, ville, cp, num_tva, login, pass, mail, civ, tel, fax) VALUES ('$nom', '$nom_sup', '$rue', '$ville', '$code_post', '$num_tva', '$login', '$pass', '$mail_cli', '$civ', '$tel', '$fax')";
+$sql1 = "INSERT INTO " . $tblpref ."client(nom, nom2, rue, ville, cp, num_tva, login, pass, mail, prenom, tel, fax) VALUES ('$nom', '$nom_sup', '$rue', '$ville', '$code_post', '$num_tva', '$login', '$pass', '$mail_cli', '$prenom', '$tel', '$fax')";
 mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 
 // Requete gestion des Abonnement // 

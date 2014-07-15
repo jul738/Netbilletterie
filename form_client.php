@@ -164,20 +164,12 @@ if (document.client.mail.value != document.client.mail2.value)	{
 			<table >
 				<caption><?php echo $lang_client_ajouter; ?></caption>
 				<tr> 
-					<td class="texte0"><?php echo $lang_civ; ?></td>
-					<td class="texte0">
-						<SELECT name="civ">
-							<OPTION VALUE="Mme">Madame</OPTION>
-							<OPTION VALUE="Mr">Monsieur</OPTION>
-							<OPTION VALUE="Mlle">Mademoiselle</OPTION>
-							<OPTION VALUE="Mlle">Famille</OPTION>
-                                                        <OPTION VALUE="Groupe">Groupe</OPTION>
-						</select>
-					</td>
-				</tr>
-				<tr> 
-					<td class="texte1"><?php echo $lang_nom; ?></td>
+					<td class="texte1">Nom</td>
 					<td class="texte1"><input name="nom" type="text" id="nom" onKeyUp="javascript:couleur(this);"></td>
+				</tr>
+                                <tr> 
+					<td class="texte1">Prenom</td>
+					<td class="texte1"><input name="prenom" type="text" id="nom" onKeyUp="javascript:couleur(this);"></td>
 				</tr>
 				<tr> 
 					<td class="texte0"><?php echo $lang_rue; ?></td>

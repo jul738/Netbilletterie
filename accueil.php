@@ -16,6 +16,28 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 ?>
 
+
+<table border="0" class="page" align="center">
+
+        <tr>
+                <td> 
+                    <a href='form_client.php'><img border =0 src="image/kontact_contacts_2.png.png" alt=""> <br> Ajouter un nouveaux spectateur </a>
+                </td>
+                <td> 
+                    <a href='new_abonnement.php'><img border =0 src="image/new_mini_abonnement.png" alt=""> <br> Ajouter un nouvel d'abonnement </a>
+                </td>
+                <td> 
+                    <a href='form_commande.php'><img border =0 src="image/commandes_v2.png" alt=""> <br> Ajouter une reservation </a>
+                </td>
+                <td> 
+                    <a href='form_commande_soir.php'><img border =0 src="image/billetterie_v2.png" alt=""> <br> Vendre un billet </a>
+                </td>
+                <td> 
+                    <a href='form_article.php'><img border =0 src="image/spectacle_v2.png" alt=""> <br> Ajouter un spectacle </a>
+                </td>
+        </tr>
+</table>
+
 <!-- Information spectacles a venir -->
 <table border="0" class="page" align="center">
 	<tr>

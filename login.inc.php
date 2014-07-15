@@ -35,7 +35,7 @@ if (isset ($_POST) && !empty($_POST['login']) && !empty($_POST['pass']))
     'tblpref'=>$tblpref,
     'num'   =>$num
     ); 
-    header('location:lister_commandes.php');
+    header('location:accueil.php');
   }
   else{
       echo"<h1>Mauvais identifiant ou mot de passe</h1>";  

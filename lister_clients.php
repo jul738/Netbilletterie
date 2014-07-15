@@ -37,7 +37,7 @@ include_once("include/fonction.php");
                                 
                 
                 // requete sql avec les abonnement // 
-                $sql = " SELECT DISTINCT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.civ, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
+                $sql = " SELECT DISTINCT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.prenom, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
                 FROM client C, abonne A
                 WHERE C.num_client = A.num_abonne
                 AND C.nom LIKE '$initial%' 
@@ -50,7 +50,7 @@ include_once("include/fonction.php");
 		} 
 		else {
 		//$sql = " SELECT * FROM ".$tblpref ."client WHERE nom LIKE '$initial%' AND actif='y' AND `num_client`!='1' ORDER BY nom ASC";
-                  $sql = " SELECT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.civ, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
+                  $sql = " SELECT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.prenom, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
                 FROM client C, abonne A
                 WHERE C.num_client = A.num_abonne
                 AND C.nom LIKE '$initial%' 
@@ -72,8 +72,9 @@ $date_ajd = date('Y-m-d');
 					<caption><?php echo $lang_clients_existants; ?></caption>
 					<thead>
 						<tr>
-							<th><?php echo $lang_civ; ?> </th>
-							<th><?php echo $lang_nom; ?></th>
+							
+							<th>Nom</th>
+                                                        <th>Prenom</th>
 							<th><?php echo $lang_rue; ?></th>
 							<th><?php echo $lang_code_postal; ?></th>
 							<th><?php echo $lang_ville; ?></th>
@@ -82,6 +83,7 @@ $date_ajd = date('Y-m-d');
                                                         <th><?php echo $lang_abonne_jp; ?></th> 
 							<th><?php echo $lang_email; ?></th>                                                        
     							<th>Modifie</th>
+                                                        <th>Reservations</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -89,18 +91,19 @@ $date_ajd = date('Y-m-d');
 						$nombre =1;
 						while($data = mysql_fetch_array($req))
 							{
-								$nom = $data['nom'];
-									$nom=stripslashes($nom);
+								$num_client = $data['num_client'];
+                                                                $nom = $data['nom'];
+								$nom=stripslashes($nom);
 								$nom2 = $data['nom2'];
 								$rue = $data['rue'];
-									$rue=stripslashes($rue);
+								$rue=stripslashes($rue);
 								$ville = $data['ville'];
-									$ville=stripslashes($ville);
+								$ville=stripslashes($ville);
 								$cp = $data['cp'];
 								$tva = $data['num_tva'];
 								$mail =$data['mail'];
 								$num = $data['num_client'];
-								$civ = $data['civ'];
+								$prenom = $data['prenom'];
 								$tel = $data['tel'];
 								$fax = $data['fax'];
                                                                 $abonne_chanson = $data['abonne_chanson'];
@@ -111,7 +114,7 @@ $date_ajd = date('Y-m-d');
 								}else{
 								$line="1"; 
 								}
-
+                                                                
 //Rq si abonnement afficher jp afficher oui sinon non / afficher concert oui sinon non 
 $req_recup_abo = "SELECT ab.type_abonnement
                   FROM abonnement AS ab, abonnement_comm AS ac
@@ -128,8 +131,8 @@ $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_ab
             }
             ?>
 					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
-							<td><?php echo $civ; ?></td>
 							<td><?php echo $nom; ?></td>
+                                                        <td><?php echo $prenom; ?></td>
 							<td><?php echo $rue; ?></td>
 							<td><?php echo $cp; ?></td>
 							<td><?php echo $ville; ?></td>
@@ -138,7 +141,9 @@ $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_ab
                                                         <td><?php if ($type_abonnement == Spectacle_JP) {echo "Oui";} else {echo "Non"; } ?></td>
 							<td><a href="form_mailing.php?nom=<?php echo "$num"; ?>" ><?php echo "$mail"; ?></a></td>
 							<td><a href="edit_client.php?num=<?php echo "$num" ?>"><img border='0'src='image/edit.png' alt='<?php echo $lang_editer; ?>'></a></td>
-							<?php
+                                                        <td class="highlight"><a href='voir_reservation_client.php?num_client=<?php echo "$num_client"; ?>' >
+                            <img border="0" alt="voir" src="image/voir.gif" Title="Voir les reservation"></a></td>
+                                                            <?php
 							} ?>
 					</tr>
 					</tbody>

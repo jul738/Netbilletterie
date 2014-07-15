@@ -150,14 +150,6 @@ $annee_2= $annee_1 -1;
             </td>    
         </tr>
         <tr>
-            <td class="texte0">Choisir la quantite d'abonnement 
-            </td>
-            <td class="texte_left" colspan="3">
-                <input type="text" name="quanti" value="1" SIZE="1">
-            </td>
-
-        </tr>
-        <tr>
             <td class="texte0">Choisir les spectacles 
             </td>
             <td class="texte_left">

@@ -24,7 +24,7 @@ include_once("include/config/var.php");
 	$mail_cli=isset($_POST['mail'])?$_POST['mail']:"";
 	$pass2=isset($_POST['pass2cli'])?$_POST['pass2cli']:"";
 	$num=isset($_POST['num'])?$_POST['num']:"";
-	$civ=isset($_POST['civ'])?$_POST['civ']:"";
+	$prenom=isset($_POST['prenom'])?$_POST['prenom']:"";
 	$tel=isset($_POST['tel'])?$_POST['tel']:"";
 	$fax=isset($_POST['fax'])?$_POST['fax']:"";
 	$actif=isset($_POST['actif'])?$_POST['actif']:"";
@@ -62,7 +62,7 @@ echo "<h1> $lang_er_mo_pa";
 		}
 }
 
-$sql2 = "UPDATE " . $tblpref ."client SET `fax`='" . $fax . "', `tel`='" . $tel . "', `civ`='" . $civ . "', `nom`='" . $nom . "', `mail`='" . $mail_cli . "', `num_tva`='" . $num_tva . "', `nom2`='" . $nom_sup . "', `rue`='" .$rue . "', `ville`='" . $ville . "', `cp`='" . $code_post . "', `actif`='" . $actif . "' WHERE `num_client` = '" . $num . "'";
+$sql2 = "UPDATE " . $tblpref ."client SET `fax`='" . $fax . "', `tel`='" . $tel . "', `prenom`='" . $prenom . "', `nom`='" . $nom . "', `mail`='" . $mail_cli . "', `num_tva`='" . $num_tva . "', `nom2`='" . $nom_sup . "', `rue`='" .$rue . "', `ville`='" . $ville . "', `cp`='" . $code_post . "', `actif`='" . $actif . "' WHERE `num_client` = '" . $num . "'";
 mysql_query($sql2) OR die("<p>Erreur Mysql<br/>$sql2<br/>".mysql_error()."</p>");
 
 // Requete pour metre a jour les abonnement lors d'un edit spectateur // 

@@ -69,7 +69,6 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                 <th><small>Spectateur         </small></th>
                 <th><small>Date de creation   </small></th>
                 <th><small>Abo                </small></th>
-                <th><small>Qte                </small></th>
                 <th><small>Spectacle 1        </small></th>
                 <th><small>Spectacle 2        </small></th>
                 <th><small>Spectacle 3        </small></th>
@@ -116,7 +115,6 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         <td> <?php echo $nom               ; ?> </td>
                         <td> <?php echo $date              ; ?> </td>
                         <td> <?php echo $nom_abonnement    ; ?> </td>
-                        <td> <?php echo $quanti            ; ?> </td>
                         <td> <?php echo $choix_spectacle_1 ; ?> </td>
                         <td> <?php echo $choix_spectacle_2 ; ?> </td>
                         <td> <?php echo $choix_spectacle_3 ; ?> </td>

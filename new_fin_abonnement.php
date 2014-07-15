@@ -16,7 +16,6 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 
 // on récupère les info envoye par new_suite_abonnement.php & edit_abonnement
-$quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
 $num_abonnement=isset($_POST['num_abonnement'])?$_POST['num_abonnement']:"";
 $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
 
@@ -27,7 +26,6 @@ $nom=isset($_POST['nom'])?$_POST['nom']:"";
 $paiement=isset($_POST['paiement'])?$_POST['paiement']:"";
 $nombre_spectacle=isset($_POST['nombre_spectacle'])?$_POST['nombre_spectacle']:"";
 $tarif_abonnement=isset($_POST['tarif_abonnement'])?$_POST['tarif_abonnement']:"";
-print_r($_POST);
 $choix_spectacle_1_vendu=isset($_POST['liste_choix_spectacle_1'])?$_POST['liste_choix_spectacle_1']:"";
 $choix_spectacle_2_vendu=isset($_POST['liste_choix_spectacle_2'])?$_POST['liste_choix_spectacle_2']:"";
 $choix_spectacle_3_vendu=isset($_POST['liste_choix_spectacle_3'])?$_POST['liste_choix_spectacle_3']:"";
@@ -38,7 +36,6 @@ $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_
 
 ?>
 
-<?php print_r() ; ?>
 <br/>
 <br/>
 <br/>
@@ -244,7 +241,7 @@ $req_choix_spectacle ="UPDATE abonnement_comm
                        WHERE num_abo_com = $num_abo_com";
 mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
 
-$quanti ; // le nombre de billet a decrementer du stock (article)
+$quanti = 1 ; // le nombre de billet a decrementer du stock (article)
 
 //ici on decremnte le stock
     //Pour le Spectacle 1

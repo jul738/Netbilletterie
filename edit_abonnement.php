@@ -84,11 +84,6 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
         </tr>
         <form method='post' action='new_fin_abonnement.php'>
         <tr>
-            <th> Choisir la quantite : 
-                      <input type="text" name="quanti" value="<?php echo $quanti_ancien ;?>" SIZE="1">
-            </th>
-        </tr>
-        <tr>
             <th>
 <?php
 

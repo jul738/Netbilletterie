@@ -32,6 +32,7 @@ while($data = mysql_fetch_array($req))
 		$num =$data['num'];
 		$lieu =$data['lieu'];
 		$horaire =$data['horaire'];
+                $annule =$data['annule'];
 		$date =$data['date_spectacle'];
 		$prix = $data['prix_htva'];
 		$tva = $data['taux_tva'];
@@ -53,6 +54,7 @@ while($data = mysql_fetch_array($req))
 				<form action="article_update.php" method="post" name="id_tarif" id="id_tarif">
 					<table class="boiteaction">
 						<tr class="texte">
+                                                    <th>Annule</th>
 							<th><?php  echo "$lang_article" ;?></th>
                                                         <th> Type d'evenement </th>
                                                         <th>Representation numero</th>
@@ -65,6 +67,12 @@ while($data = mysql_fetch_array($req))
 							<th>Commentaire</th>
 						</tr>
 						<tr>
+                                                        <td><select name="annule">
+                                                            <option value="0"selected>non</option> 
+                                                            <option value="1">oui</option>
+                                                            </select>
+                                                        </td>
+                                                
 							<td><input name="article" type="text" size="15" value ="<?php echo"$article" ; ?> "></td>
                                                         <td class="texte1">
                                                             <SELECT name="type_article">
@@ -77,16 +85,15 @@ while($data = mysql_fetch_array($req))
                                                                 <OPTION VALUE="Experience_numerique">Experience Numerique</OPTION>
                                                                 <OPTION VALUE="Art_numerique">Art numerique</OPTION>
                                                                 <OPTION VALUE="Autre">Autre</OPTION>
-                                                            </select>
-                                                        </td>
-                                                        <td><input name="numero_representation" type="number" size="1" value ="<?php echo"$numero_representation" ;?>"></td>
-							<td><input name="lieu" type="text" size="10" value ="<?php echo"$lieu" ;?>"></td>
+                                                            </select></td>
+                                                        <td><input name="numero_representation" type="number" size="5" value ="<?php echo"$numero_representation" ;?>"></td>
+							<td><input name="lieu" type="text" size="5" value ="<?php echo"$lieu" ;?>"></td>
 							<td><input name="horaire" type="text" size="10" value ="<?php echo"$horaire" ;?>"></td>
-							<td><input name="date" type="text" size="20" value ="<?php echo"$date" ;?>"></td>
+							<td><input name="date" type="text" size="10" value ="<?php echo"$date" ;?>"></td>
 							<td><input name="stock" type="text" size="5" value ="<?php echo"$stock" ;?>"></td>
 							<td><input name="max" type="text" size="5" value ="<?php echo"$max" ;?>"></td>
 							<td><input name="min" type="text" size="5" value ="<?php echo"$min" ;?>"></td>
-							<td><input name="commentaire" type="text" size="30" value ="<?php echo"$commentaire" ;?>"></td>
+							<td><input name="commentaire" type="text" size="10" value ="<?php echo"$commentaire" ;?>"></td>
 						</tr>
 						<tr>
 						<th  colspan="2">Image<br/> <img src="<?php echo $image;?>"  height="100" ></th>
@@ -108,7 +115,7 @@ while($data = mysql_fetch_array($req))
 							value="<?php if ($image!=""){echo $image;} else {echo"Choisir une image jpg";}?>" /><br/> Cliquez dans la case ci dessus pour choisir un fichier image: hauteur 100px<br/> 
 							puis cliquer sur upload pour choisir l'image a telecharger depuis votre ordinateur<br/>et enfin double cliquer sur cette derniere.
 						</td>
-					</tr>
+                                                </tr>
 						<tr>
 							<td colspan="3" class="submit">
 							<input name="num" type="hidden" value= <?php echo "$num" ;?></td>

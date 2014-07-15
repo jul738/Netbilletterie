@@ -49,12 +49,12 @@ while($data = mysql_fetch_array($req))
     <?php echo "$lang_client_modifier $nom"; ?> 
     </caption>
 		    <tr> 
-      <td class="texte1"><?php echo Civilite; ?></td>
-      <td class="texte1"> <input name="civ" type="text" id="civ" value="<?php echo "$civ"; ?>"></td>
+      <td class="texte1">Nom</td>
+      <td class="texte1"> <input name="nom" type="text" id="civ" value="<?php echo "$nom"; ?>"></td>
     </tr>
     <tr> 
-      <td class="texte0"><?php echo $lang_nom; ?></td>
-      <td class="texte0"> <input name="nom" type="text" id="nom" value="<?php echo "$nom"; ?>"></td>
+      <td class="texte0">Prenom</td>
+      <td class="texte0"> <input name="prenom" type="text" id="nom" value="<?php echo "$prenom"; ?>"></td>
     </tr>
 
     <tr> 
