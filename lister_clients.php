@@ -72,7 +72,7 @@ $date_ajd = date('Y-m-d');
 					<caption><?php echo $lang_clients_existants; ?></caption>
 					<thead>
 						<tr>
-							
+                                                    <th>Num Client</th>
 							<th>Nom</th>
                                                         <th>Prenom</th>
 							<th><?php echo $lang_rue; ?></th>
@@ -82,8 +82,8 @@ $date_ajd = date('Y-m-d');
                                                         <th><?php echo $lang_abonne_chanson; ?></th>
                                                         <th><?php echo $lang_abonne_jp; ?></th> 
 							<th><?php echo $lang_email; ?></th>                                                        
-    							<th>Modifie</th>
-                                                        <th>Reservations</th>
+    							<th>Action</th>
+                                                        
 						</tr>
 					</thead>
 					<tbody>
@@ -131,7 +131,8 @@ $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_ab
             }
             ?>
 					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
-							<td><?php echo $nom; ?></td>
+                                                        <td><?php echo $num_client ;?></td>
+                                                        <td><?php echo $nom; ?></td>
                                                         <td><?php echo $prenom; ?></td>
 							<td><?php echo $rue; ?></td>
 							<td><?php echo $cp; ?></td>
@@ -140,9 +141,12 @@ $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_ab
                                                         <td><?php if ($type_abonnement == Concert) {echo "Oui";} else {echo "Non"; } ?></td>
                                                         <td><?php if ($type_abonnement == Spectacle_JP) {echo "Oui";} else {echo "Non"; } ?></td>
 							<td><a href="form_mailing.php?nom=<?php echo "$num"; ?>" ><?php echo "$mail"; ?></a></td>
-							<td><a href="edit_client.php?num=<?php echo "$num" ?>"><img border='0'src='image/edit.png' alt='<?php echo $lang_editer; ?>'></a></td>
-                                                        <td class="highlight"><a href='voir_reservation_client.php?num_client=<?php echo "$num_client"; ?>' >
-                            <img border="0" alt="voir" src="image/voir.gif" Title="Voir les reservation"></a></td>
+							<td><a href="edit_client.php?num=<?php echo "$num" ?>">
+                                                                <img border='0'src='image/edit.png' alt='<?php echo $lang_editer; ?>'></a>
+                                                            <a href='voir_reservation_client.php?num_client=<?php echo "$num_client"; ?>' >
+                                                                <img border="0" alt="voir" src="image/voir.gif" Title="Voir les reservation"></a>
+                                                            <a href='dupliquer_client.php?num_client=<?php echo "$num_client"; ?>' >
+                                                                <img border="0" alt="voir" src="image/duplicat.png" Title="Dupliquer le spectateur"></a></td>
                                                             <?php
 							} ?>
 					</tr>

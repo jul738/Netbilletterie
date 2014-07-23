@@ -77,9 +77,10 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                 <th><small>Spectacle 6        </small></th>
                 <th><small>Spectacle 7        </small></th>
                 <th><small>Voir               </small></th>
-                <th><small>Modifier           </small></th>
-                <th><small>Supprimer          </small></th>
-                <th><small>Imprimer           </small></th>
+                <th><small>Edit               </small></th>
+                <th><small>Supr               </small></th>
+                <th><small>Impr               </small></th>
+                <th><small>Dupli              </small></th>
                 <th><small>Mail               </small></th>
             </tr>
     </thead>
@@ -125,13 +126,16 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         <td><a href='voir_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="voir" src="image/voir.png" Title="Voir les details"></a></td>
                         <td><a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
-                                <img border="0" alt="voir" src="image/edit.png" Title="Modifier l'abonnement"></a></td>
+                                <img border="0" alt="modifier" src="image/edit.png" Title="Modifier l'abonnement"></a></td>
                         <td><a href='delete_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="supprimer" src="image/delete.png" Title="Supprimer l'abonnement"></a></td>
                         <td><a href='fpdf/abonnement_pdf.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="mail" src="image/print.png" Title="Imprimer l'abonnement"></a></td>
+                                <td><a href='dupliquer_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
+                                                                <img border="0" alt="voir" src="image/duplicat.png" Title="Dupliquer le spectateur"></a></td>
                                 <td><a href='/fpdf/bon_pdf.php?num_abo_com=<?php echo "$num_abo_com"; ?>'>
                                 <img border="0" alt="mail" src="image/mail.png" Title="Envoyer un mail au spectateur"></a></td>
+                                
                 </tr>
           <?php } //Fin du while ?> 
                 </table>

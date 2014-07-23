@@ -84,7 +84,7 @@ $annee_2= $annee_1 -1;
 			}?><br>
 			<?php
 			if($date_debut!=""){?>
-		<h1> Chiffre d'affaires de la saison culturel pour la p�riode du <?php echo"$date_debut au $date_fin";?> est de <?php echo montant_financier ($tot5); ?></h1>
+		<h1> Chiffre d'affaires de la saison culturel pour la periode du <?php echo"$date_debut au $date_fin";?> est de <?php echo montant_financier ($tot5); ?></h1>
 			<?php }
 			else{?>
 		<h1> Chiffre d'affaires de la saison culturel <?php echo"$annee_2-$annee_1";?> est de <?php echo montant_financier ($tot5); ?></h1>
@@ -138,7 +138,7 @@ $annee_2= $annee_1 -1;
 	<!--tableau tarifs-->
 	<tr>
 		<td>
-			<h2>R�partition suivant les tarifs</h2>
+			<h2>Repartition suivant les tarifs</h2>
 			<center>
 				<table class="boiteaction">
 					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
@@ -146,7 +146,7 @@ $annee_2= $annee_1 -1;
 						<th width="10%"> Prix</th>
 						<th width="10%"> Nombre</th>
 						<th width="15%">Chiffre d'affaire</th>
-						<th>N� des tickets</th>
+						<th>Num des tickets</th>
 					</tr>
 					<?php
 					$sql6="SELECT CB.id_tarif, SUM( to_tva_art ) AS total, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
@@ -213,7 +213,7 @@ $annee_2= $annee_1 -1;
 		</td>	
 	</tr>
 	<tr>
-		<td><h2> R�capitulatifs des paiements</h2>
+		<td><h2> Recapitulatifs des paiements</h2>
 			<center>
 				<table width="50%">
 					
