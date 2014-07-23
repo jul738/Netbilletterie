@@ -14,7 +14,7 @@ include_once("include/configav.php");
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
             //Recuperation des information sur la vente de abonnement
-            $req_info_abonnement = "SELECT ac.client_num, ac.ctrl, ac.fact, ac.paiement, ac.nombre_place, ac.num_spectacle_1, ac.num_spectacle_2, ac.num_spectacle_3, ac.num_spectacle_4, ac.num_spectacle_5, ac.num_spectacle_6, ac.num_spectacle_7, a.nom_abonnement
+            $req_info_abonnement = "SELECT ac.client_num, ac.ctrl, ac.fact, ac.paiement, ac.nombre_place, ac.num_spectacle_1, ac.num_spectacle_2, ac.num_spectacle_3, ac.num_spectacle_4, ac.num_spectacle_5, ac.num_spectacle_6, ac.num_spectacle_7, a.nom_abonnement, a.num_abonnement, a.tarif_abonnement
                                     FROM abonnement_comm AS ac, abonnement AS a
                                     WHERE ac.num_abo_com = '$num_abo_com'
                                     AND ac.num_abonnement = a.num_abonnement";
@@ -22,6 +22,8 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                                         while($data4 = mysql_fetch_array($recup_info_abonnement))
                                             {
                                             $nom_abonnement_duplique = $data4['nom_abonnement'];
+                                            $num_abonnement_duplique = $data4['num_abonnement'];
+                                            $tarif_abonnement_duplique = $data4['tarif_abonnement'];
                                             $client_num_duplique = $data4['client_num'];
                                             $paiement_duplique = $data4['paiement'];
                                             $fact_duplique = $data4['fact'];
@@ -190,7 +192,9 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
         <tr>
 		<td>
 	      		<table class="boiteaction">
-                            <form action="new_fin_abonnement.php" method="post" name="abonnement_duplique">
+                            
+                    <form action="new_fin_abonnement.php" method="post" name="abonnement_duplique">
+                                
 	  			<caption> Veuillez renseigne les modifications :</caption>
                 </td>
                 
@@ -232,17 +236,19 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
         $rqSql="$rqSql order by nom";
         $result = mysql_query( $rqSql ) or die( "Execution requete impossible.");
 ?>
+            
                 <SELECT NAME='listeville'>
-                <OPTION VALUE="">Renseigner nouveaux nom</OPTION>
+                    <OPTION VALUE="">Renseigner nouveaux nom</OPTION>
 <?php
-                while ( $row = mysql_fetch_array( $result)) {
-                $numclient = $row["num_client"];
-                $nom = $row["nom"];
-                $nom2 = $row["nom2"];
+                        while ( $row = mysql_fetch_array( $result)) 
+                            {
+                            $numclient = $row["num_client"];
+                            $nom = $row["nom"];
+                            $nom2 = $row["nom2"];
 ?>
-                <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
+                    <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
 <?php
-                }
+                        } // fin du while (liste spectateur)
 ?>
                 </SELECT>
         </td>
@@ -290,8 +296,24 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
                 
         <tr> 
 	    <td class="submit" colspan="13">
-		<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">
-	    </td>
+                <input name="num_abonnement_duplique" value="<?php echo $num_abonnement_duplique ;?>" type="hidden">
+                <input name="client_num_duplique" value="<?php echo $client_num_duplique ;?>" type="hidden">
+                <!-- <input name="client" value="<?php //echo  $client ;?>" type="hidden"> -->
+                <input name="num_abo_com" value="<?php echo $num_abo_com ;?>" type="hidden">
+                <input name="nom_duplique" value="<?php echo $nom_duplique ;?>" type="hidden">
+                <input name="paiement_duplique" value="<?php echo $paiement_duplique ;?>" type="hidden">
+                <input name="nombre_place_duplique" value="<?php echo $nombre_place_duplique ;?>" type="hidden">
+                <input name="tarif_abonnement_duplique" value="<?php echo $tarif_abonnement_duplique ;?>" type="hidden">
+                <input name="num_spectacle_1_duplique" value="<?php echo $num_spectacle_1_duplique ;?>" type="hidden">
+                <input name="num_spectacle_2_duplique" value="<?php echo $num_spectacle_2_duplique ;?>" type="hidden">
+                <input name="num_spectacle_3_duplique" value="<?php echo $num_spectacle_3_duplique ;?>" type="hidden">
+                <input name="num_spectacle_4_duplique" value="<?php echo $num_spectacle_4_duplique ;?>" type="hidden">
+                <input name="num_spectacle_5_duplique" value="<?php echo $num_spectacle_5_duplique ;?>" type="hidden">
+                <input name="num_spectacle_6_duplique" value="<?php echo $num_spectacle_6_duplique ;?>" type="hidden">
+                <input name="num_spectacle_7_duplique" value="<?php echo $num_spectacle_7_duplique ;?>" type="hidden">
+                <input name="duplication" value="1" type="hidden">
+		<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">              
+            </td>
 	</tr>
         </form>
 <?php

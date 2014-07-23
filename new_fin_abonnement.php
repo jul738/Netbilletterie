@@ -15,25 +15,62 @@ include_once("include/head.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
 
-// on récupère les info envoye par new_suite_abonnement.php & edit_abonnement
-$num_abonnement=isset($_POST['num_abonnement'])?$_POST['num_abonnement']:"";
-$num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
+print_r($_POST);
 
-//rajoute
-$client=isset($_POST['client'])?$_POST['client']:"";
-$num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
-$nom=isset($_POST['nom'])?$_POST['nom']:"";
-$paiement=isset($_POST['paiement'])?$_POST['paiement']:"";
-$nombre_spectacle=isset($_POST['nombre_spectacle'])?$_POST['nombre_spectacle']:"";
-$tarif_abonnement=isset($_POST['tarif_abonnement'])?$_POST['tarif_abonnement']:"";
-$choix_spectacle_1_vendu=isset($_POST['liste_choix_spectacle_1'])?$_POST['liste_choix_spectacle_1']:"";
-$choix_spectacle_2_vendu=isset($_POST['liste_choix_spectacle_2'])?$_POST['liste_choix_spectacle_2']:"";
-$choix_spectacle_3_vendu=isset($_POST['liste_choix_spectacle_3'])?$_POST['liste_choix_spectacle_3']:"";
-$choix_spectacle_4_vendu=isset($_POST['liste_choix_spectacle_4'])?$_POST['liste_choix_spectacle_4']:"";
-$choix_spectacle_5_vendu=isset($_POST['liste_choix_spectacle_5'])?$_POST['liste_choix_spectacle_5']:"";
-$choix_spectacle_6_vendu=isset($_POST['liste_choix_spectacle_6'])?$_POST['liste_choix_spectacle_6']:"";
-$choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_choix_spectacle_7']:"";
+//Si duplication insertion des infos dans les tables
+$duplication = isset($_POST['duplication'])?$_POST['duplication']:NULL;
 
+if (isset($duplication))
+    {
+    // On recupere les information de la duplication 
+    $num_abonnement=isset($_POST['num_abonnement_duplique'])?$_POST['num_abonnement_duplique']:"";
+    $num_client=isset($_POST['listeville'])?$_POST['listeville']:"";
+    $client=isset($_POST['listeville'])?$_POST['listeville']:"";
+    $num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
+    $nom=isset($_POST['nom_duplique'])?$_POST['nom_duplique']:"";
+    $paiement=isset($_POST['paiement_duplique'])?$_POST['paiement_duplique']:"";
+    $nombre_spectacle=isset($_POST['nombre_place_duplique'])?$_POST['nombre_place_duplique']:"";
+    $tarif_abonnement=isset($_POST['$tarif_abonnement_duplique'])?$_POST['$tarif_abonnement_duplique']:"";
+        
+    $choix_spectacle_1_vendu=isset($_POST['num_spectacle_1_duplique'])?$_POST['$num_spectacle_1_duplique']:"";
+    $choix_spectacle_2_vendu=isset($_POST['num_spectacle_2_duplique'])?$_POST['$num_spectacle_2_duplique']:"";
+    $choix_spectacle_3_vendu=isset($_POST['num_spectacle_3_duplique'])?$_POST['$num_spectacle_3_duplique']:"";
+    $choix_spectacle_4_vendu=isset($_POST['num_spectacle_4_duplique'])?$_POST['$num_spectacle_4_duplique']:"";
+    $choix_spectacle_5_vendu=isset($_POST['num_spectacle_5_duplique'])?$_POST['$num_spectacle_5_duplique']:"";
+    $choix_spectacle_6_vendu=isset($_POST['num_spectacle_6_duplique'])?$_POST['$num_spectacle_6_duplique']:"";
+    $choix_spectacle_7_vendu=isset($_POST['num_spectacle_7_duplique'])?$_POST['$num_spectacle_7_duplique']:"";
+    
+    //On enregristre dans la bdd la duplication de l abonnement, avec le nom qui a ete change
+    //On recup la date d aujourd hui. Elle defini quand l abonnement commence, et +1ans = quand il finie.
+    $jour =date("d");
+    $date_ref="$mois-$jour";
+    $annee = date("Y");
+    $date_debut = date('Y-m-d');
+    $date_fin = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day")); //finir num_spectacle_1 & 2 & 3 ect... 
+    $sql1 = "INSERT INTO ". $tblpref ."abonnement_comm(client_num, date, date_debut, date_fin, num_abonnement, user, nombre_place, num_spectacle_1) VALUES ('$client', '$annee-$mois-$jour', '$date_debut', '$date_fin', '$num_abonnement', '$user_nom', '$nombre_spectacle')";
+    mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
+    }
+    else
+        {  
+        // on récupère les info envoye par new_suite_abonnement.php & edit_abonnement
+        $num_abonnement=isset($_POST['num_abonnement'])?$_POST['num_abonnement']:"";
+        $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
+
+        //rajoute
+        $client=isset($_POST['client'])?$_POST['client']:"";
+        $num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
+        $nom=isset($_POST['nom'])?$_POST['nom']:"";
+        $paiement=isset($_POST['paiement'])?$_POST['paiement']:"";
+        $nombre_spectacle=isset($_POST['nombre_spectacle'])?$_POST['nombre_spectacle']:"";
+        $tarif_abonnement=isset($_POST['tarif_abonnement'])?$_POST['tarif_abonnement']:"";
+        $choix_spectacle_1_vendu=isset($_POST['liste_choix_spectacle_1'])?$_POST['liste_choix_spectacle_1']:"";
+        $choix_spectacle_2_vendu=isset($_POST['liste_choix_spectacle_2'])?$_POST['liste_choix_spectacle_2']:"";
+        $choix_spectacle_3_vendu=isset($_POST['liste_choix_spectacle_3'])?$_POST['liste_choix_spectacle_3']:"";
+        $choix_spectacle_4_vendu=isset($_POST['liste_choix_spectacle_4'])?$_POST['liste_choix_spectacle_4']:"";
+        $choix_spectacle_5_vendu=isset($_POST['liste_choix_spectacle_5'])?$_POST['liste_choix_spectacle_5']:"";
+        $choix_spectacle_6_vendu=isset($_POST['liste_choix_spectacle_6'])?$_POST['liste_choix_spectacle_6']:"";
+        $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_choix_spectacle_7']:""; 
+        } //Fin du else
 ?>
 
 <br/>
@@ -234,12 +271,18 @@ $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_
                                   $paiement_nom = $data['nom'];
                                         }     
 
+$edition_abonnement = isset($_POST['edit_abonnement'])?$_POST['edit_abonnement']:NULL;
 
-// On met à jour la BDD -> en rentrent le nom du spectacle mais aussi sont ID, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
-$req_choix_spectacle ="UPDATE abonnement_comm 
-                       SET quanti = '$quanti', choix_spectacle_1 = '$nom_spectacle_1_vendu', num_spectacle_1 = '$choix_spectacle_1_vendu' , choix_spectacle_2 = '$nom_spectacle_2_vendu', num_spectacle_2 = '$choix_spectacle_2_vendu' , choix_spectacle_3 = '$nom_spectacle_3_vendu', num_spectacle_3 = '$choix_spectacle_3_vendu' , choix_spectacle_4 = '$nom_spectacle_4_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu' , choix_spectacle_5 = '$nom_spectacle_5_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu' , choix_spectacle_6 = '$nom_spectacle_6_vendu', num_spectacle_6 = '$choix_spectacle_6_vendu' , choix_spectacle_7 = '$nom_spectacle_7_vendu', num_spectacle_7 = '$choix_spectacle_7_vendu'
-                       WHERE num_abo_com = $num_abo_com";
-mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
+if (isset($edition_abonnement))
+    {
+    
+    // On met à jour la BDD -> en rentrent le nom du spectacle mais aussi sont ID, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
+    $req_choix_spectacle ="UPDATE abonnement_comm 
+                           SET quanti = '$quanti', choix_spectacle_1 = '$nom_spectacle_1_vendu', num_spectacle_1 = '$choix_spectacle_1_vendu' , choix_spectacle_2 = '$nom_spectacle_2_vendu', num_spectacle_2 = '$choix_spectacle_2_vendu' , choix_spectacle_3 = '$nom_spectacle_3_vendu', num_spectacle_3 = '$choix_spectacle_3_vendu' , choix_spectacle_4 = '$nom_spectacle_4_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu' , choix_spectacle_5 = '$nom_spectacle_5_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu' , choix_spectacle_6 = '$nom_spectacle_6_vendu', num_spectacle_6 = '$choix_spectacle_6_vendu' , choix_spectacle_7 = '$nom_spectacle_7_vendu', num_spectacle_7 = '$choix_spectacle_7_vendu'
+                           WHERE num_abo_com = $num_abo_com";
+    mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
+    }
+
 
 $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
 

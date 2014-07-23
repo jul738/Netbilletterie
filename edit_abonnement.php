@@ -163,6 +163,7 @@ $recup_info_abonnement_brut = mysql_query( $req_recup_info_abonnement )or die( "
                                 //Si des choix sont vide, alors les remplacer par valeur ancienne ! 
 ?>
     <tr>
+        <input  name="edit_abonnement" id="edit_abonnement" type="hidden" value='1'>
         <input  name="num_abo_com" id="num_abo_com" type="hidden" value='<?php echo $num_abo_com ;?>'>
         <input  name="num_abonnement" id="num_abonnement" type="hidden" value='<?php echo $num_abonnement ;?>'>
         <input  name="nom_abonnement" id="nom_abonnement" type="hidden" value='<?php echo $nom_abonnement ;?>'>
