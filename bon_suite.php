@@ -15,6 +15,7 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once("include/head.php");
 
 
 $quanti=isset($_POST['quanti'])?$_POST['quanti']:"";

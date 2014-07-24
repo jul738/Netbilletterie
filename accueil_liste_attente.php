@@ -22,7 +22,6 @@ list($annee, $mois, $jour) = explode("-", $date_today);
 		<td>
 			<ul>
 				<li><a href="form_commande_attente.php"><b>Inscrire sur liste d'attente</b></a></li><hr/>
-				<li><a href="lister_commandes_attente.php"><b>Voir la liste d'attente</b></a></li><hr/>
 				<li><a href="lister_spectacle_attente.php"><b>Voir la liste d'attente par spectacle</b></a></li><hr/>
 			</ul>
         </td>

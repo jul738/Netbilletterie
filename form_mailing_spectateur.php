@@ -1,9 +1,9 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -15,9 +15,9 @@ include_once("include/head.php");
 include_once("include/finhead.php");
 $Sql_spectateur = "SELECT num_client, nom FROM ".$tblpref."client 
 WHERE actif != 'non' 
-AND nom!='caisse soirée'
+AND nom!='caisse soirï¿½e'
 ORDER BY nom ASC";
-$result_spectateur = mysql_query( $Sql_spectateur )or die( "Exécution requête impossible_spectateur.");
+$result_spectateur = mysql_query( $Sql_spectateur )or die( "Exï¿½cution requï¿½te impossible_spectateur.");
 ?>
 
 
@@ -59,7 +59,7 @@ $result_spectateur = mysql_query( $Sql_spectateur )or die( "Exécution requête im
 			<form action="mailing.php" method="post"  name="formu" onSubmit="return verif_formulaire()">
 				<table class="boiteaction">
 					<tr>
-						<h1>Vous voulez envoyer un mail à un spectateur?<br> Selectionner le dans le menu déroulant  </h1>
+						<h1>Vous voulez envoyer un mail a un spectateur?<br> Selectionner le dans le menu deroulant  </h1>
 					</tr>
 					<tr>
 							<SELECT NAME="client_num" align="center">
@@ -96,7 +96,7 @@ $result_spectateur = mysql_query( $Sql_spectateur )or die( "Exécution requête im
 						</td>
 					 </tr>
 						<td class= "submit" colspan="2">
-							<input type="image" name="Submit" src="image/envoyer.png" value="Démarrer"  border="0">
+							<input type="image" name="Submit" src="image/envoyer.png" value="Dï¿½marrer"  border="0">
 						</td>
 					</tr>
 				</table>

@@ -34,6 +34,9 @@ while($data = mysql_fetch_array($req))
 		$min = $data['stomin'];
 		$max = $data['stomax'];
 		} 
+                
+                //On auto-incremente le numero de representation
+                $numero_representation = $numero_representation + 1; 
 ?>
 <table width="760" border="0" class="page" align="center">
 <tr>
@@ -69,11 +72,6 @@ exit;
                 <tr> 
 			<td class='<?php echo couleur_alternee (); ?>'> Type d'evenement </td>
 			<td align=left> <input name="type_article" type="text" id="type_article" size="80" maxlength="40" value="<?php echo $type_article;?> ">
-			</td>
-		</tr>
-                <tr> 
-			<td class='<?php echo couleur_alternee (); ?>'> Numero de la representation </td>
-			<td align=left> <input name="numero_representation" type="number" id="numero_representation" size="80" maxlength="40" value="<?php echo $numero_representation;?> ">
 			</td>
 		</tr>
 		<tr> 

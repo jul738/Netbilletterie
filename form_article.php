@@ -15,6 +15,7 @@ include_once("javascripts/verif_form.js");
 include_once("include/head.php");
 include_once("include/finhead.php");
 ?>
+
 <table width="760" border="0" class="page" align="center">
 <tr>
 <td class="page" align="center">
@@ -69,7 +70,6 @@ $annee = date("Y");?>
                 <td class="texte1"> Type d'evenement : </td>
                 <td class="texte1">
                     <SELECT name="type_article">
-                        <OPTION VALUE="Spectacle">Spectacle</OPTION>
                         <OPTION VALUE="Spectacle_JP">Spectacle Jeune Public</OPTION>
                         <OPTION VALUE="Concert">Concert</OPTION>
                         <OPTION VALUE="Chorale">Chorale</OPTION>
@@ -77,6 +77,7 @@ $annee = date("Y");?>
                         <OPTION VALUE="Conference_Debat">Conference et Debat</OPTION>
                         <OPTION VALUE="Experience_numerique">Experience Numerique</OPTION>
                         <OPTION VALUE="Art_numerique">Art numerique</OPTION>
+                        <OPTION VALUE="Spectacle">Spectacle</OPTION>
                         <OPTION VALUE="Autre">Autre</OPTION>
                     </select>
                 </td>
@@ -108,7 +109,7 @@ $annee = date("Y");?>
             <!-- td class='< ?php echo couleur_alternee (); ?>'> < ?php echo $lang_prix_uni; ?></td>
             <td class='< ?php echo couleur_alternee (FALSE); ?>'> <input name="prix" type="text" id="prix"> &euro;</td> -->
             </tr> 
-          
+            
             <tr> 
                 <td class='<?php echo couleur_alternee (); ?>'> <?php echo "$langCommentaire" ?> : </td>
                 <td class='<?php echo couleur_alternee (FALSE); ?>'><input name="commentaire" type="text" size="80" id="commentaire">
@@ -116,17 +117,17 @@ $annee = date("Y");?>
             </tr>
             
 	  <tr>
-            <td class='<?php echo couleur_alternee (); ?>'><?php echo "$lang_stock"; ?></TD>
+            <td class='<?php echo couleur_alternee (); ?>'>Nombres de places en ventes :</TD>
             <td align=left><input name='stock' type='text'> </td>
 	  </tr>
           
 	  <tr>
-            <td class='<?php echo couleur_alternee (); ?>'><?php echo"$lang_stomin"; ?></td>
+            <td class='<?php echo couleur_alternee (); ?>'>Alerte places restantes : </td>
             <td align=left><input name='stomin' type='text'></td>
 	  </tr>
           
 	  <tr>
-            <td class='<?php echo couleur_alternee (); ?>'><?php echo"$lang_stomax"; ?></td>
+            <td class='<?php echo couleur_alternee (); ?>'>Capacité totale de la salle : </td>
             <td align=left><input name='stomax' type='text'></td>
 	</tr>
 

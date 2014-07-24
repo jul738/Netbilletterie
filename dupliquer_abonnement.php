@@ -38,7 +38,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                                             $num_spectacle_6_duplique = $data4['num_spectacle_6'];
                                             $num_spectacle_7_duplique = $data4['num_spectacle_7'];                                            
                                             }
-                                            
+                                             
                                             
                          //recupe nom client
                          $req_info_client = "SELECT nom, prenom
@@ -107,9 +107,9 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                         $recup_info_article_4 = mysql_query($req_info_article_4)or die("Execution requete -recup_info_article_4- impossible.");
                                                        while($data9 = mysql_fetch_array($recup_info_article_4))
                                                             {
-                                                            $article_1_duplique = $data9['article'];
-                                                            $horaire_1_duplique = $data9['horaire'];
-                                                            $date_spectacle_1_duplique = $data9['date_spectacle'];
+                                                            $article_4_duplique = $data9['article'];
+                                                            $horaire_4_duplique = $data9['horaire'];
+                                                            $date_spectacle_4_duplique = $data9['date_spectacle'];
                                                             }
                                                             
                         //recup info spectacle horaire & date pour le spectacle 5
@@ -131,9 +131,9 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                         $recup_info_article_6 = mysql_query($req_info_article_6)or die("Execution requete -recup_info_article_6- impossible.");
                                                        while($data11 = mysql_fetch_array($recup_info_article_6))
                                                             {
-                                                            $article_1_duplique = $data11['article'];
-                                                            $horaire_1_duplique = $data11['horaire'];
-                                                            $date_spectacle_1_duplique = $data11['date_spectacle'];
+                                                            $article_6_duplique = $data11['article'];
+                                                            $horaire_6_duplique = $data11['horaire'];
+                                                            $date_spectacle_6_duplique = $data11['date_spectacle'];
                                                             }
                                                             
                         //recup info spectacle horaire & date pour le spectacle 7
@@ -143,9 +143,9 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                         $recup_info_article_7 = mysql_query($req_info_article_7)or die("Execution requete -recup_info_article_7- impossible.");
                                                        while($data12 = mysql_fetch_array($recup_info_article_7))
                                                             {
-                                                            $article_1_duplique = $data12['article'];
-                                                            $horaire_1_duplique = $data12['horaire'];
-                                                            $date_spectacle_1_duplique = $data12['date_spectacle'];
+                                                            $article_7_duplique = $data12['article'];
+                                                            $horaire_7_duplique = $data12['horaire'];
+                                                            $date_spectacle_7_duplique = $data12['date_spectacle'];
                                                             }
 ?>
 
@@ -154,8 +154,9 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
             
 
 //On ajoute cette vente d'abonnement dans la bdd
-//INSERT INTO 
-
+$req_vente_duplication = "INSERT INTO abonnement_comm(client_num, date, ) VALUES('','')";
+mysql_query($req_vente_duplication) or die('Erreur SQL 1er insert into dans abonnement_comm !<br>'.$req_vente_duplication.'<br>'.mysql_error());
+                          
 $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
 
 //ici on decremnte le stock
@@ -221,10 +222,10 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
              
         <td class="texte0" >
 <?php
-            $rqSql = "SELECT num_client, nom, nom2 FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'";
+            $rqSql = "SELECT num_client, nom, prenom, nom2 FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'";
             if ($user_com == r) 
                 {
-            $rqSql = "SELECT num_client, nom 
+            $rqSql = "SELECT num_client, nom, prenom
                       FROM " . $tblpref ."client 
                       WHERE actif != 'n' AND `num_client`!='1'
                       and (" . $tblpref ."client.permi LIKE '$user_num,'
@@ -245,8 +246,9 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
                             $numclient = $row["num_client"];
                             $nom = $row["nom"];
                             $nom2 = $row["nom2"];
+                            $prenom = $row["prenom"];
 ?>
-                    <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
+                    <OPTION VALUE='<?php echo $client_num_duplique; ?>'><?php echo $nom;?> <?php echo $prenom ;?></OPTION>
 <?php
                         } // fin du while (liste spectateur)
 ?>
@@ -255,7 +257,7 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
             <td> <?php echo $nom_abonnement_duplique ;?></td>
             <td> <?php echo $nombre_place_duplique ;?></td>
             <td> <?php  echo  $total_duplique ; echo $devise ; ?></td>
-            <td><?php echo $paiement_nom ;?></td>
+            <td><?php echo $paiement_duplique ;?></td>
             
             <td>    <b> <?php echo $article_1_duplique ; ?>           </b><br/> <br/>
                         <?php echo $horaire_1_duplique ;?>            <br/> <br/>
@@ -326,10 +328,32 @@ $total_ht = $total ;
 //on recupere la date d aujourd hui
 $date_vente = date('Y-m-d');     
 
-//
+//test echo variable
+echo $client_num_duplique ; ?><br><?php
+echo $ctrl_duplique; ?><br><?php
+echo $fact_duplique; ?><br><?php
+echo $paiement_duplique; ?><br><?php
+echo $num_abonnement_duplique; ?><br><?php
+echo $nombre_place_duplique; ?><br><?php
+echo $num_spectacle_1_duplique; ?><br><?php
+echo $num_spectacle_2_duplique; ?><br><?php
+echo $num_spectacle_3_duplique; ?><br><?php
+echo $num_spectacle_4_duplique; ?><br><?php
+echo $num_spectacle_5_duplique; ?><br><?php
+echo $num_spectacle_6_duplique; ?><br><?php
+echo $num_spectacle_7_duplique; ?><br><?php
+
+//On ajoute cette vente d'abonnement dans la bdd
+// num_abo_com / client_num / date /date_debut / date_fin / user / soir / tot_tva / attente / ctrl / fact / date_fact / paiement / comment / num_abonnement / banque / titulaire_cheque / print / quanti / nombre_place / choix_spectacle_1 / num_spectacle_1  
+$req_vente_duplication = "INSERT INTO abonnement_comm (client_num, ctrl, fact, paiement, num_abonnement, nombre_place, num_spectacle_1, num_spectacle_2, num_spectacle_3, num_spectacle_4, num_spectacle_5, num_spectacle_6, num_spectacle_7)
+                                               VALUES ('$client_num_duplique', '$ctrl_duplique', '$fact_duplique', '$paiement_duplique', '$num_abonnement_duplique', '$nombre_place_duplique', '$num_spectacle_1_duplique', '$num_spectacle_2_duplique', '$num_spectacle_3_duplique', '$num_spectacle_4_duplique', '$num_spectacle_5_duplique', '$num_spectacle_6_duplique', '$num_spectacle_7_duplique')";
+mysql_query($req_vente_duplication) or die('Erreur SQL 1er insert into dans abonnement_comm !<br>'.$req_vente_duplication.'<br>'.mysql_error());                                         
+//ensuite faire sur page d'apres un update si $duplication est present, trouv facon recup ceux num_abo_com du dupliq a pas lautre
+                                           
+                                            
 //On enregistre la vente dans la table abonnement_paiement
 $req_creation_vente = "INSERT INTO abonnement_paiement (num_abo_com, num_client, paiement, quantite, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
-                       VALUES ('$num_abo_com', '$num_client', '$paiement', '$quanti', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement')";
+                       VALUES ('$num_abo_com_duplique', '$client_num_duplique', '$paiement_duplique', '$quanti', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement_duplique')";
 mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
 ?>
         

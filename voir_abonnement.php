@@ -280,6 +280,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                 <td>
                     <a href='print_ticket_abo.php?num_abo_com=<?php echo "$num_abo_com"; ?>' onclick="edition();return false;"><img border=0 src="image/billetterie_v2.png"><br> Imprimer l'abonnement </a>
                 </td>
+                
+                <td>
+                    <a href='dupliquer_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' onclick="edition();return false;"><img border=0 src="image/duplicat.png"><br> Dupliquer l'abonnement </a>
+                </td>
             </form>
         
         </tr> 

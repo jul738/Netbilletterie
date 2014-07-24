@@ -13,6 +13,7 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once("include/head.php");
 
 ///=============================================
 //pour que les articles soit class�s par saison
@@ -94,7 +95,7 @@ $annee_2= $annee_1 -1;
     {
     $num_bon = $data['num_bon'];
     ?>
-    <h3><?php echo "$lang_commande_numero $num_bon saisi par \"$user_nom\"";?></h3><br>
+    <h3><?php echo "$lang_commande_numero $num_bon saisie par \"$user_nom\"";?></h3><br>
     <?PHP
     }
     ?>

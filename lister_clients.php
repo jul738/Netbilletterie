@@ -127,7 +127,6 @@ $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_ab
             while ($data5 = mysql_fetch_array($recup_abo_brut))
             {
             $type_abonnement = $data5['type_abonnement'];
-
             }
             ?>
 					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">

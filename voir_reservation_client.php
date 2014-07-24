@@ -14,12 +14,9 @@ include_once("include/head.php");
 
 $num_client=isset($_GET['num_client'])?$_GET['num_client']:"";
 
-
 ?>
 
-<?php
-
-                    
+<?php             
         $req_recup_horaire_date = "SELECT a.horaire, a.date_spectacle
                                    FROM cont_bon AS cb, article AS a
                                    WHERE cb.article_num = '$num_article'";
@@ -32,7 +29,7 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
                     
 
 //Recupere les info client
-$req_recup_info_client = "SELECT c.nom, c.prenom, bc.num_bon
+$req_recup_info_client = "SELECT c.nom, c.prenom, bc.num_bon, c.rue, c.ville, c.cp, c.mail, c.tel
                           FROM client c, bon_comm bc
                           WHERE c.num_client = '$num_client'
                           AND bc.client_num = '$num_client'";
@@ -41,17 +38,46 @@ while($data = mysql_fetch_array($recup_info_client_brut))
     {
 $nom = $data['nom'];
 $prenom = $data['prenom'];
+$rue = $data['rue'];
+$ville = $data['ville'];
+$cp = $data['cp'];
+$mail = $data['mail'];
+$tel = $data['tel'];
 //$num_bon = $data['num_bon'];
     }
 
 
 ?>
+<table  class="page" align="center">
+    
+    <tr>
+        <td class="page" align="center">
+        <h3> Informations sur <?php echo $nom ;?> <?php echo $prenom ;?> :</h3>
+        </td>
+    </tr>
+      
+            <td  class="page" align="center">
+                            
+    <table class="boiteaction">            
+        <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo $line ?>'">
+            <td class="highlight"><?php echo $rue ;?>, <?php echo $ville ;?> <?php echo $cp ;?> </td>
+        </tr>
+
+        <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo $line ?>'">
+            <td class="highlight"><?php echo $tel ;?></td>
+        </tr>
+
+        <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo $line ?>'">
+            <td class="highlight"><?php echo $mail ;?></td>
+        </tr>
+    </table>
+</table>
 
 <table  class="page" align="center">
     
     <tr>
         <td class="page" align="center">
-             <h3>Reservation en cour pour <?php echo $nom ;?> <?php echo $prenom ;?> :</h3>
+             <h3>Reservations en cour :</h3>
         </td>
     </tr>
     
@@ -110,12 +136,16 @@ $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 
                 </center>
         </td>
     </tr>
+    
+</table>
 
         
 
-        <tr>
+<table  class="page" align="center">
+    
+    <tr>
         <td class="page" align="center">
-             <h3>Abonnement en cour pour <?php echo $nom ;?> <?php echo $prenom ;?> :</h3>
+             <h3>Abonnements en cour :</h3>
         </td>
     </tr>
     
