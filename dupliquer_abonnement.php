@@ -40,7 +40,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                                             }
                                              
                                             
-                         //recupe nom client
+                         //recupe nom client a qui on a duplique son abonnement
                          $req_info_client = "SELECT nom, prenom
                                              FROM client
                                              WHERE num_client = '$client_num_duplique'";
@@ -152,11 +152,6 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 <?php
             
-
-//On ajoute cette vente d'abonnement dans la bdd
-$req_vente_duplication = "INSERT INTO abonnement_comm(client_num, date, ) VALUES('','')";
-mysql_query($req_vente_duplication) or die('Erreur SQL 1er insert into dans abonnement_comm !<br>'.$req_vente_duplication.'<br>'.mysql_error());
-                          
 $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
 
 //ici on decremnte le stock
@@ -248,7 +243,7 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
                             $nom2 = $row["nom2"];
                             $prenom = $row["prenom"];
 ?>
-                    <OPTION VALUE='<?php echo $client_num_duplique; ?>'><?php echo $nom;?> <?php echo $prenom ;?></OPTION>
+                    <OPTION VALUE='<?php echo $client_num_nouveaux; ?>'><?php echo $nom;?> <?php echo $prenom ;?></OPTION>
 <?php
                         } // fin du while (liste spectateur)
 ?>
@@ -295,11 +290,41 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
                         <?php echo $date_spectacle_7_duplique  ; ?>    <br/> <br/>          
             </td>
         </tr>   
-                
+
+<?php
+//on calcule les information concernant la tva
+$tva = 0 ;
+$total_tva = ($total * 1) - $total ;
+$total_ttc = $total + $total_tva  ;
+$total_ht = $total ;
+
+//on recupere les info date
+   $date_vente = date('Y-m-d');     
+   $jour =date("d");
+   $date_ref="$mois-$jour";
+   $mois = date("m");
+   $annee = date("Y");
+   $date_debut = date('Y-m-d');
+   $date_fin = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day")); 
+
+//On ajoute cette vente d'abonnement dans la bdd
+// num_abo_com / client_num / date /date_debut / date_fin / user / soir / tot_tva / attente / ctrl / fact / date_fact / paiement / comment / num_abonnement / banque / titulaire_cheque / print / quanti / nombre_place / choix_spectacle_1 / num_spectacle_1  
+$req_vente_duplication = "INSERT INTO abonnement_comm (client_num, date, date_debut, date_fin, ctrl, fact, paiement, num_abonnement, nombre_place, num_spectacle_1, num_spectacle_2, num_spectacle_3, num_spectacle_4, num_spectacle_5, num_spectacle_6, num_spectacle_7)
+                          VALUES ('$client_num_duplique', '$annee-$mois-$jour', '$date_debut', '$date_fin', '$ctrl_duplique', '$fact_duplique', '$paiement_duplique', '$num_abonnement_duplique', '$nombre_place_duplique', '$num_spectacle_1_duplique', '$num_spectacle_2_duplique', '$num_spectacle_3_duplique', '$num_spectacle_4_duplique', '$num_spectacle_5_duplique', '$num_spectacle_6_duplique', '$num_spectacle_7_duplique')";
+mysql_query($req_vente_duplication) or die('Erreur SQL role . INSERT INTO !<br>'.$req_vente_duplication.'<br>'.mysql_error());                                         
+//ensuite faire sur page d'apres un update si $duplication est present, trouv facon recup ceux num_abo_com du dupliq a pas lautre
+
+//On enregistre la vente dans la table abonnement_paiement
+$req_creation_vente = "INSERT INTO abonnement_paiement (num_client, paiement, quantite, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
+                       VALUES ('$client_num_duplique', '$paiement_duplique', '$quanti', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement_duplique')";
+mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
+
+?>
+        
         <tr> 
 	    <td class="submit" colspan="13">
                 <input name="num_abonnement_duplique" value="<?php echo $num_abonnement_duplique ;?>" type="hidden">
-                <input name="client_num_duplique" value="<?php echo $client_num_duplique ;?>" type="hidden">
+                <input name="client_num_nouveaux" value="<?php echo $client_num_nouveaux ;?>" type="hidden">
                 <!-- <input name="client" value="<?php //echo  $client ;?>" type="hidden"> -->
                 <input name="num_abo_com" value="<?php echo $num_abo_com ;?>" type="hidden">
                 <input name="nom_duplique" value="<?php echo $nom_duplique ;?>" type="hidden">
@@ -318,51 +343,10 @@ $quanti = 1 ; // le nombre de billet a decrementer du stock (article)
             </td>
 	</tr>
         </form>
-<?php
-        //on calcule les information concernant la tva
-$tva = 0 ;
-$total_tva = ($total * 1) - $total ;
-$total_ttc = $total + $total_tva  ;
-$total_ht = $total ;
 
-//on recupere la date d aujourd hui
-$date_vente = date('Y-m-d');     
-
-//test echo variable
-echo $client_num_duplique ; ?><br><?php
-echo $ctrl_duplique; ?><br><?php
-echo $fact_duplique; ?><br><?php
-echo $paiement_duplique; ?><br><?php
-echo $num_abonnement_duplique; ?><br><?php
-echo $nombre_place_duplique; ?><br><?php
-echo $num_spectacle_1_duplique; ?><br><?php
-echo $num_spectacle_2_duplique; ?><br><?php
-echo $num_spectacle_3_duplique; ?><br><?php
-echo $num_spectacle_4_duplique; ?><br><?php
-echo $num_spectacle_5_duplique; ?><br><?php
-echo $num_spectacle_6_duplique; ?><br><?php
-echo $num_spectacle_7_duplique; ?><br><?php
-
-//On ajoute cette vente d'abonnement dans la bdd
-// num_abo_com / client_num / date /date_debut / date_fin / user / soir / tot_tva / attente / ctrl / fact / date_fact / paiement / comment / num_abonnement / banque / titulaire_cheque / print / quanti / nombre_place / choix_spectacle_1 / num_spectacle_1  
-$req_vente_duplication = "INSERT INTO abonnement_comm (client_num, ctrl, fact, paiement, num_abonnement, nombre_place, num_spectacle_1, num_spectacle_2, num_spectacle_3, num_spectacle_4, num_spectacle_5, num_spectacle_6, num_spectacle_7)
-                                               VALUES ('$client_num_duplique', '$ctrl_duplique', '$fact_duplique', '$paiement_duplique', '$num_abonnement_duplique', '$nombre_place_duplique', '$num_spectacle_1_duplique', '$num_spectacle_2_duplique', '$num_spectacle_3_duplique', '$num_spectacle_4_duplique', '$num_spectacle_5_duplique', '$num_spectacle_6_duplique', '$num_spectacle_7_duplique')";
-mysql_query($req_vente_duplication) or die('Erreur SQL 1er insert into dans abonnement_comm !<br>'.$req_vente_duplication.'<br>'.mysql_error());                                         
-//ensuite faire sur page d'apres un update si $duplication est present, trouv facon recup ceux num_abo_com du dupliq a pas lautre
-                                           
-                                            
-//On enregistre la vente dans la table abonnement_paiement
-$req_creation_vente = "INSERT INTO abonnement_paiement (num_abo_com, num_client, paiement, quantite, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
-                       VALUES ('$num_abo_com_duplique', '$client_num_duplique', '$paiement_duplique', '$quanti', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement_duplique')";
-mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
-?>
-        
         </table>
 </table>
-        
-
-
-
+       
 
 <?php
 include_once("include/bas.php");

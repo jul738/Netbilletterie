@@ -127,7 +127,7 @@ $annee = date("Y");?>
 	  </tr>
           
 	  <tr>
-            <td class='<?php echo couleur_alternee (); ?>'>Capacité totale de la salle : </td>
+            <td class='<?php echo couleur_alternee (); ?>'>Capacite totale de la salle : </td>
             <td align=left><input name='stomax' type='text'></td>
 	</tr>
 

@@ -146,7 +146,7 @@ while($data = mysql_fetch_array($req))
 			}
 		?>
 		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
-		<td class="highlight"><img src="<?php echo$image; ?>" height="100"></td>
+		<td class="highlight"><img src="<?php echo $image; ?>" height="100"></td>
                 <td class="highlight"><?php echo $type_article; ?></td>	
 		<td class="highlight"><?php echo $article_html; ?></td>	 
  <!--               <td class="highlight"><small><?php // echo  $numero_representation; ?></small></td>  -->

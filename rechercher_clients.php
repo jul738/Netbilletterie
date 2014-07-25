@@ -1,10 +1,10 @@
 <?php 
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Jose Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Developpe depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Jose Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/language/$lang.php");
@@ -22,7 +22,7 @@ $attente=isset($_POST['attente'])?$_POST['attente']:"";
 if ($attente=='') { $attente=0; }
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classes par saison
 $mois=date("n");
 if ($mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -58,14 +58,13 @@ $sql = "SELECT nom, client_num, mail, tel, ville, date FROM ".$tblpref."client C
 		AND C.actif='y'
 		AND BC.attente=$attente	 
 		AND BC.fact='ok'
-		AND date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'		
-		";
+		AND date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'";
 if ($article_numero != '')
 {
 $sql .= " AND CB.article_num = $article_numero";
 }
 $sql .= " GROUP by client_num
-		ORDER by C.nom asc ";
+	  ORDER by C.nom asc ";
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 $nb = mysql_num_rows($req);
 //nom du  spectacle'
@@ -81,7 +80,7 @@ $article = $data['article'];
 <table width="760" border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-		<h3>Liste des spectateurs suivant les critères de recherche "<?php echo "$article <br/> Nombre de reservations $nb"; ?>"</h3>
+		<h3>Liste des spectateurs suivant les criteres de recherche "<?php echo "$article <br/> Nombre de reservations $nb"; ?>"</h3>
 		</td>
 	</tr>
 	<tr>
@@ -95,6 +94,7 @@ $article = $data['article'];
 							   <h5>En fonction de la saison</h5><br>
 									<select name="annee_1">
 									<option value="<?php echo"$annee_1"; ?>"><?php $date_1=$annee_1-1;echo"$date_1 -$annee_1"; ?></option>
+                                                                        <option value="<?php $date=(date("Y")+1);echo"$date"; ?>"><?php $date=(date("Y")+1);$date_1=$date+0;echo"$date_1 - $date"; ?></option>
 									<option value="<?php $date=date("Y");echo"$date"; ?>"><?php $date=date("Y");$date_1=$date-1;echo"$date_1 - $date"; ?></option>
 									<option value="<?php $date=(date("Y")-1);echo"$date"; ?>"><?php $date=(date("Y")-1);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
 									<option value="<?php $date=(date("Y")-2);echo"$date"; ?>"><?php $date=(date("Y")-2);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
@@ -141,9 +141,9 @@ $article = $data['article'];
 
 									</select>
 									<select name="attente">
-										<option  value="<?php echo $attente ?>"><?php if ($attente==0) {$texte= "Sur les réservations";} 
+										<option  value="<?php echo $attente ?>"><?php if ($attente==0) {$texte= "Sur les reservations";} 
 										if ($attente==1) {$texte= "Sur liste d'attente";}echo $texte; ?></option>
-										<option  value=0>Sur les réservations</option>
+										<option  value=0>Sur les rï¿½servations</option>
 										<option  value=1>Sur liste d'attente </option>
 									</select>
 								
@@ -218,7 +218,7 @@ $article = $data['article'];
 								} ?>
 							</tr>
 							<tr> 
-								<td  colspan="6"><br><h1>Liste des spectateurs ayant un mail<br>(Copier coller les adresses. Pour les envois groupés ne pas oublié de mettre en cci)</h1> </td>
+								<td  colspan="6"><br><h1>Liste des spectateurs ayant un mail<br>(Copier coller les adresses. Pour les envois groupes ne pas oublie de mettre en cci)</h1> </td>
 							</tr>
 							<tr>
 								<td colspan="6">

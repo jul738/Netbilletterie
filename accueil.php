@@ -216,7 +216,7 @@ include_once("include/configav.php");
         <tr>
 		<td>
 	      		<table class="boiteaction">
-                            <caption> Cliquer ici pour vous diriger vers la documentationlis</caption>
+                            <caption> <a href="formation/formation.png">Cliquer ici </a> pour vous diriger vers la documentation</caption>
 </table>
 </table>
 

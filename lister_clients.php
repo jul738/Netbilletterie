@@ -37,12 +37,11 @@ include_once("include/fonction.php");
                                 
                 
                 // requete sql avec les abonnement // 
-                $sql = " SELECT DISTINCT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.prenom, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
-                FROM client C, abonne A
-                WHERE C.num_client = A.num_abonne
-                AND C.nom LIKE '$initial%' 
+                $sql = " SELECT DISTINCT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.prenom, C.tel, C.fax
+                                FROM client C
+                WHERE C.nom LIKE '$initial%' 
 		AND actif='y' 
-                AND `C.num_client`!='1'";
+                AND C.num_client !='1'";
                 
 		 if ( isset ( $_GET['ordre'] ) && $_GET['ordre'] != '')
 		{
@@ -50,10 +49,9 @@ include_once("include/fonction.php");
 		} 
 		else {
 		//$sql = " SELECT * FROM ".$tblpref ."client WHERE nom LIKE '$initial%' AND actif='y' AND `num_client`!='1' ORDER BY nom ASC";
-                  $sql = " SELECT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.prenom, C.tel, C.fax, A.abonne_jp, A.abonne_chanson, A.abonne_date
-                FROM client C, abonne A
-                WHERE C.num_client = A.num_abonne
-                AND C.nom LIKE '$initial%' 
+                  $sql = " SELECT C.num_client, C.nom, C.nom2, C.rue, C.ville, C.cp, C.mail, C.prenom, C.tel, C.fax
+                FROM client C
+                WHERE C.nom LIKE '$initial%' 
 		AND actif='y' 
                 AND C.num_client!='1'
                 ORDER BY C.nom ASC";                
@@ -106,8 +104,6 @@ $date_ajd = date('Y-m-d');
 								$prenom = $data['prenom'];
 								$tel = $data['tel'];
 								$fax = $data['fax'];
-                                                                $abonne_chanson = $data['abonne_chanson'];
-                                                                $abonne_jp = $data['abonne_jp'];
 								$nombre = $nombre +1;
 								if($nombre & 1){
 								$line="0";
