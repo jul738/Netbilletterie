@@ -1513,19 +1513,6 @@ CREATE TABLE IF NOT EXISTS `mail` (
   PRIMARY KEY (`id_mail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `payement`
---
-
-CREATE TABLE IF NOT EXISTS `payement` (
-  `num` int(10) NOT NULL AUTO_INCREMENT,
-  `num_fact` varchar(30) NOT NULL,
-  `pay` varchar(4) NOT NULL,
-  `date_pay` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`num`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1706,24 +1693,6 @@ INSERT INTO `tarif` (`id_tarif`, `nom_tarif`, `prix_tarif`, `saison`, `carnet`, 
 (23, 'Billetterie Extérieur', 12.00, '2014-07-01', '21000', 1),
 (20, 'Theatre thlon - Sceance', 3.00, '2014-07-01', '18000', 1),
 (21, 'Theatre thlon - Pass', 5.00, '2014-07-01', '19000', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ticket`
---
-
-CREATE TABLE IF NOT EXISTS `ticket` (
-  `id_ticket` int(11) NOT NULL AUTO_INCREMENT,
-  `id_tarif` int(11) NOT NULL,
-  `num_ticket` int(11) NOT NULL,
-  `num_client` int(11) NOT NULL,
-  `num_spectacle` int(11) NOT NULL,
-  `num_bon` int(11) NOT NULL,
-  PRIMARY KEY (`id_ticket`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `type_paiement`
