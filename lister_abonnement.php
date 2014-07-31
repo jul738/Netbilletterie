@@ -43,7 +43,7 @@ $annee_2= $annee_1 -1;
 //=============================================
 
 //Affiche les abonnement vendu 
-$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.quanti, ac.choix_spectacle_1, ac.choix_spectacle_2, ac.choix_spectacle_3, ac.choix_spectacle_4, ac.choix_spectacle_5, ac.choix_spectacle_6, ac.choix_spectacle_7
+$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.num_spectacle_1, ac.num_spectacle_2, ac.num_spectacle_3, ac.num_spectacle_4, ac.num_spectacle_5, ac.num_spectacle_6, ac.num_spectacle_7
                         FROM abonnement_comm ac, abonnement a, client c
                         WHERE ac.num_abonnement = a.num_abonnement
                         AND c.num_client = ac.client_num
@@ -95,21 +95,54 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         $nom = $data['nom'];
                         $date = $data['date'];
                         $nom_abonnement = $data['nom_abonnement'];
-                        $quanti = $data['quanti'];
-                        $choix_spectacle_1 = $data['choix_spectacle_1'];
-                        $choix_spectacle_2 = $data['choix_spectacle_2'];
-                        $choix_spectacle_3 = $data['choix_spectacle_3'];
-                        $choix_spectacle_4 = $data['choix_spectacle_4'];
-                        $choix_spectacle_5 = $data['choix_spectacle_5'];
-                        $choix_spectacle_6 = $data['choix_spectacle_6'];
-                        $choix_spectacle_7 = $data['choix_spectacle_7'];
+                        $num_spectacle_1 = $data['num_spectacle_1'];
+                        $num_spectacle_2 = $data['num_spectacle_2'];
+                        $num_spectacle_3 = $data['num_spectacle_3'];
+                        $num_spectacle_4 = $data['num_spectacle_4'];
+                        $num_spectacle_5 = $data['num_spectacle_5'];
+                        $num_spectacle_6 = $data['num_spectacle_6'];
+                        $num_spectacle_7 = $data['num_spectacle_7'];
                     if($nombre & 1)
                         {
                         $line="0";
                         }else  
                             {
                             $line="1";
-                            } 
+                            }
+                            // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_1 = 'SELECT article FROM article WHERE num='.$num_spectacle_1.'';
+                            $sql_spectacle_1 = mysql_query($req_spectacle_1);
+                            $choix_spectacle_1 = mysql_result($sql_spectacle_1,0);
+                            
+                                                        // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_2 = 'SELECT article FROM article WHERE num='.$num_spectacle_2.'';
+                            $sql_spectacle_2 = mysql_query($req_spectacle_2);
+                            $choix_spectacle_2 = mysql_result($sql_spectacle_2,0);
+                            
+                                                        // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_3 = 'SELECT article FROM article WHERE num='.$num_spectacle_3.'';
+                            $sql_spectacle_3 = mysql_query($req_spectacle_3);
+                            $choix_spectacle_3 = mysql_result($sql_spectacle_3,0);
+                            
+                                                        // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_4 = 'SELECT article FROM article WHERE num='.$num_spectacle_4.'';
+                            $sql_spectacle_4 = mysql_query($req_spectacle_4);
+                            $choix_spectacle_4 = mysql_result($sql_spectacle_4,0);
+                            
+                                                        // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_5 = 'SELECT article FROM article WHERE num='.$num_spectacle_5.'';
+                            $sql_spectacle_5 = mysql_query($req_spectacle_5);
+                            $choix_spectacle_5 = mysql_result($sql_spectacle_5,0);
+                            
+                                                        // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_6 = 'SELECT article FROM article WHERE num='.$num_spectacle_6.'';
+                            $sql_spectacle_6 = mysql_query($req_spectacle_6);
+                            $choix_spectacle_6 = mysql_result($sql_spectacle_6,0);
+                            
+                                                        // ON récupère les nom des spectacles correspondant au numéro
+                            $req_spectacle_7 = 'SELECT article FROM article WHERE num='.$num_spectacle_7.'';
+                            $sql_spectacle_7 = mysql_query($req_spectacle_7);
+                            $choix_spectacle_7 = mysql_result($sql_spectacle_7,0);
                 ?>
 
                         <td> <?php echo $num_abo_com       ; ?> </td>

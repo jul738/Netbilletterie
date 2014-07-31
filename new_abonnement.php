@@ -135,7 +135,7 @@ $result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete -rqSql
 
         <td class="texte0" colspan='2'>
     <SELECT NAME='num_abonnement'>
-    <OPTION VALUE="">Choisir l'<?php echo "$lang_abonnement";?></OPTION>
+    <OPTION VALUE="">Choisir l'abonnement</OPTION>
 <?php
         while ( $row = mysql_fetch_array( $result3)) 
                 {

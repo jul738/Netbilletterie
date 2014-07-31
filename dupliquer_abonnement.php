@@ -151,30 +151,28 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 
 <?php
-            
-$quanti = 1 ; // le nombre de billet a decrementer du stock (article)
 
 //ici on decremnte le stock
     //Pour le Spectacle 1
-    $sql122 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_1_duplique'";
+    $sql122 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_1_duplique'";
     mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
         //Pour le spectacle 2
-        $sql13 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_2_duplique'";
+        $sql13 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_2_duplique'";
         mysql_query($sql13) or die('Erreur SQL13 !<br>'.$sql13.'<br>'.mysql_error());
             //Pour le spectacle 3
-            $sql14 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_3_duplique'";
+            $sql14 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_3_duplique'";
             mysql_query($sql14) or die('Erreur SQL14 !<br>'.$sql14.'<br>'.mysql_error());
                 //Pour le spectacle 4
-                $sql15 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_4_duplique'";
+                $sql15 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_4_duplique'";
                 mysql_query($sql15) or die('Erreur SQL15 !<br>'.$sql15.'<br>'.mysql_error());
                     //Pour le spectacle 5
-                    $sql16 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_5_duplique'";
+                    $sql16 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_5_duplique'";
                     mysql_query($sql16) or die('Erreur SQL16 !<br>'.$sql16.'<br>'.mysql_error());
                         //Pour le spectacle 6
-                        $sql17 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_6_duplique'";
+                        $sql17 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_6_duplique'";
                         mysql_query($sql17) or die('Erreur SQL17 !<br>'.$sql17.'<br>'.mysql_error());
                             //Pour le spectacle 7
-                            $sql18 = "UPDATE article SET stock = (stock - $quanti) WHERE num = '$num_spectacle_7_duplique'";
+                            $sql18 = "UPDATE article SET stock = (stock - 1) WHERE num = '$num_spectacle_7_duplique'";
                             mysql_query($sql18) or die('Erreur SQL18 !<br>'.$sql18.'<br>'.mysql_error());
 
 ?>
@@ -308,15 +306,15 @@ $total_ht = $total ;
    $date_fin = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day")); 
 
 //On ajoute cette vente d'abonnement dans la bdd
-// num_abo_com / client_num / date /date_debut / date_fin / user / soir / tot_tva / attente / ctrl / fact / date_fact / paiement / comment / num_abonnement / banque / titulaire_cheque / print / quanti / nombre_place / choix_spectacle_1 / num_spectacle_1  
+// num_abo_com / client_num / date /date_debut / date_fin / user / soir / tot_tva / attente / ctrl / fact / date_fact / paiement / comment / num_abonnement / banque / titulaire_cheque / print / nombre_place / choix_spectacle_1 / num_spectacle_1  
 $req_vente_duplication = "INSERT INTO abonnement_comm (client_num, date, date_debut, date_fin, ctrl, fact, paiement, num_abonnement, nombre_place, num_spectacle_1, num_spectacle_2, num_spectacle_3, num_spectacle_4, num_spectacle_5, num_spectacle_6, num_spectacle_7)
                           VALUES ('$client_num_duplique', '$annee-$mois-$jour', '$date_debut', '$date_fin', '$ctrl_duplique', '$fact_duplique', '$paiement_duplique', '$num_abonnement_duplique', '$nombre_place_duplique', '$num_spectacle_1_duplique', '$num_spectacle_2_duplique', '$num_spectacle_3_duplique', '$num_spectacle_4_duplique', '$num_spectacle_5_duplique', '$num_spectacle_6_duplique', '$num_spectacle_7_duplique')";
 mysql_query($req_vente_duplication) or die('Erreur SQL role . INSERT INTO !<br>'.$req_vente_duplication.'<br>'.mysql_error());                                         
 //ensuite faire sur page d'apres un update si $duplication est present, trouv facon recup ceux num_abo_com du dupliq a pas lautre
 
 //On enregistre la vente dans la table abonnement_paiement
-$req_creation_vente = "INSERT INTO abonnement_paiement (num_client, paiement, quantite, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
-                       VALUES ('$client_num_duplique', '$paiement_duplique', '$quanti', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement_duplique')";
+$req_creation_vente = "INSERT INTO abonnement_paiement (num_client, paiement, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
+                       VALUES ('$client_num_duplique', '$paiement_duplique', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement_duplique')";
 mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
 
 ?>
