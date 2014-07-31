@@ -12,6 +12,8 @@ include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/finhead.php");
+include_once("include/configav.php");
+include_once("include/head.php");
 ?>
 <script type="text/javascript" src="javascripts/confdel.js"></script>
 <script type="text/javascript">
@@ -36,7 +38,6 @@ if(document.formu2.id_tarif.value == "")  {
 $num_bon=isset($_POST['num_bon'])?$_POST['num_bon']:"";
 $attente=isset($_POST['attente'])?$_POST['attente']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
-$voir=isset($_POST['voir'])?$_POST['voir']:"";
 
 //on change le bon s'il vient de la liste d'attente en modifant le champ attente � 0
 if($attente=='1'){
@@ -48,7 +49,6 @@ if($num_bon=='')
     {
         $num_bon=isset($_GET['num_bon'])?$_GET['num_bon']:"";
         $id_tarif=isset($_GET['id_tarif'])?$_GET['id_tarif']:"";
-        $voir=isset($_GET['voir'])?$_GET['voir']:"";
     }
     
 
@@ -116,18 +116,6 @@ $rqSql1 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) A
                                             ORDER BY date_spectacle ASC";
 $result = mysql_query( $rqSql1 )
              or die( "Exécution requetes impossible1.<br> <a href='lister_commandes.php'>retour a la liste</a>");
-
-	//on recup�re les infos du spectateur	pas utile a cvoir si on meu supprimer??????
-/* $rqSql = "SELECT num_client, nom FROM ".$tblpref."client WHERE actif != 'non'";
-if ($user_com == r) { 
-$rqSql = "SELECT num_client, nom FROM ".$tblpref."client WHERE actif != 'non'
-	 and (".$tblpref."client.permi LIKE '$user_num,' 
-	 or  ".$tblpref."client.permi LIKE '%,$user_num,' 
-	 or  ".$tblpref."client.permi LIKE '%,$user_num,%' 
-	 or  ".$tblpref."client.permi LIKE '$user_num,%')  
-	";  }
-$result2 = mysql_query( $rqSql )
-             or die('Erreur SQL !<br>'.$rqSql2.'<br>'.mysql_error()); */
 			 
 //on recup�re les differents tarifs 
 if ($id_tarif!=""){
@@ -171,13 +159,9 @@ function edition()
 					<h1><?php echo "$phrase: $nom $lang_bon_cree2 $date <br>par: $user<br>";?></h1><br>
 					<?php 
 				} ?>
-			<?php
-			if ($voir!=''){
-			?>
+
 			<h3><a href="lister_commandes.php"><img src="image/retour.png" alt= "Retour a la liste des reservations">Revenir a la liste des reservations</a></h3>
-			<?php
-			}
-			?>
+
 		</td>
 	</tr>
 	<tr>
@@ -198,11 +182,11 @@ function edition()
 					<th>Imprimer billet(s)</th>
 						<?php
 					}}
-						if( $pointage!='ok'){ 
-							if( $voir!='ok'){?>
-					<th><? echo $lang_supprimer ;?></th>
+						if( $pointage!='ok'){ ?>
+                                        <th><?php echo $lang_editer; ?></th>
+					<th><?php echo $lang_supprimer ;?></th>
 						 <?php 
-						 }}
+						 }
 						  else {?>
 					<th> </th> 
 						  <?php 
@@ -293,15 +277,17 @@ function edition()
 					</td>
 					 <?php 
 				 }}
-						if( $pointage!='ok'){ 
-							if( $voir!='ok'){?>
+						if( $pointage!='ok'){ ?>
+                                         <td><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon"; ?>&amp;id_tarif=<?php echo "$id_tarif"; ?>' >
+                                            <img border="0" alt="editer" src="image/edit.png" Title="Modifier la commande"></a></td>
 					<td class='<?php echo couleur_alternee (FALSE); ?>'>
 						<?php echo "<a href=delete_cont_bon.php?num_cont=$num_cont&amp;num_bon=$num_bon&amp;id_tarif=$id_tarif onClick='return confirm('Etes-vous sur de vouloir supprimer ce spectacle?')'><img border=0 src= image/delete.jpg ></a>"  ?>
 					</td>
 						<?php 
-						}}
+						}
 						 else {?>
-					<td> </td> 
+					<td> </td>
+                                        <td> </td>
 						  <?php 
 						 } ?>
 				</tr>
