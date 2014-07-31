@@ -44,7 +44,7 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
 			?> 
 				<tr>
 					<td>
-						<form name="formu" method="get" action="bon.php" onSubmit="return verif_formulaire()">
+						<form name="formu" id="dupliquer-client-abonnement" method="get" action="bon.php" onSubmit="return verif_formulaire()">
 						<center> <table>
 							<tr>
 									<?php 
@@ -108,7 +108,7 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
 		exit;  
 		}
 		 ?> 
-		<form action="client_new.php" method="post" enctype="application/x-www-form-urlencoded" name="client" onSubmit="return check();">
+		<form action="client_new.php" method="post" enctype="application/x-www-form-urlencoded" name="client" id="dupliquer-client" onSubmit="return check();">
 			<table >
 				<caption><?php echo $lang_client_ajouter; ?></caption>
 				<tr> 
@@ -145,6 +145,7 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
 				</tr>
 				<tr> 
 					<td class="submit" colspan="2">
+                                                <input type="hidden" name="client-parent" value="<?php echo $num_client; ?>" />
 						<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">
 					</td>
 				</tr>

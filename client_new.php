@@ -30,6 +30,7 @@ $ville= ucwords($ville);
 $nom= ucwords($nom);
 $abonne_jp=isset($_POST['abonne_jp'])?$_POST['abonne_jp']:"";
 $abonne_chanson=isset($_POST['abonne_chanson'])?$_POST['abonne_chanson']:"";
+$num_client_parent=isset($_POST['client-parent'])?$_POST['client-parent']:"";
 
 $nom = strtoupper( $nom );
 
@@ -92,16 +93,21 @@ mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 $sql100 = "INSERT INTO " . $tblpref ."abonne(abonne_jp, abonne_chanson) VALUES ('$abonne_jp', '$abonne_chanson')";
 mysql_query($sql100) or die('Erreur SQL !<br>'.$sql100.'<br>'.mysql_error());
 
-$sql3 = "SELECT * FROM " . $tblpref ."client
-WHERE nom= '".$nom."'
-";
+$nouveau_client = mysql_insert_id();
+
+//On insert le lien entre le client dupliqué et le client enfant
+$sql_insert_client_liens = "INSERT INTO " . $tblpref ."client_liens(num_client_parent, num_client_enfant) VALUES ('$num_client_parent', '$nouveau_client')";
+mysql_query($sql_insert_client_liens) or die('Erreur SQL!<br>'.$sql_insert_client_liens.'<br>'.mysql_error());
+
+//On récupère le nom du dernier client
+$sql3 = "SELECT nom FROM " . $tblpref ."client WHERE num_client=".$nouveau_client."";
+
 $req3= mysql_query($sql3) or die('Erreur SQL3 !<br>'.$sql3.'<br>'.mysql_error());
+
 while($data = mysql_fetch_array($req3))
     {
-    $client = $data['num_client'];
-	$nom=StripSlashes($data['nom']);
-
-$message= "<center><h2>Le client <font color=#009EDF>$civ $nom </font> a bien ete enregistre </h2></center>";
-
-include("form_client.php");}
+        $nom=StripSlashes($data['nom']);
+        $message= "<center><h2>Le client <font color=#009EDF>$nom </font> a bien ete enregistre </h2></center>";
+        include("form_client.php");
+    }
 ?>

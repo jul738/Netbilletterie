@@ -35,6 +35,7 @@ $date_ref="$mois-$jour";
 $annee = date("Y");
 //pour le formulaire
 $annee_1=isset($_POST['annee_1'])?$_POST['annee_1']:"";
+
 if ($annee_1=='') 
 {
   $annee_1= $annee ;
@@ -47,23 +48,22 @@ if ($annee_1=='')
   $annee_1=$annee_1+1;
   }  
 }
+
 $annee_2= $annee_1 -1;
 //=============================================
 
 //requette 
-$sql = "SELECT nom, client_num, mail, tel, ville, date FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC  
+$sql = "SELECT C.num_client, nom, client_num, mail, tel, ville, date FROM ".$tblpref."client C, ".$tblpref."bon_comm BC  
 		WHERE BC.client_num=C.num_client
-		AND CB.bon_num=BC.num_bon
 		AND BC.client_num=C.num_client
 		AND C.actif='y'
 		AND BC.attente=$attente	 
-		AND BC.fact='ok'
 		AND date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'";
 if ($article_numero != '')
 {
 $sql .= " AND CB.article_num = $article_numero";
 }
-$sql .= " GROUP by client_num
+$sql .= " GROUP by C.num_client
 	  ORDER by C.nom asc ";
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 $nb = mysql_num_rows($req);
@@ -93,15 +93,14 @@ $article = $data['article'];
 							<td>
 							   <h5>En fonction de la saison</h5><br>
 									<select name="annee_1">
-									<option value="<?php echo"$annee_1"; ?>"><?php $date_1=$annee_1-1;echo"$date_1 -$annee_1"; ?></option>
-                                                                        <option value="<?php $date=(date("Y")+1);echo"$date"; ?>"><?php $date=(date("Y")+1);$date_1=$date+0;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=date("Y");echo"$date"; ?>"><?php $date=date("Y");$date_1=$date-1;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=(date("Y")-1);echo"$date"; ?>"><?php $date=(date("Y")-1);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=(date("Y")-2);echo"$date"; ?>"><?php $date=(date("Y")-2);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=(date("Y")-3);echo"$date"; ?>"><?php $date=(date("Y")-3);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=(date("Y")-4);echo"$date"; ?>"><?php $date=(date("Y")-4);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=(date("Y")-5);echo"$date"; ?>"><?php $date=(date("Y")-5);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
-									<option value="<?php $date=(date("Y")-6);echo"$date"; ?>"><?php $date=(date("Y")-6);$date_1=$date-1;echo"$date_1 - $date"; ?></option>
+									<option value="<?php $date4=(date("Y")-1);echo"$date4"; ?>"><?php $date_4=$date4-1;echo"$date_4 - $date4"; ?></option>
+									<option value="<?php $date5=(date("Y")-2);echo"$date5"; ?>"><?php $date_5=$date5-1;echo"$date_5 - $date5"; ?></option>
+									<option value="<?php $date6=(date("Y")-3);echo"$date6"; ?>"><?php $date_6=$date6-1;echo"$date_6 - $date6"; ?></option>
+									<option value="<?php $date7=(date("Y")-4);echo"$date7"; ?>"><?php $date_7=$date7-1;echo"$date_7 - $date7"; ?></option>
+									<option value="<?php $date8=(date("Y")-5);echo"$date8"; ?>"><?php $date_8=$date8-1;echo"$date_8 - $date8"; ?></option>
+									<option value="<?php $date9=(date("Y")-6);echo"$date9"; ?>"><?php $date_9=$date9-1;echo"$date_9 - $date9"; ?></option>
+                                                                        <option value="<?php $date3=date("Y");echo"$date3"; ?>" selected="selected"><?php $date_3=$date3-1;echo"$date_3 - $date3"; ?></option>
+                                                                        <option value="<?php $date2=(date("Y")+1);echo"$date2"; ?>"><?php $date_2=$date2-1;echo"$date_2 - $date2"; ?></option>
 									</select>
 							</td>
 							<td>

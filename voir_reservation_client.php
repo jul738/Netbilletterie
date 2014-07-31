@@ -29,10 +29,9 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
                     
 
 //Recupere les info client
-$req_recup_info_client = "SELECT c.nom, c.prenom, bc.num_bon, c.rue, c.ville, c.cp, c.mail, c.tel
-                          FROM client c, bon_comm bc
-                          WHERE c.num_client = '$num_client'
-                          AND bc.client_num = '$num_client'";
+$req_recup_info_client = "SELECT c.nom, c.prenom, c.rue, c.ville, c.cp, c.mail, c.tel
+                          FROM client c
+                          WHERE c.num_client = '$num_client'";
 $recup_info_client_brut = mysql_query($req_recup_info_client) or die('Erreur SQL2 !<br>'.$req_recup_info_client.'<br>'.mysql_error());
 while($data = mysql_fetch_array($recup_info_client_brut))
     {
@@ -43,9 +42,17 @@ $ville = $data['ville'];
 $cp = $data['cp'];
 $mail = $data['mail'];
 $tel = $data['tel'];
-//$num_bon = $data['num_bon'];
     }
 
+// Récupère les infos des clients liés
+$req_client_lies = "SELECT c.nom, c.prenom, c.num_client
+                    FROM client AS c, client_liens as cl
+                    WHERE cl.num_client_parent = '$num_client'
+                    AND c.num_client = cl.num_client_enfant";
+$recup_infos_client_lies = mysql_query($req_client_lies) or die('Erreur SQL !<br>'.$req_client_lies.'<br>'.mysql_error());
+while($data_client_lie = mysql_fetch_array($recup_infos_client_lies)){
+    $client_lie[] = $data_client_lie;
+}
 
 ?>
 <table  class="page" align="center">
@@ -71,6 +78,32 @@ $tel = $data['tel'];
             <td class="highlight"><?php echo $mail ;?></td>
         </tr>
     </table>
+    
+            <?php
+                if(!empty($client_lie)) {
+            ?>
+            <tr class="page" align="center">
+                        <td class="page" align="center">
+                         <h3> Spectateurs en lien avec <?php echo $nom ;?> <?php echo $prenom ;?> :</h3>
+                        </td>
+            </tr>
+            <td  class="page" align="center">
+            <table class="boiteaction">  
+                <?php
+                foreach($client_lie as $client_enfant){
+                ?>
+                <tr onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo $line ?>'">
+                   <td class="highlight"> <a href="voir_reservation_client.php?num_client=<?php echo $client_enfant['num_client']; ?>"><?php echo $client_enfant['nom'] ; echo $client_enfant['prenom']; ?></a></td>
+                </tr>
+                <?php
+                }
+                ?>
+            </table>
+            </td>
+            <?php
+                }
+            ?>
+            
 </table>
 
 <table  class="page" align="center">
