@@ -124,7 +124,7 @@ $annee_2= $annee_1 -1;
     // modifier : orignial pour le 'bon_suite_soir.php'
     // $sql12 = "UPDATE `" . $tblpref ."article` SET `stock` = (stock - ".$quanti.") WHERE `num` = '".$num."'";
     
-    // on récupère l' ID de la vente d'abonnment que l'on vien de faire (création vente abo requete précedente)
+    // on récupère l' ID de la vente d'abonnment que l'on vient de faire (création vente abo requete précedente)
     $sql_num = "SELECT num_abo_com
                 FROM abonnement_comm
                 WHERE client_num = '$client'

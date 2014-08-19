@@ -16,6 +16,9 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 
 
+$date = date('Y-m-d');
+echo $date;
+
 //Si duplication insertion des infos dans les tables
 $duplication = isset($_POST['duplication'])?$_POST['duplication']:NULL;
 if (isset($duplication))
@@ -286,7 +289,7 @@ if (isset($duplication))
     }else
         {
         $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
-                               SET num_spectacle_1 = '$choix_spectacle_1_vendu' , num_spectacle_2 = '$choix_spectacle_2_vendu', num_spectacle_3 = '$choix_spectacle_3_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu', num_spectacle_6 = '$choix_spectacle_6_vendu' ', num_spectacle_7 = '$choix_spectacle_7_vendu'
+                               SET num_spectacle_1 = '$choix_spectacle_1_vendu' , num_spectacle_2 = '$choix_spectacle_2_vendu', num_spectacle_3 = '$choix_spectacle_3_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu', num_spectacle_6 = '$choix_spectacle_6_vendu', num_spectacle_7 = '$choix_spectacle_7_vendu'
                                WHERE num_abo_com = $num_abo_com";
         mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
         }
@@ -323,6 +326,37 @@ if (isset($duplication))
                             mysql_query($sql18) or die('Erreur SQL18 !<br>'.$sql18.'<br>'.mysql_error());
 
         }//fin du else
+        
+        
+       // ON crée les réservations associées
+       if(!empty($choix_spectacle_1_vendu)){		
+            $sql1 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_1_vendu')";
+            mysql_query($sql1) or die('Erreur SQL création réservation !<br>'.$sql1.'<br>'.mysql_error());
+       }
+       if(!empty($choix_spectacle_2_vendu)){		
+            $sql2 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_2_vendu')";
+            mysql_query($sql2) or die('Erreur SQL création réservation !<br>'.$sql2.'<br>'.mysql_error());
+       }
+       if(!empty($choix_spectacle_3_vendu)){		
+            $sql3 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_3_vendu')";
+            mysql_query($sql3) or die('Erreur SQL création réservation !<br>'.$sql3.'<br>'.mysql_error());
+       }
+       if(!empty($choix_spectacle_4_vendu)){		
+            $sql4 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_4_vendu')";
+            mysql_query($sql4) or die('Erreur SQL création réservation !<br>'.$sql4.'<br>'.mysql_error());
+       }
+       if(!empty($choix_spectacle_5_vendu)){		
+            $sql5 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_5_vendu')";
+            mysql_query($sql5) or die('Erreur SQL création réservation !<br>'.$sql5.'<br>'.mysql_error());
+       }
+       if(!empty($choix_spectacle_6_vendu)){		
+            $sql6 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_6_vendu')";
+            mysql_query($sql6) or die('Erreur SQL création réservation !<br>'.$sql6.'<br>'.mysql_error());
+       }
+       if(!empty($choix_spectacle_7_vendu)){		
+            $sql7 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_7_vendu')";
+            mysql_query($sql7) or die('Erreur SQL création réservation !<br>'.$sql7.'<br>'.mysql_error());
+       }
                             ?>
 <table border="0" class="page" align="center">
 	<tr>
