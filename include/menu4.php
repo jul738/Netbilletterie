@@ -1,10 +1,10 @@
 <!--
-Net Billetterie Copyright(C)2012 José Das Neves
+Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr
 
 Charger de communication-->
 <div class="menublock" >
@@ -24,9 +24,10 @@ Charger de communication-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des spectateurs</b></p>
 		<div class="column">
 			<ul>
-				<li><li><a href="form_client.php"><b>Créer une fiche "Spectateur"</b></a></li><hr/>
+				<li><li><a href="form_client.php"><b>CrÃ©er une fiche "Spectateur"</b></a></li><hr/>
+                                <li><a href="form_groupe.php"><strong>CrÃ©er un groupe</strong></a></li><hr/>
 				<li><a href="lister_clients.php"><b>Liste des spectateurs</b></a></li><hr/>
-				<li><a href="rechercher_clients.php"><b>Chercher par critère </b></a></li><hr/>
+				<li><a href="rechercher_clients.php"><b>Chercher par critÃ¨re </b></a></li><hr/>
 				<li><a href="lister_clients_inactifs.php"><b>Liste des spectateurs inactifs</b></a></li>
 			</ul>
 		</div>
@@ -37,10 +38,10 @@ Charger de communication-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des courriels</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_mailing.php"><b>Mailing à tous les spectateurs </b></a></li><hr/>
+				<li><a href="form_mailing.php"><b>Mailing Ã  tous les spectateurs </b></a></li><hr/>
 				<li><a href="form_mailing_spectateurs_cible.php"><b>Mailing aux spectateurs d'un spectacle</b></a></li><hr/>
-				<li><a href="form_mailing_spectateur.php"><b>Mailing à un spectateur</b></a></li><hr/><hr/>
-				<li><a href="lister_mail.php"><b>Liste des mails envoyés</b></a></li><hr/>
+				<li><a href="form_mailing_spectateur.php"><b>Mailing Ã  un spectateur</b></a></li><hr/><hr/>
+				<li><a href="lister_mail.php"><b>Liste des mails envoyÃ©s</b></a></li><hr/>
 			</ul>
 		</div>
 	</div>

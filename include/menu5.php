@@ -1,16 +1,16 @@
 <!--
-Net Billetterie Copyright(C)2012 José Das Neves
+Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr
 comptable-->
 
 <div class="menublock" >
 	<!--Menu 1er niveau-->
 	<ul id="solidmenu" class="solidblockmenu">
-		<li><a href="form_commande.php" rel="menu2"><img border ="0" src="image/commandes.png" alt="Abonnement"><br>Réservations</a></li>
+		<li><a href="form_commande.php" rel="menu2"><img border ="0" src="image/commandes.png" alt="Abonnement"><br>RÃ©servations</a></li>
 		<li><a href="lister_billetterie.php" ><img border ="0" src="image/billetterie.png" alt="billetterie"><br>Billetterie</a></li>
 		<li><a href="lister_articles.php" ><img border ="0" src="image/spectacle.png" alt="Spectacles"><br>Spectacles</a></li>
 		<li><a href="lister_caisse_billetterie.php" rel="menu5"><img border ="0" src="image/caisse.png" alt="caisse"><br>Caisse</a></li>
@@ -21,14 +21,14 @@ comptable-->
 
 <!--deroulant du menu2 niveau2-->
 		<div id="menu2" class="mega solidblocktheme">
-		<p style="margin:5px 0 10px 0"><b>Gestion des abonnements et réservations</b></p>
+		<p style="margin:5px 0 10px 0"><b>Gestion des abonnements et rÃ©servations</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_commande.php"><b>Créer une réservation</b></a></li><hr/>
-				<li><a href="lister_commandes.php"><b>Lister les réservations</b></a></li><hr/>
-				<li><a href="lister_detail_commandes.php"><b>Détail des réservations</b></a></li><hr/>
-				<li><a href="lister_commandes_non_facturees.php"><b>Contrôler - Encaisser</b></a></li><hr/>
-				<li><a href="impression.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les listes détaillées</b></a></li><hr/>
+				<li><a href="form_commande.php"><b>Crï¿½er une rÃ©servation</b></a></li><hr/>
+				<li><a href="lister_commandes.php"><b>Lister les rÃ©servations</b></a></li><hr/>
+				<li><a href="lister_detail_commandes.php"><b>DÃ©tail des rÃ©servations</b></a></li><hr/>
+				<li><a href="lister_commandes_non_facturees.php"><b>ContrÃ´ler - Encaisser</b></a></li><hr/>
+				<li><a href="impression.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les listes dï¿½taillï¿½es</b></a></li><hr/>
 			</ul>
 		</div>
 		</div>
@@ -58,14 +58,14 @@ comptable-->
 
 	<!--deroulant du menu5 niveau2-->
 	<div id="menu5" class="mega solidblocktheme">
-		<p style="margin:5px 0 10px 0"><b>Gestion des caisses journalières</b></p>
+		<p style="margin:5px 0 10px 0"><b>Gestion des caisses journaliÃ¨res</b></p>
 		<div class="column">
 			<ul>
 				<li><a href="form_caisse.php"><b>Enregistrer le contenu de caisse</b></a></li><hr/>
 				<li><a href="form_caisse.php?retrait=y"><b>Retrait de caisse</b></a></li><hr/>
 				<li><a href="lister_caisse_billetterie.php"><b>Caisse "Billetterie"</b></a></li><hr/>
 				<li><a href="lister_caisse_bar.php"><b>Caisse "Buvette"</b></a></li><hr/>
-				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opérations de caisse</b></a></li><hr/>
+				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opï¿½rations de caisse</b></a></li><hr/>
 			</ul>
 		</div>
 		</div>
@@ -77,7 +77,7 @@ comptable-->
 		<div class="column">
 			<ul>
 				<li><a href="ca_spectacle.php"><b>Statistiques par spectacle</b></a></li><hr/>
-				<li><a href="ca_articles.php"><b>Statistiques par représentation</b></a></li><hr/>
+				<li><a href="ca_articles.php"><b>Statistiques par reprÃ©sentation</b></a></li><hr/>
 				<li><a href="ca_tarif.php"><b>Statistiques par tarif</b></a></li><hr/>
 				<li><a href="impression_stat.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les statistiques</b></a></li><hr/>
 			</ul>
