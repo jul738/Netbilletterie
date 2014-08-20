@@ -17,6 +17,8 @@ include_once("include/configav.php");
 
 
 $date = date('Y-m-d');
+$date_debut = date('Y-m-d');
+$date_fin = date('Y-m-d',strtotime(date("Y-m-d", mktime()) . " + 365 day"));
 
 //Si duplication insertion des infos dans les tables
 $duplication = isset($_POST['duplication'])?$_POST['duplication']:NULL;
@@ -24,24 +26,17 @@ if (isset($duplication))
     {
     // On recupere les information de la duplication 
     $num_abonnement=isset($_POST['num_abonnement_duplique'])?$_POST['num_abonnement_duplique']:"";
-    $num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
-    $num_client=isset($_POST['listeville'])?$_POST['listeville']:"";
     $num_client=isset($_POST['client_num_nouveaux'])?$_POST['client_num_nouveaux']:""; //Le numero client du spectateur pour qui on a dupliquer labonnement (nouveaux possedant)
-    $client_num_nouveaux=isset($_POST['client_num_nouveaux'])?$_POST['client_num_nouveaux']:"";
-    $client=isset($_POST['listeville'])?$_POST['listeville']:"";
-    $num_abo_com_duplique=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
-    //$nom=isset($_POST['nom_duplique'])?$_POST['nom_duplique']:"";
     $paiement=isset($_POST['paiement_duplique'])?$_POST['paiement_duplique']:"";
     $nombre_spectacle=isset($_POST['nombre_place_duplique'])?$_POST['nombre_place_duplique']:"";
-    $tarif_abonnement=isset($_POST['$tarif_abonnement_duplique'])?$_POST['$tarif_abonnement_duplique']:"";
-        
-    $choix_spectacle_1_vendu=isset($_POST['num_spectacle_1_duplique'])?$_POST['$num_spectacle_1_duplique']:"";
-    $choix_spectacle_2_vendu=isset($_POST['num_spectacle_2_duplique'])?$_POST['$num_spectacle_2_duplique']:"";
-    $choix_spectacle_3_vendu=isset($_POST['num_spectacle_3_duplique'])?$_POST['$num_spectacle_3_duplique']:"";
-    $choix_spectacle_4_vendu=isset($_POST['num_spectacle_4_duplique'])?$_POST['$num_spectacle_4_duplique']:"";
-    $choix_spectacle_5_vendu=isset($_POST['num_spectacle_5_duplique'])?$_POST['$num_spectacle_5_duplique']:"";
-    $choix_spectacle_6_vendu=isset($_POST['num_spectacle_6_duplique'])?$_POST['$num_spectacle_6_duplique']:"";
-    $choix_spectacle_7_vendu=isset($_POST['num_spectacle_7_duplique'])?$_POST['$num_spectacle_7_duplique']:"";
+    $tarif_abonnement=isset($_POST['$tarif_abonnement_duplique'])?$_POST['tarif_abonnement_duplique']:"";
+    $choix_spectacle_1_vendu=isset($_POST['num_spectacle_1_duplique'])?$_POST['num_spectacle_1_duplique']:"";
+    $choix_spectacle_2_vendu=isset($_POST['num_spectacle_2_duplique'])?$_POST['num_spectacle_2_duplique']:"";
+    $choix_spectacle_3_vendu=isset($_POST['num_spectacle_3_duplique'])?$_POST['num_spectacle_3_duplique']:"";
+    $choix_spectacle_4_vendu=isset($_POST['num_spectacle_4_duplique'])?$_POST['num_spectacle_4_duplique']:"";
+    $choix_spectacle_5_vendu=isset($_POST['num_spectacle_5_duplique'])?$_POST['num_spectacle_5_duplique']:"";
+    $choix_spectacle_6_vendu=isset($_POST['num_spectacle_6_duplique'])?$_POST['num_spectacle_6_duplique']:"";
+    $choix_spectacle_7_vendu=isset($_POST['num_spectacle_7_duplique'])?$_POST['num_spectacle_7_duplique']:"";
     
     //On recupere le nom et le prenom du nouveau client a qui on a fais un duplication d'abonnement
     $req_nouveau_info_client = "SELECT nom, prenom
@@ -54,7 +49,19 @@ if (isset($duplication))
                                             $nom = $data['nom'];
                                             $prenom = $data['prenom'];
                                             }
-    }
+    
+        // On crée l'abonnement dans la table
+        $req_vente_duplication = "INSERT INTO abonnement_comm (client_num, date, date_debut, date_fin, num_abonnement, user, nombre_place)
+                                  VALUES ('$num_client', '$date', '$date_debut', '$date_fin', '$num_abonnement', '$user_nom', '$nombre_spectacle')";
+        mysql_query($req_vente_duplication) or die('Erreur SQL role . INSERT INTO !<br>'.$req_vente_duplication.'<br>'.mysql_error());                                         
+        //On récupère l'id de l'abonnement que l'on vient de créer
+        $sql_num_abo = "SELECT num_abo_com FROM abonnement_comm ORDER BY num_abo_com DESC LIMIT 1";
+        $result_num_abo = mysql_query($sql_num_abo) OR DIE ('Erreur SQL récupération id resa');
+                while($data_abo = mysql_fetch_array($result_num_abo))
+                    {
+                        $num_abo_com = $data_abo['num_abo_com'];
+                    }
+        }
     else
         {  
         // on récupère les info envoye par new_suite_abonnement.php & edit_abonnement
@@ -63,7 +70,6 @@ if (isset($duplication))
         $num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
         //rajoute
         $client=isset($_POST['client'])?$_POST['client']:"";
-        $num_abo_com_duplique=isset($_POST['num_abo_com_duplique'])?$_POST['num_abo_com_duplique']:"";
         $nom=isset($_POST['nom'])?$_POST['nom']:"";
         $paiement=isset($_POST['paiement'])?$_POST['paiement']:"";
         $nombre_spectacle=isset($_POST['nombre_spectacle'])?$_POST['nombre_spectacle']:"";
@@ -277,9 +283,7 @@ if (isset($duplication))
                                   $paiement_nom = $data['nom'];
                                         }     
 
-
-if (!isset($duplication))
-    {    
+ 
     //ici on decremnte le stock
     //Pour le Spectacle 1
     $sql122 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_1_vendu'";
@@ -303,16 +307,16 @@ if (!isset($duplication))
     $sql18 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_7_vendu'";
     mysql_query($sql18) or die('Erreur SQL18 !<br>'.$sql18.'<br>'.mysql_error());
           
-       // ON crée les réservations associées
-       if(!empty($choix_spectacle_1_vendu)){		
+       // On crée les réservations associées
+       if(!empty($choix_spectacle_1_vendu)){	
             $sql1 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_1_vendu')";
             mysql_query($sql1) or die('Erreur SQL création réservation !<br>'.$sql1.'<br>'.mysql_error());
             // On récupère l'id de la résa créée
             $sql1_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql1_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql1_resa))
+            $result_resa1 = mysql_query($sql1_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa1 = mysql_fetch_array($result_resa1))
                     {
-                $num_resa_1 = $data['num_bon'];
+                        $num_resa_1 = $data_resa1['num_bon'];
                     }
        }
        if(!empty($choix_spectacle_2_vendu)){		
@@ -320,10 +324,10 @@ if (!isset($duplication))
             mysql_query($sql2) or die('Erreur SQL création réservation !<br>'.$sql2.'<br>'.mysql_error());
                         // On récupère l'id de la résa créée
             $sql2_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql2_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql2_resa))
+            $result_resa2 = mysql_query($sql2_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa2 = mysql_fetch_array($result_resa2))
                     {
-                $num_resa_2 = $data['num_bon'];
+                $num_resa_2 = $data_resa2['num_bon'];
                     }
        }
        if(!empty($choix_spectacle_3_vendu)){		
@@ -331,10 +335,10 @@ if (!isset($duplication))
             mysql_query($sql3) or die('Erreur SQL création réservation !<br>'.$sql3.'<br>'.mysql_error());
                         // On récupère l'id de la résa créée
             $sql3_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql3_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql3_resa))
+            $result_resa3 = mysql_query($sql3_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa3 = mysql_fetch_array($result_resa3))
                     {
-                $num_resa_3 = $data['num_bon'];
+                $num_resa_3 = $data_resa3['num_bon'];
                     }
        }
        if(!empty($choix_spectacle_4_vendu)){		
@@ -342,10 +346,10 @@ if (!isset($duplication))
             mysql_query($sql4) or die('Erreur SQL création réservation !<br>'.$sql4.'<br>'.mysql_error());
                         // On récupère l'id de la résa créée
             $sql4_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql4_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql4_resa))
+            $result_resa4 = mysql_query($sql4_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa4 = mysql_fetch_array($result_resa4))
                     {
-                $num_resa_4 = $data['num_bon'];
+                        $num_resa_4 = $data_resa4['num_bon'];
                     }
        }
        if(!empty($choix_spectacle_5_vendu)){		
@@ -353,10 +357,10 @@ if (!isset($duplication))
             mysql_query($sql5) or die('Erreur SQL création réservation !<br>'.$sql5.'<br>'.mysql_error());
                         // On récupère l'id de la résa créée
             $sql5_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql5_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql5_resa))
+            $result_resa5 = mysql_query($sql5_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa5 = mysql_fetch_array($result_resa5))
                     {
-                $num_resa_5 = $data['num_bon'];
+                        $num_resa_5 = $data_resa5['num_bon'];
                     }
        }
        if(!empty($choix_spectacle_6_vendu)){		
@@ -364,10 +368,10 @@ if (!isset($duplication))
             mysql_query($sql6) or die('Erreur SQL création réservation !<br>'.$sql6.'<br>'.mysql_error());
                         // On récupère l'id de la résa créée
             $sql6_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql6_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql6_resa))
+            $result_resa6 = mysql_query($sql6_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa6 = mysql_fetch_array($result_resa6))
                     {
-                $num_resa_6 = $data['num_bon'];
+                        $num_resa_6 = $data_resa6['num_bon'];
                     }
        }
        if(!empty($choix_spectacle_7_vendu)){		
@@ -375,28 +379,19 @@ if (!isset($duplication))
             mysql_query($sql7) or die('Erreur SQL création réservation !<br>'.$sql7.'<br>'.mysql_error());
                         // On récupère l'id de la résa créée
             $sql7_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
-            mysql_query($sql7_resa) OR DIE ('Erreur SQL récupération id resa');
-                while($data = mysql_fetch_assoc($sql7_resa))
+            $result_resa7 = mysql_query($sql7_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data_resa7 = mysql_fetch_array($result_resa7))
                     {
-                $num_resa_7 = $data['num_bon'];
+                        $num_resa_7 = $data_resa7['num_bon'];
                     }
        }
-       
+
     // On met à jour la BDD -> en rentrent l'id de la réservation, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
     $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
                            SET num_resa_1 = '$num_resa_1' , num_resa_2 = '$num_resa_2' , num_resa_3 = '$num_resa_3', num_resa_4 = '$num_resa_4', num_resa_5 = '$num_resa_5' , num_resa_6 = '$num_resa_6', num_resa_7 = '$num_resa_7'
-                           WHERE num_abo_com = $num_abo_com";
+                           WHERE num_abo_com = '$num_abo_com'";
     mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
-    }
-    // Si duplication
-    else
-        {
-        $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
-                               SET num_resa_1 = '$choix_spectacle_1_vendu' , num_resa_2 = '$choix_spectacle_2_vendu', num_resa_3 = '$choix_spectacle_3_vendu', num_resa_4 = '$choix_spectacle_4_vendu', num_resa_5 = '$choix_spectacle_5_vendu', num_resa_6 = '$choix_spectacle_6_vendu', num_resa_7 = '$choix_spectacle_7_vendu'
-                               WHERE num_abo_com = $num_abo_com_duplique";
-        mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
-        }
-        
+   
         
                             ?>
 <table border="0" class="page" align="center">
@@ -482,19 +477,12 @@ $total_ht = $total ;
 //on recupere la date d aujourd hui
 $date_vente = date('Y-m-d');     
 
-if (isset($duplication))
-    {
-    //On enregistre la vente dans la table abonnement_paiement
-    $req_creation_vente = "INSERT INTO abonnement_paiement (num_abo_com, num_client, paiement, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
-                           VALUES ('$num_abo_com_duplique', '$num_client', '$paiement', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement')";
-    mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());    
-    }else
-        {
+
         //On enregistre la vente dans la table abonnement_paiement
         $req_creation_vente = "INSERT INTO abonnement_paiement (num_abo_com, num_client, paiement, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
                                VALUES ('$num_abo_com', '$num_client', '$paiement', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement')";
         mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
-        }
+
 ?>
         
         </table>

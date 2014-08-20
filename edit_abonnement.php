@@ -17,8 +17,8 @@ include_once("include/configav.php");
 
 //On recupere l'ID de l'abonnement
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
-        
-//On recupere le nom de l'abonnment que le client avais (pour savoir ce que l'on modifie) 
+
+//On recupere le nom de l'abonnment que le client a (pour savoir ce que l'on modifie) 
                             $req_recup_nom_abo = "SELECT ac.num_abo_com, ac.num_abonnement, a.nom_abonnement
                                                   FROM abonnement a, abonnement_comm ac
                                                   WHERE ac.num_abo_com = '$num_abo_com'
@@ -28,6 +28,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                               while($data = mysql_fetch_array($req_recup_nom_abo_brut))
                                 {
                                 $nom_abonnement = $data['nom_abonnement'];
+                                $num_abonnement = $data['num_abonnement'];
                                 }  
                                 
 //On recupere le nom du client
@@ -51,8 +52,6 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                     {
                     $type_abonnement = $data['type_abonnement'];
                     }
-                    echo $type_abonnement;
-                    echo $num_abonnement ;
                     
                     
 // recup Nom abonnement & nombre_spectacle
@@ -92,13 +91,10 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                 FROM abonnement AS ab, abonnement_comm AS ac
                                 WHERE ac.num_abo_com = '$num_abo_com'
                                 AND ab.num_abonnement = ac.num_abonnement ";
-           $result = mysql_query( $rqSql )or die( "Execution requete -rqSql- impossible.");
-     $num_abo_com;      
-                    $i=1;
+           $result = mysql_query( $rqSql )or die( "Execution requete -rqSql- impossible.");     
+
             while ( $row = mysql_fetch_array( $result)) 
             {
-
-               // $num_abonnement_test = $row["num_abonnement"];
                 $nombre_spectacle= $row["nombre_spectacle"];
                 
                 //On affiche un champs  select pour chaque spectacle
@@ -115,9 +111,11 @@ $recup_abo_brut = mysql_query($req_recup_abo) or die ( "Execution requete -req_r
                                                       WHERE actif != 'non'";
                                 $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
                                 // Récupérer le nom de l'ancien spectable
-                                $req_recup_ancien_val = "SELECT num_spectacle_".$nb."
-                                                        FROM abonnement_comm
-                                                        WHERE num_abo_com = '$num_abo_com'";
+                                $req_recup_ancien_val = "SELECT a.num
+                                                        FROM abonnement_comm AS ac, bon_comm AS bc, article AS a
+                                                        WHERE num_abo_com = '$num_abo_com'
+                                                        AND ac.num_resa_".$nb." = bc.num_bon
+                                                        AND bc.id_article = a.num";
                                $ancien_id_spectacle= mysql_query($req_recup_ancien_val)or die( "Execution requete -req_recup_ancien_val- impossible.");
                                 $id_spectacle = mysql_fetch_row($ancien_id_spectacle);
 

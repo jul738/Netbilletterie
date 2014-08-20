@@ -18,10 +18,49 @@ include_once("include/configav.php");
 // On récupère le numero de vente de l'abonnement
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
-?>
-<!-- test variable $num_abo_com : (<?php // echo $num_abo_com ; ?>) -->
+// On sélectionne les réservations liées à l'abonnement pour les supprimer 
+$sql_resa = "SELECT num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7 FROM abonnement_comm WHERE num_abo_com='$num_abo_com'";
+$result_resa = mysql_query($sql_resa) OR DIE ("Erreur selection réservations");
+while($data_resa = mysql_fetch_array($result_resa)){
+    $resa1 = $data_resa['num_resa_1'];
+    $resa2 = $data_resa['num_resa_2'];
+    $resa3 = $data_resa['num_resa_3'];
+    $resa4 = $data_resa['num_resa_4'];
+    $resa5 = $data_resa['num_resa_5'];
+    $resa6 = $data_resa['num_resa_6'];
+    $resa7 = $data_resa['num_resa_7'];
+}
+// On supprime les réservations
+$sql_delete_resa1 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa1'";
+$delete_resa1 = mysql_query($sql_delete_resa1) OR DIE ("Erreur suppression resa 1");
+$sql_delete_resa2 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa2'";
+$delete_resa2 = mysql_query($sql_delete_resa2) OR DIE ("Erreur suppression resa 2");
+$sql_delete_resa3 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa3'";
+$delete_resa3 = mysql_query($sql_delete_resa3) OR DIE ("Erreur suppression resa 3");
+$sql_delete_resa4 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa4'";
+$delete_resa4 = mysql_query($sql_delete_resa4) OR DIE ("Erreur suppression resa 4");
+$sql_delete_resa5 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa5'";
+$delete_resa5 = mysql_query($sql_delete_resa5) OR DIE ("Erreur suppression resa 5");
+$sql_delete_resa6 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa6'";
+$delete_resa6 = mysql_query($sql_delete_resa6) OR DIE ("Erreur suppression resa 6");
+$sql_delete_resa7 = "DELETE 
+                    FROM bon_comm
+                    WHERE num_bon = '$resa7'";
+$delete_resa7 = mysql_query($sql_delete_resa7) OR DIE ("Erreur suppression resa 7");
 
-<?php
+//On supprime l'abonnement
 $req_delete_abo = "DELETE 
                    FROM abonnement_comm
                    WHERE num_abo_com = '$num_abo_com'";
