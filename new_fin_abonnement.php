@@ -17,7 +17,6 @@ include_once("include/configav.php");
 
 
 $date = date('Y-m-d');
-echo $date;
 
 //Si duplication insertion des infos dans les tables
 $duplication = isset($_POST['duplication'])?$_POST['duplication']:NULL;
@@ -279,84 +278,126 @@ if (isset($duplication))
                                         }     
 
 
-if (isset($duplication))
-    {                                        
-    // On met à jour la BDD -> en rentrent le nom du spectacle mais aussi sont ID, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
-    $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
-                           SET num_spectacle_1 = '$choix_spectacle_1_vendu' , num_spectacle_2 = '$choix_spectacle_2_vendu' , num_spectacle_3 = '$choix_spectacle_3_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu' , num_spectacle_6 = '$choix_spectacle_6_vendu', num_spectacle_7 = '$choix_spectacle_7_vendu'
-                           WHERE num_abo_com = $num_abo_com_duplique";
-    mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
-    }else
-        {
-        $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
-                               SET num_spectacle_1 = '$choix_spectacle_1_vendu' , num_spectacle_2 = '$choix_spectacle_2_vendu', num_spectacle_3 = '$choix_spectacle_3_vendu', num_spectacle_4 = '$choix_spectacle_4_vendu', num_spectacle_5 = '$choix_spectacle_5_vendu', num_spectacle_6 = '$choix_spectacle_6_vendu', num_spectacle_7 = '$choix_spectacle_7_vendu'
-                               WHERE num_abo_com = $num_abo_com";
-        mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
-        }
-
-//Si abonnement duplication, on decrement deja le stock sur dupliquer_abonnement.php
-if (isset($duplication))
-    {  
-    //On ne fais rien
-    }
-    else
-        {
-
-//ici on decremnte le stock
+if (!isset($duplication))
+    {    
+    //ici on decremnte le stock
     //Pour le Spectacle 1
     $sql122 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_1_vendu'";
     mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
         //Pour le spectacle 2
-        $sql13 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_2_vendu'";
-        mysql_query($sql13) or die('Erreur SQL13 !<br>'.$sql13.'<br>'.mysql_error());
-            //Pour le spectacle 3
-            $sql14 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_3_vendu'";
-            mysql_query($sql14) or die('Erreur SQL14 !<br>'.$sql14.'<br>'.mysql_error());
-                //Pour le spectacle 4
-                $sql15 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_4_vendu'";
-                mysql_query($sql15) or die('Erreur SQL15 !<br>'.$sql15.'<br>'.mysql_error());
-                    //Pour le spectacle 5
-                    $sql16 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_5_vendu'";
-                    mysql_query($sql16) or die('Erreur SQL16 !<br>'.$sql16.'<br>'.mysql_error());
-                        //Pour le spectacle 6
-                        $sql17 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_6_vendu'";
-                        mysql_query($sql17) or die('Erreur SQL17 !<br>'.$sql17.'<br>'.mysql_error());
-                            //Pour le spectacle 7
-                            $sql18 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_7_vendu'";
-                            mysql_query($sql18) or die('Erreur SQL18 !<br>'.$sql18.'<br>'.mysql_error());
-
-        }//fin du else
-        
-        
+    $sql13 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_2_vendu'";
+    mysql_query($sql13) or die('Erreur SQL13 !<br>'.$sql13.'<br>'.mysql_error());
+    //Pour le spectacle 3
+    $sql14 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_3_vendu'";
+    mysql_query($sql14) or die('Erreur SQL14 !<br>'.$sql14.'<br>'.mysql_error());
+    //Pour le spectacle 4
+    $sql15 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_4_vendu'";
+    mysql_query($sql15) or die('Erreur SQL15 !<br>'.$sql15.'<br>'.mysql_error());
+    //Pour le spectacle 5
+    $sql16 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_5_vendu'";
+    mysql_query($sql16) or die('Erreur SQL16 !<br>'.$sql16.'<br>'.mysql_error());
+    //Pour le spectacle 6
+    $sql17 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_6_vendu'";
+    mysql_query($sql17) or die('Erreur SQL17 !<br>'.$sql17.'<br>'.mysql_error());
+    //Pour le spectacle 7
+    $sql18 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_7_vendu'";
+    mysql_query($sql18) or die('Erreur SQL18 !<br>'.$sql18.'<br>'.mysql_error());
+          
        // ON crée les réservations associées
        if(!empty($choix_spectacle_1_vendu)){		
             $sql1 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_1_vendu')";
             mysql_query($sql1) or die('Erreur SQL création réservation !<br>'.$sql1.'<br>'.mysql_error());
+            // On récupère l'id de la résa créée
+            $sql1_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql1_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql1_resa))
+                    {
+                $num_resa_1 = $data['num_bon'];
+                    }
        }
        if(!empty($choix_spectacle_2_vendu)){		
             $sql2 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_2_vendu')";
             mysql_query($sql2) or die('Erreur SQL création réservation !<br>'.$sql2.'<br>'.mysql_error());
+                        // On récupère l'id de la résa créée
+            $sql2_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql2_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql2_resa))
+                    {
+                $num_resa_2 = $data['num_bon'];
+                    }
        }
        if(!empty($choix_spectacle_3_vendu)){		
             $sql3 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_3_vendu')";
             mysql_query($sql3) or die('Erreur SQL création réservation !<br>'.$sql3.'<br>'.mysql_error());
+                        // On récupère l'id de la résa créée
+            $sql3_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql3_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql3_resa))
+                    {
+                $num_resa_3 = $data['num_bon'];
+                    }
        }
        if(!empty($choix_spectacle_4_vendu)){		
             $sql4 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_4_vendu')";
             mysql_query($sql4) or die('Erreur SQL création réservation !<br>'.$sql4.'<br>'.mysql_error());
+                        // On récupère l'id de la résa créée
+            $sql4_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql4_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql4_resa))
+                    {
+                $num_resa_4 = $data['num_bon'];
+                    }
        }
        if(!empty($choix_spectacle_5_vendu)){		
             $sql5 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_5_vendu')";
             mysql_query($sql5) or die('Erreur SQL création réservation !<br>'.$sql5.'<br>'.mysql_error());
+                        // On récupère l'id de la résa créée
+            $sql5_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql5_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql5_resa))
+                    {
+                $num_resa_5 = $data['num_bon'];
+                    }
        }
        if(!empty($choix_spectacle_6_vendu)){		
             $sql6 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_6_vendu')";
             mysql_query($sql6) or die('Erreur SQL création réservation !<br>'.$sql6.'<br>'.mysql_error());
+                        // On récupère l'id de la résa créée
+            $sql6_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql6_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql6_resa))
+                    {
+                $num_resa_6 = $data['num_bon'];
+                    }
        }
        if(!empty($choix_spectacle_7_vendu)){		
             $sql7 = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$date', '26', '$user_nom', '$choix_spectacle_7_vendu')";
             mysql_query($sql7) or die('Erreur SQL création réservation !<br>'.$sql7.'<br>'.mysql_error());
+                        // On récupère l'id de la résa créée
+            $sql7_resa = "SELECT num_bon FROM bon_comm ORDER BY num_bon DESC LIMIT 1";
+            mysql_query($sql7_resa) OR DIE ('Erreur SQL récupération id resa');
+                while($data = mysql_fetch_assoc($sql7_resa))
+                    {
+                $num_resa_7 = $data['num_bon'];
+                    }
        }
+       
+    // On met à jour la BDD -> en rentrent l'id de la réservation, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
+    $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
+                           SET num_resa_1 = '$num_resa_1' , num_resa_2 = '$num_resa_2' , num_resa_3 = '$num_resa_3', num_resa_4 = '$num_resa_4', num_resa_5 = '$num_resa_5' , num_resa_6 = '$num_resa_6', num_resa_7 = '$num_resa_7'
+                           WHERE num_abo_com = $num_abo_com";
+    mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
+    }
+    // Si duplication
+    else
+        {
+        $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
+                               SET num_resa_1 = '$choix_spectacle_1_vendu' , num_resa_2 = '$choix_spectacle_2_vendu', num_resa_3 = '$choix_spectacle_3_vendu', num_resa_4 = '$choix_spectacle_4_vendu', num_resa_5 = '$choix_spectacle_5_vendu', num_resa_6 = '$choix_spectacle_6_vendu', num_resa_7 = '$choix_spectacle_7_vendu'
+                               WHERE num_abo_com = $num_abo_com_duplique";
+        mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
+        }
+        
+        
                             ?>
 <table border="0" class="page" align="center">
 	<tr>

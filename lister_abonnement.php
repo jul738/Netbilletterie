@@ -43,7 +43,7 @@ $annee_2= $annee_1 -1;
 //=============================================
 
 //Affiche les abonnement vendu 
-$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.num_spectacle_1, ac.num_spectacle_2, ac.num_spectacle_3, ac.num_spectacle_4, ac.num_spectacle_5, ac.num_spectacle_6, ac.num_spectacle_7
+$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.num_resa_1, ac.num_resa_2, ac.num_resa_3, ac.num_resa_4, ac.num_resa_5, ac.num_resa_6, ac.num_resa_7
                         FROM abonnement_comm ac, abonnement a, client c
                         WHERE ac.num_abonnement = a.num_abonnement
                         AND c.num_client = ac.client_num
@@ -95,13 +95,13 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         $nom = $data['nom'];
                         $date = $data['date'];
                         $nom_abonnement = $data['nom_abonnement'];
-                        $num_spectacle_1 = $data['num_spectacle_1'];
-                        $num_spectacle_2 = $data['num_spectacle_2'];
-                        $num_spectacle_3 = $data['num_spectacle_3'];
-                        $num_spectacle_4 = $data['num_spectacle_4'];
-                        $num_spectacle_5 = $data['num_spectacle_5'];
-                        $num_spectacle_6 = $data['num_spectacle_6'];
-                        $num_spectacle_7 = $data['num_spectacle_7'];
+                        $num_resa_1 = $data['num_resa_1'];
+                        $num_resa_2 = $data['num_resa_2'];
+                        $num_resa_3 = $data['num_resa_3'];
+                        $num_resa_4 = $data['num_resa_4'];
+                        $num_resa_5 = $data['num_resa_5'];
+                        $num_resa_6 = $data['num_resa_6'];
+                        $num_resa_7 = $data['num_resa_7'];
                     if($nombre & 1)
                         {
                         $line="0";
@@ -110,37 +110,37 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                             $line="1";
                             }
                             // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_1 = 'SELECT article FROM article WHERE num='.$num_spectacle_1.'';
+                            $req_spectacle_1 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_1.' AND bc.id_article = article.num';
                             $sql_spectacle_1 = mysql_query($req_spectacle_1);
                             $choix_spectacle_1 = mysql_result($sql_spectacle_1,0);
                             
                                                         // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_2 = 'SELECT article FROM article WHERE num='.$num_spectacle_2.'';
+                            $req_spectacle_2 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_2.' AND bc.id_article = article.num';
                             $sql_spectacle_2 = mysql_query($req_spectacle_2);
                             $choix_spectacle_2 = mysql_result($sql_spectacle_2,0);
                             
                                                         // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_3 = 'SELECT article FROM article WHERE num='.$num_spectacle_3.'';
+                            $req_spectacle_3 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_3.' AND bc.id_article = article.num';
                             $sql_spectacle_3 = mysql_query($req_spectacle_3);
                             $choix_spectacle_3 = mysql_result($sql_spectacle_3,0);
                             
                                                         // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_4 = 'SELECT article FROM article WHERE num='.$num_spectacle_4.'';
+                            $req_spectacle_4 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_4.' AND bc.id_article = article.num';
                             $sql_spectacle_4 = mysql_query($req_spectacle_4);
                             $choix_spectacle_4 = mysql_result($sql_spectacle_4,0);
                             
                                                         // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_5 = 'SELECT article FROM article WHERE num='.$num_spectacle_5.'';
+                            $req_spectacle_5 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_5.' AND bc.id_article = article.num';
                             $sql_spectacle_5 = mysql_query($req_spectacle_5);
                             $choix_spectacle_5 = mysql_result($sql_spectacle_5,0);
                             
                                                         // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_6 = 'SELECT article FROM article WHERE num='.$num_spectacle_6.'';
+                            $req_spectacle_6 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_6.' AND bc.id_article = article.num';
                             $sql_spectacle_6 = mysql_query($req_spectacle_6);
                             $choix_spectacle_6 = mysql_result($sql_spectacle_6,0);
                             
                                                         // ON récupère les nom des spectacles correspondant au numéro
-                            $req_spectacle_7 = 'SELECT article FROM article WHERE num='.$num_spectacle_7.'';
+                            $req_spectacle_7 = 'SELECT article FROM article, bon_comm AS bc WHERE bc.num_bon='.$num_resa_7.' AND bc.id_article = article.num';
                             $sql_spectacle_7 = mysql_query($req_spectacle_7);
                             $choix_spectacle_7 = mysql_result($sql_spectacle_7,0);
                 ?>

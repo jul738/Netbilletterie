@@ -36,7 +36,7 @@ $sql = "SELECT *
         AND CB.id_tarif = T.id_tarif";
 
 //Lister Abonement qui comprend ce spectacle
-$sql_abo = "SELECT C.civ, C.nom, C.rue, C.ville, C.cp, C.tel, C.mail, AC.quanti, A.nom_abonnement
+/*$sql_abo = "SELECT C.civ, C.nom, C.rue, C.ville, C.cp, C.tel, C.mail, AC.quanti, A.nom_abonnement
             FROM abonnement_comm AC, client C, abonnement A
             WHERE AC.client_num = C.num_client
             AND AC.num_abonnement = A.num_abonnement
@@ -47,7 +47,7 @@ $sql_abo = "SELECT C.civ, C.nom, C.rue, C.ville, C.cp, C.tel, C.mail, AC.quanti,
                  OR AC.num_spectacle_5 = $article_numero
                  OR AC.num_spectacle_6 = $article_numero
                  OR AC.num_spectacle_7 = $article_numero";
-
+*/
 
 if ( isset ( $_GET['ordre'] ) && $_GET['ordre'] != '')
 {
@@ -146,68 +146,7 @@ $total_tva = $data['SUM(to_tva_art)'];
 
 		<?php
 		}
-$aide = client;
-?>
-                <tr>
-                    <td colspan="9"> <!-- Espace de separation --> </td>
-                </tr>
-                
-                <tr>
-                    <th colspan="9"> Abonnements : </th>
-                </tr>
-                <tr>
-         <!--           <th><small> Civilite </small></th>  -->
-                    <th><small> Nom  </small></th>
-                    <th><small> Prenom  </small></th>
-                <!--    <th><small> Rue </small></th>
-         <!--           <th><small> Code postal </small></th> -->
-          <!--          <th><small> Ville </small></th>  -->
-                    <th><small> Telephone </small></th>
-                    <th><small> Mail </small></th>
-                    <th><small> Nom abonnement </small></th>
-                    <th><small> Nombre place</small></th>
-                </tr>
-<?php 
 
-$req_abo = mysql_query($sql_abo) or die('Erreur SQL !<br>'.$sql_abo.'<br>'.mysql_error());
-        
-$nombre_abo =1;
-    while($data2 = mysql_fetch_array($req_abo))
-    {
-    $civ_abo = $data2['civ'];
-    $nom_abo = $data2['nom'];
-    $tel_abo = $data2['tel'];
-    $mail_abo = $data2['mail'];
-    $nom_abonnement_abo = $data2['nom_abonnement'];
-    $quanti_abo = $data2['quanti'];
-    $rue_abo = $data2 ['rue'];
-    $ville_abo = $data2['ville'];
-    $cp_abo = $data2['cp'];
-       
-        if($nombre_abo & 1){
-                    $line="0";
-                    }else{
-                    $line="1"; 
-                    }
-
-
-?>        
-        <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
-		<td class="highlight"><?php echo $civ_abo ;?></td>
-                <td class="highlight"><?php echo $nom_abo ;?></td>
-                <td class="highlight"><?php echo $rue_abo ;?></td>
-                <td class="highlight"><?php echo $ville_abo ;?></td>
-                <td class="highlight"><?php echo $cp_abo ;?></td>
-                <td class="highlight"><?php echo $tel_abo ;?></td>
-                <td class="highlight"><?php echo $mail_abo ;?></td>
-                <td class="highlight"><?php echo $nom_abonnement_abo ;?></td>
-                <td class="highlight"><?php echo $quanti_abo ;?></td>
-        </tr>
-        
-<?php
-
-   } 
-   
 ?>
 <!--tr><td class='totalmontant' colspan="3">TOTAL DU SPECTACLE</td>
 
