@@ -42,7 +42,7 @@ if(!empty($_POST)){
 
 $article_numero=isset($_GET['article'])?$_GET['article']:"";
 
-//Lister reservation et billet du soir
+//Lister reservation non payées
 $sql = "SELECT *
         FROM client C, bon_comm BC , tarif T
         WHERE BC.client_num=C.num_client
@@ -197,8 +197,44 @@ echo"</td></tr>";
 ?>
 <tr><td>
         <!-- On ajoute une table avec la liste des invités -->
+        <?php
+        $sql_invites = "SELECT *
+        FROM client C, bon_comm BC
+        WHERE BC.client_num=C.num_client
+        AND BC.id_article = $article_numero
+        AND BC.attente=0
+        AND BC.paiement = 'Gratuit'";
+        $data_invites = mysql_query($sql_invites) or die('Erreur Sql invites!'.$sql_invites.'<br>'.mysql_error());
+        ?>
 <center><table class="boiteaction">
         <caption>Invités / Éxonérés : </caption>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Téléphone</th>
+            <th>Mail</th>
+        </tr>
+        
+        <?php
+        
+        // ON récupère les données de la requête et on les affiches
+        while($invites = mysql_fetch_array($data_invites)) {
+            $nom_invite = $invites['nom'];
+            $prenom_invite = $invites['prenom'];
+            $tel_invite = $invites['tel'];
+            $mail_invite = $invites['mail'];
+            ?>
+        <tr>
+            <td><?php echo $nom_invite;?></td>
+            <td><?php echo $prenom_invite;?></td>
+            <td><?php echo $tel_invite;?></td>
+            <td><?php echo $mail_invite;?></td>
+        </tr>
+        <?php
+        }
+        
+        ?>
+        
 </table></center>
     </td></tr>
 <tr>
