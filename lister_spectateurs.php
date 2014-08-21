@@ -23,6 +23,22 @@ echo"<h1>$lang_client_droit";
 exit;  
 }
 
+//On enregistre le paiement de la réservation
+
+if(!empty($_POST)){
+    $id_tarif = $_POST['id_tarif'];
+    $paiement_resa = $_POST['paiement'];
+    $num_bon = $_POST['num_bon'];
+    
+    $sql_update_resa = "UPDATE ".$tblpref ."bon_comm
+                        SET id_tarif = ".$id_tarif.",
+                            paiement = '".$paiement_resa."'
+                        WHERE num_bon=".$num_bon."";
+    mysql_query($sql_update_resa) or die('Erreur SQL !<br>'.$sql_update_resa.'<br>'.mysql_error());
+    
+    echo "Le paiement de la réservation ".$num_bon." a été enregistré.";
+}
+
 
 $article_numero=isset($_GET['article'])?$_GET['article']:"";
 
@@ -116,7 +132,7 @@ while($data = mysql_fetch_array($req))
                     }
 		?>
                 <!--On ajoute un formulaire par ligne pour la transformation en billet-->
-                <form action="lister_spectateurs" method="POST" id="resa-billet" name="resa-billet">
+                <form action="lister_spectateurs.php?article=<?php echo $article_numero;?>" method="POST" id="resa-billet" name="resa-billet">
 		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
                     <td class="highlight"><?php echo $nom_html; ?></td>
                     <td class="highlight"><?php echo $prenom ; ?></td> 
