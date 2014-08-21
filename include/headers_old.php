@@ -13,7 +13,7 @@ include_once("include/configav.php");
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
 	
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Billetterie saison culturelle</title>
 <link rel="stylesheet" type="text/css" href="include/themes/<?php echo"$theme";?>/style.css">
 <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico" >
