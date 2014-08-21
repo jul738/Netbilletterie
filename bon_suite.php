@@ -95,7 +95,7 @@ include('bon_suite.php');
     exit;
     }
 
-    //on recupere l'prix_tarif
+    //on recupere le prix_tarif
 $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE id_tarif=$id_tarif ";
 				 $result33 = mysql_query( $rqSql33 )
              or die( "Execution requete33 impossible.");
@@ -106,49 +106,60 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
                             $mont_tva = $prix_tarif * $quanti ;
 
 
-////////////////////////////////// ARTICLE  ///////////////////////////////////////////////////
+// Pour chaque  ARTICLE  
   for ($i = 0; $i < count($_POST["article"]); $i++)
   {
       $article=$_POST["article"][$i]."" ;
+          
+        //on controle s'il y a assez de stock pour article
+       if ($article!="") 
+              {
+                  $rqSql11= "SELECT stock, article FROM ".$tblpref."article WHERE num=$article ";
+                  $result11 = mysql_query( $rqSql11 ) or die( "Execution requete rqsql11 impossible.");
+                          while ( $row = mysql_fetch_array( $result11)) {
+                                  $stock = $row["stock"];
+                                  $nom_article= stripslashes($row["article"]);}
+                                  $tre=$stock-$quanti;
+                                  if($tre<0){
+                                      $message1= "<h1>Impossibilite d'enregister <font color=red>$nom_article</font> <br> Car vous avez demande <font color=red>$quanti</font> place(s) et il n'en reste que <font color=red>$stock</font></h1>";
+                                      continue;
+                                      }
+              // Si quanti = 1 
+              //On met à jour les réservations crées
+              if ($quanti == 1){
+              $sql1 = "UPDATE bon_comm SET id_article = '".$article."', id_tarif = '".$id_tarif."' WHERE num_bon = '".$num_bon."'";
+              mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
+              }
+              //Si plusieurs résa, alors on créer les autres réservations
+              else{
+                  //On met à jour la première résa
+                  $sql_update = "UPDATE bon_comm SET id_article = '".$article."', id_tarif = '".$id_tarif."' WHERE num_bon = '".$num_bon."'";
+                  mysql_query($sql_update) or die('Erreur SQL !<br>'.$sql_update.'<br>'.mysql_error());
+                  //Puis on créer les réservations supplémentaires
+                  for($q=1; $q < $quanti; $q++){
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article')";
+                    mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
+                  }
+              }
+              //ici on decremnte le stock
+              $sql12 = "UPDATE `".$tblpref."article` SET `stock` = (stock - ".$quanti.") WHERE `num` = '".$article."'";
+              mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 
-  //on controle s'il y a assez de stock pour article
- if ($article!="") 
-	{
-$rqSql11= "SELECT stock, article FROM ".$tblpref."article WHERE num=$article ";
-$result11 = mysql_query( $rqSql11 )
-             or die( "Execution requete rqsql11 impossible.");
-                    while ( $row = mysql_fetch_array( $result11)) {
-                            $stock = $row["stock"];
-                            $nom_article= stripslashes($row["article"]);}
-                            $tre=$stock-$quanti;
-                if($tre<0){
-				$message1= "<h1>Impossibilite d'enregister <font color=red>$nom_article</font> <br> Car vous avez demande <font color=red>$quanti</font> place(s) et il n'en reste que <font color=red>$stock</font></h1>";
-				continue;
-					}
-//inserer les donnees dans la table du compte des bons.
-$sql1 = "INSERT INTO ".$tblpref."cont_bon(bon_num, article_num, quanti, prix_tarif, id_tarif, to_tva_art)
-VALUES ('$num_bon', '$article', '$quanti', '$prix_tarif', '$id_tarif', '$mont_tva')";
+              //On change le statut du spectacle par complet si le stock est en <=0
 
-mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
-//ici on decremnte le stock
-$sql12 = "UPDATE `".$tblpref."article` SET `stock` = (stock - ".$quanti.") WHERE `num` = '".$article."'";
-mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
-
-//On change le statut du spectacle par complet si le stock est en <=0
-
-			$result111 = mysql_query( $rqSql11 ) or die( "Execution requete rqsql111 impossible.");
-			while ( $row = mysql_fetch_array( $result111)) {
-                            $stock = $row["stock"];}
-			if ( $stock <=0){
-			$sql121 = "UPDATE `".$tblpref."article` SET `actif` = 'COMPLET' WHERE `num` =$article";
-			mysql_query($sql121) or die('Erreur SQL121 !<br>'.$sql121.'<br>'.mysql_error());
-			}
-			else {
-			$sql122 = "UPDATE `".$tblpref."article` SET `actif` = '' WHERE `num` =$article";
-			mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
-			}
-        } 
-}
+                              $result111 = mysql_query( $rqSql11 ) or die( "Execution requete rqsql111 impossible.");
+                              while ( $row = mysql_fetch_array( $result111)) {
+                                  $stock = $row["stock"];}
+                              if ( $stock <=0){
+                              $sql121 = "UPDATE `".$tblpref."article` SET `actif` = 'COMPLET' WHERE `num` =$article";
+                              mysql_query($sql121) or die('Erreur SQL121 !<br>'.$sql121.'<br>'.mysql_error());
+                              }
+                              else {
+                              $sql122 = "UPDATE `".$tblpref."article` SET `actif` = '' WHERE `num` =$article";
+                              mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
+                              }
+            }// Fin du if article n'est pas vide 
+}// Fin du for pour chaque article
 
                 ?>
 
@@ -173,9 +184,8 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 						} 
 
 				?>
-			<caption>Actuellement l'abonnement est compose de</caption>
+			<caption>Les réservations de <?php echo $nom; ?></caption>
 				<tr>
-					<th><?php echo $lang_quantite ;?></th>
 					<!-- th> Numero billet(s) </th-->
 					<th><?php echo $lang_article ;?></th>
 					<th><?php echo $lang_montant_htva ;?></th>
@@ -187,24 +197,19 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 				</tr>
 						 <?php
 						//on recherche tout les contenus du bon et on les detaille
-						$sql = "SELECT ".$tblpref."cont_bon.num, ".$tblpref."cont_bon.id_tarif, uni, DATE_FORMAT(date_spectacle,'%d-%m-%Y') AS date, quanti, article, to_tva_art, actif, ".$tblpref."tarif.nom_tarif
-							FROM ".$tblpref."cont_bon
-							RIGHT JOIN ".$tblpref."article on ".$tblpref."cont_bon.article_num = ".$tblpref."article.num
-							RIGHT JOIN ".$tblpref."tarif on ".$tblpref."cont_bon.id_tarif = ".$tblpref."tarif.id_tarif
-							WHERE  bon_num = $num_bon
-							ORDER BY ".$tblpref."tarif.nom_tarif, ".$tblpref."article.date_spectacle ASC ";
+						$sql = "SELECT bc.num_bon, bc.id_tarif, DATE_FORMAT(a.date_spectacle,'%d-%m-%Y') AS date, a.article, t.nom_tarif, t.prix_tarif
+							FROM ".$tblpref."bon_comm AS bc, ".$tblpref."article AS a, ".$tblpref."tarif AS t
+							WHERE  bc.client_num = '".$num_client."' 
+                                                            AND bc.id_article = a.num
+                                                            AND bc.id_tarif = t.id_tarif";
 						$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
 						while($data = mysql_fetch_array($req))
 							{
-								$quanti = $data['quanti'];
-								$uni = $data['uni'];
-								$actif = $data['actif'];
 								$article = stripslashes($data['article']);
 								$id_tarif = $data['id_tarif'];
-								$date = $data['date'];
-								$tot = $data['to_tva_art'];
-								$num_cont = $data['num'];//$lang_li_tot2
+								$prix_tarif = $data['prix_tarif'];
+                                                                $date = $data['date'];
 								$nom_tarif = $data['nom_tarif'];
 								$nombre = $nombre +1;
 								if($nombre & 1){
@@ -212,9 +217,9 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 								}else{
 								$line="1";
 								}
+                                                                
 								?>
 				<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">				
-					<td class ='highlight'><?php echo"$quanti";?></td>
 					<?php
 					//on recupere infos du carnet au depart de la saison et la quantite vendu depuis jusqu'a ce bon en filtrant par tarif
 					$sql10 = "
@@ -237,7 +242,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 					<!-- td  WIDTH=20% class ='highlight'>
 						<?php 
 						 
-							 //Pour chaque enregistrement le N� du premier billet vendu
+							 //Pour chaque enregistrement le N° du premier billet vendu
 							 if ($t!=$id_tarif){
 								 $q='';
 								 }
@@ -245,7 +250,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 							 else {$q=$q+$quanti;}
 							$du=$carnet+$quanti01-intval($q);
  
-							 //Pour chaque enregistrement le N� du dernier billet vendu
+							 //Pour chaque enregistrement le N° du dernier billet vendu
 							 $au=$carnet+$quanti01-1;
 //							 echo "carnet=$carnet- quanti01 =$quanti01-quanti_q=$q- quanti_boucle$quanti-au=$au<br>";
 
@@ -266,7 +271,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 										?>
 					</td-->
 					<td class ='highlight'><?php echo"$type_article | $article | $date| $nom_tarif";?></td>
-					<td class ='highlight'><?php echo"$tot $devise"; ?></td>
+					<td class ='highlight'><?php echo"$prix_tarif $devise"; ?></td>
 					<?php if ($impression=="y") { 
 						if ($print_user=="y") { ?>
 					<td><A HREF="print_ticket_bon.php?num_cont=<?php echo"$num_cont";?>&amp;num_bon=<?php echo"$num_bon"; ?>" onClick="window.open('print_ticket_bon.php?num_cont=<?php echo"$num_cont";?>&amp;num_bon=<?php echo"$num_bon"; ?>','_blank','toolbar=0, location=0, directories=0, status=0, scrollbars=0, resizable=1, copyhistory=0, menuBar=0, width=600, height=800');return(false)">
@@ -277,26 +282,20 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 				</tr>
 								<?php 
 							}
-								//on calcule la somme des contenus du bon
-								$sql = " SELECT SUM(to_tva_art) FROM ".$tblpref."cont_bon WHERE bon_num = $num_bon";
+								//on calcule la somme des réservations
+								$sql = "SELECT SUM(t.prix_tarif)
+                                                                        FROM ".$tblpref."bon_comm AS bc, ".$tblpref."article AS a, ".$tblpref."tarif AS t
+                                                                        WHERE  bc.client_num = '".$num_client."' 
+                                                                        AND bc.id_article = a.num
+                                                                        AND bc.id_tarif = t.id_tarif";
 								$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 								while($data = mysql_fetch_array($req))
 									{
-										$total_bon = $data['SUM(to_tva_art)'];
-												}
-								//on calcule la somme de la tva des contenus du bon
-								$sql = " SELECT SUM(to_tva_art) FROM ".$tblpref."cont_bon WHERE bon_num = $num_bon";
-								$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-								while($data = mysql_fetch_array($req))
-									{
-										$total_tva = $data['SUM(to_tva_art)'];
-										
-								//    $sql5 = "UPDATE ".$tblpref."bon_comm SET `tot_tva`='".$total_tva."'  WHERE `num_bon` = $num_bon";
-								//    mysql_query($sql3) OR die("<p>Erreur Mysql5<br/>$sql5<br/>".mysql_error()."</p>");
-								?>
+										$total = $data['SUM(t.prix_tarif)'];
+							?>
 				<tr>
-					<td class='totalmontant' colspan="3">TOTAL DU BON</td>
-					<td class='totaltexte'><?php echo "$total_tva $devise "; ?></td><td colspan='2' class='totalmontant'><?php
+					<td class='totalmontant' colspan="3">TOTAL DES RÉSERVATIONS</td>
+					<td class='totaltexte'><?php echo "$total $devise "; ?></td><td colspan='2' class='totalmontant'><?php
 									} ?>
 					</td>
 				</tr>
@@ -308,7 +307,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 			<!-- Formulaire d'enregistrement de nouveaux articles -->
 			<form name='formu2' method='post' action='bon_suite.php'>
 				<table class="boiteaction">
-				<caption> Completer l'abonnement</caption>
+				<caption> Ajouter des réservations pour <?php echo $nom; ?></caption>
 				<?php
 					// pour ne montrer que les articles dont le stock est "0" ou inf.
 							 $rqSql11 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, actif, stock, stomin, stomax, horaire, type_article
@@ -408,7 +407,7 @@ mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 						<td class="submit" colspan="4">
 							<input type="hidden" name="bon_num"  value='<?php echo $num_bon ?>'>
 							<input type="hidden" name="num_client" value='<?php echo $num_client ?>'>
-							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter a l'abonnement">Completer la reservation par cette nouvelle selection</td>
+							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter a l'abonnement">Completer la(les) réservation(s) par cette nouvelle selection</td>
 						</td>
 					</tr>
 				</table>
