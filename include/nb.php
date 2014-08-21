@@ -1,11 +1,11 @@
 <?php
 /* 
-* Net Billetterie Copyright(C)2012 José Das Neves
+* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
 * Logiciel de billetterie libre. 
-* Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+* Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 * Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 * File Authors:Guy Hendrickx
-* Modification : José Das Neves pitu69@hotmail.fr
+* Modification : Josï¿½ Das Neves pitu69@hotmail.fr
  *.
  *
  *
@@ -26,10 +26,9 @@
  * Email : dams@nexen.net
  * Url : www.nexen.net/
  * Description : nombre_literal ecrit en toute lettre des nombres.
-Les nombres peuvent être entier, a virgule, mais positif, et ecrit uniquement en chiffres et virgule.
+Les nombres peuvent ï¿½tre entier, a virgule, mais positif, et ecrit uniquement en chiffres et virgule.
 ****/
-//$euro= '€';
-//$devise = ereg_replace('&#128;', $euro, $devise);
+$devise= 'â‚¬';
 
 define ("ENTIER", "");
 define ("VIRGULE", ".");
@@ -86,10 +85,10 @@ function nombre_literal($nombre, $partie_entiere=ENTIER, $virgule=VIRGULE, $deci
 		$rc = nombre_literal(intval($d));
 		
 //		if ($rc != "z&eacute;ro"){ 
-        // Modification par www.cyberiel.com 10-05-2004. Afficher "virgule zéro zéro"
+        // Modification par www.cyberiel.com 10-05-2004. Afficher "virgule zï¿½ro zï¿½ro"
         // Modification par www.cyberiel.com 10-05-2004. Afficher EURO et CENT
-		// Si on utilise des devis, on affiche "zéro" et non "zéro zéro" après la virgule
-		// ... attention: ça ne marche que s'il y a maximum 2 décimales.
+		// Si on utilise des devis, on affiche "zï¿½ro" et non "zï¿½ro zï¿½ro" aprï¿½s la virgule
+		// ... attention: ï¿½a ne marche que s'il y a maximum 2 dï¿½cimales.
 			$z = ereg_replace("0", "z&eacute;ro ", $z);
 			echo "z = $z<br>";
 			echo "nombre_literal=".nombre_literal($d)."<br>";
