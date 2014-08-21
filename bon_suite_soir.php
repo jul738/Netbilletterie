@@ -1,19 +1,19 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:Josï¿½ Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
 include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
+include_once("include/head.php");
 include_once("include/finhead.php");
-include_once("include/configav.php");
 
-	//on recupère les infos par post
+//on recupÃ¨re les infos par post
 $quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
 $bon_num=isset($_POST['bon_num'])?$_POST['bon_num']:"";
 $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
@@ -36,7 +36,7 @@ $req_num = mysql_query($sql_num) or die('Erreur SQL !<br>'.$sql_num.'<br>'.mysql
   
   
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classï¿½s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -67,14 +67,14 @@ $annee_2= $annee_1 -1;
 //on recupere l'prix_tarif
 $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM " . $tblpref ."tarif WHERE id_tarif=$id_tarif ";
 	$result33 = mysql_query( $rqSql33 )
-	or die( "Exécution requête impossible33.");
+	or die( "Exï¿½cution requï¿½te impossible33.");
 	while ( $row = mysql_fetch_array( $result33)) {
 		$id_tarif = $row["id_tarif"];
 		$nom_tarif = $row["nom_tarif"];
 		$prix_tarif = $row["prix_tarif"];}
 		$mont_tva = $prix_tarif * $quanti ;
 
-//inserer les données dans la table du compte des bons.
+//inserer les donnÃ©es dans la table du compte des bons.
 $sql1 = "INSERT INTO ".$tblpref."cont_bon(bon_num, article_num, quanti, prix_tarif, id_tarif, to_tva_art)
 VALUES ('$bon_num', '$num', '$quanti', '$prix_tarif', '$id_tarif', '$mont_tva')";
 mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
@@ -83,9 +83,9 @@ mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 $sql12 = "UPDATE `" . $tblpref ."article` SET `stock` = (stock - ".$quanti.") WHERE `num` = '".$num."'";
 mysql_query($sql12) or die('Erreur SQL12 !<br>'.$sql12.'<br>'.mysql_error());
 
-//on recupère les info du spectacle
+//on recupÃ¨re les info du spectacle
 $rqSql_article = "SELECT article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date FROM " . $tblpref ."article WHERE num=$num";
-$result_article = mysql_query( $rqSql_article )or die( "Exécution requête impossible_article.");
+$result_article = mysql_query( $rqSql_article )or die( "Exï¿½cution requï¿½te impossible_article.");
 while ( $row = mysql_fetch_array( $result_article)) 
 	{ $article = $row["article"]; $date = $row["date"]; }
 
@@ -96,7 +96,7 @@ $rqSql4= "SELECT id_tarif, nom_tarif, prix_tarif, DATE_FORMAT(saison, '%d/%m/%Y'
 	AND nom_tarif<>'gratuit'
 	AND selection='1'
 	ORDER BY nom_tarif ASC";
-	 $result4 = mysql_query( $rqSql4 ) or die( "Exécution requête impossible.");
+	 $result4 = mysql_query( $rqSql4 ) or die( "Exï¿½cution requï¿½te impossible.");
 ?>
 <script type="text/javascript" src="javascripts/confdel.js"></script>
 <script language="javascript"> 
@@ -110,8 +110,8 @@ res = true;
 } 
 } 
 if (!res){ 
-alert("Vous n'avez pas renseigné le Tarif"); 
-return res; // Je sors de la fonction avec le résultat "false" 
+alert("Vous n'avez pas renseignï¿½ le Tarif"); 
+return res; // Je sors de la fonction avec le rï¿½sultat "false" 
 } 
 } 
 </script>

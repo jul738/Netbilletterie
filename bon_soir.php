@@ -1,9 +1,9 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+DÃ©veloppÃ© depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:José Das Neves pitu69@hotmail.fr*/
+File Authors:JosÃ© Das Neves pitu69@hotmail.fr*/
 require_once("include/verif.php");
 include_once("include/config/common.php");
 include_once("include/config/var.php");
@@ -11,9 +11,11 @@ include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/finhead.php");
+include_once("include/configav.php");
+include_once("include/head.php");
 
 //=============================================
-//pour que les articles soit classés par saison
+//pour que les articles soit classÃ©s par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
@@ -41,30 +43,30 @@ if ($annee_1=='')
 $annee_2= $annee_1 -1;
 //=============================================
 
-	//on recupère les infos par post
+	//on recupÃ¨re les infos par post
 	$date=isset($_POST['date'])?$_POST['date']:"";
 	$num=isset($_POST['num'])?$_POST['num']:"";
 	list($jour, $mois,$annee) = preg_split('/\//', $date, 3);
 	
-	//le client1 doit être creer au début dans la base -> "caisse du soir" comme nom les autres champs ->rien
+	//le client1 doit Ãªtre creer au dÃ©but dans la base -> "caisse du soir" comme nom les autres champs ->rien
 	$client=1;
 
-	//on recupère les info du spectacle
+	//on recupÃ¨re les info du spectacle
 	$rqSql_article = "SELECT article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date FROM ".$tblpref."article WHERE num=$num";
-	$result_article = mysql_query( $rqSql_article )or die( "Exécution requête impossible_article.");
+	$result_article = mysql_query( $rqSql_article )or die( "Exï¿½cution requï¿½te impossible_article.");
 	$row = mysql_fetch_array( $result_article); 
 	$article = $row["article"]; 
 	$article= addslashes($article);
 	$date = $row["date"]; 
 	
-	//on recupère les info du client1 (caisse du soir) pour la 1er ligne de la page
+	//on recupï¿½re les info du client1 (caisse du soir) pour la 1er ligne de la page
 	$sql_nom = "SELECT  nom FROM ".$tblpref."client WHERE num_client =$client";
 	$req = mysql_query($sql_nom) or die('Erreur SQL_nom !<br>'.$sql.'<br>'.mysql_error());
 	$data = mysql_fetch_array($req);
 	$nom = $data['nom'];
 	
 
-	// on créer un bon de commmande
+	// on crï¿½er un bon de commmande
 	$sql1 = "INSERT INTO ".$tblpref."bon_comm(client_num, date, soir, user) VALUES ('$client', '$annee-$mois-$jour', '$article', '$user_nom')";
 	mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 
@@ -79,7 +81,7 @@ $annee_2= $annee_1 -1;
 		AND nom_tarif<>'gratuit'
 		AND selection='1'
 		ORDER BY nom_tarif ASC";
-		 $result4 = mysql_query( $rqSql4 ) or die( "Exécution requête impossible.");
+		 $result4 = mysql_query( $rqSql4 ) or die( "Exï¿½cution requï¿½te impossible.");
 ?>
  <script type="text/javascript" src="javascripts/confdel.js"></script>
  
@@ -94,8 +96,8 @@ res = true;
 } 
 } 
 if (!res){ 
-alert("Vous n'avez pas renseigné le Tarif"); 
-return res; // Je sors de la fonction avec le résultat "false" 
+alert("Vous n'avez pas renseignï¿½ le Tarif"); 
+return res; // Je sors de la fonction avec le rï¿½sultat "false" 
 } 
 } 
 </script>
@@ -108,7 +110,7 @@ return res; // Je sors de la fonction avec le résultat "false"
 			$article=stripslashes($article);
 			$data = mysql_fetch_array($req_num);
 			$num_bon = $data['num_bon'];  ?>
-			<?php echo "<h3>Enregistrement N° $num_bon pour le spectacle \" $article \"</h3><br> saisi par \"$user_nom\""; ?>
+			<?php echo "<h3>Enregistrement Nï¿½ $num_bon pour le spectacle \" $article \"</h3><br> saisi par \"$user_nom\""; ?>
 		<td>
 	<tr>
 		<td  class="page" align="center">
@@ -117,7 +119,7 @@ return res; // Je sors de la fonction avec le résultat "false"
 					<table class="boiteaction">
 						<caption>Composer la commande</caption>
 						<tr>
-							<td class="texte0">Choisir la quantit&eacute; d'entrées vendu pour ce tarif </td>
+							<td class="texte0">Choisir la quantit&eacute; d'entrï¿½es vendu pour ce tarif </td>
 							<td class="texte_left" colspan="3">
 							<input type="text" name="quanti" value="1" SIZE="1"></td>
 						</tr>
