@@ -17,7 +17,7 @@ include_once("include/finhead.php");
 // On fait les requêtes SQL qui vont bien si un ID est passé
 if(isset($_GET['num_groupe'])){
     $num_groupe = $_GET['num_groupe'];
-    $requete_groupe = "SELECT nom_structure, adresse, telephone FROM groupe WHERE num_groupe".$num_groupe."";
+    $requete_groupe = "SELECT nom_structure, adresse, telephone FROM groupe WHERE num_groupe = ".$num_groupe."";
     $sql_groupe = mysql_query($requete_groupe) or die('Erreur SQL sélection groupe !<br>'.$requete_groupe.'<br>'.mysql_error());
     while($data_groupe = mysql_fetch_array($sql_groupe)){
         $nom_structure = $data_groupe['nom_structure'];
