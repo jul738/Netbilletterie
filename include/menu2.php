@@ -27,7 +27,7 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des spectateurs</b></p>
 		<div class="column">
 			<ul>
-				<li><li><a href="form_client.php"><b>Créer une fiche "Spectateur"</b></a></li><hr/>
+				<li><a href="form_client.php"><b>Créer une fiche "Spectateur"</b></a></li><hr/>
                                 <li><a href="form_groupe.php"><strong>Créer un groupe</strong></a></li><hr/>
 				<li><a href="lister_clients.php"><b>Liste des spectateurs</b></a></li><hr/>
 				<li><a href="lister_clients_inactifs.php"><b>Liste des spectateurs inactifs</b></a></li>

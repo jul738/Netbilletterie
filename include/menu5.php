@@ -24,7 +24,7 @@ comptable-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des abonnements et réservations</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_commande.php"><b>Cr�er une réservation</b></a></li><hr/>
+				<li><a href="form_commande.php"><b>Créer une réservation</b></a></li><hr/>
 				<li><a href="lister_commandes.php"><b>Lister les réservations</b></a></li><hr/>
 				<li><a href="lister_detail_commandes.php"><b>Détail des réservations</b></a></li><hr/>
 				<li><a href="lister_commandes_non_facturees.php"><b>Contrôler - Encaisser</b></a></li><hr/>
