@@ -80,7 +80,23 @@ while($data = mysql_fetch_array($req2))
  else {
    echo "$article le $date - La liste d'attente est a $stock places";
     }
-    ?> <br><br>
+    ?> <br>
+    <!-- On ajoute le nombre de personne avec une résa et le nombre de personnes arrivées-->
+    <?php
+    $sql_count_resa = "SELECT COUNT(num_bon) FROM " . $tblpref ."bon_comm WHERE paiement='non' AND id_article=".$article_numero."";
+    $req_count_resa = mysql_query($sql_count_resa) or die('Erreur SQL !<br>'.$sql_count_resa.'<br>'.mysql_error());
+    While($data_count_resa = mysql_fetch_array($req_count_resa)) {
+        $count_resa = $data_count_resa['COUNT(num_bon)'];
+    }
+    
+    $sql_count_arrive = "SELECT COUNT(num_bon) FROM " . $tblpref ."bon_comm WHERE paiement<>'non' AND id_article=".$article_numero."";
+    $req_count_arrive = mysql_query($sql_count_arrive) or die('Erreur SQL !<br>'.$sql_count_arrive.'<br>'.mysql_error());
+    While($data_count_arrive = mysql_fetch_array($req_count_arrive)) {
+        $count_arrive = $data_count_arrive['COUNT(num_bon)'];
+    }
+    echo 'Nombre de personnes arrivées / Nombre de personnes à venir <br>'.$count_arrive.' / '.$count_resa;
+    ?>
+    <br>
   <?php if ($user_admin != n) { ?>
   <a href="form_mailing.php?article=<?php echo $article_numero;?>">Envoyer un mail a tous ces spectateurs</a><br> <?php } ?>
  <!-- <a href="fpdf/liste_spectateurs.php?article=<?php echo $article_numero;?>" target="_blank">Imprimer la liste de tous ces spectateurs</a></caption> -->
@@ -240,8 +256,43 @@ echo"</td></tr>";
 <tr>
     <td>
         <!-- On ajoute une table avec la liste des personnes étant arrivées -->
+        <?php
+        $sql_arrives = "SELECT *
+        FROM client C, bon_comm BC
+        WHERE BC.client_num=C.num_client
+        AND BC.id_article = $article_numero
+        AND BC.attente=0
+        AND BC.paiement NOT IN ('Gratuit', 'non')";
+        $data_arrives = mysql_query($sql_arrives) or die('Erreur Sql invites!'.$sql_arrives.'<br>'.mysql_error());
+        ?>
         <center><table class="boiteaction">
             <caption> Personnes arrivées : </caption>
+            <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Téléphone</th>
+            <th>Mail</th>
+        </tr>
+        
+        <?php
+        
+        // ON récupère les données de la requête et on les affiches
+        while($arrives = mysql_fetch_array($data_arrives)) {
+            $nom_arrive = $arrives['nom'];
+            $prenom_arrive = $arrives['prenom'];
+            $tel_arrive = $arrives['tel'];
+            $mail_arrive = $arrives['mail'];
+            ?>
+        <tr>
+            <td><?php echo $nom_arrive;?></td>
+            <td><?php echo $prenom_arrive;?></td>
+            <td><?php echo $tel_arrive;?></td>
+            <td><?php echo $mail_arrive;?></td>
+        </tr>
+        <?php
+        }
+        
+        ?>
         </table></center>
     </td>
 </tr>
