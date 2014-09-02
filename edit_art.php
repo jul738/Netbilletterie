@@ -42,7 +42,11 @@ while($data = mysql_fetch_array($req))
 		$max = $data['stomax'];
 		$commentaire = $data['commentaire'];
 		$image = $data['image_article'];
+                $type_article = $data['type_article'];
 		}
+                
+                // Définition du type d'article : 
+                $type = array('Spectacle', 'Spectacle_JP', 'Concert', 'Chorale', 'Theatre', 'Conference_Debat', 'Experience_numerique', 'Art_numerique', 'Autre');
 	?>		
 <table border="0" class="page" align="center">
 	<tr>
@@ -76,15 +80,13 @@ while($data = mysql_fetch_array($req))
 							<td><input name="article" type="text" size="15" value ="<?php echo"$article" ; ?> "></td>
                                                         <td class="texte1">
                                                             <SELECT name="type_article">
-                                                                <OPTION VALUE="Spectacle">Spectacle</OPTION>
-                                                                <OPTION VALUE="Spectacle_JP">Spectacle Jeune Public</OPTION>
-                                                                <OPTION VALUE="Concert">Concert</OPTION>
-                                                                <OPTION VALUE="Chorale">Chorale</OPTION>
-                                                                <OPTION VALUE="Theatre">Theatre</OPTION>
-                                                                <OPTION VALUE="Conference_Debat">Conference et Debat</OPTION>
-                                                                <OPTION VALUE="Experience_numerique">Experience Numerique</OPTION>
-                                                                <OPTION VALUE="Art_numerique">Art numerique</OPTION>
-                                                                <OPTION VALUE="Autre">Autre</OPTION>
+                                                                <?php
+                                                                foreach ($type as $categorie){
+                                                                ?>
+                                                                    <OPTION VALUE="<?php echo $categorie; ?>" <?php if($categorie = $type_article) { echo "selected";} ?>><?php echo $categorie; ?></OPTION>
+                                                                <?php    
+                                                                }
+                                                                ?>
                                                             </select></td>
                                                         <td><input name="numero_representation" type="number" size="5" value ="<?php echo"$numero_representation" ;?>"></td>
 							<td><input name="lieu" type="text" size="5" value ="<?php echo"$lieu" ;?>"></td>
