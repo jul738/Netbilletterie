@@ -70,7 +70,7 @@ if($pass != $pass2)
 $pass = md5($pass);
 
 
-if($nom=='' || $rue=='' || $ville=='' || $code_post=='')
+if($nom=='' || ($mail || $tel1))
     {
    $message= "<h1>$lang_oubli_champ</h1>";
     include('form_client.php'); // On inclus le formulaire d'identification
