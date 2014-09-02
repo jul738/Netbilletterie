@@ -29,7 +29,7 @@ if (isset($duplication))
     $num_client=isset($_POST['client_num_nouveaux'])?$_POST['client_num_nouveaux']:""; //Le numero client du spectateur pour qui on a dupliquer labonnement (nouveaux possedant)
     $paiement=isset($_POST['paiement_duplique'])?$_POST['paiement_duplique']:"";
     $nombre_spectacle=isset($_POST['nombre_place_duplique'])?$_POST['nombre_place_duplique']:"";
-    $tarif_abonnement=isset($_POST['$tarif_abonnement_duplique'])?$_POST['tarif_abonnement_duplique']:"";
+    $tarif_abonnement=isset($_POST['tarif_abonnement_duplique'])?$_POST['tarif_abonnement_duplique']:"";
     $choix_spectacle_1_vendu=isset($_POST['num_spectacle_1_duplique'])?$_POST['num_spectacle_1_duplique']:"";
     $choix_spectacle_2_vendu=isset($_POST['num_spectacle_2_duplique'])?$_POST['num_spectacle_2_duplique']:"";
     $choix_spectacle_3_vendu=isset($_POST['num_spectacle_3_duplique'])?$_POST['num_spectacle_3_duplique']:"";
@@ -48,8 +48,7 @@ if (isset($duplication))
                                             $nom = $data['nom'];
                                             $prenom = $data['prenom'];
                                             }
-                                            echo $nom;
-    
+
         // On crée l'abonnement dans la table
         $req_vente_duplication = "INSERT INTO abonnement_comm (client_num, date, date_debut, date_fin, num_abonnement, user, nombre_place)
                                   VALUES ('$num_client', '$date', '$date_debut', '$date_fin', '$num_abonnement', '$user_nom', '$nombre_spectacle')";
@@ -61,8 +60,6 @@ if (isset($duplication))
                     {
                         $num_abo_com = $data_abo['num_abo_com'];
                     }
-        
-                    echo $nom;
                     }
     else
         {  
@@ -84,7 +81,6 @@ if (isset($duplication))
         $choix_spectacle_6_vendu=isset($_POST['liste_choix_spectacle_6'])?$_POST['liste_choix_spectacle_6']:"";
         $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_choix_spectacle_7']:""; 
         } //Fin du else
-
 ?>
 
 <br/>
