@@ -25,7 +25,7 @@ $billetterie=isset($_GET['billetterie'])?$_GET['billetterie']:"";
 	}
 	else {
 		include("lister_commandes.php");
-		echo "tata $billetterie";
+		echo "$billetterie";
 	}
 
 include('delete_message.php');
