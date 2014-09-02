@@ -212,7 +212,7 @@ font-weight: bold;
 text-align:center;
 }
 
-table.page {
+table.page, div.page {
 width:900px;
 background-color:#E8E8EC;
 border-style:solid;
@@ -701,10 +701,15 @@ display              : block;
 text-align           : center;
 }
 
+div.bouton {
+    margin-bottom : 10px;
+    float : left;
+    width : 430px;
+    margin-left : 5px;
+    padding : 5px
+}
 
-/*
-Bref... pour r�sumer, ce qu'il y a � modifier � la base, c'est :
-- couleurs, police, bordure et largeur des menu et ssmenu.
-- l'effet sp�cial IE pour les ssmenu
-- police et couleurs des liens "non survol�s" et "survol�s".
-*/
+div.bouton a {
+    color : #FFFFFF;
+    text-decoration: none;
+}

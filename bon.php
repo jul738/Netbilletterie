@@ -16,7 +16,7 @@ include_once("include/configav.php");
 include_once("include/head.php");
 
 ///=============================================
-//pour que les articles soit class�s par saison
+//pour que les articles soit classés par saison
 $mois=date("n");
 if ($mois=="10"||$mois=="11"||$mois=="12") {
  $mois=date("n");
