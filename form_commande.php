@@ -12,6 +12,33 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
+
+    if(isset($_GET['num_client'])){
+        $client = $_GET['num_client'];
+    }
+
+    //pour que les articles soit classés par saison
+$mois=date("n");
+if ($mois=="10"||$mois=="11"||$mois=="12") {
+ $mois=date("n");
+}
+else{
+  $mois =date("0n");
+}
+$jour =date("d");
+$date_ref="$mois-$jour";
+$annee = date("Y");
+
+  if ($mois.'-'.$jour >= $fin_saison)
+  {
+  $annee_1=$annee+1;
+  }  
+  else {
+      $annee_1 = $annee;
+  }
+
+//pour le formulaire
+$annee_2= $annee_1 -1;
 ?>
 <script type="text/javascript">
 function verif_formulaire()
@@ -66,17 +93,17 @@ function verif_formulaire()
 			<table>
 				<tr>
 					<td>
-						<form name="formu" method="post" action="bon.php" onSubmit="return verif_formulaire()">
+						<form name="formu" method="post" action="bon_suite.php" onSubmit="return verif_formulaire()">
 							<table>
-								<caption><?php echo "$lang_cre_bon"; ?></caption>
 								<tr>
+                                                                    	<td><?php echo "$lang_cre_bon"; ?></td>
 									<td  class="texte0" >
 											 <?php
 											 require_once("include/configav.php");
 											 $rqSql="$rqSql order by nom";
 											 $result = mysql_query( $rqSql ) or die( "Execution requete impossible.");
 											 ?>
-										<SELECT NAME='listeville'>
+										<SELECT NAME='num_client'>
 											<OPTION VALUE="">Cliquez ici et commencez a ecrire le nom</OPTION>
 											<?php
 											while ( $row = mysql_fetch_array( $result)) {
@@ -84,43 +111,70 @@ function verif_formulaire()
 											$nom = $row["nom"];
 											$nom2 = $row["nom2"];
 											?>
-											<OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
+                                                                                        <OPTION VALUE='<?php echo $numclient; ?>' <?php if($numclient=$client){ echo 'selected';} ?>><?php echo $nom; ?></OPTION>
 											<?php
 											}
 											?>
 										</SELECT>
 									</td>
 								</tr>
+                                                                          <tr>
+          <td><strong>Choisir la quantite d'entree par spectacle </strong></td>
+          <td colspan="3">
+          <input type="text" name="quanti" value="1" SIZE="1"></td>
+
+          </tr>
+          <tr>
+          <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
+          <?php
+          //pour n 'affiches que les articles  en stock
+          $select_article = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax, type_article, horaire
+                    FROM " . $tblpref ."article
+                    WHERE stock > '0'
+                    AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
+                    ORDER BY date_spectacle ASC";
+          $result_article = mysql_query($select_article)or die( "Execution requete impossible.");
+
+          ?>
+          <td class="texte_left">
+            <?php                                                    
+
+            while ( $row_article = mysql_fetch_array($result_article)) 
+            {
+              $num = $row_article["num"];
+              $article= stripslashes($row_article["article"]);
+              $type_article = $row_article['type_article'];
+              $horaire = $row_article['horaire'];
+              $date = $row_article["date"];
+              $stock = $row_article['stock'];
+              $min = $row_article['stomin'];
+
+                if ($stock<=0 ) 
+                {
+                 $option="complet";
+                }
+                elseif ($stock <= $min && $stock >= 1  ) 
+                {
+                  $stock="Attention plus que $stock places";
+                  $style= 'style="color:#961a1a; background:#ece9d8;"';
+                  $option="$type_article - ".$article." - ". $date."a $horaire - ".$stock."";
+                }
+                else 
+                {
+                  $stock= "Le stock est de ".$stock." places";
+                  $style= 'style="color:black; background-color:##99fe98;"';
+                  $option="$type_article - ".$article." - ". $date."a $horaire - ".$stock."";
+                }
+            ?>
+            <input  type="radio" VALUE='<?php echo $num; ?>' name="article"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>
+            <?php 
+            }
+            ?>
+          </tr>
 								<tr>
+                                                                    <td class="texte0">Choisir le<?php echo "$lang_tarif";?>
 										<?php
-										//=============================================
-//pour que les articles soit class�s par saison
-$mois=date("n");
-if ($mois=="10"||$mois=="11"||$mois=="12") {
- $mois=date("n");
-}
-else{
-  $mois =date("0n");
-}
-$jour =date("d");
-$date_ref="$mois-$jour";
-$annee = date("Y");
-//pour le formulaire
-$annee_1=isset($_POST['annee_1'])?$_POST['annee_1']:"";
-if ($annee_1=='') 
-{
-  $annee_1= $annee ;
-  if ($mois.'-'.$jour <= $fin_saison)
-  {
-  $annee_1=$annee_1;
-  }
-  if ($mois.'-'.$jour >= $fin_saison)
-  {
-  $annee_1=$annee_1+1;
-  }  
-}
-$annee_2= $annee_1 -1;
-//=============================================
+
 											$rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
 													 WHERE saison
 													 BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -129,7 +183,7 @@ $annee_2= $annee_1 -1;
 													 ORDER BY nom_tarif ASC";
 											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
 									<td class="texte0" colspan='2'>
-									   <SELECT NAME='id_tarif'>
+									   <SELECT NAME='id_tarif' id='id_tarif'>
 											<OPTION VALUE="">Choisir le<?php echo "$lang_tarif";?></OPTION>
 											<?php
 											while ( $row = mysql_fetch_array( $result3)) {

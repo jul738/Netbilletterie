@@ -17,18 +17,10 @@ include_once("include/finhead.php");
 include_once("include/configav.php");
 include_once("include/head.php");
 
-
 $quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
-$num_bon=isset($_POST['bon_num'])?$_POST['bon_num']:"";
 $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
-
-
-if($num_bon==''){
-$num_bon=isset($_GET['num_bon'])?$_GET['num_bon']:"";
-$num_client=isset($_GET['nom'])?$_GET['nom']:"";
-$id_tarif=isset($_GET['id_tarif'])?$_GET['id_tarif']:""; 
-}
+$article=isset($_POST["article"])?$_POST["article"]:"";
 
 //=============================================
 //pour que les articles soit classes par saison
@@ -106,10 +98,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
                             $mont_tva = $prix_tarif * $quanti ;
 
 
-// Pour chaque  ARTICLE  
-  for ($i = 0; $i < count($_POST["article"]); $i++)
-  {
-      $article=$_POST["article"][$i]."" ;
+// Pour l'ARTICLE  
           
         //on controle s'il y a assez de stock pour article
        if ($article!="") 
@@ -127,16 +116,13 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
               // Si quanti = 1 
               //On met à jour les réservations crées
               if ($quanti == 1){
-              $sql1 = "UPDATE bon_comm SET id_article = '".$article."', id_tarif = '".$id_tarif."' WHERE num_bon = '".$num_bon."'";
-              mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article')";
+                    mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
               }
               //Si plusieurs résa, alors on créer les autres réservations
               else{
-                  //On met à jour la première résa
-                  $sql_update = "UPDATE bon_comm SET id_article = '".$article."', id_tarif = '".$id_tarif."' WHERE num_bon = '".$num_bon."'";
-                  mysql_query($sql_update) or die('Erreur SQL !<br>'.$sql_update.'<br>'.mysql_error());
                   //Puis on créer les réservations supplémentaires
-                  for($q=1; $q < $quanti; $q++){
+                  for($q=1; $q <= $quanti; $q++){
                     $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article')";
                     mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
                   }
@@ -159,7 +145,6 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
                               mysql_query($sql122) or die('Erreur SQL122 !<br>'.$sql122.'<br>'.mysql_error());
                               }
             }// Fin du if article n'est pas vide 
-}// Fin du for pour chaque article
 
                 ?>
 
@@ -206,6 +191,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 
 						while($data = mysql_fetch_array($req))
 							{
+                                                                $num_bon = $data['num_bon'];
 								$article = stripslashes($data['article']);
 								$id_tarif = $data['id_tarif'];
 								$prix_tarif = $data['prix_tarif'];
@@ -223,20 +209,18 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 					<?php
 					//on recupere infos du carnet au depart de la saison et la quantite vendu depuis jusqu'a ce bon en filtrant par tarif
 					$sql10 = "
-					SELECT CB.id_tarif, T.nom_tarif, T.prix_tarif, SUM(quanti) AS quanti, T.carnet
-					FROM ". $tblpref."cont_bon CB, ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
-					WHERE CB.bon_num = BC.num_bon
-					AND BC.attente=0
+					SELECT BC.id_tarif, T.nom_tarif, T.prix_tarif, T.carnet
+					FROM ". $tblpref."bon_comm BC, ". $tblpref."tarif T, ". $tblpref."article ART
+					WHERE BC.attente=0
 					AND BC.fact='ok'
-					AND CB.id_tarif=T.id_tarif
-					AND ART.num=CB.article_num
-					AND	BC.num_bon <=$num_bon
-					AND CB.id_tarif=$id_tarif";
+					AND BC.id_tarif=T.id_tarif
+					AND ART.num= BC.id_article
+					AND BC.num_bon <= '$num_bon'
+					AND BC.id_tarif='$id_tarif'";
 					$req10 = mysql_query($sql10) or die('Erreur SQL10 !<br>'.$sql10.'<br>'.mysql_error());
 					while($data = mysql_fetch_array($req10))
 					{
 					$carnet = $data['carnet'];
-					$quanti01 = $data['quanti'];
 					$id_tarif = $data['id_tarif'];
 					?>
 					<!-- td  WIDTH=20% class ='highlight'>
@@ -274,11 +258,11 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 					<td class ='highlight'><?php echo"$prix_tarif $devise"; ?></td>
 					<?php if ($impression=="y") { 
 						if ($print_user=="y") { ?>
-					<td><A HREF="print_ticket_bon.php?num_cont=<?php echo"$num_cont";?>&amp;num_bon=<?php echo"$num_bon"; ?>" onClick="window.open('print_ticket_bon.php?num_cont=<?php echo"$num_cont";?>&amp;num_bon=<?php echo"$num_bon"; ?>','_blank','toolbar=0, location=0, directories=0, status=0, scrollbars=0, resizable=1, copyhistory=0, menuBar=0, width=600, height=800');return(false)">
+					<td><A HREF="print_ticket_bon.php?num_bon=<?php echo"$num_bon"; ?>" onClick="window.open('print_ticket_bon.php?num_cont=<?php echo"$num_cont";?>&amp;num_bon=<?php echo"$num_bon"; ?>','_blank','toolbar=0, location=0, directories=0, status=0, scrollbars=0, resizable=1, copyhistory=0, menuBar=0, width=600, height=800');return(false)">
                                                 <img border=0 src= image/print.png></a>
 					</td>
 					<?php } } ?>
-					<td class ='highlight'><a href="delete_cont_bon.php?num_cont=<?php echo"$num_cont";?>&amp;num_bon=<?php echo"$num_bon"; ?>&amp;id_tarif=<?php echo"$id_tarif"; ?>" onClick='return confirmDelete(<?php echo"$num_cont"; ?>)'><img border="0" src="image/delete.png" alt="effacer" ></a>&nbsp;</td>
+					<td class ='highlight'><a href="delete_bon_suite.php?num_bon=<?php echo"$num_bon"; ?>&amp;nom=<?php echo"$nom"; ?>" onClick='return confirmDelete(<?php echo"$num_cont"; ?>)'><img border="0" src="image/delete.png" alt="effacer" ></a>&nbsp;</td>
 				</tr>
 								<?php 
 							}
@@ -375,7 +359,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 											 $option="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
 										}
 								?>
-							<input  type="checkbox" VALUE='<?php echo $num; ?>' name="article[]"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>
+							<input  type="radio" VALUE='<?php echo $num; ?>' name="article"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>
 							<?php $i++; } ?>
 						</td>
 					</tr>

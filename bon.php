@@ -51,7 +51,10 @@ $annee_2= $annee_1 -1;
     <?php
 
     //on recupre les infos par post ou get
-    $client=isset($_POST['listeville'])?$_POST['listeville']:"";
+    if(isset($_POST['listeville'])){
+        $client = $_POST['listeville'];
+    }
+    
     $date=isset($_POST['date'])?$_POST['date']:"";
     $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
 
