@@ -93,7 +93,10 @@ mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 $sql100 = "INSERT INTO " . $tblpref ."abonne(abonne_jp, abonne_chanson) VALUES ('$abonne_jp', '$abonne_chanson')";
 mysql_query($sql100) or die('Erreur SQL !<br>'.$sql100.'<br>'.mysql_error());
 
-$nouveau_client = mysql_insert_id();
+$select_last_client = "SELECT num_client FROM client ORDER BY num_client DESC LIMIT 0,1";
+$req_last_client = mysql_query($select_last_client) or die ('Erreur séléction dernier client');
+$data_last_client = mysql_fetch_array($req_last_client);
+$nouveau_client = $data_last_client['num_client'];
 
 //On insert le lien entre le client dupliqué et le client enfant
 $sql_insert_client_liens = "INSERT INTO " . $tblpref ."client_liens(num_client_parent, num_client_enfant) VALUES ('$num_client_parent', '$nouveau_client')";
