@@ -6,7 +6,7 @@ Licensed under the terms of the GNU  General Public License:http://www.opensourc
 File Authors:Guy Hendrickx
 Modification : José Das Neves pitu69@hotmail.fr*/
 include_once("include/config/common.php");
-include 'include/lib/Zebra_Session.php';
+include_once 'include/lib/Zebra_Session.php';
 // instantiate the class
 // this also calls session_start()
 $session = new Zebra_Session;

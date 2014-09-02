@@ -22,7 +22,7 @@
 //error_reporting(0);
 include_once("../include/config/common.php");
 //===============================================
-//pour controler si bien logué
+//pour controler si bien loguï¿½
 
 class Auth{
     static function isLogged(){
@@ -44,7 +44,7 @@ class Auth{
 }
 //===============================================
 include_once("../include/config/var.php");
-include '../include/lib/Zebra_Session.php';
+include_once '../include/lib/Zebra_Session.php';
 $session = new Zebra_Session;
 
 if(Auth::isLogged()){
@@ -59,7 +59,7 @@ else{
 
 if($_SESSION['Auth']=='')
 {
-	echo "Vous n'êtes pas autorisé à accéder à cette zone";
+	echo "Vous n'ï¿½tes pas autorisï¿½ ï¿½ accï¿½der ï¿½ cette zone";
 	include('login.inc.php');
 	exit;
 }
@@ -88,7 +88,7 @@ while($data = mysql_fetch_array($req))
     $user_menu   = $data['menu'];
 }
  if ($entrep_nom==""){
-    $message="<h1>Il semblerait que vous n'ayez pas encore configuré Net-Billetterie</h1>";
+    $message="<h1>Il semblerait que vous n'ayez pas encore configurï¿½ Net-Billetterie</h1>";
     include("../admin.php");
   }
 		?>
