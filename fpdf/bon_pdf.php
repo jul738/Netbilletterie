@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 session_cache_limiter('private');
 if ($_POST['user']== 'adm') { 
 require_once("../include/verif2.php");  
@@ -49,12 +49,11 @@ $annee_2= $annee_1 -1;
 //on compte le nombre de ligne
 $sql = "
 SELECT *
-FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC , ".$tblpref."tarif T, ".$tblpref."article A
+FROM ".$tblpref."client C, ".$tblpref."bon_comm BC , ".$tblpref."tarif T, ".$tblpref."article A
 WHERE 
-CB.bon_num=BC.num_bon
-AND BC.client_num=C.num_client
-AND CB.article_num = A.num
-AND CB.id_tarif = T.id_tarif
+BC.client_num=C.num_client
+AND BC.id_article = A.num
+AND BC.id_tarif = T.id_tarif
 AND BC.num_bon = $num_bon";
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 $nb_li = mysql_num_rows($req);
@@ -66,21 +65,20 @@ $nb_li =$nb_pa * 20 ;
 $sql = "select coment, tot_tva, DATE_FORMAT(date,'%d/%m/%Y') AS date_2 from ".$tblpref."bon_comm where num_bon = $num_bon";
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 $data = mysql_fetch_array($req);
-    $date_bon = $data[date_2];
-    $total_tva = $data[tot_tva];
-    $tot_tva_inc =/*  $total_htva +  */$total_tva ;
-    $coment = $data[coment];
+    $date_bon = $data['date_2'];
+    $total_tva = $data['tot_tva'];
+    $tot_tva_inc = $data['prix_tarif'];
+    $coment = $data['coment'];
     $nom_tarif = $data['nom_tarif'];
     $prix_tarif = $data['prix_tarif'];
     $to_tva_art = $data['to_tva_art'];
     $total_tva = $data['SUM(to_tva_art)'];
 
 //pour le nom de client
-$sql1 = "SELECT civ, mail, nom, nom2, rue, ville, cp, num_tva FROM ".$tblpref."client RIGHT JOIN ".$tblpref."bon_comm on client_num = num_client WHERE  num_bon = $num_bon";
+$sql1 = "SELECT mail, nom, nom2, rue, ville, cp, num_tva FROM ".$tblpref."client RIGHT JOIN ".$tblpref."bon_comm on client_num = num_client WHERE num_bon = $num_bon";
 $req1 = mysql_query($sql1) or die('Erreur SQL1 !<br>'.$sql1.'<br>'.mysql_error());
 $data = mysql_fetch_array($req1);
 		$nom = $data['nom'];
-		$civ = $data['civ'];
 		$nom2 = $data['nom2'];
 		$rue = $data['rue'];
 		$ville = $data['ville'];
@@ -94,7 +92,7 @@ $req3 = mysql_query($sql3) or die('Erreur SQL3 !<br>'.$sql3.'<br>'.mysql_error()
 $data = mysql_fetch_array($req3);
 		$num_article= $data['article_num'];
 
-$sql4 = "SELECT article, DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, horaire, lieu FROM ".$tblpref."article WHERE  num = $num_article";
+$sql4 = "SELECT article, DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, horaire, lieu FROM ".$tblpref."article WHERE num = '$num_article'";
 $req4 = mysql_query($sql4) or die('Erreur SQL4 !<br>'.$sql4.'<br>'.mysql_error());
 $data = mysql_fetch_array($req4);
 		$date_spectacle= $data['date_spectacle'];
@@ -145,7 +143,7 @@ var $javascript;
     }
 		function AutoPrint($dialog=false, $nb_impr)
 {
-    //Ajoute du JavaScript pour lancer la boîte d'impression ou imprimer immediatement
+    //Ajoute du JavaScript pour lancer la boite d'impression ou imprimer immediatement
     $param=($dialog ? 'true' : 'false');
     $script=str_repeat("print($param);",$nb_impr);
 		
@@ -157,6 +155,7 @@ var $javascript;
 $pdf=new PDF('p','mm','a4');
 $pdf->Open();
 
+
 for ($i=0;$i<$nb_pa;$i++)
 {
 $nb = $i *20;
@@ -166,7 +165,7 @@ $num_pa2 = $num_pa +1;
 $pdf->AddPage();
 
 //le logo
-$pdf->Image("../upload/$logo",20,8,0,35,'jpg');
+$pdf->Image("$logo",20,8,0,35,'jpg');
 $pdf->SetFillColor(255,238,204);
 
 
@@ -176,7 +175,7 @@ $pdf->SetY(45);
 $pdf->SetX(10);
 $pdf->MultiCell(71,6,"$slogan $annee_2-$annee_1",0,C,0);
 
-//deuxieme cellule les coordoné clients
+//deuxieme cellule les coordonÃ©es clients
 $pdf->SetFont('Arial','B',15);
 $pdf->SetY(35);
 $pdf->SetX(100);
@@ -188,21 +187,20 @@ $pdf->Line(10,93,200,93);
 $pdf->SetFont('Arial','B',10);
 $pdf->SetY(100);
 $pdf->SetX(25);
-$pdf->MultiCell(65,6,"Commande de billets n° $num_bon \n Enregistré le: $date_bon ",1,C,1);
-$file="$lang_fi_b_c $num_bon.pdf";
-
+$pdf->MultiCell(65,6,utf8_decode("Commande de billets nÂ° $num_bon \n EnregistrÃ© le: $date_bon "),1,C,1);
+$file= $lang_fi_b_c."_".$num_bon.".pdf";
 
 //la grande cellule sous le tableau
 
 
 
-//Le tableau : on définit les colonnes
+//Le tableau : on dÃ©finit les colonnes
 $pdf->SetY(120);
 $pdf->SetX(12);
 if($lot=='y'){
 /* $pdf->AddCol('uni',10,"$lang_unite",'C'); */
 $pdf->AddCol('article',60,"$lang_article",'C');	
-$pdf->AddCol('num_lot',20,"$lang_num_lot",'C');
+$pdf->AddCol('num_lot',20,utf8_decode("$lang_num_lot"),'C');
 $pdf->AddCol('nom_tarif',40,"tarif",'C');
 $pdf->AddCol('prix_tarif',25,"$lang_prix_htva",'C');
 }else {
@@ -211,46 +209,51 @@ $pdf->AddCol('date',16,"Date",'C');
 $pdf->AddCol('lieu',50,"Lieu",'C');
 $pdf->AddCol('horaire',13,"Horaire",'C');
 $pdf->AddCol('nom_tarif',25,"Tarif",'C');
-$pdf->AddCol('prix_tarif',9,"$lang_prix_htva",'C');}
-$pdf->AddCol('quanti',9,"Nbr.",'C');
-$pdf->AddCol('to_tva_art',12,"Total",'C');
+$pdf->AddCol('prix_tarif',9,"$lang_prix_htva",'C');
+}
 $prop=array('HeaderColor'=>array(255,150,100),
 		  'color1'=>array(255,255,210),
 			'color2'=>array(255,238,204),
 			'padding'=>2);
 $pdf->Table("SELECT *, DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date
-FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC , ".$tblpref."tarif T, ".$tblpref."article A
-WHERE CB.bon_num=BC.num_bon
-AND BC.client_num=C.num_client
-AND CB.article_num = A.num
-AND CB.id_tarif = T.id_tarif
+FROM ".$tblpref."client C, ".$tblpref."bon_comm BC , ".$tblpref."tarif T, ".$tblpref."article A
+WHERE BC.client_num=C.num_client
+AND BC.id_article = A.num
+AND BC.id_tarif = T.id_tarif
 AND BC.num_bon = $num_bon 
 ORDER BY date_spectacle
 LIMIT $nb, 20",$prop
 );
 
 
-
-if($num_pa2 >= $nb_pa)
-  {
-//Quatrieme cellule les enoncés de totaux
+//Quatrieme cellule les enoncï¿½s de totaux
 $pdf->SetFont('Arial','B',12);
 $pdf->SetY(230);
 $pdf->SetX(158);
-$pdf->MultiCell(40,8,"$tot_tva_inc $devise ",1,C,1);
 
+// On rÃ©cupÃ¨re le tarif pour le total
+$select_tarif = "SELECT prix_tarif
+FROM ".$tblpref."bon_comm BC , ".$tblpref."tarif T
+WHERE BC.id_tarif = T.id_tarif
+AND BC.num_bon = $num_bon ";
+$req_tarif = mysql_query($select_tarif) or die ('Erreur selection tarif');
+while ($data_tarif = mysql_fetch_array($req_tarif)){
+    $prix_tarif = $data_tarif['prix_tarif'];
+    $total = "$prix_tarif EUROS";
+}
+$pdf->MultiCell(40,8,$total,1,C,1);
 //Cinquieme cellule les totaux
 $pdf->SetFont('Arial','B',10);
 $pdf->SetY(230);
 $pdf->SetX(118);
-$pdf->MultiCell(40,8,"Total payé",1,R,1);
+$pdf->MultiCell(40,8,utf8_decode("Total payÃ©"),1,R,1);
 
 
-//Troisieme cellule les coordoné vendeur
+//Troisieme cellule les coordonÃ©es vendeur
 $pdf->SetFont('Arial','',10);
 $pdf->SetY(240);
 $pdf->SetX(20);
-$pdf->MultiCell(60,6,"$entrep_nom\n$social\n$c_postal $ville\n $tel\n $mail",1,C,1);//
+$pdf->MultiCell(60,6,utf8_decode("$entrep_nom\n$social\n$c_postal $ville\n $tel\n $mail"),1,C,1);//
 
 //$pdf->ln(10);
 
@@ -258,13 +261,7 @@ $pdf->MultiCell(60,6,"$entrep_nom\n$social\n$c_postal $ville\n $tel\n $mail",1,C
 $pdf->SetFont('Arial','',10);
 $pdf->SetY(240);
 $pdf->SetX(87);
-$pdf->MultiCell(110,6,"Bon de commande à presenter à l'entrée des spectacles. \n Retrait des billets sur place ¼ d’heure avant la séance. \n Attention  ! Passé  l’heure du spectacle  la réservation sera  levée et  la place pourra être réattribuée.",1,C,1);//
-
-
-   }
-
-
-
+$pdf->MultiCell(110,6,utf8_decode("Bon de commande Ã  presenter Ã  l'entrÃ©e des spectacles. \n Retrait des billets sur place Ã  d'heure avant la sÃ©ance. \n Attention  ! PassÃ©  l'heure du spectacle  la rÃ©servation sera  levÃ©e et  la place pourra Ãªtre rÃ©attribuÃ©e."),1,C,1);//
 
 //le nombre de page 
 $pdf->SetFont('Arial','B',10);
@@ -281,14 +278,14 @@ if($autoprint=='y' and $_POST['mail']!='y' and $_POST['user']=='adm'){
 $pdf->AutoPrint(false, $nbr_impr);
 }
 //Sauvegarde du PDF dans le fichier
-$pdf->Output("$file");
+$pdf->Output("$file","I");
 //Redirection JavaScript
 //echo "<HTML><SCRIPT>document.location='$file';</SCRIPT></HTML>";
 if ($_POST['mail']=='y') {
 $to = "$mail_client";
 $sujet = "Bon de commande de $entrep_nom";
 $message = "Bonjour, \n Veuillez trouver ci-joint une copie de votre bon de commande pour les spectacles de la saison culturelle. \n Merci de conserver ce mail pour pouvoir l'imprimer en cas de besoin. \n \n
-Meilleurs salutations de l'équipe de la saison culturelle.";
+Meilleurs salutations de l'Ã©quipe de la saison culturelle.";
 $fichier = "$file";
 $typemime = "pdf";
 $nom = "$file";

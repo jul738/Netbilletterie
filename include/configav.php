@@ -1,5 +1,5 @@
 <?php
-$lot='y';
+$lot='n';
 $liste_cli='y';
 $use_categorie ='y';
 $use_payement ='y';
