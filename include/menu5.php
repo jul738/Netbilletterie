@@ -1,10 +1,10 @@
 <!--
-Net Billetterie Copyright(C)2012 Jos� Das Neves
+Net Billetterie Copyright(C)2012 José Das Neves
  Logiciel de billetterie libre. 
-D�velopp� depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Jos� Das Neves pitu69@hotmail.fr
+Modification : José Das Neves pitu69@hotmail.fr
 comptable-->
 
 <div class="menublock" >
@@ -25,7 +25,9 @@ comptable-->
 		<div class="column">
 			<ul>
 				<li><a href="form_commande.php"><b>Créer une réservation</b></a></li><hr/>
+                                <li><a href="form_resa_groupe.php"><b>Créer une réservation de groupe</b></a></li><hr/>
 				<li><a href="lister_commandes.php"><b>Lister les réservations</b></a></li><hr/>
+                                <li><a href="lister_resa_groupes.php"><b>Lister les réservations de groupes</b></a></li><hr/>
 				<li><a href="lister_detail_commandes.php"><b>Détail des réservations</b></a></li><hr/>
 				<li><a href="lister_commandes_non_facturees.php"><b>Contrôler - Encaisser</b></a></li><hr/>
 				<li><a href="impression.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les listes d�taill�es</b></a></li><hr/>
@@ -65,7 +67,7 @@ comptable-->
 				<li><a href="form_caisse.php?retrait=y"><b>Retrait de caisse</b></a></li><hr/>
 				<li><a href="lister_caisse_billetterie.php"><b>Caisse "Billetterie"</b></a></li><hr/>
 				<li><a href="lister_caisse_bar.php"><b>Caisse "Buvette"</b></a></li><hr/>
-				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les op�rations de caisse</b></a></li><hr/>
+				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opérations de caisse</b></a></li><hr/>
 			</ul>
 		</div>
 		</div>

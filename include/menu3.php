@@ -1,10 +1,10 @@
 <!--
-Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
+Net Billetterie Copyright(C)2012 José Das Neves
  Logiciel de billetterie libre. 
-Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : Josï¿½ Das Neves pitu69@hotmail.fr
+Modification : José Das Neves pitu69@hotmail.fr
 
 saisie billetterie-->
 <div class="menublock" >
@@ -24,9 +24,10 @@ saisie billetterie-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des spectateurs</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_client.php"><b>CrÃ©er une fiche "Spectateur"</b></a></li><hr/>
-                                <li><a href="form_groupe.php"><strong>CrÃ©er un groupe</strong></a></li><hr/>
+				<li><a href="form_client.php"><b>Créer une fiche "Spectateur"</b></a></li><hr/>
+                                <li><a href="form_groupe.php"><strong>Créer un groupe</strong></a></li><hr/>
 				<li><a href="lister_clients.php"><b>Liste des spectateurs</b></a></li><hr/>
+                                <li><a href="lister_groupes.php"><b>Liste des groupes</b></a></li><hr/>
 				<li><a href="lister_clients_inactifs.php"><b>Liste des spectateurs inactifs</b></a></li>
 			</ul>
 		</div>
@@ -44,14 +45,14 @@ saisie billetterie-->
 
 	<!--deroulant du menu5 niveau2-->
 	<div id="menu5" class="mega solidblocktheme">
-		<p style="margin:5px 0 10px 0"><b>Gestion des caisses journaliÃ¨res</b></p>
+		<p style="margin:5px 0 10px 0"><b>Gestion des caisses journalières</b></p>
 		<div class="column">
 			<ul>
 				<li><a href="form_caisse.php"><b>Enregistrer le contenu de caisse</b></a></li><hr/>
 				<li><a href="form_caisse.php?retrait=y"><b>Retrait de caisse</b></a></li><hr/>
 				<li><a href="lister_caisse_billetterie.php"><b>Caisse "Billetterie"</b></a></li><hr/>
 				<li><a href="lister_caisse_bar.php"><b>Caisse "Buvette"</b></a></li><hr/>
-				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opï¿½rations de caisse</b></a></li><hr
+				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opérations de caisse</b></a></li><hr
 			</ul>
 		</div>
 		</div>
@@ -61,8 +62,8 @@ saisie billetterie-->
 		<p style="margin:5px 0 10px 0"><b>Gestion de la billetterie</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_commande_soir.php"><b>CrÃ©er un enregistrement de billet</b></a></li><hr/>
-				<li><a href="form_commande_caisse_postdate.php"><b>CrÃ©er un enregistrement postdatÃ©</b></a></li><hr/>
+				<li><a href="form_commande_soir.php"><b>Créer un enregistrement de billet</b></a></li><hr/>
+				<li><a href="form_commande_caisse_postdate.php"><b>Créer un enregistrement postdaté</b></a></li><hr/>
 				<li><a href="lister_billetterie.php"><b>Voir la liste de la billetterie</b></a></li><hr/>
 			</ul>
 		</div>
@@ -75,7 +76,7 @@ saisie billetterie-->
 		<p style="margin:5px 0 10px 0"><b>Quelques outils d'administration</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="projection.php">VidÃ©o projection</a></li><hr/>
+				<li><a href="projection.php">Vidéo projection</a></li><hr/>
 				<li><a href="agenda.php">Agenda</a></li><hr/>
 				<li><a href="include/calculette.html" onclick="window.open('','popup','width=500,height=420,top=200,left=150,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0')" target="popup"><?php echo $lang_calculette; ?></a></li><hr/>
 			</ul>
