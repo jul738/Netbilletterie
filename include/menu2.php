@@ -1,20 +1,30 @@
 <!--
-Net Billetterie Copyright(C)2012 José Das Neves
+Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr
 
 saisie abonnement-->
+
+<!-- Div header applique margin auto sur tout le menu -->
+<div id="header">
+
+	<!-- Administrateur plein pouvoir-->
+	<div id="logo">
+		<!--Menu 1er niveau-->
+		<a href="login.inc.php" rel="menu0"><img border ="0" src="image/logompt_transparent.png" alt=""></a>
+	</div>
 
 <div class="menublock" >
 	<!--Menu 1er niveau-->
 	<ul id="solidmenu" class="solidblockmenu">
 		
 		<li><a href="form_client.php" rel="menu1"><img border ="0" src="image/kontact_contacts.png" alt="client"><br><?php echo $lang_clients; ?></a></li>
-		<li><a href="form_commande.php" rel="menu2"><img border ="0" src="image/commandes.png" alt="Abonnement"><br>Réservations</a></li>
-		<li><a href="form_commande_soir.php" rel="menu7"><img border ="0" src="image/billetterie.png" alt="billetterie"><br>Billetterie</a></li>
+		<li><a href="form_commande.php" rel="menu2"><img border ="0" src="image/commandes.png" alt="Abonnement"><br>Rï¿½servations</a></li>
+		<li><a href="new_abonnement.php" rel="menu11" id="abonnement"><img border ="0" src="" alt="Abonnement"><br></a></li>
+                <li><a href="form_commande_soir.php" rel="menu7"><img border ="0" src="image/billetterie.png" alt="billetterie"><br>Billetterie</a></li>
 		<li><a href="form_commande_attente.php" rel="menu4"><img border ="0" src="image/commandes_attente02.png" alt="Listes d'attente"><br>Listes d'attente</a></li>
 		<li><a href="lister_articles.php" rel="menu3"><img border ="0" src="image/spectacle.png" alt="Spectacles"><br>Spectacles</a></li>
 		<li><a href="lister_caisse.php" rel="menu5"><img border ="0" src="image/caisse.png" alt="caisse"><br>Caisse</a></li>
@@ -27,8 +37,8 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des spectateurs</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_client.php"><b>Créer une fiche "Spectateur"</b></a></li><hr/>
-                                <li><a href="form_groupe.php"><strong>Créer un groupe</strong></a></li><hr/>
+				<li><a href="form_client.php"><b>CrÃ©er une fiche "Spectateur"</b></a></li><hr/>
+                                <li><a href="form_groupe.php"><strong>CrÃ©er un groupe</strong></a></li><hr/>
 				<li><a href="lister_clients.php"><b>Liste des spectateurs</b></a></li><hr/>
                                 <li><a href="lister_groupes.php"><b>Liste des groupes</b></a></li><hr/>
 				<li><a href="lister_clients_inactifs.php"><b>Liste des spectateurs inactifs</b></a></li>
@@ -36,17 +46,29 @@ saisie abonnement-->
 		</div>
 	</div>
 
+        <div id="menu11" class="mega solidblocktheme">
+			<p style="margin:5px 0 10px 0"><b>Gestion des Abonnements</b></p>
+			<div class="column">
+				<ul>
+					<li><li><a href="new_abonnement.php"><b>Creer un abonnement</b></a></li><hr/>
+					<li><a href="lister_abonnement.php"><b>Lister les abonnements</b></a></li><hr/>
+                                        <li><a href="lister_commandes_non_fact_abo.php"><b>Controler - Encaisser</b></a></li><hr/>
+                                        <li><a href=""><b><img src="image/print_mini.png"><br>&nbsp;Imprimer </b></a></li><hr/>
+				</ul>
+			</div>
+			</div>
+
 <!--deroulant du menu2 niveau2-->
 	<div id="menu2" class="mega solidblocktheme">
-		<p style="margin:5px 0 10px 0"><b>Gestion des abonnements et réservations</b></p>
+		<p style="margin:5px 0 10px 0"><b>Gestion des abonnements et rÃ©servations</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_commande.php"><b>Créer une réservation</b></a></li><hr/>
-                                <li><a href="form_resa_groupe.php"><b>Créer une réservation de groupe</b></a></li><hr/>
-				<li><a href="lister_commandes.php"><b>Lister les réservations</b></a></li><hr/>
-                                <li><a href="lister_resa_groupes.php"><b>Lister les réservations de groupes</b></a></li><hr/>
-				<li><a href="lister_detail_commandes.php"><b>Détail des réservations</b></a></li><hr/>
-				<li><a href="lister_commandes_non_facturees.php"><b>Contrôler - Encaisser</b></a></li><hr/>
+				<li><a href="form_commande.php"><b>CrÃ©er une rÃ©servation</b></a></li><hr/>
+                                <li><a href="form_resa_groupe.php"><b>CrÃ©er une rÃ©servation de groupe</b></a></li><hr/>
+				<li><a href="lister_commandes.php"><b>Lister les rÃ©servations</b></a></li><hr/>
+                                <li><a href="lister_resa_groupes.php"><b>Lister les rÃ©servations de groupes</b></a></li><hr/>
+				<li><a href="lister_detail_commandes.php"><b>DÃ©tail des rÃ©servations</b></a></li><hr/>
+				<li><a href="lister_commandes_non_facturees.php"><b>ContrÃ´ler - Encaisser</b></a></li><hr/>
 			</ul>
 		</div>
 	</div>
@@ -78,14 +100,14 @@ saisie abonnement-->
 
 	<!--deroulant du menu5 niveau2-->
 	<div id="menu5" class="mega solidblocktheme">
-		<p style="margin:5px 0 10px 0"><b>Gestion des caisses journalières</b></p>
+		<p style="margin:5px 0 10px 0"><b>Gestion des caisses journaliï¿½res</b></p>
 		<div class="column">
 			<ul>
 				<li><a href="form_caisse.php"><b>Enregistrer le contenu de caisse</b></a></li><hr/>
 				<li><a href="form_caisse.php?retrait=y"><b>Retrait de caisse</b></a></li><hr/>
 				<li><a href="lister_caisse_billetterie.php"><b>Caisse "Billetterie"</b></a></li><hr/>
 				<li><a href="lister_caisse_bar.php"><b>Caisse "Buvette"</b></a></li><hr/>
-				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opérations de caisse</b></a></li><hr/>
+				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les opï¿½rations de caisse</b></a></li><hr/>
 			</ul>
 		</div>
 		</div>
@@ -95,8 +117,8 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Gestion de la billetterie</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_commande_soir.php"><b>Créer un enregistrement de billet</b></a></li><hr/>
-				<li><a href="form_commande_caisse_postdate.php"><b>Créer un enregistrement postdaté</b></a></li><hr/>
+				<li><a href="form_commande_soir.php"><b>Crï¿½er un enregistrement de billet</b></a></li><hr/>
+				<li><a href="form_commande_caisse_postdate.php"><b>Crï¿½er un enregistrement postdatï¿½</b></a></li><hr/>
 				<li><a href="lister_billetterie.php"><b>Voir la liste de la billetterie</b></a></li><hr/>
 			</ul>
 		</div>
@@ -108,7 +130,7 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Quelques outils d'administration</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="projection.php">Vidéo projection</a></li><hr/>
+				<li><a href="projection.php">Vidï¿½o projection</a></li><hr/>
 				<li><a href="agenda.php">Agenda</a></li><hr/>
 				<li><a href="include/calculette.html" onclick="window.open('','popup','width=500,height=420,top=200,left=150,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0')" target="popup"><?php echo $lang_calculette; ?></a></li><hr/>
 			</ul>

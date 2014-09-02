@@ -42,10 +42,10 @@ Modification : Jose Das Neves pitu69@hotmail.-->
 			<p style="margin:5px 0 10px 0"><b>Gestion des Abonnements</b></p>
 			<div class="column">
 				<ul>
-					<li><li><a href="new_abonnement.php"><b>Creer un abonnement</b></a></li><hr/>
+					<li><li><a href="new_abonnement.php"><b>Créer un abonnement</b></a></li><hr/>
 					<li><a href="lister_abonnement.php"><b>Lister les abonnements</b></a></li><hr/>
-                                        <li><a href="lister_commandes_non_fact_abo.php"><b>Controler - Encaisser</b></a></li><hr/>
-                                        <li><a href=""><b><img src="image/print_mini.png"><br>&nbsp;Imprimer </b></a></li><hr/>
+                                        <li><a href="lister_commandes_non_fact_abo.php"><b>Contrôler - Encaisser</b></a></li><hr/>
+                                        <li><a href=""><b><img src="image/print_mini.png"><br>Imprimer </b></a></li><hr/>
 				</ul>
 			</div>
 			</div>
