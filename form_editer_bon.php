@@ -401,7 +401,7 @@ function edition()
 					<td class="submit" colspan="9"> 
 						<input name="nom" type="hidden"  value='<?php echo $nom; ?>'> 
 						<input name="num_bon" type="hidden"  value='<?php echo $num_bon; ?>'>
-						<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter a l'abonnement">Completer l'abonnement par cette nouvelle selection</td>
+						<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter à la réservation">Completer l'abonnement par cette nouvelle selection</td>
 							<?php 
 							} }
 							else {

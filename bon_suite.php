@@ -407,7 +407,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 						<td class="submit" colspan="4">
 							<input type="hidden" name="bon_num"  value='<?php echo $num_bon ?>'>
 							<input type="hidden" name="num_client" value='<?php echo $num_client ?>'>
-							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter a l'abonnement">Completer la(les) réservation(s) par cette nouvelle selection</td>
+							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter à la réservation">Completer la(les) réservation(s) par cette nouvelle selection</td>
 						</td>
 					</tr>
 				</table>
