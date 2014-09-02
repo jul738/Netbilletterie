@@ -37,69 +37,6 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
 		<td class="page" align="center">
 				<h3>Formulaire de creation de spectateur</h3>
 		</td>
-			<?php
-			if($message!=''){
-				echo"<tr><TD>$message</tr><tr>";
-				if($user_com=='y'){
-			?> 
-				<tr>
-					<td>
-						<form name="formu" id="dupliquer-client-abonnement" method="get" action="bon.php" onSubmit="return verif_formulaire()">
-						<center> <table>
-							<tr>
-									<?php 
-									$jour = date("d");
-									$mois = date("m");
-									$annee = date("Y");?>
-								<td class="texte0"><?php echo "date" ?></td>
-								<td class="texte0"><input type="text" name="date" value="<?php echo"$jour/$mois/$annee" ?>" readonly="readonly"/></td>
-							</tr>
-							<tr>
-								<td class="texte0">Choisir le<?php echo "$lang_tarif";?>
-										<?php
-										$rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date FROM " . $tblpref ."tarif
-												WHERE saison
-												BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-												AND selection=1
-												ORDER BY nom_tarif ASC";
-												$result3 = mysql_query( $rqSql3 ) or die( "Execution requete $rqSql3 impossible.");?>
-								</td>
-									<script type="text/javascript">
-									function verif_formulaire(){
-										if(document.formu.id_tarif.value == "")  {
-											alert("Veuillez Choisir le tarif!");
-											document.formu.id_tarif.focus();
-											return false;
-										}
-									}
-									</script>
-								<td class="texte0">
-									<SELECT NAME='id_tarif'>
-										<OPTION VALUE="">Choisissez </OPTION>
-											<?php
-											while ( $row = mysql_fetch_array( $result3)) 
-											{
-												$id_tarif = $row["id_tarif"];
-												$nom_tarif = $row["nom_tarif"];
-												$prix_tarif = $row["prix_tarif"];
-											?>
-										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
-											 <?php
-											}
-											?>
-									</SELECT>
-								</td>
-							<tr>
-								<input type="hidden" name="listeville" value='<?php if ( $num==""){echo $client;} else {echo $num;} ?>'>
-								<td class="submit" colspan="6"> <input type="submit" name="Submit" value="Creer une reservation pour <?php $nom=stripslashes($nom); echo "$civ $nom"; ?>"> </td>
-							</tr>
-						</table></center>
-						</form>
-					</td>
-				</tr>
-			<?php
-			} }
-			?>
 	<tr>
 		<td  class="page" align="center">
 		<?php 
@@ -109,7 +46,8 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
 		}
 		 ?> 
 		<form action="client_new.php" method="post" enctype="application/x-www-form-urlencoded" name="client" id="dupliquer-client" onSubmit="return check();">
-			<table >
+                    <center>
+                    <table >
 				<caption><?php echo $lang_client_ajouter; ?></caption>
 				<tr> 
 					<td class="texte1">Nom</td>
@@ -151,6 +89,7 @@ $recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur S
 				</tr>
                                 
 			</table>
+                    </center>
 		</form>
 		</td>
 	<tr/>
