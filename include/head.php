@@ -30,4 +30,3 @@ if ($user_menu=='5'){
 include_once("include/menu5.php");
 }
 ?>
-<br>

@@ -26,7 +26,7 @@ background-color:transparent;
 text-align      :center;
 }
 
-/* Paramètre Grand titre elements */ 
+/* Paramï¿½tre Grand titre elements */ 
 h3 {
 font-family     :verdana, sans-serif;
 font-size       :LARGE;
@@ -61,7 +61,7 @@ background-color:transparent;
 text-align      :center;
 }
 
-/* Intitulé des pages dans la barre menu centrale  */
+/* Intitulï¿½ des pages dans la barre menu centrale  */
 p {
 font-family     :verdana, sans-serif;
 font-size       :medium;
@@ -82,7 +82,7 @@ margin-left:0px;
 margin-right:0px;
 }
 
-/* Paramètre des liens */
+/* Paramï¿½tre des liens */
 a:link {
 font-family:verdana, sans-serif;
 font-size:SMALL;
@@ -91,7 +91,7 @@ background-color:transparent;
 text-decoration:underline;
 }
 
-/* Paramètre des liens déjà visité */
+/* Paramï¿½tre des liens dï¿½jï¿½ visitï¿½ */
 a:visited {
 font-family:verdana, sans-serif;
 font-size:SMALL;
@@ -100,7 +100,7 @@ background-color:transparent;
 text-decoration:underline;
 }
 
-/* Paramètre des liens survolé */ 
+/* Paramï¿½tre des liens survolï¿½ */ 
 a:hover {
 font-family:verdana, sans-serif;
 font-size:SMALL;
@@ -180,7 +180,7 @@ top: 30px;
 right: 1em;
 }
 
-/* Paramètre option vidéo projection */
+/* Paramï¿½tre option vidï¿½o projection */
 div#bloprojection {
 background-color: #009EDF;
 color:#000000;
@@ -200,7 +200,7 @@ text-align:center;
 border-spacing: 0px;
 }
 
-/* Paramètre tableaux */
+/* Paramï¿½tre tableaux */
 caption {
 padding-top: 10px;
 padding-bottom: 10px;
@@ -221,11 +221,10 @@ border-color:#E8E8EC;
 border-spacing: 10px ;
 margin-left: auto; 
 margin-right: auto;
-padding-top:20px;
 margin-top:20px;
 }
 
-/* Paramètre de fond des element de la page */
+/* Paramï¿½tre de fond des element de la page */
 tr {
 margin-left: auto;
 margin-right: auto;
@@ -272,7 +271,7 @@ background-color: #BFBFBF;
 text-align: center;
 }
 
-/* Paramètre Nom colonne tableau */
+/* Paramï¿½tre Nom colonne tableau */
 th {
 background-color:#009EDF;
 padding-top:10px;
@@ -291,7 +290,7 @@ text-align: center;
 font-weight: bold;
 }
 
-/* Paramètre Nom colonne tableau après visite */
+/* Paramï¿½tre Nom colonne tableau aprï¿½s visite */
 th a:visited{
 background-color: #009EDF;
 color:white;
@@ -299,7 +298,7 @@ font-weight: bold;
 text-align: center;
 }
 
-/* Paramètre Nom colonne tableau survolé */
+/* Paramï¿½tre Nom colonne tableau survolï¿½ */
 th a:hover{
 background-color: #009EDF;
 color:white;
@@ -320,7 +319,7 @@ background-color:#E5E5E5;
 }
 */
 
-/* Paramètre écriture dans tableau */
+/* Paramï¿½tre ï¿½criture dans tableau */
 td.highlight {
 margin-left: auto;
 margin-right: auto;
@@ -490,19 +489,19 @@ background-color: #009EDF;
 /*margin: 0;*/
 /*margin-left: auto;
 margin-right: auto;
-width: 300px; largeur obligatoire pour être centré */
+width: 300px; largeur obligatoire pour ï¿½tre centrï¿½ */
 } 
 
 /***** menu CSS *****/
 @media print {
-/*A l'impression on cache le menu, marche au moins pour IE, Moz et Opéra.*/
+/*A l'impression on cache le menu, marche au moins pour IE, Moz et Opï¿½ra.*/
 .menu, .ssmenu {
 visibility:hidden;
 }
 }
 
 .menu, .ssmenu {
-/* Il est important de laisser une largeur, au cas où le Javascript soit désactivé.
+/* Il est important de laisser une largeur, au cas oï¿½ le Javascript soit dï¿½sactivï¿½.
 margin aussi */
 background-color:#AA8922;
 font-size:12px;
@@ -527,8 +526,8 @@ border-color:#ABCDEF;
 }
 
 .menu span, .ssmenu span {
-/* pour cacher les ; en fin de <li>, ce qui permet aux synthèse vocales de prendre une
-pause dans l'élocution */
+/* pour cacher les ; en fin de <li>, ce qui permet aux synthï¿½se vocales de prendre une
+pause dans l'ï¿½locution */
 display:none;
 }
 
@@ -563,7 +562,7 @@ width :auto;
 
 .ssmenu ul:hover, .ssmenu a:hover, .ssmenu a:focus, .menu a:hover, .menu a:focus {
 /* Les liens sous le curseur.
-On change les couleurs du texte et de fond, et on enlève le soulignement.
+On change les couleurs du texte et de fond, et on enlï¿½ve le soulignement.
 */
 background-color:#C79546;
 color:#034;
@@ -704,8 +703,8 @@ text-align           : center;
 
 
 /*
-Bref... pour résumer, ce qu'il y a à modifier à la base, c'est :
+Bref... pour rï¿½sumer, ce qu'il y a ï¿½ modifier ï¿½ la base, c'est :
 - couleurs, police, bordure et largeur des menu et ssmenu.
-- l'effet spécial IE pour les ssmenu
-- police et couleurs des liens "non survolés" et "survolés".
+- l'effet spï¿½cial IE pour les ssmenu
+- police et couleurs des liens "non survolï¿½s" et "survolï¿½s".
 */
