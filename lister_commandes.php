@@ -79,11 +79,12 @@ $annee_2= $annee_1 -1;
 //=============================================
             if ($user_com =='y') 
             {
-              $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, soir, id_tarif,
-              DATE_FORMAT(date,'%d-%m-%Y') AS date, tot_tva as ttc, paiement
-              FROM ".$tblpref."bon_comm
-              RIGHT JOIN " . $tblpref ."client on " . $tblpref ."bon_comm.client_num = num_client
+              $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, soir, bc.id_tarif,
+              DATE_FORMAT(date,'%d-%m-%Y') AS date, prix_tarif AS ttc, paiement
+              FROM ".$tblpref."bon_comm AS bc, ".$tblpref."tarif AS t, client AS c
               WHERE date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
+              AND bc.id_tarif = t.id_tarif
+              AND bc.client_num = c.num_client
               AND attente='0'
               ";
             
