@@ -111,7 +111,7 @@ function verif_formulaire()
 											$nom = $row["nom"];
 											$nom2 = $row["nom2"];
 											?>
-                                                                                        <OPTION VALUE='<?php echo $numclient; ?>' <?php if($numclient=$client){ echo 'selected';} ?>><?php echo $nom; ?></OPTION>
+                                                                                        <OPTION VALUE='<?php echo $numclient; ?>' <?php if($numclient==$client){ echo 'selected';} ?>><?php echo $nom; ?></OPTION>
 											<?php
 											}
 											?>
@@ -124,6 +124,48 @@ function verif_formulaire()
           <input type="text" name="quanti" value="1" SIZE="1"></td>
 
           </tr>
+          								<tr>
+                                                                    <td class="texte0">Choisir le<?php echo "$lang_tarif";?>
+										<?php
+
+											$rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
+													 WHERE saison
+													 BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
+													 AND nom_tarif<>'gratuit'
+													 AND selection='1'
+													 ORDER BY nom_tarif ASC";
+											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
+									<td class="texte0" colspan='2'>
+									   <SELECT NAME='id_tarif' id='id_tarif'>
+											<OPTION VALUE="">Choisir le<?php echo "$lang_tarif";?></OPTION>
+											<?php
+											while ( $row = mysql_fetch_array( $result3)) {
+													$id_tarif = $row["id_tarif"];
+													$nom_tarif = $row["nom_tarif"];
+													$prix_tarif = $row["prix_tarif"];
+													?>
+											<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
+											<?php }
+												if ($user_admin != 'n'){
+													//tarif gratuit pour admin 
+														$sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date FROM ".$tblpref."tarif
+													WHERE saison
+														BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
+														AND nom_tarif='gratuit'";
+													$reqtarifgratuit = mysql_query($sqltarifgratuit) or die('Erreur SQLtarifgratuit !<br>'.$sqltarifgratuit.'<br>'.mysql_error());
+													while($data = mysql_fetch_array($reqtarifgratuit))
+													{
+																	$nom_tarif = $data['nom_tarif'];
+																	$prix_tarif = $data['prix_tarif'];
+																	$id_tarif =$data['id_tarif'];
+											?>
+										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
+											<?php
+													}
+												}?>
+										</SELECT>
+									</td>
+								</tr>
           <tr>
           <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
           <?php
@@ -170,48 +212,6 @@ function verif_formulaire()
             }
             ?>
           </tr>
-								<tr>
-                                                                    <td class="texte0">Choisir le<?php echo "$lang_tarif";?>
-										<?php
-
-											$rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
-													 WHERE saison
-													 BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-													 AND nom_tarif<>'gratuit'
-													 AND selection='1'
-													 ORDER BY nom_tarif ASC";
-											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
-									<td class="texte0" colspan='2'>
-									   <SELECT NAME='id_tarif' id='id_tarif'>
-											<OPTION VALUE="">Choisir le<?php echo "$lang_tarif";?></OPTION>
-											<?php
-											while ( $row = mysql_fetch_array( $result3)) {
-													$id_tarif = $row["id_tarif"];
-													$nom_tarif = $row["nom_tarif"];
-													$prix_tarif = $row["prix_tarif"];
-													?>
-											<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
-											<?php }
-												if ($user_admin != 'n'){
-													//tarif gratuit pour admin 
-														$sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date FROM ".$tblpref."tarif
-													WHERE saison
-														BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-														AND nom_tarif='gratuit'";
-													$reqtarifgratuit = mysql_query($sqltarifgratuit) or die('Erreur SQLtarifgratuit !<br>'.$sqltarifgratuit.'<br>'.mysql_error());
-													while($data = mysql_fetch_array($reqtarifgratuit))
-													{
-																	$nom_tarif = $data['nom_tarif'];
-																	$prix_tarif = $data['prix_tarif'];
-																	$id_tarif =$data['id_tarif'];
-											?>
-										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
-											<?php
-													}
-												}?>
-										</SELECT>
-									</td>
-								</tr>
                                                                 <tr>
                                                                     <td>Commentaire pour la réservation </td>
                                                                     <td colspan="2"><textarea name="coment" cols="45" rows="3"></textarea></td>
