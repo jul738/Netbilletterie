@@ -124,7 +124,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
               else{
                   //Puis on créer les réservations supplémentaires
                   for($q=1; $q <= $quanti; $q++){
-                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, comment) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment')";
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, coment) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment')";
                     mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
                   }
               }
