@@ -14,24 +14,6 @@ include_once("include/head.php");
 include_once("include/finhead.php");
 ?>
 
-<!--
-<script type="text/javascript">
-function verif_formulaire()
-{
-if(document.formu.id_tarif.value == "") {
-alert("Veuillez Choisir le tarif!");
-document.formu.id_tarif.focus();
-return false;
-}
-if(document.formu.listeville.value == "") {
-alert("Veuillez Choisir un spectateur!");
-document.formu.listeville.focus();
-return false;
-}
-}
-</script>
--->
-
 <table border="0" class="page" align="center">
     <tr>
         <td class="page" align="center">
@@ -52,7 +34,7 @@ return false;
             $mois = date("m");
             $annee = date("Y");
 
-            $rqSql = "SELECT num_client, nom, nom2 FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'";
+            $rqSql = "SELECT num_client, nom, nom2, prenom FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'";
             if ($user_com == r) {
             $rqSql = "SELECT num_client, nom FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'
             and (" . $tblpref ."client.permi LIKE '$user_num,'
@@ -89,8 +71,9 @@ return false;
                 $numclient = $row["num_client"];
                 $nom = $row["nom"];
                 $nom2 = $row["nom2"];
+                $prenom = $row["prenom"];
 ?>
-                <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom; ?></OPTION>
+                <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom." ".$prenom; ?></OPTION>
 <?php
                 }
 ?>
