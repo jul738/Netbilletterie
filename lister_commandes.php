@@ -16,9 +16,7 @@ include_once("include/fonction.php");?>
 <?php
 include_once("include/head.php");
 include_once("include/finhead.php");
-
 ?> 
-
 
 <table  class="page" align="center">
 
@@ -35,15 +33,15 @@ include_once("include/finhead.php");
         <?php } ?>
       </h3>
         </td>
+        <?php
+        if (!empty($message)){
+            echo $message;
+        }?>
     </tr>
     
     <tr>
         <td  class="page" align="center">
             <?php
-
-            if ($message!='') {
-             echo"<table><tr><td>$message</td></tr></table>";
-            }
             if ($user_com == n) {
             echo"<h1>$lang_commande_droit";
             exit;
@@ -163,7 +161,7 @@ $annee_2= $annee_1 -1;
                     <td><?php echo "$pointage"; ?></td>
                     <td><?php echo "$ctrl"; ?></td>
                     <td><?php echo "$coment"; ?></td>
-                    <td><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon"; ?>&amp;id_tarif=<?php echo "$id_tarif"; ?>&amp;voir=ok' >
+                    <td><a href='voir_reservation.php?num_bon=<?php echo "$num_bon"; ?>' >
                             <img border="0" alt="voir" src="image/voir.png" Title="Voir la commande"></a></td>
                     <td><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon"; ?>&amp;id_tarif=<?php echo "$id_tarif"; ?>' >
                             <img border="0" alt="editer" src="image/edit.png" Title="Modifier la commande"></a></td>
