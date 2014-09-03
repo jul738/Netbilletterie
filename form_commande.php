@@ -157,16 +157,15 @@ function verif_formulaire()
                 {
                   $stock="Attention plus que $stock places";
                   $style= 'style="color:#961a1a; background:#ece9d8;"';
-                  $option="$type_article - ".$article." - ". $date."a $horaire - ".$stock."";
+                  $option="$type_article - ".$article." - ". $date." $horaire - ".$stock."";
                 }
                 else 
                 {
                   $stock= "Le stock est de ".$stock." places";
-                  $style= 'style="color:black; background-color:##99fe98;"';
-                  $option="$type_article - ".$article." - ". $date."a $horaire - ".$stock."";
+                  $option="$type_article - ".$article." - <strong>". $date."</strong> -" .$horaire." - ".$stock."";
                 }
             ?>
-            <input  type="radio" VALUE='<?php echo $num; ?>' name="article"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>
+            <input  type="radio" VALUE='<?php echo $num; ?>' name="article"  ><?php echo" $option"; ?><br>
             <?php 
             }
             ?>
@@ -213,7 +212,10 @@ function verif_formulaire()
 										</SELECT>
 									</td>
 								</tr>
-								<tr><td>&nbsp;</td></tr>
+                                                                <tr>
+                                                                    <td>Commentaire pour la réservation </td>
+                                                                    <td colspan="2"><textarea name="coment" cols="45" rows="3"></textarea></td>
+                                                                </tr>
 								<tr>
 									<td class="submit" colspan="6"> 
 									<input type="hidden" name="date" value="<?php echo"$jour/$mois/$annee";?>" >

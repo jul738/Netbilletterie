@@ -709,7 +709,11 @@ div.bouton {
     padding : 5px
 }
 
-div.bouton a {
+div.bouton a, tr.bouton a {
     color : #FFFFFF;
     text-decoration: none;
+}
+
+td > strong {
+    color : red;
 }

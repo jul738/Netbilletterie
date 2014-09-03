@@ -21,6 +21,7 @@ $quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
 $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
 $article=isset($_POST["article"])?$_POST["article"]:"";
+$comment = isset($_POST['coment'])?$_POST['coment']:"";
 
 //=============================================
 //pour que les articles soit classes par saison
@@ -114,16 +115,16 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
                                       continue;
                                       }
               // Si quanti = 1 
-              //On met à jour les réservations crées
+              //On créé la réservation
               if ($quanti == 1){
-                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article')";
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, coment) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment')";
                     mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
               }
               //Si plusieurs résa, alors on créer les autres réservations
               else{
                   //Puis on créer les réservations supplémentaires
                   for($q=1; $q <= $quanti; $q++){
-                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article')";
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, comment) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment')";
                     mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
                   }
               }
@@ -282,122 +283,22 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 					<td class='totaltexte'><?php echo "$total $devise "; ?></td><td colspan='2' class='totalmontant'><?php
 									} ?>
 					</td>
-				</tr>
-			</table>
+                                </tr>
+                        </table>
+                </td>
+        </tr>
+        <tr class="bouton submit">
+            <center>
+            <td align="center">
+                    <table>
+                        <tr class="bouton submit">
+                <td>
+                    <a href="form_commande.php?num_client=<?php echo $num_client;?>">Ajouter une nouvelle réservation pour <?php echo $nom; ?></a>
 		</td>
-	</tr>
-	<tr>
-		<td>
-			<!-- Formulaire d'enregistrement de nouveaux articles -->
-			<form name='formu2' method='post' action='bon_suite.php'>
-				<table class="boiteaction">
-				<caption> Ajouter des réservations pour <?php echo $nom; ?></caption>
-				<?php
-					// pour ne montrer que les articles dont le stock est "0" ou inf.
-							 $rqSql11 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, actif, stock, stomin, stomax, horaire, type_article
-														FROM ".$tblpref."article
-														WHERE stock < '1'
-														AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-														ORDER BY date_spectacle ASC";
-						 $result11 = mysql_query( $rqSql11 )
-						 or die( "Execution requete impossible.");
-						 ?> 
-					  <?php
-									while ( $row = mysql_fetch_array( $result11)) {
-											$article = stripslashes($row["article"]);
-                                                                                        $type_article = $row['type_article'];
-                                                                                        $horaire = $row['horaire'];
-											$actif = $row["actif"];
-											$date = $row["date"];
-											$stock = $row['stock'];
-											if ($stock<=0 ) {
-													$style= 'style="color:red; background:#cccccc; font-weight:bold;"';
-													$option1="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
-											}
-											?>
-										<p <?php echo"$style"; ?>><?php echo"$option1"; ?></p>
-										<?php } ?>
-					<tr>
-						<td class="texte0">Choisir la quantite  d'entree par spectacle </td>
-						<td class="texte_left" colspan="3">
-							 <input type="text" name="quanti" value="1" SIZE="1"></td>
-
-					</tr>
-					<tr>
-						<td class="texte0">Choisir le  <?php echo "$lang_article";
-							//pour n'affich�s que les articles  en stock
-							 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax, horaire, type_article
-														FROM ".$tblpref."article
-														WHERE stock > '0'
-														AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-														ORDER BY date_spectacle ASC";
-							$result = mysql_query( $rqSql )or die( "Execution requete impossible.");?>
-						<td class="texte_left">
-								<?php
-								$i=1;
-							while ( $row = mysql_fetch_array( $result)) {
-
-											$num = $row["num"];
-											$article = stripslashes($row["article"]);
-                                                                                        $type_article = $row['type_article'];
-                                                                                        $horaire = $row['horaire'];
-											$date = $row["date"];
-											$stock = $row['stock'];
-											$min = $row['stomin'];
-
-										if ($stock<=0 ) {
-											$option="toto";
-										}
-										elseif ($stock <= $min && $stock >= 1  ) {
-											$stock_txt="Attention plus que $stock places";
-											$style= 'style="color:#961a1a; background:#ece9d8;"';
-											$option="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
-										}
-										else {
-											 $stock_txt= "Le stock est de ".$stock." places";
-											 $style= 'style="color:black; background-color:##99fe98;"';
-											 $option="$type_article - ".$article." - ". $date." a $horaire - ".$stock." places";
-										}
-								?>
-							<input  type="radio" VALUE='<?php echo $num; ?>' name="article"  ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>
-							<?php $i++; } ?>
-						</td>
-					</tr>
-							<tr> 
-					<!-- choisir le tarif -->
-					<td colspan="2" class="texte0">Choisir le<?php echo "$lang_tarif";?>
-						<?php $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM ".$tblpref."tarif
-										WHERE saison BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-										AND selection='1'
-										ORDER BY nom_tarif ASC" ;
-								$result3 = mysql_query( $rqSql3 ) or die( "Exécution requétesssss impossible.<br> <a href='lister_commandes.php'>retour a la liste</a>");
-						?>		   
-					<SELECT NAME='id_tarif'>
-						
-							<?php
-								while ( $row = mysql_fetch_array( $result3)) 
-								{
-										$id_tarif = $row["id_tarif"];
-										$nom_tarif = $row["nom_tarif"];
-										$prix_tarif = $row["prix_tarif"];  ?>
-										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
-								<?php 
-								}
-							?>
-					</SELECT>
-					</td>
-				</tr>
-					<tr>
-						<td class="submit" colspan="4">
-							<input type="hidden" name="bon_num"  value='<?php echo $num_bon ?>'>
-							<input type="hidden" name="num_client" value='<?php echo $num_client ?>'>
-							<input style="color:#961a1a;background:yellow" type="submit" name="Submit" value="Ajouter à la réservation">Completer la(les) réservation(s) par cette nouvelle selection</td>
-						</td>
 					</tr>
 				</table>
-			</form>
-			<?php echo $message1; ?> 
 		</td>
+            </center>
 	</tr>
 	<?php if ($impression=="y") { 
 		if ($print_user=="y") { ?>
@@ -422,36 +323,6 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 		</td>
 		</tr>
 	<?php } } ?>
-	<tr>
-		<td>
-			<form action="bon_fin.php" id="paiement" method="post" name="paiement">
-				<center>
-					<table class="boiteaction">
-						<caption></caption>
-						<tr>
-							<td class="submit" ><?php echo $lang_ajo_com_bo ?></td>
-						</tr>
-						<tr>
-							<td class="submit" colspan="2"><textarea name="coment" cols="45" rows="3"></textarea></td>
-						</tr>
-								<input type="hidden" name="id_tarif" value=<?php echo "$id_tarif"; ?>>
-								<input type="hidden" name="tot_tva" value=<?php echo "$total_tva"; ?>>
-								<input type="hidden" name="client" value=<?php echo "$num_client"; ?>>
-								<input type="hidden" name="bon_num" value=<?php echo "$num_bon"; ?>>
-								<input type="hidden" name="pointage" value='non'>
-						<tr>
-							<td colspan="2" class="submit">
-								<?php 
-								include_once("include/paiemment.php");
-								?><br/>
-								<input type="image" name="Submit" src='image/valider.png' value="<?php echo "$lang_ter_enr"; ?>" >
-							</td>
-						</tr>
-					</table>
-				</center>
-			</form>
-		</td>
-	</tr>
 </table>
 <?php
 include("include/bas.php");
