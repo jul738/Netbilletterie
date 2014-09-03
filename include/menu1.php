@@ -28,11 +28,12 @@ Modification : Jose Das Neves pitu69@hotmail.-->
                                 <li><a href="new_abonnement.php" rel="menu11" id="abonnement"><img border ="0" src="" alt="Abonnement"><br></a></li>
 				<li><a href="form_commande.php" rel="menu2" id="reservations"><img border ="0" src="" alt="Reservation"><br></a></li>
 				<li><a href="form_commande_soir.php" rel="menu7" id="billetterie"><img border ="0" src="" alt="Billetterie"><br></a></li>
-				<li><a href="lister_articles.php" rel="menu3" id="spectacle"><img border ="0" src="" alt="Spectacle"><br></a></li>
+                                <li><a href="form_commande_attente.php" rel="menu4" id="attente"><img border ="0" src="" alt="Listes d'attente"><br></a></li>
+                                <li><a href="lister_articles.php" rel="menu3" id="spectacle"><img border ="0" src="" alt="Spectacle"><br></a></li>
 				<li><a href="lister_caisse_billetterie.php" rel="menu5" id="caisse"><img border ="0" src="" alt="Caisse"><br></a></li>
 				<li><a href="ca_spectacle.php" rel="menu6" id="statistique"><img border ="0" src="" alt="Statistique"><br></a></li>
 				<li><a href="form_mailing.php" rel="menu8 [left]" id="mailing"><img border ="0" src="" alt="Mailing"><br></a></li>
-				<li><a href="accueil_print.php" rel="menu4" id="impression"><img border ="0" src="" alt="Impression"><br></a></li>
+				<li><a href="accueil_print.php" rel="menu12" id="impression"><img border ="0" src="" alt="Impression"><br></a></li>
 				<li><a href="agenda.php" rel="menu9 [left]" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
 				<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
 			</ul>
@@ -93,8 +94,20 @@ Modification : Jose Das Neves pitu69@hotmail.-->
 			</div>
 			</div>
 
-		<!--deroulant du menu4 -->
-		<div id="menu4" class="mega solidblocktheme">
+        <!--deroulant du menu4 niveau2-->
+	<div id="menu4" class="mega solidblocktheme">
+		<p style="margin:5px 0 10px 0"><b>Gestion des listes d'attente</b></p>
+		<div class="column">
+			<ul>
+				<li><a href="form_commande_attente.php"><b>Inscrire sur liste d'attente</b></a></li><hr/>
+				<li><a href="lister_commandes_attente.php"><b>Voir la liste d'attente</b></a></li><hr/>
+				<li><a href="lister_spectacle_attente.php"><b>Voir la liste d'attente par spectacle</b></a></li><hr/>
+			</ul>
+		</div>
+	</div>
+        
+		<!--deroulant du menu12 -->
+		<div id="menu12" class="mega solidblocktheme">
 			<p style="margin:5px 0 10px 0"><b>Gestion d'impression</b></p>
 			<div class="column">
 				<ul>

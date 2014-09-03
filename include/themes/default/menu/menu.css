@@ -169,6 +169,15 @@ padding-top:80px;
 background-image: url("images/billetterie_v2.png");
 }
 
+#attente{
+background-image: url("images/commandes_attente02.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+
 #spectacle{
 background-image: url("images/spectacle.png");
 background-repeat:no-repeat;
