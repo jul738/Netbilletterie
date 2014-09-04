@@ -83,7 +83,7 @@ while($data = mysql_fetch_array($req))
                                                                 <?php
                                                                 foreach ($type as $categorie){
                                                                 ?>
-                                                                    <OPTION VALUE="<?php echo $categorie; ?>" <?php if($categorie = $type_article) { echo "selected";} ?>><?php echo $categorie; ?></OPTION>
+                                                                    <OPTION VALUE="<?php echo $categorie; ?>" <?php if($categorie == $type_article) { echo "selected";} ?>><?php echo $categorie; ?></OPTION>
                                                                 <?php    
                                                                 }
                                                                 ?>
