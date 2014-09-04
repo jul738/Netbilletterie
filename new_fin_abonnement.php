@@ -61,6 +61,7 @@ if (isset($duplication))
                         $num_abo_com = $data_abo['num_abo_com'];
                     }
                     }
+
     else
         {  
         // on récupère les info envoye par new_suite_abonnement.php & edit_abonnement
@@ -386,7 +387,7 @@ if (isset($duplication))
 
     // On met à jour la BDD -> en rentrent l'id de la réservation, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
     $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
-                           SET num_resa_1 = '$num_resa_1' , num_resa_2 = '$num_resa_2' , num_resa_3 = '$num_resa_3', num_resa_4 = '$num_resa_4', num_resa_5 = '$num_resa_5' , num_resa_6 = '$num_resa_6', num_resa_7 = '$num_resa_7'
+                           SET num_resa_1 = '$num_resa_1' , num_resa_2 = '$num_resa_2' , num_resa_3 = '$num_resa_3', num_resa_4 = '$num_resa_4', num_resa_5 = '$num_resa_5' , num_resa_6 = '$num_resa_6', num_resa_7 = '$num_resa_7', paiement = '$paiement'
                            WHERE num_abo_com = '$num_abo_com'";
     mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
    
@@ -474,50 +475,10 @@ $total_ht = $total ;
 
 //on recupere la date d aujourd hui
 $date_vente = date('Y-m-d');     
-
-
-        //On enregistre la vente dans la table abonnement_paiement
-        $req_creation_vente = "INSERT INTO abonnement_paiement (num_abo_com, num_client, paiement, total_ttc, total_tva, total_ht, date_vente, id_abonnement)
-                               VALUES ('$num_abo_com', '$num_client', '$paiement', '$total', '$total_tva', '$total_ht', '$date_vente', '$num_abonnement')";
-        mysql_query($req_creation_vente) or die('Erreur SQL !<br>'.$req_creation_vente.'<br>'.mysql_error());
-
 ?>
         
         </table>
-</table>
-
-<?php //Si duplication, alors on transmet l'id de celui qu'on vien de dupliquer
-if (isset($duplication))
-    { 
-?>
-<table border="0" class="page" align="center">
-
-        <tr>
-                <td> 
-                    <a href='new_abonnement.php'><img border =0 src="image/new_mini_abonnement.png" alt=""> <br> Ajouter un nouvel d'abonnement </a>
-                </td>
-
-                <td>
-                    <a href='lister_abonnement.php'><img border =0 src="image/lister_abonnement_gris.png" alt=""> <br> Lister les differentes abonnements </a>
-                </td>
-                      
-                <td>
-                    <a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com_duplique"; ?>'><img border =0 src="image/edit.png" alt=""> <br> Modifier l'abonnement </a>
-                </td>
-                
-                <td>
-                    <a href='dupliquer_abonnement.php?num_abo_com=<?php echo "$num_abo_com_duplique"; ?>' onclick="edition();return false;"><img border=0 src="image/duplicat.png"><br> Dupliquer l'abonnement </a>
-                </td>
-        </tr> 
-
-</table>
-
-<?php
-    }
-    else //Sinon on transmet l'id de l'abonnement que l'on vient de creer
-        { 
-?>
-    
+</table> 
 
 <table border="0" class="page" align="center">
 
@@ -540,7 +501,7 @@ if (isset($duplication))
         </tr> 
 
 </table>
-<?php   } ?>
+
 <!--
 <h3>Imprimer l'abonnement : 
                 <a href="print_ticket_abo.php?num_abo_com=<?php // echo"$numero_vente_abo";?>" onclick="edition();return false;"><img border=0 src= image/billetterie_v2.png ></a></h3> 

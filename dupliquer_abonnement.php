@@ -14,10 +14,12 @@ include_once("include/configav.php");
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
             //Recuperation des information sur la vente de abonnement
-            $req_info_abonnement = "SELECT ac.client_num, ac.ctrl, ac.fact, ac.paiement, ac.nombre_place, ac.num_resa_1, ac.num_resa_2, ac.num_resa_3, ac.num_resa_4, ac.num_resa_5, ac.num_resa_6, ac.num_resa_7, a.nom_abonnement, a.num_abonnement, a.tarif_abonnement
-                                    FROM abonnement_comm AS ac, abonnement AS a
-                                    WHERE ac.num_abo_com = '$num_abo_com'
-                                    AND ac.num_abonnement = a.num_abonnement";
+            $req_info_abonnement = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, nom, prenom
+                         FROM abonnement_comm AS ac, abonnement AS a, client AS c
+                         WHERE num_abo_com = '$num_abo_com'
+                         AND ac.num_abonnement = a.num_abonnement
+                         AND ac.client_num = c.num_client";
+
             $recup_info_abonnement = mysql_query( $req_info_abonnement )or die( "Execution requete -recup_info_abonnement- impossible.");
                                         while($data4 = mysql_fetch_array($recup_info_abonnement))
                                             {
@@ -36,34 +38,21 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                                             $num_resa_4_duplique = $data4['num_resa_4'];
                                             $num_resa_5_duplique = $data4['num_resa_5'];
                                             $num_resa_6_duplique = $data4['num_resa_6'];
-                                            $num_resa_7_duplique = $data4['num_resa_7'];                                            
-                                            }
-                                             
-                                            
-                         //recupe nom client a qui on a duplique son abonnement
-                         $req_info_client = "SELECT nom, prenom
-                                             FROM client
-                                             WHERE num_client = '$client_num_duplique'";
-               $recup_info_client = mysql_query( $req_info_client )or die( "Execution requete -req_info_client- impossible.");
-                                        while($data5 = mysql_fetch_array($recup_info_client))
-                                            {
-                                            $nom_duplique = $data5['nom'];
+                                            $num_resa_7_duplique = $data4['num_resa_7']; 
+                                            $total_duplique = $data4['tarif_abonnement'];
+                                            $nom_duplique = $data4['nom'];
                                             $prenom_duplique = $data5['prenom'];
                                             }
-
+                                             
+                                    // On récupère le nom du paiement 
+                                    if ((!empty($paiement)) || ($paiement == 'non')){
+                                        $sql_nom_paiement = "SELECT nom FROM type_paiement AS id_type_paiement = '$paiement'";
+                                        $req_nom_paiement = mysql_query($sql_nom_paiement) or die ('Erreur SQL selection nom paiement');
+                                        while ($nom_paiement = mysql_fetch_array($req_nom_paiement)){
+                                            $paiement = $nom_paiement['nom'];
+                                        }
+                                    }
                                             
-               //recup total dans abonnement_paiement
-               $req_info_montant_paiement = "SELECT total_ttc
-                                             FROM abonnement_paiement
-                                             WHERE num_abo_com = '$num_abo_com'";
-               $recup_info_montant_paiement = mysql_query($req_info_montant_paiement)or die("Execution requete -req_info_montant_paiement- impossible.");
-                                              while($data6 = mysql_fetch_array($recup_info_montant_paiement))
-                                                   {
-                                                   $total_duplique = $data6['total_ttc'];
-                                                   }
-                         
-                                                   
-                                                                                               
                         //recup info spectacle horaire & date pour le spectacle 1
                         $req_info_article_1 = "SELECT a.num, a.article, a.horaire, a.date_spectacle
                                         FROM article a, abonnement_comm ac, bon_comm AS bc
@@ -181,10 +170,10 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                 </td>
                 
 	<tr>
-            <th> Numero d'abonnement </th>  
+            <th> Numéro d'abonnement </th>  
             <th> Nom du spectateur </th>  
-            <th> Abonnement choisie </th> 
-            <th> Nombre de spetacles </th>
+            <th> Abonnement choisi </th> 
+            <th> Nombre de spectacles </th>
             <th> Total </th>
             <th>Moyen de paiement</th>
             <th> Spectacle choix 1 </th>
@@ -238,7 +227,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
             <td> <?php echo $nom_abonnement_duplique ;?></td>
             <td> <?php echo $nombre_place_duplique ;?></td>
             <td> <?php  echo  $total_duplique ; echo $devise ; ?></td>
-            <td><?php echo $paiement_duplique ;?></td>
+            <td><?php echo $paiement ;?></td>
             
             <td>    <b> <?php echo $article_1_duplique ; ?>           </b><br/> <br/>
                         <?php echo $horaire_1_duplique ;?>            <br/> <br/>
