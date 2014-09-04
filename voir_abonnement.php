@@ -21,7 +21,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 <?php
 // On récupère toutes les informations sur la vente en fonction du numero de vente de l'abonnement 
-$req_recup_info_vente = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, c.nom 
+$req_recup_info_vente = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, c.nom, commentaire 
                          FROM abonnement_comm AS ac, abonnement AS a, client AS c, type_paiement AS p
                          WHERE num_abo_com = '$num_abo_com'
                          AND ac.num_abonnement = a.num_abonnement
@@ -34,7 +34,6 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
     $client_num = $data['client_num'];
     $num_abonnement = $data['num_abonnement'];
     $date = $data['date'];
-    $quanti = $data['quanti'];
     $nombre_spectacle = $data['nombre_place'];
     $num_resa_1 = $data['num_resa_1'];
     $num_resa_2 = $data['num_resa_2'];
@@ -50,6 +49,7 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
     $ctrl = $data['ctrl'];
     $fact = $data['fact'];
     $nom = $data['nom'];  
+    $commentaire = $data['commentaire'];
         }
         
         // On récupère le nom du paiement 
@@ -200,6 +200,7 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
             <th> Spectacle choix 5   </th>
             <th> Spectacle choix 6   </th>
             <th> Spectacle choix 7   </th>
+            <th> Commentaire </th>
         <tr/>
 
         <tr>
@@ -245,6 +246,7 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                      <?php echo "$horaire_spectacle_7_vendu" ; ?>    <br/> <br/>
                      <?php echo "$date_spectacle_7_vendu" ; ?>       <br/> <br/>
             </td>
+            <td> <?php echo $commentaire; ?></td>
         </tr>   
          
 

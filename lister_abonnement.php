@@ -43,7 +43,7 @@ $annee_2= $annee_1 -1;
 //=============================================
 
 //Affiche les abonnement vendu 
-$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.num_resa_1, ac.num_resa_2, ac.num_resa_3, ac.num_resa_4, ac.num_resa_5, ac.num_resa_6, ac.num_resa_7
+$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.num_resa_1, ac.num_resa_2, ac.num_resa_3, ac.num_resa_4, ac.num_resa_5, ac.num_resa_6, ac.num_resa_7, commentaire
                         FROM abonnement_comm ac, abonnement a, client c
                         WHERE ac.num_abonnement = a.num_abonnement
                         AND c.num_client = ac.client_num
@@ -76,6 +76,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                 <th><small>Spectacle 5        </small></th>
                 <th><small>Spectacle 6        </small></th>
                 <th><small>Spectacle 7        </small></th>
+                <th><small>Commentaire        </small></th>
                 <th><small>Voir               </small></th>
                 <th><small>Edit               </small></th>
                 <th><small>Supr               </small></th>
@@ -102,6 +103,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         $num_resa_5 = $data['num_resa_5'];
                         $num_resa_6 = $data['num_resa_6'];
                         $num_resa_7 = $data['num_resa_7'];
+                        $commentaire = $data['commentaire'];
                     if($nombre & 1)
                         {
                         $line="0";
@@ -156,6 +158,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                         <td> <?php echo $choix_spectacle_5 ; ?> </td>
                         <td> <?php echo $choix_spectacle_6 ; ?> </td>
                         <td> <?php echo $choix_spectacle_7 ; ?> </td>
+                        <td> <?php echo $commentaire; ?></td>
                         <td><a href='voir_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="voir" src="image/voir.png" Title="Voir les details"></a></td>
                         <td><a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >

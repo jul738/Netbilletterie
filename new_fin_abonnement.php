@@ -81,6 +81,7 @@ if (isset($duplication))
         $choix_spectacle_5_vendu=isset($_POST['liste_choix_spectacle_5'])?$_POST['liste_choix_spectacle_5']:"";
         $choix_spectacle_6_vendu=isset($_POST['liste_choix_spectacle_6'])?$_POST['liste_choix_spectacle_6']:"";
         $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_choix_spectacle_7']:""; 
+        $commentaire = isset($_POST['commentaire'])?$_POST['commentaire']:"";
         } //Fin du else
 ?>
 
@@ -387,7 +388,7 @@ if (isset($duplication))
 
     // On met à jour la BDD -> en rentrent l'id de la réservation, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
     $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
-                           SET num_resa_1 = '$num_resa_1' , num_resa_2 = '$num_resa_2' , num_resa_3 = '$num_resa_3', num_resa_4 = '$num_resa_4', num_resa_5 = '$num_resa_5' , num_resa_6 = '$num_resa_6', num_resa_7 = '$num_resa_7', paiement = '$paiement'
+                           SET num_resa_1 = '$num_resa_1' , num_resa_2 = '$num_resa_2' , num_resa_3 = '$num_resa_3', num_resa_4 = '$num_resa_4', num_resa_5 = '$num_resa_5' , num_resa_6 = '$num_resa_6', num_resa_7 = '$num_resa_7', paiement = '$paiement', commentaire = '$commentaire'
                            WHERE num_abo_com = '$num_abo_com'";
     mysql_query($req_choix_spectacle) or die('Erreur SQL  req_choix_spectacle !<br>'.$req_choix_spectacle.'<br>'.mysql_error());
    
@@ -406,10 +407,10 @@ if (isset($duplication))
                 </td>
                 
 	<tr>
-            <th> Numero d'abonnement </th>  
+            <th> Numéro d'abonnement </th>  
             <th> Nom du spectateur </th>  
-            <th> Abonnement choisie </th> 
-            <th> Nombre de spetacles </th>
+            <th> Abonnement choisi </th> 
+            <th> Nombre de spectacles </th>
             <th> Total </th>
             <th>Moyen de paiement</th>
             <th> Spectacle choix 1 </th>
@@ -419,6 +420,7 @@ if (isset($duplication))
             <th> Spectacle choix 5 </th>
             <th> Spectacle choix 6 </th>
             <th> Spectacle choix 7 </th>
+            <th> Commentaire </th>
         <tr/>
 
         <tr>
@@ -463,6 +465,9 @@ if (isset($duplication))
             <td> <b> <?php echo"$nom_spectacle_7_vendu" ; ?>   </b> <br/> <br/>
                      <?php echo"$horaire_spectacle_7_vendu" ; ?>    <br/> <br/>
                      <?php echo"$date_spectacle_7_vendu" ; ?>       <br/> <br/>
+            </td>
+            <td>
+                <?php echo $commentaire; ?>
             </td>
         </tr>   
         

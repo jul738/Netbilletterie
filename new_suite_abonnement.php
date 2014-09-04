@@ -237,6 +237,14 @@ $annee_2= $annee_1 -1;
                 </td>
             </tr>
             <tr>
+                <td>
+                    Commentaire pour l'abonnement
+                </td>
+                <td>
+                    <textarea name="commentaire" class="text_left" rows="4" cols="70"></textarea>
+                </td>
+            </tr>
+            <tr>
                 <td class="submit" colspan="4">
                   <input  name="num_client" id="num_client" type="hidden" value='<?php echo $client; ?>'>
                   <input  name="nom" id="nom" type="hidden" value='<?php echo $nom; ?>'>
