@@ -82,6 +82,7 @@ if (isset($duplication))
         $choix_spectacle_6_vendu=isset($_POST['liste_choix_spectacle_6'])?$_POST['liste_choix_spectacle_6']:"";
         $choix_spectacle_7_vendu=isset($_POST['liste_choix_spectacle_7'])?$_POST['liste_choix_spectacle_7']:""; 
         $commentaire = isset($_POST['commentaire'])?$_POST['commentaire']:"";
+        $edit = isset($_POST['edit'])?$_POST['edit']:"";
         } //Fin du else
 ?>
 
@@ -284,6 +285,8 @@ if (isset($duplication))
                                         }     
 
  
+  // En cas de création ou de duplication on créer les réservations et on décrement le stock
+  if($edit != "y"){
     //ici on decremnte le stock
     //Pour le Spectacle 1
     $sql122 = "UPDATE article SET stock = (stock - 1) WHERE num = '$choix_spectacle_1_vendu'";
@@ -385,6 +388,242 @@ if (isset($duplication))
                         $num_resa_7 = $data_resa7['num_bon'];
                     }
        }
+  }
+  // cas de modification d'un abonnement existant : mettre à jour les résas existantes :
+  else{
+      // On récupère les numéros des anciennes résas
+      $ancienne_resa_1 = isset($_POST['ancien-resa-1'])?$_POST['ancien-resa-1']:"";
+      $ancienne_resa_2 = isset($_POST['ancien-resa-2'])?$_POST['ancien-resa-2']:"";
+      $ancienne_resa_3 = isset($_POST['ancien-resa-3'])?$_POST['ancien-resa-3']:"";
+      $ancienne_resa_4 = isset($_POST['ancien-resa-4'])?$_POST['ancien-resa-4']:"";
+      $ancienne_resa_5 = isset($_POST['ancien-resa-5'])?$_POST['ancien-resa-5']:"";
+      $ancienne_resa_6 = isset($_POST['ancien-resa-6'])?$_POST['ancien-resa-6']:"";
+      $ancienne_resa_7 = isset($_POST['ancien-resa-7'])?$_POST['ancien-resa-7']:"";
+      
+      // On récupère les articles des réservations
+      // Résa 1
+      $select_ancien_article_1 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_1'";
+      $req_ancien_article_1 = mysql_query($select_ancien_article_1) or die ('erreur selection ancien article');
+      while($data_ancien_article_1 = mysql_fetch_array($req_ancien_article_1)){
+          $ancien_article_1 = $data_ancien_article_1['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_1 != $choix_spectacle_1_vendu) {
+          // On met à jour la réservation
+          $update_resa_1 = "UPDATE bon_comm SET id_article = '$choix_spectacle_1_vendu' WHERE num_bon = '$ancienne_resa_1'";
+          mysql_query($update_resa_1) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_1 = "SELECT stock FROM article WHERE num = '$ancien_article_1'";
+          $req_stock_ancien_article_1 = mysql_query($select_stock_ancien_article_1) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_1 = mysql_fetch_array($req_stock_ancien_article_1)){
+              $stock_ancien_article_1 = $data_stock_ancien_article_1['stock'];
+          }
+          $update_ancien_article_1 = "UPDATE article SET stock = $stock_ancien_article_1 + 1 WHERE num = '$ancien_article_1'";
+          mysql_query($update_ancien_article_1) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_1 = "SELECT stock FROM article WHERE num = '$choix_spectacle_1_vendu'";
+          $req_stock_article_1 = mysql_query($select_stock_article_1) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_1 = mysql_fetch_array($req_stock_article_1)){
+              $stock_article_1 = $data_stock_article_1['stock'];
+          }
+          $update_article_1 = "UPDATE article SET stock = $stock_article_1 -1 WHERE num = '$choix_spectacle_1_vendu'";
+          mysql_query($update_article_1) or die ('Erreur SQL MAJ stock article');
+      }
+      // Résa 2
+      $select_ancien_article_2 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_2'";
+      $req_ancien_article_2 = mysql_query($select_ancien_article_2) or die ('erreur selection ancien article');
+      while($data_ancien_article_2 = mysql_fetch_array($req_ancien_article_2)){
+          $ancien_article_2 = $data_ancien_article_2['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_2 != $choix_spectacle_2_vendu) {
+          // On met à jour la réservation
+          $update_resa_2 = "UPDATE bon_comm SET id_article = '$choix_spectacle_2_vendu' WHERE num_bon = '$ancienne_resa_2'";
+          mysql_query($update_resa_2) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_2 = "SELECT stock FROM article WHERE num = '$ancien_article_2'";
+          $req_stock_ancien_article_2 = mysql_query($select_stock_ancien_article_2) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_2 = mysql_fetch_array($req_stock_ancien_article_2)){
+              $stock_ancien_article_2 = $data_stock_ancien_article_2['stock'];
+          }
+          $update_ancien_article_2 = "UPDATE article SET stock = $stock_ancien_article_2 + 1 WHERE num = '$ancien_article_2'";
+          mysql_query($update_ancien_article_2) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_2 = "SELECT stock FROM article WHERE num = '$choix_spectacle_2_vendu'";
+          $req_stock_article_2 = mysql_query($select_stock_article_2) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_2 = mysql_fetch_array($req_stock_article_2)){
+              $stock_article_2 = $data_stock_article_2['stock'];
+          }
+          $update_article_2 = "UPDATE article SET stock = $stock_article_2 -1 WHERE num = '$choix_spectacle_2_vendu'";
+          mysql_query($update_article_2) or die ('Erreur SQL MAJ stock article');
+      }
+      
+      // Résa 3
+      $select_ancien_article_3 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_3'";
+      $req_ancien_article_3 = mysql_query($select_ancien_article_3) or die ('erreur selection ancien article');
+      while($data_ancien_article_3 = mysql_fetch_array($req_ancien_article_3)){
+          $ancien_article_3 = $data_ancien_article_3['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_3 != $choix_spectacle_3_vendu) {
+          // On met à jour la réservation
+          $update_resa_3 = "UPDATE bon_comm SET id_article = '$choix_spectacle_3_vendu' WHERE num_bon = '$ancienne_resa_3'";
+          mysql_query($update_resa_3) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_3 = "SELECT stock FROM article WHERE num = '$ancien_article_3'";
+          $req_stock_ancien_article_3 = mysql_query($select_stock_ancien_article_3) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_3 = mysql_fetch_array($req_stock_ancien_article_3)){
+              $stock_ancien_article_3 = $data_stock_ancien_article_3['stock'];
+          }
+          $update_ancien_article_3 = "UPDATE article SET stock = $stock_ancien_article_3 + 1 WHERE num = '$ancien_article_3'";
+          mysql_query($update_ancien_article_3) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_3 = "SELECT stock FROM article WHERE num = '$choix_spectacle_3_vendu'";
+          $req_stock_article_3 = mysql_query($select_stock_article_3) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_3 = mysql_fetch_array($req_stock_article_3)){
+              $stock_article_3 = $data_stock_article_3['stock'];
+          }
+          $update_article_3 = "UPDATE article SET stock = $stock_article_3 -1 WHERE num = '$choix_spectacle_3_vendu'";
+          mysql_query($update_article_3) or die ('Erreur SQL MAJ stock article');
+      }
+      
+      // Résa 4
+      $select_ancien_article_4 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_1'";
+      $req_ancien_article_4 = mysql_query($select_ancien_article_4) or die ('erreur selection ancien article');
+      while($data_ancien_article_4 = mysql_fetch_array($req_ancien_article_4)){
+          $ancien_article_4 = $data_ancien_article_4['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_4 != $choix_spectacle_4_vendu) {
+          // On met à jour la réservation
+          $update_resa_4 = "UPDATE bon_comm SET id_article = '$choix_spectacle_4_vendu' WHERE num_bon = '$ancienne_resa_4'";
+          mysql_query($update_resa_4) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_4 = "SELECT stock FROM article WHERE num = '$ancien_article_4'";
+          $req_stock_ancien_article_4 = mysql_query($select_stock_ancien_article_4) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_4 = mysql_fetch_array($req_stock_ancien_article_4)){
+              $stock_ancien_article_4 = $data_stock_ancien_article_4['stock'];
+          }
+          $update_ancien_article_4 = "UPDATE article SET stock = $stock_ancien_article_4 + 1 WHERE num = '$ancien_article_4'";
+          mysql_query($update_ancien_article_4) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_4 = "SELECT stock FROM article WHERE num = '$choix_spectacle_4_vendu'";
+          $req_stock_article_4 = mysql_query($select_stock_article_4) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_4 = mysql_fetch_array($req_stock_article_4)){
+              $stock_article_4 = $data_stock_article_4['stock'];
+          }
+          $update_article_4 = "UPDATE article SET stock = $stock_article_4 -1 WHERE num = '$choix_spectacle_4_vendu'";
+          mysql_query($update_article_4) or die ('Erreur SQL MAJ stock article');
+      }
+      
+      // Résa 5
+      $select_ancien_article_5 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_5'";
+      $req_ancien_article_5 = mysql_query($select_ancien_article_5) or die ('erreur selection ancien article');
+      while($data_ancien_article_5 = mysql_fetch_array($req_ancien_article_5)){
+          $ancien_article_5 = $data_ancien_article_5['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_5 != $choix_spectacle_5_vendu) {
+          // On met à jour la réservation
+          $update_resa_5 = "UPDATE bon_comm SET id_article = '$choix_spectacle_5_vendu' WHERE num_bon = '$ancienne_resa_5'";
+          mysql_query($update_resa_5) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_5 = "SELECT stock FROM article WHERE num = '$ancien_article_5'";
+          $req_stock_ancien_article_5 = mysql_query($select_stock_ancien_article_5) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_5 = mysql_fetch_array($req_stock_ancien_article_5)){
+              $stock_ancien_article_5 = $data_stock_ancien_article_5['stock'];
+          }
+          $update_ancien_article_5 = "UPDATE article SET stock = $stock_ancien_article_5 + 1 WHERE num = '$ancien_article_5'";
+          mysql_query($update_ancien_article_5) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_5 = "SELECT stock FROM article WHERE num = '$choix_spectacle_5_vendu'";
+          $req_stock_article_5 = mysql_query($select_stock_article_5) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_5 = mysql_fetch_array($req_stock_article_5)){
+              $stock_article_5 = $data_stock_article_5['stock'];
+          }
+          $update_article_5 = "UPDATE article SET stock = $stock_article_5 -1 WHERE num = '$choix_spectacle_5_vendu'";
+          mysql_query($update_article_5) or die ('Erreur SQL MAJ stock article');
+      }
+      
+      // Résa 6
+      $select_ancien_article_6 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_6'";
+      $req_ancien_article_6 = mysql_query($select_ancien_article_6) or die ('erreur selection ancien article');
+      while($data_ancien_article_6 = mysql_fetch_array($req_ancien_article_6)){
+          $ancien_article_6 = $data_ancien_article_6['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_6 != $choix_spectacle_6_vendu) {
+          // On met à jour la réservation
+          $update_resa_6 = "UPDATE bon_comm SET id_article = '$choix_spectacle_6_vendu' WHERE num_bon = '$ancienne_resa_6'";
+          mysql_query($update_resa_6) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_6 = "SELECT stock FROM article WHERE num = '$ancien_article_6'";
+          $req_stock_ancien_article_6 = mysql_query($select_stock_ancien_article_6) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_6 = mysql_fetch_array($req_stock_ancien_article_6)){
+              $stock_ancien_article_6 = $data_stock_ancien_article_6['stock'];
+          }
+          $update_ancien_article_6 = "UPDATE article SET stock = $stock_ancien_article_6 + 1 WHERE num = '$ancien_article_6'";
+          mysql_query($update_ancien_article_6) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_6 = "SELECT stock FROM article WHERE num = '$choix_spectacle_6_vendu'";
+          $req_stock_article_6 = mysql_query($select_stock_article_6) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_6 = mysql_fetch_array($req_stock_article_6)){
+              $stock_article_6 = $data_stock_article_6['stock'];
+          }
+          $update_article_6 = "UPDATE article SET stock = $stock_article_6 -1 WHERE num = '$choix_spectacle_6_vendu'";
+          mysql_query($update_article_6) or die ('Erreur SQL MAJ stock article');
+      }
+      
+      // Résa 7
+      $select_ancien_article_7 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_7'";
+      $req_ancien_article_7 = mysql_query($select_ancien_article_7) or die ('erreur selection ancien article');
+      while($data_ancien_article_7 = mysql_fetch_array($req_ancien_article_7)){
+          $ancien_article_7 = $data_ancien_article_7['id_article'];
+      }
+      
+      // Si ancien article != nouvel article
+      if ($ancien_article_7 != $choix_spectacle_7_vendu) {
+          // On met à jour la réservation
+          $update_resa_7 = "UPDATE bon_comm SET id_article = '$choix_spectacle_7_vendu' WHERE num_bon = '$ancienne_resa_7'";
+          mysql_query($update_resa_7) or die ('erreur sql maj resa');
+          
+          // On ajoute 1 au stock de l'ancien article
+          $select_stock_ancien_article_7 = "SELECT stock FROM article WHERE num = '$ancien_article_7'";
+          $req_stock_ancien_article_7 = mysql_query($select_stock_ancien_article_7) or die ('Erreur SQL sélection stock ancien article');
+          while ($data_stock_ancien_article_7 = mysql_fetch_array($req_stock_ancien_article_7)){
+              $stock_ancien_article_7 = $data_stock_ancien_article_7['stock'];
+          }
+          $update_ancien_article_7 = "UPDATE article SET stock = $stock_ancien_article_7 + 1 WHERE num = '$ancien_article_7'";
+          mysql_query($update_ancien_article_7) or die ('Erreur SQL MAJ stock ancien article');
+          
+          // On supprime 1 au stock du nouvel article
+          $select_stock_article_7 = "SELECT stock FROM article WHERE num = '$choix_spectacle_7_vendu'";
+          $req_stock_article_7 = mysql_query($select_stock_article_7) or die ('Erreur SQL sélection stock article');
+          while ($data_stock_article_7 = mysql_fetch_array($req_stock_article_7)){
+              $stock_article_7 = $data_stock_article_7['stock'];
+          }
+          $update_article_7 = "UPDATE article SET stock = $stock_article_7 -1 WHERE num = '$choix_spectacle_7_vendu'";
+          mysql_query($update_article_7) or die ('Erreur SQL MAJ stock article');
+      }
+  }
 
     // On met à jour la BDD -> en rentrent l'id de la réservation, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
     $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
