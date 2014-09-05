@@ -25,8 +25,11 @@ $req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_
         <caption>Liste des groupes</caption>
         <tr>
             <th>Nom de la structure</th>
-            <th>Adresse</th>
+            <th>Rue</th>
+            <th>Code postal</th>
+            <th>Ville</th>
             <th>Téléphone</th>
+            <th>Email</th>
             <th>Voir</th>
             <th>Modifier</th>
             <th>Supprimer</th>
@@ -36,13 +39,19 @@ $req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_
         while($data_groupes = mysql_fetch_array($req_groupes)){
           $num_groupe = $data_groupes['num_groupe'];
           $nom_structure = $data_groupes['nom_structure'];
-          $adresse_structure = $data_groupes['adresse'];
+          $rue_structure = $data_groupes['rue'];
+          $cp_structure = $data_groupes['cp'];
+          $ville_structure = $data_groupes['ville'];
           $telephone_structure = $data_groupes['telephone'];
+          $email_structure = $data_groupes['email'];
           ?>
         <tr onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
             <td class="highlight"><?php echo $nom_structure;?></td>
-            <td class="highlight"><?php echo $adresse_structure;?></td>
+            <td class="highlight"><?php echo $rue_structure;?></td>
+            <td class="highlight"><?php echo $cp_structure;?></td>
+            <td class="highlight"><?php echo $ville_structure;?></td>
             <td class="highlight"><?php echo $telephone_structure;?></td>
+            <td class="highlight"><?php echo $email_structure;?></td>
             <td class="highlight"><a href='groupe.php?num_groupe=<?php echo $num_groupe;?>'><img border="0" title="Voir le groupe" src="image/voir.gif" alt="voir"></a></td>
             <td class="highlight"><a href='form_groupe.php?num_groupe=<?php echo $num_groupe;?>'><img border="0" alt="Modifier"  title="Modifier le groupe"src="image/edit.png"></a></td>
             <td class="highlight"><a href='delete_groupe.php?num_groupe=<?php echo $num_groupe;?>'><img border="0" title="Supprimer le groupe" alt="delete" src="image/delete.png"></a></td>
