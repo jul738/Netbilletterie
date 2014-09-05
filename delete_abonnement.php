@@ -30,6 +30,99 @@ while($data_resa = mysql_fetch_array($result_resa)){
     $resa6 = $data_resa['num_resa_6'];
     $resa7 = $data_resa['num_resa_7'];
 }
+// On met à jour le stock des articles concernés
+// Résa 1
+if (!empty($resa1)){
+    // Sélection de l'article et de son stock
+    $select_article_1 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa1' AND bc.id_article = a.num";
+    $req_article_1 = mysql_query($select_article_1) or die ('Erreur sélection stock article');
+    while ($data_article_1 = mysql_fetch_array($req_article_1)){
+        $article_1 = $data_article_1['id_article'];
+        $stock_article_1 = $data_article_1['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_1 = "UPDATE article SET stock = '$stock_article_1' +1 WHERE num='$article_1'";
+    mysql_query($update_stock_article_1) or die ('Erreur SQL maj stock');
+}
+// Résa 2
+if (!empty($resa2)){
+    // Sélection de l'article et de son stock
+    $select_article_2 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa2' AND bc.id_article = a.num";
+    $req_article_2 = mysql_query($select_article_2) or die ('Erreur sélection stock article');
+    while ($data_article_2 = mysql_fetch_array($req_article_2)){
+        $article_2 = $data_article_2['id_article'];
+        $stock_article_2 = $data_article_2['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_2 = "UPDATE article SET stock = '$stock_article_2' +1 WHERE num='$article_2'";
+    mysql_query($update_stock_article_2) or die ('Erreur SQL maj stock');
+}
+// Résa 3
+if (!empty($resa3)){
+    // Sélection de l'article et de son stock
+    $select_article_3 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa3' AND bc.id_article = a.num";
+    $req_article_3 = mysql_query($select_article_3) or die ('Erreur sélection stock article');
+    while ($data_article_3 = mysql_fetch_array($req_article_3)){
+        $article_3 = $data_article_3['id_article'];
+        $stock_article_3 = $data_article_3['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_3 = "UPDATE article SET stock = '$stock_article_3' +1 WHERE num='$article_3'";
+    mysql_query($update_stock_article_3) or die ('Erreur SQL maj stock');
+}
+// Résa 4
+if (!empty($resa4)){
+    // Sélection de l'article et de son stock
+    $select_article_4 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa4' AND bc.id_article = a.num";
+    $req_article_4 = mysql_query($select_article_4) or die ('Erreur sélection stock article');
+    while ($data_article_4 = mysql_fetch_array($req_article_4)){
+        $article_4 = $data_article_4['id_article'];
+        $stock_article_4 = $data_article_4['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_4 = "UPDATE article SET stock = '$stock_article_4' +1 WHERE num='$article_4'";
+    mysql_query($update_stock_article_4) or die ('Erreur SQL maj stock');
+}
+// Résa 5
+if (!empty($resa5)){
+    // Sélection de l'article et de son stock
+    $select_article_5 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa5' AND bc.id_article = a.num";
+    $req_article_5 = mysql_query($select_article_5) or die ('Erreur sélection stock article');
+    while ($data_article_5 = mysql_fetch_array($req_article_5)){
+        $article_5 = $data_article_5['id_article'];
+        $stock_article_5 = $data_article_5['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_5 = "UPDATE article SET stock = '$stock_article_5' +1 WHERE num='$article_5'";
+    mysql_query($update_stock_article_5) or die ('Erreur SQL maj stock');
+}
+// Résa 6
+if (!empty($resa6)){
+    // Sélection de l'article et de son stock
+    $select_article_6 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa6' AND bc.id_article = a.num";
+    $req_article_6 = mysql_query($select_article_6) or die ('Erreur sélection stock article');
+    while ($data_article_6 = mysql_fetch_array($req_article_6)){
+        $article_6 = $data_article_6['id_article'];
+        $stock_article_6 = $data_article_6['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_6 = "UPDATE article SET stock = '$stock_article_6' +1 WHERE num='$article_6'";
+    mysql_query($update_stock_article_6) or die ('Erreur SQL maj stock');
+}
+// Résa 7
+if (!empty($resa7)){
+    // Sélection de l'article et de son stock
+    $select_article_7 = "SELECT stock, id_article FROM bon_comm AS bc, article AS a WHERE bc.num_bon = '$resa7' AND bc.id_article = a.num";
+    $req_article_7 = mysql_query($select_article_7) or die ('Erreur sélection stock article');
+    while ($data_article_7 = mysql_fetch_array($req_article_7)){
+        $article_7 = $data_article_7['id_article'];
+        $stock_article_7 = $data_article_7['stock'];
+    }
+    // on met à jour le stock
+    $update_stock_article_7 = "UPDATE article SET stock = '$stock_article_7' +1 WHERE num='$article_7'";
+    mysql_query($update_stock_article_7) or die ('Erreur SQL maj stock');
+}
+
 // On supprime les réservations
 $sql_delete_resa1 = "DELETE 
                     FROM bon_comm
