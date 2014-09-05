@@ -11,6 +11,7 @@ include_once("include/config/var.php");
 include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
+include_once("include/fonction.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
 include_once("include/head.php");
@@ -21,7 +22,7 @@ if(!empty($_GET['num_resa_groupe'])){
     $num_resa_groupe = $_GET['num_resa_groupe'];
     // On récupère les valeurs de la BDD pour l'id sélectionner
     // Récupération des informations de la réservation du groupe
-    $sql_select_resa_groupe = "SELECT nom_structure, article, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+    $sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
     $requete_select_resa_groupe = mysql_query($sql_select_resa_groupe) or die('Erreur SQL sélection groupe !<br>'.$sql_select_resa_groupe.'<br>'.mysql_error());
     while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
         $nom_structure = $data_resa_groupe['nom_structure'];
@@ -44,7 +45,7 @@ if(!empty($_GET['num_resa_groupe'])){
     }
     
 // On récupère la liste des articles
-    $select_articles = "SELECT num, article FROM " . $tblpref ."article
+    $select_articles = "SELECT num, article, date_spectacle, horaire FROM " . $tblpref ."article
                         WHERE stock > '1'
                         AND date_spectacle >= NOW()
                         ORDER BY date_spectacle ASC";
@@ -52,8 +53,16 @@ if(!empty($_GET['num_resa_groupe'])){
     while ($articles = mysql_fetch_array($req_articles)){
         $num_articles[] = $articles['num'];
         $nom_articles[] = $articles['article'];
+        $timestamp[] = strtotime($articles['date_spectacle']);
+        $horaire[] = $articles['horaire'];
     }
-
+    // On met les dates dans le bon format
+ 
+    foreach ($timestamp AS $date)
+    {
+        $date_spectacle[] = date_fr("l d-m-Y", $date);
+    }
+    
 // On affiche le formulaire
 ?>
 
@@ -90,7 +99,7 @@ if(!empty($_GET['num_resa_groupe'])){
                 foreach($num_articles as $key2 => $num_article)
                     {
                     ?>
-                    <option value="<?php echo $num_article; ?>"<?php if($num_article_resa = $num_article){ echo "selected"; }; ?>><?php echo $nom_articles[$key2]; ?></option>
+                    <option value="<?php echo $num_article; ?>"<?php if($num_article_resa = $num_article){ echo "selected"; }; ?>><?php echo $nom_articles[$key2].' - '.$date_spectacle[$key2].' - '.$horaire[$key2]; ?></option>
                     <?php
                     }
                 ?>
