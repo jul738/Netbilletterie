@@ -48,6 +48,7 @@ if(!empty($_GET['num_resa_groupe'])){
     $select_articles = "SELECT num, article, date_spectacle, horaire FROM " . $tblpref ."article
                         WHERE stock > '1'
                         AND date_spectacle >= NOW()
+                        AND type_article = 'Spectacle_JP'
                         ORDER BY date_spectacle ASC";
     $req_articles = mysql_query($select_articles) or die ('Erreur SQL selection articles');
     while ($articles = mysql_fetch_array($req_articles)){
