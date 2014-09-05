@@ -14,12 +14,11 @@ include_once("include/configav.php");
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
             //Recuperation des information sur la vente de abonnement
-            $req_info_abonnement = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, nom, prenom
+            $req_info_abonnement = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, nom, prenom, commentaire
                          FROM abonnement_comm AS ac, abonnement AS a, client AS c
                          WHERE num_abo_com = '$num_abo_com'
                          AND ac.num_abonnement = a.num_abonnement
                          AND ac.client_num = c.num_client";
-
             $recup_info_abonnement = mysql_query( $req_info_abonnement )or die( "Execution requete -recup_info_abonnement- impossible.");
                                         while($data4 = mysql_fetch_array($recup_info_abonnement))
                                             {
@@ -42,6 +41,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                                             $total_duplique = $data4['tarif_abonnement'];
                                             $nom_duplique = $data4['nom'];
                                             $prenom_duplique = $data5['prenom'];
+                                            $commentaire_duplique = $data4['commentaire'];
                                             }
                                              
                                     // On récupère le nom du paiement 
@@ -183,6 +183,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
             <th> Spectacle choix 5 </th>
             <th> Spectacle choix 6 </th>
             <th> Spectacle choix 7 </th>
+            <th> Commentaire </th>
         <tr/>
 
         <tr>
@@ -227,7 +228,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
             <td> <?php echo $nom_abonnement_duplique ;?></td>
             <td> <?php echo $nombre_place_duplique ;?></td>
             <td> <?php  echo  $total_duplique ; echo $devise ; ?></td>
-            <td><?php echo $paiement ;?></td>
+            <td><?php echo $paiement_duplique ;?></td>
             
             <td>    <b> <?php echo $article_1_duplique ; ?>           </b><br/> <br/>
                         <?php echo $horaire_1_duplique ;?>            <br/> <br/>
@@ -264,6 +265,9 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
                         <?php echo $horaire_7_duplique  ;?>            <br/> <br/>
                         <?php echo $date_spectacle_7_duplique  ; ?>    <br/> <br/>          
             </td>
+            <td>
+                <?php echo $commentaire_duplique; ?>
+            </td>
         </tr>   
 
 <?php
@@ -278,8 +282,6 @@ $total_ht = $total ;
         <tr> 
 	    <td class="submit" colspan="13">
                 <input name="num_abonnement_duplique" value="<?php echo $num_abonnement_duplique ;?>" type="hidden">
-                <!-- <input name="client" value="<?php //echo  $client ;?>" type="hidden"> -->
-                <input name="num_abo_com" value="<?php echo $num_abo_com ;?>" type="hidden">
                 <input name="nom_duplique" value="<?php echo $nom_duplique ;?>" type="hidden">
                 <input name="paiement_duplique" value="<?php echo $paiement_duplique ;?>" type="hidden">
                 <input name="nombre_place_duplique" value="<?php echo $nombre_place_duplique ;?>" type="hidden">
@@ -291,6 +293,7 @@ $total_ht = $total ;
                 <input name="num_spectacle_5_duplique" value="<?php echo $num_spectacle_5_duplique ;?>" type="hidden">
                 <input name="num_spectacle_6_duplique" value="<?php echo $num_spectacle_6_duplique ;?>" type="hidden">
                 <input name="num_spectacle_7_duplique" value="<?php echo $num_spectacle_7_duplique ;?>" type="hidden">
+                <input name="commentaire_duplique" value="<?php echo $commentaire_duplique; ?>" type="hidden">
                 <input name="duplication" value="1" type="hidden">
 		<input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0">              
             </td>

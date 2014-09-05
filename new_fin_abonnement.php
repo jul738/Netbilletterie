@@ -37,6 +37,7 @@ if (isset($duplication))
     $choix_spectacle_5_vendu=isset($_POST['num_spectacle_5_duplique'])?$_POST['num_spectacle_5_duplique']:"";
     $choix_spectacle_6_vendu=isset($_POST['num_spectacle_6_duplique'])?$_POST['num_spectacle_6_duplique']:"";
     $choix_spectacle_7_vendu=isset($_POST['num_spectacle_7_duplique'])?$_POST['num_spectacle_7_duplique']:"";
+    $commentaire = isset($_POST['commentaire_duplique'])?$_POST['commentaire_duplique']:"";
     //On recupere le nom et le prenom du nouveau client a qui on a fais un duplication d'abonnement
     $req_nouveau_info_client = "SELECT nom, prenom
                                   FROM client
@@ -60,7 +61,8 @@ if (isset($duplication))
                     {
                         $num_abo_com = $data_abo['num_abo_com'];
                     }
-                    }
+                    echo 'le numéro de l abonnement dupliqué est'.$num_abo_com;
+    } // fin du if duplication
 
     else
         {  
@@ -84,14 +86,7 @@ if (isset($duplication))
         $commentaire = isset($_POST['commentaire'])?$_POST['commentaire']:"";
         $edit = isset($_POST['edit'])?$_POST['edit']:"";
         } //Fin du else
-?>
 
-<br/>
-<br/>
-<br/>
-<br/>
-
-<?php
             // On récupère l'horaire & date & type_article des spectacles pour l'afficher dans le recap
             // Horaire & date du spectacle 1
             $req_horaire_spectacle_1 = "SELECT horaire, date_spectacle, type_article
@@ -392,17 +387,17 @@ if (isset($duplication))
   // cas de modification d'un abonnement existant : mettre à jour les résas existantes :
   else{
       // On récupère les numéros des anciennes résas
-      $ancienne_resa_1 = isset($_POST['ancien-resa-1'])?$_POST['ancien-resa-1']:"";
-      $ancienne_resa_2 = isset($_POST['ancien-resa-2'])?$_POST['ancien-resa-2']:"";
-      $ancienne_resa_3 = isset($_POST['ancien-resa-3'])?$_POST['ancien-resa-3']:"";
-      $ancienne_resa_4 = isset($_POST['ancien-resa-4'])?$_POST['ancien-resa-4']:"";
-      $ancienne_resa_5 = isset($_POST['ancien-resa-5'])?$_POST['ancien-resa-5']:"";
-      $ancienne_resa_6 = isset($_POST['ancien-resa-6'])?$_POST['ancien-resa-6']:"";
-      $ancienne_resa_7 = isset($_POST['ancien-resa-7'])?$_POST['ancien-resa-7']:"";
+      $num_resa_1 = isset($_POST['ancien-resa-1'])?$_POST['ancien-resa-1']:"";
+      $num_resa_2 = isset($_POST['ancien-resa-2'])?$_POST['ancien-resa-2']:"";
+      $num_resa_3 = isset($_POST['ancien-resa-3'])?$_POST['ancien-resa-3']:"";
+      $num_resa_4 = isset($_POST['ancien-resa-4'])?$_POST['ancien-resa-4']:"";
+      $num_resa_5 = isset($_POST['ancien-resa-5'])?$_POST['ancien-resa-5']:"";
+      $num_resa_6 = isset($_POST['ancien-resa-6'])?$_POST['ancien-resa-6']:"";
+      $num_resa_7 = isset($_POST['ancien-resa-7'])?$_POST['ancien-resa-7']:"";
       
       // On récupère les articles des réservations
       // Résa 1
-      $select_ancien_article_1 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_1'";
+      $select_ancien_article_1 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_1'";
       $req_ancien_article_1 = mysql_query($select_ancien_article_1) or die ('erreur selection ancien article');
       while($data_ancien_article_1 = mysql_fetch_array($req_ancien_article_1)){
           $ancien_article_1 = $data_ancien_article_1['id_article'];
@@ -411,7 +406,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_1 != $choix_spectacle_1_vendu) {
           // On met à jour la réservation
-          $update_resa_1 = "UPDATE bon_comm SET id_article = '$choix_spectacle_1_vendu' WHERE num_bon = '$ancienne_resa_1'";
+          $update_resa_1 = "UPDATE bon_comm SET id_article = '$choix_spectacle_1_vendu' WHERE num_bon = '$num_resa_1'";
           mysql_query($update_resa_1) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -433,7 +428,7 @@ if (isset($duplication))
           mysql_query($update_article_1) or die ('Erreur SQL MAJ stock article');
       }
       // Résa 2
-      $select_ancien_article_2 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_2'";
+      $select_ancien_article_2 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_2'";
       $req_ancien_article_2 = mysql_query($select_ancien_article_2) or die ('erreur selection ancien article');
       while($data_ancien_article_2 = mysql_fetch_array($req_ancien_article_2)){
           $ancien_article_2 = $data_ancien_article_2['id_article'];
@@ -442,7 +437,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_2 != $choix_spectacle_2_vendu) {
           // On met à jour la réservation
-          $update_resa_2 = "UPDATE bon_comm SET id_article = '$choix_spectacle_2_vendu' WHERE num_bon = '$ancienne_resa_2'";
+          $update_resa_2 = "UPDATE bon_comm SET id_article = '$choix_spectacle_2_vendu' WHERE num_bon = '$num_resa_2'";
           mysql_query($update_resa_2) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -465,7 +460,7 @@ if (isset($duplication))
       }
       
       // Résa 3
-      $select_ancien_article_3 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_3'";
+      $select_ancien_article_3 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_3'";
       $req_ancien_article_3 = mysql_query($select_ancien_article_3) or die ('erreur selection ancien article');
       while($data_ancien_article_3 = mysql_fetch_array($req_ancien_article_3)){
           $ancien_article_3 = $data_ancien_article_3['id_article'];
@@ -474,7 +469,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_3 != $choix_spectacle_3_vendu) {
           // On met à jour la réservation
-          $update_resa_3 = "UPDATE bon_comm SET id_article = '$choix_spectacle_3_vendu' WHERE num_bon = '$ancienne_resa_3'";
+          $update_resa_3 = "UPDATE bon_comm SET id_article = '$choix_spectacle_3_vendu' WHERE num_bon = '$num_resa_3'";
           mysql_query($update_resa_3) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -497,7 +492,7 @@ if (isset($duplication))
       }
       
       // Résa 4
-      $select_ancien_article_4 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_1'";
+      $select_ancien_article_4 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_4'";
       $req_ancien_article_4 = mysql_query($select_ancien_article_4) or die ('erreur selection ancien article');
       while($data_ancien_article_4 = mysql_fetch_array($req_ancien_article_4)){
           $ancien_article_4 = $data_ancien_article_4['id_article'];
@@ -506,7 +501,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_4 != $choix_spectacle_4_vendu) {
           // On met à jour la réservation
-          $update_resa_4 = "UPDATE bon_comm SET id_article = '$choix_spectacle_4_vendu' WHERE num_bon = '$ancienne_resa_4'";
+          $update_resa_4 = "UPDATE bon_comm SET id_article = '$choix_spectacle_4_vendu' WHERE num_bon = '$num_resa_4'";
           mysql_query($update_resa_4) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -529,7 +524,7 @@ if (isset($duplication))
       }
       
       // Résa 5
-      $select_ancien_article_5 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_5'";
+      $select_ancien_article_5 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_5'";
       $req_ancien_article_5 = mysql_query($select_ancien_article_5) or die ('erreur selection ancien article');
       while($data_ancien_article_5 = mysql_fetch_array($req_ancien_article_5)){
           $ancien_article_5 = $data_ancien_article_5['id_article'];
@@ -538,7 +533,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_5 != $choix_spectacle_5_vendu) {
           // On met à jour la réservation
-          $update_resa_5 = "UPDATE bon_comm SET id_article = '$choix_spectacle_5_vendu' WHERE num_bon = '$ancienne_resa_5'";
+          $update_resa_5 = "UPDATE bon_comm SET id_article = '$choix_spectacle_5_vendu' WHERE num_bon = '$num_resa_5'";
           mysql_query($update_resa_5) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -561,7 +556,7 @@ if (isset($duplication))
       }
       
       // Résa 6
-      $select_ancien_article_6 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_6'";
+      $select_ancien_article_6 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_6'";
       $req_ancien_article_6 = mysql_query($select_ancien_article_6) or die ('erreur selection ancien article');
       while($data_ancien_article_6 = mysql_fetch_array($req_ancien_article_6)){
           $ancien_article_6 = $data_ancien_article_6['id_article'];
@@ -570,7 +565,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_6 != $choix_spectacle_6_vendu) {
           // On met à jour la réservation
-          $update_resa_6 = "UPDATE bon_comm SET id_article = '$choix_spectacle_6_vendu' WHERE num_bon = '$ancienne_resa_6'";
+          $update_resa_6 = "UPDATE bon_comm SET id_article = '$choix_spectacle_6_vendu' WHERE num_bon = '$num_resa_6'";
           mysql_query($update_resa_6) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -593,7 +588,7 @@ if (isset($duplication))
       }
       
       // Résa 7
-      $select_ancien_article_7 = "SELECT id_article FROM bon_comm WHERE num_bon = '$ancienne_resa_7'";
+      $select_ancien_article_7 = "SELECT id_article FROM bon_comm WHERE num_bon = '$num_resa_7'";
       $req_ancien_article_7 = mysql_query($select_ancien_article_7) or die ('erreur selection ancien article');
       while($data_ancien_article_7 = mysql_fetch_array($req_ancien_article_7)){
           $ancien_article_7 = $data_ancien_article_7['id_article'];
@@ -602,7 +597,7 @@ if (isset($duplication))
       // Si ancien article != nouvel article
       if ($ancien_article_7 != $choix_spectacle_7_vendu) {
           // On met à jour la réservation
-          $update_resa_7 = "UPDATE bon_comm SET id_article = '$choix_spectacle_7_vendu' WHERE num_bon = '$ancienne_resa_7'";
+          $update_resa_7 = "UPDATE bon_comm SET id_article = '$choix_spectacle_7_vendu' WHERE num_bon = '$num_resa_7'";
           mysql_query($update_resa_7) or die ('erreur sql maj resa');
           
           // On ajoute 1 au stock de l'ancien article
@@ -623,7 +618,7 @@ if (isset($duplication))
           $update_article_7 = "UPDATE article SET stock = $stock_article_7 -1 WHERE num = '$choix_spectacle_7_vendu'";
           mysql_query($update_article_7) or die ('Erreur SQL MAJ stock article');
       }
-  }
+  } // fin du else en cas de modification
 
     // On met à jour la BDD -> en rentrent l'id de la réservation, on peu maintenant recuperer un spectacle qui a le meme nom mais pas la meme horaire -> representation
     $req_choix_spectacle ="UPDATE ".$tblpref."abonnement_comm 
