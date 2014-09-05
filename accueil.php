@@ -24,10 +24,10 @@ include_once("include/configav.php");
                     <a href='form_client.php'><img border =0 src="image/kontact_contacts_2.png.png" alt=""> <br> Ajouter un nouveaux spectateur </a>
                 </td>
                 <td> 
-                    <a href='new_abonnement.php'><img border =0 src="image/new_mini_abonnement.png" alt=""> <br> Ajouter un nouvel d'abonnement </a>
+                    <a href='new_abonnement.php'><img border =0 src="image/new_mini_abonnement.png" alt=""> <br> Ajouter un nouvel abonnement </a>
                 </td>
                 <td> 
-                    <a href='form_commande.php'><img border =0 src="image/commandes_v2.png" alt=""> <br> Ajouter une reservation </a>
+                    <a href='form_commande.php'><img border =0 src="image/commandes_v2.png" alt=""> <br> Ajouter une réservation </a>
                 </td>
                 <td> 
                     <a href='form_commande_soir.php'><img border =0 src="image/billetterie_v2.png" alt=""> <br> Vendre un billet </a>
@@ -42,7 +42,7 @@ include_once("include/configav.php");
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-                    <h3> Les prochains spectacles a venir : </h3>	
+                    <h3> Les prochains spectacles à venir : </h3>	
                 </td>
         </tr>
         <tr>
@@ -56,11 +56,11 @@ include_once("include/configav.php");
         <th> Affiche </th>
         <th> Type </th>
         <th> Nom </th>
-        <th> Numero de representation </th>
+        <th> Numéro de représentation </th>
         <th> Commmentaire </th>
-        <th> Lieux & horaires </th>
+        <th> Lieu & horaire </th>
         <th> Dates </th>
-        <th> Places restant </th>
+        <th> Places restantes </th>
                         
 <?php
     $nb="1";
@@ -113,7 +113,7 @@ include_once("include/configav.php");
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-                    <h3>Liste des differentes formules d'Abonnements </h3>	
+                    <h3>Liste des differentes formules d'abonnements </h3>	
                 </td>
         </tr>
         <tr>
@@ -124,7 +124,7 @@ include_once("include/configav.php");
     </tr>
     
     <tr>
-        <th> Numero d'abonnement    </th>
+        <th> Numéro d'abonnement    </th>
         <th> Nom d'abonnement       </th>
         <th> Tarif de l'abonnement  </th>
         
@@ -166,7 +166,7 @@ include_once("include/configav.php");
 <table border="0" class="page" align="center">
 	<tr>
 		<td class="page" align="center">
-                    <h3>Statistique General </h3>	
+                    <h3>Statistiques Générales </h3>	
                 </td>
         </tr>
         <tr>
@@ -196,7 +196,7 @@ include_once("include/configav.php");
 ?>
         <tr>
             <th>Nombre total de spectateurs </th>
-            <th>Nombre total d'abonnement vendu</th>
+            <th>Nombre total d'abonnement vendus</th>
         </tr>
         <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
             <td class="highlight"><?php echo $nb_spec ;?> personnes</td>

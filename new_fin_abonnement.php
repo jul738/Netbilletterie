@@ -727,7 +727,7 @@ $date_vente = date('Y-m-d');
                 </td>
 
                 <td>
-                    <a href='lister_abonnement.php'><img border =0 src="image/lister_abonnement_gris.png" alt=""> <br> Lister les differentes abonnements </a>
+                    <a href='lister_abonnement.php'><img border =0 src="image/lister_abonnement_gris.png" alt=""> <br> Lister les abonnements </a>
                 </td>
                       
                 <td>
