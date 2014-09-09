@@ -55,13 +55,12 @@ $annee_2= $annee_1 -1;
 //requette 
 $sql = "SELECT C.num_client, nom, client_num, mail, tel, ville, date FROM ".$tblpref."client C, ".$tblpref."bon_comm BC  
 		WHERE BC.client_num=C.num_client
-		AND BC.client_num=C.num_client
 		AND C.actif='y'
 		AND BC.attente=$attente	 
 		AND date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'";
 if ($article_numero != '')
 {
-$sql .= " AND CB.article_num = $article_numero";
+$sql .= " AND BC.id_article = $article_numero";
 }
 $sql .= " GROUP by C.num_client
 	  ORDER by C.nom asc ";
