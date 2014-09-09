@@ -77,7 +77,7 @@ $annee_2= $annee_1 -1;
 //=============================================
             if ($user_com =='y') 
             {
-              $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, soir, bc.id_tarif,
+              $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, prenom, soir, bc.id_tarif,
               DATE_FORMAT(date,'%d-%m-%Y') AS date, prix_tarif AS ttc, paiement
               FROM ".$tblpref."bon_comm AS bc, ".$tblpref."tarif AS t, client AS c
               WHERE date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -101,6 +101,7 @@ $annee_2= $annee_1 -1;
                 <tr>
                     <th><?php echo $lang_numero; ?></th>
                     <th><?php echo $lang_client; ?></th>
+                    <th> Prénom du spectateur</th>
                     <th><?php echo $lang_date; ?></th>
                     <th><?php echo $lang_total_ttc; ?></th>
                     <th>Regle?</th>
@@ -134,6 +135,7 @@ $annee_2= $annee_1 -1;
                       $nom=stripslashes($nom);
                       $nom = htmlentities($nom, ENT_QUOTES);
                       $nom_html = htmlentities (urlencode ($nom));
+                      $prenom = stripslashes($data['prenom']);
                       $soir = $data['soir'];
                       $soir=stripslashes($soir);
                       if ($soir=="0"){$soir="";}
@@ -155,6 +157,7 @@ $annee_2= $annee_1 -1;
                 <tr>
                     <td><?php echo "$num_bon"; ?></td>
                     <td><?php echo "$nom $soir"; ?></td>
+                    <td><?php echo "$prenom"; ?></td>
                     <td><?php echo "$date"; ?></td>
                     <td><?php echo montant_financier($ttc); ?></td>
                     <td><?php echo "$paiement"; ?></td>
