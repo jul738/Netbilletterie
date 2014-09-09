@@ -13,7 +13,6 @@ include_once("include/headers.php");
 include_once("include/head.php");
 
 $num_client=isset($_GET['num_client'])?$_GET['num_client']:"";
-
 ?>
 
 <?php             
@@ -110,7 +109,7 @@ while($data_client_lie = mysql_fetch_array($recup_infos_client_lies)){
     
     <tr>
         <td class="page" align="center">
-             <h3>Reservations en cour :</h3>
+             <h3>Réservations en cours :</h3>
         </td>
     </tr>
     
@@ -119,23 +118,21 @@ while($data_client_lie = mysql_fetch_array($recup_infos_client_lies)){
                             <center>
         <table class="boiteaction">
                 <tr>
-                    <th>Numero</a></th>
+                    <th>Numéro</a></th>
                     <th>Nom de la representation</a></th>
                     <th>Date</th>
                     <th>Horaire</th>
-                    <th>Quantite</a></th>
                     <th>Total</a></th>
                     <th colspan='2'>Action</a></th>
                 </tr>
                 
             <?php  
 //Recupere tous les reservation grace a son numero client
-$req_recup_info_resa = "SELECT * 
-                        FROM bon_comm AS bc, cont_bon AS cb, article AS a
-                        WHERE bc.num_bon = cb.bon_num 
-                        AND cb.article_num = a.num 
+$req_recup_info_resa = "SELECT num_bon, date, article, num, horaire, date_spectacle, prix_tarif
+                        FROM bon_comm AS bc, article AS a, tarif AS t
+                        WHERE bc.id_article = a.num 
                         AND bc.client_num = '$num_client'
-                        AND cb.article_num = a.num";
+                        AND bc.id_tarif = t.id_tarif";
 $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 !<br>'.$req_recup_info_client.'<br>'.mysql_error());
     while($data2 = mysql_fetch_array($recup_info_client_brut))
         {
@@ -145,7 +142,6 @@ $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 
         $num_article = $data2['num'];
         $horaire = $data2['horaire'];
         $date_resa = $data2['date_spectacle'];
-        $quanti = $data2['quanti'];
         $total_resa = $data2['prix_tarif'];
         
             ?>
@@ -155,7 +151,6 @@ $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 
                     <td class="highlight"><?php echo "$soir"; ?></td>
                     <td class="highlight"><?php echo "$date_resa" ; ?></td>
                     <td class="highlight"><?php echo "$horaire"; ?></td>
-                    <td class="highlight"><?php echo $quanti ; ?></td>
                     <td class="highlight"><?php echo "$total_resa"; ?></td>
                     <td class="highlight"><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon" ;?>'>
                     <img border="0" alt="Modifier" src="image/edit.png" Title="Modifier"></a></td>
