@@ -38,17 +38,6 @@ if (isset($duplication))
     $choix_spectacle_6_vendu=isset($_POST['num_spectacle_6_duplique'])?$_POST['num_spectacle_6_duplique']:"";
     $choix_spectacle_7_vendu=isset($_POST['num_spectacle_7_duplique'])?$_POST['num_spectacle_7_duplique']:"";
     $commentaire = isset($_POST['commentaire_duplique'])?$_POST['commentaire_duplique']:"";
-    //On recupere le nom et le prenom du nouveau client a qui on a fais un duplication d'abonnement
-    $req_nouveau_info_client = "SELECT nom, prenom
-                                  FROM client
-                                  WHERE num_client = '$num_client'";
-    $req_nouveau_info_client_brut = mysql_query( $req_nouveau_info_client )or die( "Execution requete -req_nouveau_info_client- impossible.");
-
-                                          while($data = mysql_fetch_array($req_nouveau_info_client_brut))
-                                            {
-                                            $nom = $data['nom'];
-                                            $prenom = $data['prenom'];
-                                            }
 
         // On crée l'abonnement dans la table
         $req_vente_duplication = "INSERT INTO abonnement_comm (client_num, date, date_debut, date_fin, num_abonnement, user, nombre_place)
@@ -87,6 +76,18 @@ if (isset($duplication))
         $edit = isset($_POST['edit'])?$_POST['edit']:"";
         } //Fin du else
 
+            //On recupere le nom et le prenom du nouveau client a qui on a fais un duplication d'abonnement
+    $req_nouveau_info_client = "SELECT nom, prenom
+                                  FROM client
+                                  WHERE num_client = '$num_client'";
+    $req_nouveau_info_client_brut = mysql_query( $req_nouveau_info_client )or die( "Execution requete -req_nouveau_info_client- impossible.");
+
+                                          while($data = mysql_fetch_array($req_nouveau_info_client_brut))
+                                            {
+                                            $nom = $data['nom'];
+                                            $prenom = $data['prenom'];
+                                            }
+        
             // On récupère l'horaire & date & type_article des spectacles pour l'afficher dans le recap
             // Horaire & date du spectacle 1
             $req_horaire_spectacle_1 = "SELECT horaire, date_spectacle, type_article
@@ -642,7 +643,8 @@ if (isset($duplication))
                 
 	<tr>
             <th> Numéro d'abonnement </th>  
-            <th> Nom du spectateur </th>  
+            <th> Nom du spectateur </th> 
+            <th> Prénom du spectateur </th>
             <th> Abonnement choisi </th> 
             <th> Nombre de spectacles </th>
             <th> Total </th>
@@ -660,6 +662,7 @@ if (isset($duplication))
         <tr>
             <td> <?php echo "$num_abo_com"; ?></td>
             <td> <?php echo $nom ; ?></td>
+            <td> <?php echo $prenom; ?> </td>
             <td> <?php echo $nom_abonnement ;?></td>
             <td> <?php echo $nombre_spectacle ;?></td>
             <td> <?php $total = $tarif_abonnement ; echo "$total"; echo"$devise"; ?></td>

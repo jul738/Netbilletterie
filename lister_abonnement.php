@@ -43,7 +43,7 @@ $annee_2= $annee_1 -1;
 //=============================================
 
 //Affiche les abonnement vendu 
-$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, ac.date, a.nom_abonnement, ac.num_resa_1, ac.num_resa_2, ac.num_resa_3, ac.num_resa_4, ac.num_resa_5, ac.num_resa_6, ac.num_resa_7, commentaire
+$req_liste_abo_vendu = "SELECT ac.num_abo_com, c.nom, c.prenom, ac.date, a.nom_abonnement, ac.num_resa_1, ac.num_resa_2, ac.num_resa_3, ac.num_resa_4, ac.num_resa_5, ac.num_resa_6, ac.num_resa_7, commentaire
                         FROM abonnement_comm ac, abonnement a, client c
                         WHERE ac.num_abonnement = a.num_abonnement
                         AND c.num_client = ac.client_num
@@ -66,7 +66,8 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
     <thead>
             <tr>
                 <th><small>Num Abo            </small></th>
-                <th><small>Spectateur         </small></th>
+                <th><small> Nom du Spectateur </small></th>
+                <th><small> Prénom du Spectateur </small></th>
                 <th><small>Date de creation   </small></th>
                 <th><small>Abo                </small></th>
                 <th><small>Spectacle 1        </small></th>
@@ -94,6 +95,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
 
                         $num_abo_com = $data['num_abo_com'];
                         $nom = $data['nom'];
+                        $prenom = $data['prenom'];
                         $date = $data['date'];
                         $nom_abonnement = $data['nom_abonnement'];
                         $num_resa_1 = $data['num_resa_1'];
@@ -149,6 +151,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
 
                         <td> <?php echo $num_abo_com       ; ?> </td>
                         <td> <?php echo $nom               ; ?> </td>
+                        <td> <?php echo $prenom               ; ?> </td>
                         <td> <?php echo $date              ; ?> </td>
                         <td> <?php echo $nom_abonnement    ; ?> </td>
                         <td> <?php echo $choix_spectacle_1 ; ?> </td>

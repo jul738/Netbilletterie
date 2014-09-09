@@ -21,7 +21,7 @@ $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
 
 <?php
 // On récupère toutes les informations sur la vente en fonction du numero de vente de l'abonnement 
-$req_recup_info_vente = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, c.nom, commentaire 
+$req_recup_info_vente = "SELECT num_abo_com, client_num, date_debut, date_fin, ctrl, fact, paiement, ac.num_abonnement, ac.date, nombre_place, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7, tarif_abonnement, nom_abonnement, c.nom, c.prenom, commentaire 
                          FROM abonnement_comm AS ac, abonnement AS a, client AS c, type_paiement AS p
                          WHERE num_abo_com = '$num_abo_com'
                          AND ac.num_abonnement = a.num_abonnement
@@ -49,6 +49,7 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
     $ctrl = $data['ctrl'];
     $fact = $data['fact'];
     $nom = $data['nom'];  
+    $prenom = $data['prenom'];
     $commentaire = $data['commentaire'];
         }
         
@@ -189,6 +190,7 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
 	<tr>
             <th> Numéro d'abonnement </th>  
             <th> Nom du spectateur   </th>  
+            <th> Prénom du spectateur   </th>  
             <th> Abonnement choisi </th> 
             <th> Nombre de spectacles </th>
             <th> Total               </th>
@@ -206,6 +208,7 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
         <tr>
             <td> <?php echo "$num_abo_com"; ?>   </td>
             <td> <?php echo $nom ; ?>            </td>
+            <td> <?php echo $prenom ; ?>            </td>
             <td> <?php echo $nom_abonnement ;?>  </td>
             <td> <?php echo $nombre_spectacle ;?></td>
             <td> <?php echo $tarif_abonnement; echo"$devise"; ?></td>
