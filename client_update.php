@@ -28,8 +28,6 @@ include_once("include/config/var.php");
 	$tel=isset($_POST['tel'])?$_POST['tel']:"";
 	$fax=isset($_POST['fax'])?$_POST['fax']:"";
 	$actif=isset($_POST['actif'])?$_POST['actif']:"";
-        $abonne_chanson=isset($_POST['abonne_chanson'])?$_POST['abonne_chanson']:"";
-        $abonne_jp=isset($_POST['abonne_jp'])?$_POST['abonne_jp']:"";
         
 $message='';
 if($pass != $pass2)
@@ -64,10 +62,6 @@ echo "<h1> $lang_er_mo_pa";
 
 $sql2 = "UPDATE " . $tblpref ."client SET `fax`='" . $fax . "', `tel`='" . $tel . "', `prenom`='" . $prenom . "', `nom`='" . $nom . "', `mail`='" . $mail_cli . "', `num_tva`='" . $num_tva . "', `nom2`='" . $nom_sup . "', `rue`='" .$rue . "', `ville`='" . $ville . "', `cp`='" . $code_post . "', `actif`='" . $actif . "' WHERE `num_client` = '" . $num . "'";
 mysql_query($sql2) OR die("<p>Erreur Mysql<br/>$sql2<br/>".mysql_error()."</p>");
-
-// Requete pour metre a jour les abonnement lors d'un edit spectateur // 
-$sql23 = "UPDATE ". $tblpref ."abonne SET `abonne_chanson`='". $abonne_chanson . "', `abonne_jp`='". $abonne_jp ."' WHERE `num_abonne`='". $num ."'";
-mysql_query($sql23) OR die("<p>Erreur Mysql<br/>$sql23<br/>".mysql_error()."</p>");
 
 if($pass2 !='' and $login != '')
     {

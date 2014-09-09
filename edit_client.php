@@ -29,6 +29,7 @@ while($data = mysql_fetch_array($req))
 {
 	$nom = stripslashes($data['nom']);
 	$nom2 = stripslashes($data['nom2']);
+        $prenom = stripslashes($data['prenom']);
 	$rue = stripslashes($data['rue']);
 	$ville = stripslashes($data['ville']);
 	$cp = stripslashes($data['cp']);
@@ -39,8 +40,6 @@ while($data = mysql_fetch_array($req))
 	$tel = stripslashes($data['tel']);
 	$fax = stripslashes($data['fax']);
 	$actif = stripslashes($data['actif']);
-    $abonne_chanson = stripslashes($data['abonne_chanson']);
-    $abonne_jp = stripslashes($data['abonne_jp']);
 }
 ?>
 <form name="edit_client" method="post" action="client_update.php" onsubmit="return confirmUpdate()" >
