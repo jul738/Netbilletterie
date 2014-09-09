@@ -20,10 +20,13 @@ if (!empty($_POST)){
     //On enregistre les valeurs dans bon_comm_groupe
 
     if(isset($_POST['num-resa-groupe'])){
+        $num_resa_groupe = $_POST['num-resa-groupe'];
         $num_groupe = $_POST['num-resa-groupe'];
         $ancien_nb_enfants = $_POST['ancien_nb_enfant'];
         $ancien_nb_accompagnateurs = $_POST['ancien_nb_accompagnateur'];
+        $ancien_nb_accompagnateurs;
         $quanti_ancien = $ancien_nb_accompagnateurs + $ancien_nb_enfants;
+        $ancien_article = $_POST['ancien_article'];
     }
     $num_groupe = $_POST['nom-groupe'];
     $nom_referent = $_POST['nom-referent-groupe'];
@@ -76,7 +79,34 @@ if (!empty($_POST)){
             $sql_update_article = "UPDATE `".$tblpref."article` SET `actif` = 'COMPLET' WHERE `num` =$id_article";
             mysql_query($sql_update_article) or die('Erreur SQL update article !<br>'.$sql_update_article.'<br>'.mysql_error());
         }
-    
+    // On met à jour le stock en cas de modification de l'article
+        if(!empty($ancien_article)){
+        if($id_article != $ancien_article){
+            // MAJ du stock de l'ancien article
+                $select_stock_ancien_article= "SELECT stock, article FROM ".$tblpref."article WHERE num=$ancien_article ";
+                $result_stock_ancien_article = mysql_query( $select_stock_ancien_article ) or die( "Execution requete sélection article impossible.");
+            while ( $row_stock_ancien = mysql_fetch_array( $result_stock_ancien_article)) {
+                $stock_ancien = $row_stock_ancien["stock"];
+            }
+            if ($stock_ancien >=1){
+                $quanti_ancien = '+'.$quanti_ancien;
+            }
+            else {
+                $quanti_ancien = '-'.$quanti_ancien;
+            }
+            $update_stock_ancien = "UPDATE ".$tblpref."article SET stock= ($stock_ancien $quanti_ancien) WHERE num=$ancien_article";
+            mysql_query($update_stock_ancien) or die ('Erreur MAJ Stock de l\'ancien article');
+            
+            // MAJ du stock du nouvel article
+                $select_stock_article= "SELECT stock, article FROM ".$tblpref."article WHERE num=$id_article ";
+                $result_stock_article = mysql_query( $select_stock_article ) or die( "Execution requete sélection article impossible.");
+            while ( $row_stock = mysql_fetch_array( $result_stock_article)) {
+                $stock_nouveau = $row_stock["stock"];
+            }
+            $update_stock = "UPDATE ".$tblpref."article SET stock= ('$stock_nouveau' - '$quanti_nouveau') WHERE num=$id_article";
+            mysql_query($update_stock) or die ('Erreur MAJ Stock du nouvel article');
+        }
+        }
 }
 //Si affichage, on récupère le numéro du groupe
 elseif(isset($_GET['num_resa_groupe'])){

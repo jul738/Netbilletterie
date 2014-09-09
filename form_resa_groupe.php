@@ -33,6 +33,7 @@ if(!empty($_GET['num_resa_groupe'])){
         $nb_enfants = $data_resa_groupe['nb_enfants'];
         $nb_accompagnateurs = $data_resa_groupe['nb_accompagnateurs'];
         $nb_gratuit = $data_resa_groupe['nb_gratuit'];
+        $num_article_resa = $data_resa_groupe['id_article'];
     }
 }
 
@@ -46,8 +47,7 @@ if(!empty($_GET['num_resa_groupe'])){
     
 // On récupère la liste des articles
     $select_articles = "SELECT num, article, date_spectacle, horaire FROM " . $tblpref ."article
-                        WHERE stock > '1'
-                        AND date_spectacle >= NOW()
+                        WHERE date_spectacle >= NOW()
                         AND type_article = 'Spectacle_JP'
                         ORDER BY date_spectacle ASC";
     $req_articles = mysql_query($select_articles) or die ('Erreur SQL selection articles');
@@ -105,11 +105,13 @@ if(!empty($_GET['num_resa_groupe'])){
                     }
                 ?>
             </select><br />
-            <?php if(isset($num_resa_groupe)){
+            <?php 
+            if(isset($num_resa_groupe)){
               ?>
             <input type="hidden" name="num-resa-groupe" id="num-resa-groupe" value="<?php echo $num_resa_groupe; ?>"></input>
-            <input type="hidden" name="ancien_nb_enfant" id="ancien_nb_enfant" value="<?php echo $nb_enfant; ?>"></input>
-            <input type="hidden" name="ancien_nb_accompagnateur" id="ancien_nb_accompagnateur" value="<?php echo $nb_accompagnateur; ?>"></input>
+            <input type="hidden" name="ancien_nb_enfant" id="ancien_nb_enfant" value="<?php echo $nb_enfants; ?>"></input>
+            <input type="hidden" name="ancien_nb_accompagnateur" id="ancien_nb_accompagnateur" value="<?php echo $nb_accompagnateurs; ?>"></input>
+            <input type="hidden" name="ancien_article" id="ancien_article" value="<?php echo $num_article_resa; ?>"></input>
             <?php
             }
             ?>
