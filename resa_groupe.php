@@ -14,6 +14,7 @@ include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
 include_once("include/head.php");
+include_once("include/fonction.php");
 
 if (!empty($_POST)){
     //On enregistre les valeurs dans bon_comm_groupe
@@ -85,11 +86,13 @@ elseif(isset($_GET['num_resa_groupe'])){
 // On affiche un groupe
 
 // Récupération des informations de la réservation du groupe
-$sql_select_resa_groupe = "SELECT nom_structure, article, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+$sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
 $requete_select_resa_groupe = mysql_query($sql_select_resa_groupe) or die('Erreur SQL sélection groupe !<br>'.$sql_select_resa_groupe.'<br>'.mysql_error());
 while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
     $nom_structure = $data_resa_groupe['nom_structure'];
     $article = $data_resa_groupe['article'];
+    $date = strtotime($data_resa_groupe['date_spectacle']);
+    $horaire = $data_resa_groupe['horaire'];
     $nom_referent = $data_resa_groupe['nom_referent'];
     $tel_referent = $data_resa_groupe['telephone_referent'];
     $classe_groupe = $data_resa_groupe['classe_groupe'];
@@ -97,10 +100,14 @@ while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
     $nb_accompagnateurs = $data_resa_groupe['nb_accompagnateurs'];
     $nb_gratuit = $data_resa_groupe['nb_gratuit'];
 }
+
+$date_article = date_fr("l d-m-Y", $date);
 ?>
 <div id="resa-groupe">
     <h3>Réservation du groupe <?php echo $nom_structure; ?></h3>
     <div id="nom-groupe">Nom spectacle : <?php echo $article; ?></div>
+    <div id="date-spectacle">Date spectacle : <?php echo $date_article; ?></div>
+    <div id="horaire-spectacle">Horaire du spectacle : <?php echo $horaire; ?></div>    
     <div id="adresse-groupe">Nom référent : <?php echo $nom_referent; ?></div>
     <div id="telephone-groupe">Téléphone référent : <?php echo $tel_referent; ?></div>
     <div id="classe-groupe">Classe / Age du groupe : <?php echo $classe_groupe; ?></div>

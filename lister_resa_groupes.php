@@ -13,10 +13,11 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
+include_once("include/fonction.php");
 
 // On récupère la liste des réservations de groupes
 
-$select_resa_groupes = "SELECT num_bon_groupe, nom_structure, article, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+$select_resa_groupes = "SELECT num_bon_groupe, nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
 $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes'.$select_resa_groupes.'<br>'.mysql_error());
 
 // ON affiche les groupes dans un tableau
@@ -26,6 +27,8 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
         <tr>
             <th>Nom de la structure</th>
             <th>Nom du spectacle</th>
+            <th>Date du spectacle</th>
+            <th>Horaire du spectacle</th>
             <th>Nom du référent</th>
             <th>Téléphone</th>
             <th>Classe / Age</th>
@@ -41,6 +44,9 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
           $num_resa_groupe = $data_resa_groupes['num_bon_groupe'];
           $nom_structure = $data_resa_groupes['nom_structure'];
           $article = $data_resa_groupes['article'];
+          $date = strtotime($data_resa_groupes['date_spectacle']);
+          $date_article = date_fr("l d-m-Y", $date);
+          $horaire = $data_resa_groupes['horaire'];
           $nom_referent = $data_resa_groupes['nom_referent'];
           $telephone_referent = $data_resa_groupes['telephone_referent'];
           $classe_groupe = $data_resa_groupes['classe_groupe'];
@@ -51,6 +57,8 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
         <tr onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
             <td class="highlight"><?php echo $nom_structure;?></td>
             <td class="highlight"><?php echo $article;?></td>
+            <td class="highlight"><?php echo $date_article;?></td>
+            <td class="highlight"><?php echo $horaire;?></td>
             <td class="highlight"><?php echo $nom_referent;?></td>
             <td class="highlight"><?php echo $telephone_referent;?></td>
             <td class="highlight"><?php echo $classe_groupe;?></td>
