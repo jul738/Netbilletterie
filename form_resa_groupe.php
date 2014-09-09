@@ -84,7 +84,7 @@ if(!empty($_GET['num_resa_groupe'])){
                 foreach($num_groupes as $key => $num_groupe)
                     {
                     ?>
-                    <option value="<?php echo $num_groupe; ?>"<?php if($num_groupe_resa = $num_groupe){ echo "selected"; }; ?>><?php echo $nom_structures[$key]; ?></option>
+                    <option value="<?php echo $num_groupe; ?>"<?php if($num_groupe_resa == $num_groupe){ echo "selected"; }; ?>><?php echo $nom_structures[$key]; ?></option>
                     <?php
                     }
                 ?>
@@ -100,7 +100,7 @@ if(!empty($_GET['num_resa_groupe'])){
                 foreach($num_articles as $key2 => $num_article)
                     {
                     ?>
-                    <option value="<?php echo $num_article; ?>"<?php if($num_article_resa = $num_article){ echo "selected"; }; ?>><?php echo $nom_articles[$key2].' - '.$date_spectacle[$key2].' - '.$horaire[$key2]; ?></option>
+                    <option value="<?php echo $num_article; ?>"<?php if($num_article_resa == $num_article){ echo "selected"; }; ?>><?php echo $nom_articles[$key2].' - '.$date_spectacle[$key2].' - '.$horaire[$key2]; ?></option>
                     <?php
                     }
                 ?>
