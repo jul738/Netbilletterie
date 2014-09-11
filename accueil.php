@@ -24,7 +24,7 @@ include_once("include/configav.php");
                     <a href='form_client.php'><img border =0 src="image/kontact_contacts_2.png.png" alt=""> <br> Ajouter un nouveaux spectateur </a>
                 </td>
                 <td> 
-                    <a href='new_abonnement.php'><img border =0 src="image/new_mini_abonnement.png" alt=""> <br> Ajouter un nouvel abonnement </a>
+                    <a href='new_abonnement.php'><img border =0 src="include/themes/default/menu/images/abonnement_v2.png" alt=""> <br> Ajouter un nouvel abonnement </a>
                 </td>
                 <td> 
                     <a href='form_commande.php'><img border =0 src="image/commandes_v2.png" alt=""> <br> Ajouter une réservation </a>
