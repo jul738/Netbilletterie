@@ -173,7 +173,7 @@ $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 
     
     <tr>
         <td class="page" align="center">
-             <h3>Abonnements en cour :</h3>
+             <h3>Abonnements en cours :</h3>
         </td>
     </tr>
     
@@ -195,11 +195,9 @@ $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 
                     
 //Recupere le num_abo_com equivalent num_bon pour les abonnement. 
 $req_recup_info_abo = "SELECT *
-                       FROM abonnement AS a, abonnement_comm AS ac, abonnement_paiement AS ap
+                       FROM abonnement AS a, abonnement_comm AS ac
                        WHERE ac.client_num = '$num_client'
-                       AND ap.num_client = '$num_client'
                        AND ac.num_abonnement = a.num_abonnement
-                       AND ac.num_abo_com = ap.num_abo_com
                        AND ac.date_fin > CURDATE()";
 $recup_info_abo_brut = mysql_query($req_recup_info_abo) or die('Erreur SQL3 !<br>'.$req_recup_info_abo.'<br>'.mysql_error());
                         while($data3 = mysql_fetch_array($recup_info_abo_brut))
@@ -208,7 +206,7 @@ $recup_info_abo_brut = mysql_query($req_recup_info_abo) or die('Erreur SQL3 !<br
                             $nom_abonnement = $data3['nom_abonnement'];
                             $date_debut = $data3['date_debut'];
                             $date_fin = $data3['date_fin'];
-                            $total = $data3['total_ttc'];
+                            $total = $data3['tarif_abonnement'];
                     ?>                
                 
                 <tr>
