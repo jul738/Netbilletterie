@@ -94,20 +94,16 @@ while($data = mysql_fetch_array($req2))
     While($data_count_arrive = mysql_fetch_array($req_count_arrive)) {
         $count_arrive = $data_count_arrive['COUNT(num_bon)'];
     }
-    echo 'Nombre de personnes arrivées / Nombre de personnes à venir <br>'.$count_arrive.' / '.$count_resa;
+    echo 'Nombre de personnes arrivées / Nombre de personnes à venir <br />'.$count_arrive.' / '.$count_resa;
     ?>
     <br>
   <?php if ($user_admin != n) { ?>
   <a href="form_mailing.php?article=<?php echo $article_numero;?>">Envoyer un mail a tous ces spectateurs</a><br> <?php } ?>
- <!-- <a href="fpdf/liste_spectateurs.php?article=<?php echo $article_numero;?>" target="_blank">Imprimer la liste de tous ces spectateurs</a></caption> -->
+    <a href="fpdf/liste_spectateurs.php?article=<?php echo $article_numero;?>" target="_blank">Imprimer la liste de tous ces spectateurs</a>
 
         
       <?php } ?>
-
-        <tr>
-            <th colspan="9"> Reservations : </th>
-        </tr>
-        
+    <br /> Réservations : </caption>
                 <tr>        
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom">Nom</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=prenom">Prenom</a></th>
@@ -214,6 +210,55 @@ while($data = mysql_fetch_array($req))
 include("help.php");	
 echo"</td></tr>";
 ?>
+
+<!-- On ajoute les réservations de groupes -->
+<tr><td>
+     <?php
+     /* Récupèration des informations sur les réservations de groupes */
+     $sql_resa_groupe = "SELECT * FROM bon_comm_groupe AS bcg, groupe AS g WHERE bcg.id_article='$article_numero' AND bcg.num_groupe = g.num_groupe";
+     $req_resa_groupes = mysql_query($sql_resa_groupe) or die ('Erreur SQL séléction des réservations de groupes');
+     
+     ?>
+<center><table class="boiteaction">
+        <caption>Réservations de groupe</th>
+        <tr>
+            <th>Nom de la structure</th>
+            <th>Nom du référent du groupe</th>
+            <th>Téléphone du référent</th>
+            <th>Classe / Âge</th>
+            <th>Nombre d'enfants</th>
+            <th>Nombres d'accompagnateurs</th>
+            <th>Nombre d'accompgnateurs gratuit</th>
+            <th>Commentaire sur la réservation</th>
+        </tr>
+        <?php
+        /* ON boucle sur les réservation de groupes pour les afficher */
+        while($data_resa_groupe = mysql_fetch_array($req_resa_groupes)){
+            $nom_structure = $data_resa_groupe['nom_structure'];
+            $nom_referent = $data_resa_groupe['nom_referent'];
+            $tel_referent = $data_resa_groupe['telephone_referent'];
+            $classe = $data_resa_groupe['classe_groupe'];
+            $nb_enfant = $data_resa_groupe['nb_enfants'];
+            $nb_accompagnateur = $data_resa_groupe['nb_accompagnateurs'];
+            $nb_gratuit = $data_resa_groupe['nb_gratuit'];
+            $commentaire = $data_resa_groupe['coment'];
+            
+            ?>
+        <tr>
+            <td><?php echo $nom_structure; ?></td>
+            <td><?php echo $nom_referent; ?></td>
+            <td><?php echo $tel_referent; ?></td>
+            <td><?php echo $classe; ?></td>
+            <td><?php echo $nb_enfant; ?></td>
+            <td><?php echo $nb_accompagnateur; ?></td>
+            <td><?php echo $nb_gratuit; ?></td>
+        </tr>
+            <?php
+        }
+        ?>
+    </table></center>
+    </td>
+</tr>
 <tr><td>
         <!-- On ajoute une table avec la liste des invités -->
         <?php
