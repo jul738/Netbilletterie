@@ -1,10 +1,10 @@
 <?php
-/* Net Billetterie Copyright(C)2012 José Das Neves
+/* Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr*/
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr*/
 require('fpdf.php');
 include_once ('../include/utils.php');
 
@@ -19,7 +19,7 @@ var $ColorIndex;
 
 function Header()
 {
-	//Imprime l'en-tête du tableau si nécessaire
+	//Imprime l'en-tï¿½te du tableau si nï¿½cessaire
 	if($this->ProcessingTable)
 		$this->TableHeader();
 }
@@ -90,16 +90,16 @@ function AddCol($field=-1,$width=-1,$caption='',$align='L')
 
 function Table($query,$prop=array())
 {
-	//Exécute la requête
-	$res=mysql_query($query) or die('Erreur: '.mysql_error()."<BR>Requête: $query");
-	//Ajoute toutes les colonnes si aucune n'a été définie
+	//Exï¿½cute la requï¿½te
+	$res=mysql_query($query) or die('Erreur: '.mysql_error()."<BR>RequÃªte: $query");
+	//Ajoute toutes les colonnes si aucune n'a Ã©tÃ© dÃ©finie
 	if(count($this->aCols)==0)
 	{
 		$nb=mysql_num_fields($res);
 		for($i=0;$i<$nb;$i++)
 			$this->AddCol();
 	}
-	//Détermine les noms des colonnes si non spécifiés
+	//Dï¿½termine les noms des colonnes si non spï¿½cifiï¿½s
 	foreach($this->aCols as $i=>$col)
 	{
 		if($col['c']=='')
@@ -110,7 +110,7 @@ function Table($query,$prop=array())
 				$this->aCols[$i]['c']=ucfirst(mysql_field_name($res,$col['f']));
 		}
 	}
-	//Traite les propriétés
+	//Traite les propriï¿½tï¿½s
 	if(!isset($prop['width']))
 		$prop['width']=0;
 	if($prop['width']==0)
@@ -131,7 +131,7 @@ function Table($query,$prop=array())
 	$this->RowColors=array($prop['color1'],$prop['color2']);
 	//Calcule les largeurs des colonnes
 	$this->CalcWidths($prop['width'],$prop['align']);
-	//Imprime l'en-tête
+	//Imprime l'en-tï¿½te
 	if(!isset($prop['entete']))
 	$this->TableHeader();
 	//Imprime les lignes

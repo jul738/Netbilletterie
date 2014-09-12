@@ -1,7 +1,7 @@
- <?php
+<?php
  function pagination($url,$parpage,$nblignes,$nbpages)
  {
- // On cr�e le code html pour la pagination
+ // On crée le code html pour la pagination
  $initial=isset($_GET['initial'])?$_GET['initial']:"";
  $ordre=isset($_GET['ordre'])?$_GET['ordre']:"";
  $par_page=isset($_GET['parpage'])?$_GET['parpage']:"";
@@ -19,7 +19,7 @@
       $page=position($parpage);
       //si y pas de limit c est que cest la premi�re page
       if(empty($page)){$page =1;}
-      echo "<h1>PageN�$page/$nbpages</h1>";
+      echo "<h1>PageN°$page/$nbpages</h1>";
       
 
 
@@ -64,19 +64,19 @@
  }
  function precedent($url,$parpage,$nblignes,$initial,$ordre)
  {
- // On v�rifie qu'il y a au moins 2 pages � afficher
+ // On vérifie qu'il y a au moins 2 pages à afficher
  if ($nblignes > $parpage) {
- // On v�rifie l'existence de la variable $_GET['limit']
+ // On vérifie l'existence de la variable $_GET['limit']
  if (isset($_GET['limit'])) {
- // On scinde la variable 'limit' en utilisant la virgule comme s�parateur
+ // On scinde la variable 'limit' en utilisant la virgule comme séparateur
  $pointer = split('[,]', $_GET['limit']);
- // On r�cup�re le nombre avant la virgule et on soustrait la valeur $parpage
+ // On récupère le nombre avant la virgule et on soustrait la valeur $parpage
  $pointer = $pointer[0]-$parpage;
- // Si on atteint la premi�re page, pas besoin de lien 'Pr�c�dent'
+ // Si on atteint la premi�re page, pas besoin de lien 'Précédent'
  if ($pointer < 0) {
  $precedent = "";
  }
- // Sinon on affiche le lien avec l'url de la page pr�c�dente
+ // Sinon on affiche le lien avec l'url de la page précédente
  else {
  $limit = "$pointer,$parpage";
   $ordre= $_GET['ordre'];
@@ -85,7 +85,7 @@
  }
  }
  else {
- $precedent = ""; // On est � la premi�re page, pas besoin de lien 'Pr�c�dent'
+ $precedent = ""; // On est à la première page, pas besoin de lien 'Précédent'
  }
  }
  else {
@@ -130,8 +130,7 @@ $par_page= $_GET['parpage'];
  $suivant = ""; // On a qu'une page, pas besoin de lien 'Suivant'
  }
  return $suivant;
- }
- 
+ } 
 
  function date_fr($format, $timestamp=false) {
     if ( !$timestamp ) $date_en = date($format);
@@ -167,5 +166,4 @@ $par_page= $_GET['parpage'];
 
     return $date_fr;
 }
- 
- ?>
+?>
