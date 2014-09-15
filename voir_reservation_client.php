@@ -154,7 +154,7 @@ $recup_info_client_brut = mysql_query($req_recup_info_resa) or die('Erreur SQL0 
                     <td class="highlight"><?php echo "$total_resa"; ?></td>
                     <td class="highlight"><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon" ;?>'>
                     <img border="0" alt="Modifier" src="image/edit.png" Title="Modifier"></a></td>
-                    <td class="highlight"><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon" ;?>'>
+                    <td class="highlight"><a href='delete_bon_suite.php?num_bon=<?php echo "$num_bon" ;?>&nom=<?php echo $nom; ?>'>
                     <img border="0" alt="Modifier" src="image/delete.png" Title="Supprimer"></a></td>
                 </tr>
 <?php   } // Fin du while reservation  ?>
