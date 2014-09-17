@@ -18,8 +18,11 @@ include_once("../include/config/var.php");
 include_once("../include/language/$lang.php");
 include_once("../include/configav.php"); 
 include_once('../include/fonction.php');
-$num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
+
+//On inclut le répertoire des polices
 define('FPDF_FONTPATH','font/');
+
+$num_abo_com=isset($_POST['num_abo_com'])?$_POST['num_abo_com']:"";
 $devise = ereg_replace('&euro;', $euro, $devise);
 $slogan = stripslashes($slogan);
 $entrep_nom= stripslashes($entrep_nom);
@@ -48,13 +51,14 @@ $annee_2= $annee_1 -1;
 
 //on récupère le nombre de specacle
 $sql = "
-SELECT nombre_spectacle
+SELECT nombre_spectacle, type_abonnement
 FROM ".$tblpref."abonnement_comm AS ac, ".$tblpref."abonnement AS a 
 WHERE ac.num_abo_com = $num_abo_com 
     AND ac.num_abonnement = a.num_abonnement";
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
         while($data_nb = mysql_fetch_array($req)){
             $nb_li = $data_nb['nombre_spectacle'];
+            $type_abonnement = $data_nb['type_abonnement'];
         }
 
 //On récupère les infos sur l'abonnement et sur le client
@@ -128,38 +132,48 @@ var $javascript;
 //fin js
 
 }
-$pdf=new PDF('p','mm','a4');
+$pdf=new PDF('p','mm','a5');
+//On ajoute les polices
+$pdf->AddFont('calibri','','calibri.php');
+$pdf->AddFont('big_noodle_titling','','big_noodle_titling.php');
 $pdf->Open();
 
 $pdf->AddPage();
 
-//le logo
-$pdf->Image("$logo",20,8,0,35,'jpg');
-$pdf->SetFillColor(255,238,204);
-
+//Le type de concert
+if ($type_abonnement == 'Concert'){
+    $pdf->Image("guitare.jpg",15,10,0,20,'jpg');
+    $pdf->SetFont('big_noodle_titling','',20);
+    $pdf->SetY(15);
+    $pdf->SetX(40);
+    $pdf->MultiCell(71,6,"Abonnement Concert",0,C,0);
+    $pdf->SetTextColor(0,0,255);
+}
+if ($type_abonnement == 'Spectacle_JP'){
+    $pdf->Image("clown.jpg",15,10,0,20,'jpg');
+    $pdf->SetFont('big_noodle_titling','',20);
+    $pdf->SetY(15);
+    $pdf->SetX(40);
+    $pdf->MultiCell(71,6,"Abonnement Jeune Public",0,C,0);
+    $pdf->SetTextColor(194,8,8);
+}
 
 //Troisieme cellule le slogan
-$pdf->SetFont('Arial','B',15);
-$pdf->SetY(45);
-$pdf->SetX(10);
+$pdf->SetFont('big_noodle_titling','',15);
+$pdf->SetY(25);
+$pdf->SetX(40);
 $pdf->MultiCell(71,6,"$slogan $annee_2-$annee_1",0,C,0);
+$pdf->SetTextColor(0,0,0);
 
 //deuxieme cellule les coordonées clients
-$pdf->SetFont('Arial','B',15);
-$pdf->SetY(35);
-$pdf->SetX(100);
-$pdf->MultiCell(90,8,"$nom $prenom \n $rue \n $cp  $ville \n ",1,C,1);
-$pdf->Line(10,93,200,93);
-
-
-//premiere celule le numero de bon
-$pdf->SetFont('Arial','B',10);
-$pdf->SetY(100);
-$pdf->SetX(25);
-$pdf->MultiCell(65,6,utf8_decode("Abonnement n°$num_abo_com de type $nom_abo \n Enregistré le: $date_abo "),1,C,1);
-$file= $lang_fi_b_c."_".$num_abo_com.".pdf";
+$pdf->SetFont('Arial','',12);
+$pdf->SetY(40);
+$pdf->SetX(30);
+$pdf->MultiCell(90,8,"$nom $prenom \n $rue \n $cp  $ville \n ",0,C,0);
 
 //Le tableau des spectacles
+$pdf->SetX(30);
+$pdf->cell(90,5,'Liste des spectacles choisis',0,1,C,0,0);
 
 // On récupère les spectacles associés à l'article et on les affiche
 $select_resa = "SELECT article, lieu, horaire, date_spectacle, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7
@@ -170,54 +184,38 @@ AND bc.num_bon IN (num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, n
 ORDER BY date_spectacle";
 $result_resa = mysql_query($select_resa) or die ('Erreur de séléction des réservations');
 
-		$header=array('Article','Lieu','Date','Horaire');
-                $pdf->SetXY(15,$pdf->GetY()+5);
-		for($i=0;$i<sizeof($header);$i++){
-		$pdf->cell(40,5,$header[$i],1,0,'C',0);
-		$pdf->SetXY($pdf->GetX(),$pdf->GetY());
-                }
                 $pdf->SetFont('Arial','',10);
-                $pdf->SetXY(15,$pdf->GetY()+5);
+                $pdf->SetXY(20,$pdf->GetY()+1);
 		while($data_resa = mysql_fetch_array($result_resa))
 		{
 		$article = utf8_decode($data_resa['article']);
 		$lieu = utf8_decode($data_resa['lieu']);
 		$date_brute = strtotime($data_resa['date_spectacle']);
-                $date = date_fr('l -m-Y', $date_brute);
+                $date = date_fr('l d-m-Y', $date_brute);
                 $horaire = $data_resa['horaire'];
-                $pdf->cell(40,5,$article,1,0,'C',0);
-		$pdf->cell(40,5,$lieu,1,0,'C',0);
-		$pdf->cell(40,5,$date,1,0,'C',0);
-		$pdf->cell(40,5,$horaire,1,0,'C',0);
+                $pdf->MultiCell(110,4,"$article \n $lieu $date $horaire",0,C,0);
 		$pdf->SetTextColor(0,0,0);
-		$pdf->SetXY(15,$pdf->GetY()+5);
+		$pdf->SetXY(20,$pdf->GetY()+1);
 		}
-
-//Quatrieme cellule les enoncés de totaux
-$pdf->SetFont('Arial','B',12);
-$pdf->SetY(230);
-$pdf->SetX(158);
-$pdf->MultiCell(40,8,$total,1,C,1);
-//Cinquieme cellule les totaux
-$pdf->SetFont('Arial','B',10);
-$pdf->SetY(230);
-$pdf->SetX(118);
-$pdf->MultiCell(40,8,utf8_decode("Total payé"),1,R,1);
-
-
-//Troisieme cellule les coordonées vendeur
-$pdf->SetFont('Arial','',10);
-$pdf->SetY(240);
-$pdf->SetX(20);
-$pdf->MultiCell(60,6,utf8_decode("$entrep_nom\n$social\n$c_postal $ville\n $tel\n $mail"),1,C,1);//
 
 //$pdf->ln(10);
 
 //Troisieme cellule info pratique
-$pdf->SetFont('Arial','',10);
-$pdf->SetY(240);
-$pdf->SetX(87);
-$pdf->MultiCell(110,6,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place à d'heure avant la séance. \n Attention  ! Passé  l'heure du spectacle  la réservation sera  levée et  la place pourra être réattribuée."),1,C,1);//
+$pdf->SetFont('Arial','',9);
+$pdf->SetY(150);
+$pdf->SetX(20);
+$pdf->MultiCell(110,4,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place à d'heure avant la séance. \n Attention  ! Passé  l'heure du spectacle  la réservation sera  levée et  la place pourra être réattribuée."),0,C,0);
+
+//le logo
+$pdf->Image("$logo",15,170,0,20,'jpg');
+$pdf->SetFillColor(255,238,204);
+
+//Troisieme cellule les coordonées vendeur
+$pdf->SetFont('Arial','',8);
+$pdf->SetY(172);
+$pdf->SetX(50);
+$pdf->MultiCell(80,3,utf8_decode("$entrep_nom\n$social\n$c_postal $ville\n $tel\n $mail"),0,C,0);//
+
 
 if($autoprint=='y' and $_POST['mail']!='y' and $_POST['user']=='adm'){
 $pdf->AutoPrint(false, $nbr_impr);
