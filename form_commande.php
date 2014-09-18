@@ -75,9 +75,9 @@ function verif_formulaire()
             $mois = date("m");
             $annee = date("Y");
 
-            $rqSql = "SELECT num_client, nom, nom2 FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'";
+            $rqSql = "SELECT num_client, nom, nom2, prenom FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'";
             if ($user_com == r) {
-            $rqSql = "SELECT num_client, nom FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'
+            $rqSql = "SELECT num_client, nom, prenom FROM " . $tblpref ."client WHERE actif != 'n' AND `num_client`!='1'
                      and (" . $tblpref ."client.permi LIKE '$user_num,'
                      or  " . $tblpref ."client.permi LIKE '%,$user_num,'
                      or  " . $tblpref ."client.permi LIKE '%,$user_num,%'
@@ -110,8 +110,9 @@ function verif_formulaire()
 											$numclient = $row["num_client"];
 											$nom = $row["nom"];
 											$nom2 = $row["nom2"];
+                                                                                        $prenom = $row['prenom'];
 											?>
-                                                                                        <OPTION VALUE='<?php echo $numclient; ?>' <?php if($numclient==$client){ echo 'selected';} ?>><?php echo $nom; ?></OPTION>
+                                                                                        <OPTION VALUE='<?php echo $numclient; ?>' <?php if($numclient==$client){ echo 'selected';} ?>><?php echo $nom.' '; echo $prenom; ?></OPTION>
 											<?php
 											}
 											?>
