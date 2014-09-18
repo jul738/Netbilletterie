@@ -21,7 +21,7 @@ $quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
 $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
 $article=isset($_POST["article"])?$_POST["article"]:"";
-$comment = isset($_POST['coment'])?$_POST['coment']:"";
+$comment = isset($_POST['coment'])?mysql_real_escape_string($_POST['coment']):"";
 
 //=============================================
 //pour que les articles soit classes par saison
