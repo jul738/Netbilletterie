@@ -22,7 +22,7 @@ $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
 $article=isset($_POST["article"])?$_POST["article"]:"";
 $comment = isset($_POST['coment'])?mysql_real_escape_string($_POST['coment']):"";
-
+$paiement = isset($_POST['paiement'])?$_POST['paiement']:"";
 //=============================================
 //pour que les articles soit classes par saison
 $mois=date("n");
@@ -117,14 +117,14 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
               // Si quanti = 1 
               //On créé la réservation
               if ($quanti == 1){
-                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, coment) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment')";
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, coment, paiement) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment', '$paiement')";
                     mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
               }
               //Si plusieurs résa, alors on créer les autres réservations
               else{
                   //Puis on créer les réservations supplémentaires
                   for($q=1; $q <= $quanti; $q++){
-                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, coment) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment')";
+                    $sql_insert_resa = "INSERT INTO " . $tblpref ."bon_comm(client_num, date, id_tarif, user, id_article, coment, paiement) VALUES ('$num_client', '$annee-$mois-$jour', '$id_tarif', '$user_nom', '$article', '$comment', '$paiement')";
                     mysql_query($sql_insert_resa) OR DIE('Erreur SQL! <br>'.$sql_insert_resa.'<br>'.mysql_error());
                   }
               }

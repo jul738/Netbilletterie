@@ -12,6 +12,7 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
+include_once("include/fonction.php");
 
     if(isset($_GET['num_client'])){
         $client = $_GET['num_client'];
@@ -171,11 +172,11 @@ function verif_formulaire()
           <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
           <?php
           //pour n 'affiches que les articles  en stock
-          $select_article = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax, type_article, horaire
+          $select_article = "SELECT uni, num, article, date_spectacle AS date, prix_htva, stock, stomin, stomax, type_article, horaire
                     FROM " . $tblpref ."article
                     WHERE stock > '0'
-                    AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-                    ORDER BY date_spectacle ASC";
+                    AND date_spectacle BETWEEN NOW() AND '$annee_1-$fin_saison'
+                    ORDER BY date_spectacle, horaire ASC";
           $result_article = mysql_query($select_article)or die( "Execution requete impossible.");
 
           ?>
@@ -188,7 +189,8 @@ function verif_formulaire()
               $article= stripslashes($row_article["article"]);
               $type_article = $row_article['type_article'];
               $horaire = $row_article['horaire'];
-              $date = $row_article["date"];
+              $date_timesamp = strtotime($row_article["date"]);
+              $date = date_fr('l d-m-Y', $date_timesamp);
               $stock = $row_article['stock'];
               $min = $row_article['stomin'];
 
@@ -212,7 +214,13 @@ function verif_formulaire()
             <?php 
             }
             ?>
-          </tr>
+          </tr>     <tr>
+              <td>Paiement</td>
+              <td class="highlight">
+                        <?php 
+                            include("include/paiemment.php");
+			?>
+              </td></tr>
                                                                 <tr>
                                                                     <td>Commentaire pour la réservation </td>
                                                                     <td colspan="2"><textarea name="coment" cols="45" rows="3"></textarea></td>

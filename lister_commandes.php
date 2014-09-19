@@ -77,12 +77,13 @@ $annee_2= $annee_1 -1;
 //=============================================
             if ($user_com =='y') 
             {
-              $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, prenom, soir, bc.id_tarif,
-              DATE_FORMAT(date,'%d-%m-%Y') AS date, prix_tarif AS ttc, paiement
-              FROM ".$tblpref."bon_comm AS bc, ".$tblpref."tarif AS t, client AS c
+              $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, prenom, bc.id_tarif,
+              prix_tarif AS ttc, paiement, article, date_spectacle, horaire
+              FROM ".$tblpref."bon_comm AS bc, ".$tblpref."tarif AS t, client AS c, ".$tblpref."article AS a
               WHERE date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
               AND bc.id_tarif = t.id_tarif
               AND bc.client_num = c.num_client
+              AND bc.id_article = a.num
               AND attente='0'
               ";
             
@@ -102,7 +103,7 @@ $annee_2= $annee_1 -1;
                     <th><?php echo $lang_numero; ?></th>
                     <th><?php echo $lang_client; ?></th>
                     <th> Prénom du spectateur</th>
-                    <th><?php echo $lang_date; ?></th>
+                    <th>Spectacle</th>
                     <th><?php echo $lang_total_ttc; ?></th>
                     <th>Regle?</th>
           <?php if ($user_admin == 'y'||$user_dev=='y') 
@@ -115,8 +116,10 @@ $annee_2= $annee_1 -1;
                     <th><small>Changer</small></th>
                     <th><small>Effacer</small></th>
                     <th><small>Print</small></th>
+          <?php if ($user_admin == 'y'||$user_dev=='y') 
+            { ?>
                     <th><small>Envoyer</small></th>
-                    
+            <?php } ?>
           </tr>
                 </thead>
                 <tbody>
@@ -129,18 +132,16 @@ $annee_2= $annee_1 -1;
                       $ctrl = $data['ctrl'];
                       $paiement = $data['paiement'];
                       $tva = $data["tot_tva"];
-                      $date = $data["date"];
+                      $date_spectacle = strtotime($data["date_spectacle"]);
+                      $date = date_fr('l d-m-Y', $date_spectacle);
+                      $article = $data["article"];
+                      $horaire = $data["horaire"];
                       $id_tarif = $data["id_tarif"];
                       $nom = $data['nom'];
                       $nom=stripslashes($nom);
                       $nom = htmlentities($nom, ENT_QUOTES);
                       $nom_html = htmlentities (urlencode ($nom));
                       $prenom = stripslashes($data['prenom']);
-                      $soir = $data['soir'];
-                      $soir=stripslashes($soir);
-                      if ($soir=="0"){$soir="";}
-                      if ($soir==""){$soir="";}
-          else {$soir= "pour \"$soir\"";}
                       $num_client = $data['num_client'];
                       $mail = $data['mail'];
                       $login = $data['login'];
@@ -156,9 +157,9 @@ $annee_2= $annee_1 -1;
                       ?>
                 <tr>
                     <td><?php echo "$num_bon"; ?></td>
-                    <td><?php echo "$nom $soir"; ?></td>
+                    <td><?php echo "$nom"; ?></td>
                     <td><?php echo "$prenom"; ?></td>
-                    <td><?php echo "$date"; ?></td>
+                    <td><?php echo $article.'<br />'; echo $date.'<br />'; echo $horaire; ?></td>
                     <td><?php echo montant_financier($ttc); ?></td>
                     <td><?php echo "$paiement"; ?></td>
                     <td><?php echo "$pointage"; ?></td>
@@ -179,7 +180,7 @@ $annee_2= $annee_1 -1;
                         <input type="image" src="image/print.png" style=" border: none; margin: 0;" alt="<?php echo $lang_imprimer; ?>" Title="Imprimer"/>
                         </form>
                     </td>
-                      <?php if ($user_admin !='n') 
+                      <?php if ($user_admin =='y' || $user_dev =='y') 
                       {
                       if ($mail != '' )
                       {
@@ -196,11 +197,15 @@ $annee_2= $annee_1 -1;
                     </td>
                       <?php
                       }
+                      
                       else
                       {
                       ?>
                       <td></td>
-                     <?php } } } ?>
+                      <?php
+                      }
+                    }// fin du if admin
+                    } // fin du while  ?>
                 </tr>
                 </tbody>
         </table>
@@ -217,6 +222,3 @@ $annee_2= $annee_1 -1;
 include_once("include/bas.php");
  
 ?>
-
-
-

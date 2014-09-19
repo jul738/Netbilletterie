@@ -14,6 +14,7 @@ include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
 include_once("include/head.php");
+include_once('include/fonction.php');
 ?>
 <script type="text/javascript" src="javascripts/confdel.js"></script>
 <script type="text/javascript">
@@ -100,11 +101,11 @@ if ($annee_1=='')
 $annee_2= $annee_1 -1;
 //=============================================
 //on recupère les infos des spectacles
-$rqSql1 = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
+$rqSql1 = "SELECT uni, num, article, date_spectacle AS date, prix_htva, stock, stomin, stomax
                                             FROM ".$tblpref."article
                                             WHERE stock > '0'
                                             AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-                                            ORDER BY date_spectacle ASC";
+                                            ORDER BY date_spectacle, horaire ASC";
 $result = mysql_query( $rqSql1 )
              or die( "Exécution requetes impossible1.<br> <a href='lister_commandes.php'>retour a la liste</a>");
 ?>
@@ -158,11 +159,11 @@ function edition()
 					<td class="texte0"><br>choisir le <?php echo $lang_article; ?>(s)    
 							<?php
 						include_once("include/configav.php");
-							$rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
+							$rqSql = "SELECT uni, num, article, date_spectacle AS date, prix_htva, stock, stomin, stomax
 										FROM ".$tblpref."article
 										WHERE stock > '0'
-										AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-										ORDER BY date_spectacle ASC";
+										AND date_spectacle BETWEEN NOW() AND '$annee_1-$fin_saison'
+										ORDER BY date_spectacle, horaire ASC";
 						$result = mysql_query( $rqSql )or die( "Exécution requête impossible3.<br> <a href='lister_commandes.php'>retour a la liste</a>");
 						?>
 					</td>
@@ -173,7 +174,8 @@ function edition()
 							{
 								$num = $row["num"];
 								$article = stripslashes($row["article"]);
-								$date = $row["date"];
+								$date_timestampt = strtotime($row["date"]);
+                                                                $date = date_fr('l d-m-Y', $date_timestampt);
 								$stock = $row['stock'];
 								$min = $row['stomin'];
 																	
@@ -197,7 +199,8 @@ function edition()
 						
 				<tr> 
 					<!-- choisir le tarif -->
-					<td colspan="2" class="texte0">Choisir le<?php echo "$lang_tarif";?>
+                                        <td>Choisir le<?php echo "$lang_tarif";?></td>
+                                        <td colspan="2" class="texte0">
 						<?php $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM ".$tblpref."tarif
 										WHERE saison BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
 										AND selection='1'
@@ -219,6 +222,14 @@ function edition()
 					</SELECT>
 					</td>
 				</tr>
+                                <tr>
+                                    <td>Paiement</td>
+                                    <td class="highlight">
+                                        <?php 
+                                            include("include/paiemment.php");
+                                        ?>
+                                    </td>
+                                </tr>
                                 <tr>
 					<td><?php echo $lang_ajo_com_bo ?><br> </td>
 					<td><textarea name="coment" cols="45" rows="3"><?php echo $coment; ?></textarea><br> 
