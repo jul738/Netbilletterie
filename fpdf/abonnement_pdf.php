@@ -133,7 +133,7 @@ var $javascript;
 //fin js
 
 }
-$pdf=new PDF('p','mm','a5');
+$pdf=new PDF('p','mm','a4');
 //On ajoute les polices
 $pdf->AddFont('calibri','','calibri.php');
 $pdf->AddFont('big_noodle_titling','','big_noodle_titling.php');
@@ -143,33 +143,33 @@ $pdf->AddPage();
 
 //Le type de concert
 if ($type_abonnement == 'Concert'){
-    $pdf->Image("guitare.jpg",15,10,0,30,'jpg');
-    $pdf->SetFont('big_noodle_titling','',20);
-    $pdf->SetY(15);
-    $pdf->SetX(40);
-    $pdf->MultiCell(71,6,"Abonnement Concert",0,C,0);
+    $pdf->Image("guitare.jpg",30,50,0,30,'jpg');
+    $pdf->SetFont('big_noodle_titling','',28);
+    $pdf->SetY(60);
+    $pdf->SetX(60);
+    $pdf->MultiCell(90,6,"Abonnement Concert",0,C,0);
     $pdf->SetTextColor(0,0,255);
 }
 if ($type_abonnement == 'Spectacle_JP'){
-    $pdf->Image("clown.jpg",15,10,0,30,'jpg');
-    $pdf->SetFont('big_noodle_titling','',20);
-    $pdf->SetY(15);
-    $pdf->SetX(40);
-    $pdf->MultiCell(71,6,"Abonnement Jeune Public",0,C,0);
+    $pdf->Image("clown.jpg",30,50,0,30,'jpg');
+    $pdf->SetFont('big_noodle_titling','',28);
+    $pdf->SetY(60);
+    $pdf->SetX(60);
+    $pdf->MultiCell(90,6,"Abonnement Jeune Public",0,C,0);
     $pdf->SetTextColor(194,8,8);
 }
 
 //Troisieme cellule le slogan
-$pdf->SetFont('big_noodle_titling','',15);
-$pdf->SetY(25);
-$pdf->SetX(40);
-$pdf->MultiCell(71,6,"$slogan $annee_2-$annee_1",0,C,0);
+$pdf->SetFont('big_noodle_titling','',20);
+$pdf->SetY(70);
+$pdf->SetX(60);
+$pdf->MultiCell(90,6,"$slogan $annee_2-$annee_1",0,C,0);
 $pdf->SetTextColor(0,0,0);
 
 //deuxieme cellule les coordonées clients
 $pdf->SetFont('calibri','',12);
-$pdf->SetY(40);
-$pdf->SetX(30);
+$pdf->SetY(80);
+$pdf->SetX(60);
 $pdf->MultiCell(90,6,"$nom $prenom \n $rue \n $cp  $ville \n $telephone",0,C,0);
 
 //Le tableau des spectacles
@@ -183,37 +183,26 @@ AND bc.num_bon IN (num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, n
 ORDER BY date_spectacle";
 $result_resa = mysql_query($select_resa) or die ('Erreur de séléction des réservations');
 
-                $pdf->SetFont('calibri','',10);
-                $pdf->SetXY(20,$pdf->GetY()+10);
+                $pdf->SetFont('calibri','',12);
+                $pdf->SetXY(50,$pdf->GetY()+10);
 		while($data_resa = mysql_fetch_array($result_resa))
 		{
 		$article = utf8_decode($data_resa['article']);
 		$date_brute = strtotime($data_resa['date_spectacle']);
                 $date = date_fr('l d-m-Y', $date_brute);
                 $horaire = $data_resa['horaire'];
-                $pdf->MultiCell(110,4,"$article \n $date $horaire",0,C,0);
+                $pdf->MultiCell(110,6,"$article \n $date $horaire",0,C,0);
 		$pdf->SetTextColor(0,0,0);
-		$pdf->SetXY(20,$pdf->GetY()+1);
+		$pdf->SetXY(50,$pdf->GetY()+1);
 		}
 
 //$pdf->ln(10);
 
 //Troisieme cellule info pratique
 $pdf->SetFont('calibri','',9);
-$pdf->SetY(150);
-$pdf->SetX(30);
+$pdf->SetY(230);
+$pdf->SetX(60);
 $pdf->MultiCell(90,4,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place au plus tard 15 minutes avant la séance. \n Attention  ! Après l'heure annoncée de la séance, l'accès à la salle n'est plus garanti."),0,C,0);
-
-//le logo
-$pdf->Image("$logo",15,170,0,20,'jpg');
-$pdf->SetFillColor(255,238,204);
-
-//Troisieme cellule les coordonées vendeur
-$pdf->SetFont('calibri','',8);
-$pdf->SetY(172);
-$pdf->SetX(50);
-$pdf->MultiCell(80,3,utf8_decode("$entrep_nom\n$social \n $tel\n $mail"),0,C,0);//
-
 
 if($autoprint=='y' and $_POST['mail']!='y' and $_POST['user']=='adm'){
 $pdf->AutoPrint(false, $nbr_impr);
