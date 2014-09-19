@@ -1,34 +1,38 @@
 <!--
-Net Billetterie Copyright(C)2012 José Das Neves
+Net Billetterie Copyright(C)2012 Josï¿½ Das Neves
  Logiciel de billetterie libre. 
-Développé depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+Dï¿½veloppï¿½ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
 File Authors:Guy Hendrickx
-Modification : José Das Neves pitu69@hotmail.fr
+Modification : Josï¿½ Das Neves pitu69@hotmail.fr
 
 Charger de communication-->
 <div class="menublock" >
 	<!--Menu 1er niveau-->
 	<ul id="solidmenu" class="solidblockmenu">
 		
-		<li><a href="lister_clients.php" rel="menu1"><img border ="0" src="image/kontact_contacts.png" alt="client"><br><?php echo $lang_clients; ?></a></li>
 		<li><a href="lister_spectacle_attente.php" rel="menu4"><img border ="0" src="image/commandes_attente02.png" alt="Listes d'attente"><br>Listes d'attente</a></li>
-		<li><a href="lister_articles.php" rel="menu3"><img border ="0" src="image/spectacle.png" alt="Spectacles"><br>Spectacles</a></li>
-		<li><a href="form_mailing.php" rel="menu8"><img border ="0" src="image/mailing.png" alt="Mailing"><br>Mailing</a></li>
-		<li><a href="agenda.php" rel="menu9"><img border ="0" src="image/outil.png" alt="outils"><br>Outils </a></li>
-		<li><a href="logout.php" rel="menu10"><img border ="0" src="image/sortir.png" alt="Quiter"><br>Quiter </a></li>
-	</ul>
+                <li><a href="accueil.php" rel="menu12" id="accueil"><img border ="0" src="" alt="Accueil"><br></a></li>
+		<li><a href="lister_clients.php" rel="menu1" id="spectateurs"><img border ="0" src="" alt="Spectateurs"><br></a></li>
+		<li><a href="form_commande.php" rel="menu2" id="reservations"><img border ="0" src="" alt="RÃ©servations"><br></a></li>
+                <li><a href="form_commande_soir.php" rel="menu7" id="billetterie"><img border ="0" src="" alt="Billetterie"><br></a></li>
+                <li><a href="lister_spectacle_attente.php" rel="menu4" id="attente"><img border ="0" src="" alt="Listes d'attente"><br></a></li>
+		<li><a href="lister_articles.php" rel="menu3" id="spectacle"><img border ="0" src="" alt="Spectacles"><br></a></li>
+                <li><a href="form_mailing.php" rel="menu8" id="mailing"><img border ="0" src="" alt="Mailing"><br></a></li>
+                <li><a href="agenda.php" rel="menu9" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
+		<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
+        </ul>
 
 <!--deroulant du menu1 niveau2-->
 	<div id="menu1" class="mega solidblocktheme">
 		<p style="margin:5px 0 10px 0"><b>Gestion des spectateurs</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_client.php"><b>Créer une fiche "Spectateur"</b></a></li><hr/>
-                                <li><a href="form_groupe.php"><strong>Créer un groupe</strong></a></li><hr/>
+				<li><a href="form_client.php"><b>Crï¿½er une fiche "Spectateur"</b></a></li><hr/>
+                                <li><a href="form_groupe.php"><strong>Crï¿½er un groupe</strong></a></li><hr/>
 				<li><a href="lister_clients.php"><b>Liste des spectateurs</b></a></li><hr/>
                                 <li><a href="lister_groupes.php"><b>Liste des groupes</b></a></li><hr/>
-				<li><a href="rechercher_clients.php"><b>Chercher par critère </b></a></li><hr/>
+				<li><a href="rechercher_clients.php"><b>Chercher par critï¿½re </b></a></li><hr/>
 				<li><a href="lister_clients_inactifs.php"><b>Liste des spectateurs inactifs</b></a></li>
 			</ul>
 		</div>
@@ -39,10 +43,10 @@ Charger de communication-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des courriels</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_mailing.php"><b>Mailing à tous les spectateurs </b></a></li><hr/>
+				<li><a href="form_mailing.php"><b>Mailing ï¿½ tous les spectateurs </b></a></li><hr/>
 				<li><a href="form_mailing_spectateurs_cible.php"><b>Mailing aux spectateurs d'un spectacle</b></a></li><hr/>
-				<li><a href="form_mailing_spectateur.php"><b>Mailing à un spectateur</b></a></li><hr/><hr/>
-				<li><a href="lister_mail.php"><b>Liste des mails envoyés</b></a></li><hr/>
+				<li><a href="form_mailing_spectateur.php"><b>Mailing ï¿½ un spectateur</b></a></li><hr/><hr/>
+				<li><a href="lister_mail.php"><b>Liste des mails envoyï¿½s</b></a></li><hr/>
 			</ul>
 		</div>
 	</div>

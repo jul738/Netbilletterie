@@ -10,9 +10,9 @@ Gestionaire de liste d'attente-->
 <div class="menublock" >
 	<!--Menu 1er niveau-->
 	<ul id="solidmenu" class="solidblockmenu">
-		<li><a href="form_commande_attente.php" rel="menu4"><img border ="0" src="image/commandes_attente02.png" alt="Listes d'attente"><br>Listes <br>d'attente</a></li>
-		<li><a href="agenda.php" rel="menu9 [left]"><img border ="0" src="image/outil.png" alt="outils"><br>Outils </a></li>
-		<li><a href="logout.php" rel="menu10"><img border ="0" src="image/sortir.png" alt="Quiter"><br>Quiter </a></li>
+		<li><a href="form_commande_attente.php" rel="menu4" id="attente"><img border ="0" src="" alt="Listes d'attente"><br></a></li>
+		<li><a href="agenda.php" rel="menu9 [left]" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
+		<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
 	</ul>
 
 

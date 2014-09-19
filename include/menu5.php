@@ -10,13 +10,14 @@ comptable-->
 <div class="menublock" >
 	<!--Menu 1er niveau-->
 	<ul id="solidmenu" class="solidblockmenu">
-		<li><a href="form_commande.php" rel="menu2"><img border ="0" src="image/commandes.png" alt="Abonnement"><br>Réservations</a></li>
-		<li><a href="lister_billetterie.php" ><img border ="0" src="image/billetterie.png" alt="billetterie"><br>Billetterie</a></li>
-		<li><a href="lister_articles.php" ><img border ="0" src="image/spectacle.png" alt="Spectacles"><br>Spectacles</a></li>
-		<li><a href="lister_caisse_billetterie.php" rel="menu5"><img border ="0" src="image/caisse.png" alt="caisse"><br>Caisse</a></li>
-		<li><a href="ca_spectacle.php" rel="menu6"><img border ="0" src="image/stat.png" alt="Statistiques"><br>Statistiques</a></li>
-		<li><a href="agenda.php" rel="menu9"><img border ="0" src="image/outil.png" alt="outils"><br>Outils </a></li>
-		<li><a href="logout.php" rel="menu10"><img border ="0" src="image/sortir.png" alt="Quiter"><br>Quiter </a></li>
+            	<li><a href="accueil.php" rel="menu12" id="accueil"><img border ="0" src="" alt="Accueil"><br></a></li>
+		<li><a href="form_commande.php" rel="menu2" id="reservations"><img border ="0" src="" alt="Réservations"><br></a></li>
+		<li><a href="lister_billetterie.php" id="billetterie"><img border ="0" src="" alt="Billetterie"><br></a></li>
+		<li><a href="lister_articles.php" id="spectacle"><img border ="0" src="" alt="Spectacles"><br></a></li>
+		<li><a href="lister_caisse_billetterie.php" rel="menu5" id="caisse"><img border ="0" src="" alt="Caisse"><br></a></li>
+		<li><a href="ca_spectacle.php" rel="menu6" id="statistique"><img border ="0" src="" alt="Statistiques"><br></a></li>
+		<li><a href="agenda.php" rel="menu9" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
+		<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
 	</ul>
 
 <!--deroulant du menu2 niveau2-->

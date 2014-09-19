@@ -20,16 +20,16 @@ saisie abonnement-->
 <div class="menublock" >
 	<!--Menu 1er niveau-->
 	<ul id="solidmenu" class="solidblockmenu">
-		
-		<li><a href="form_client.php" rel="menu1"><img border ="0" src="image/kontact_contacts.png" alt="client"><br><?php echo $lang_clients; ?></a></li>
-		<li><a href="form_commande.php" rel="menu2"><img border ="0" src="image/commandes.png" alt="Abonnement"><br>R�servations</a></li>
+                <li><a href="accueil.php" rel="menu12" id="accueil"><img border ="0" src="" alt="Accueil"><br></a></li>
+		<li><a href="form_client.php" rel="menu1" id="spectateurs"><img border ="0" src="" alt="Spectateurs"><br></a></li>
+		<li><a href="form_commande.php" rel="menu2" id="reservations"><img border ="0" src="" alt="Réservations"><br></a></li>
 		<li><a href="new_abonnement.php" rel="menu11" id="abonnement"><img border ="0" src="" alt="Abonnement"><br></a></li>
-                <li><a href="form_commande_soir.php" rel="menu7"><img border ="0" src="image/billetterie.png" alt="billetterie"><br>Billetterie</a></li>
+                <li><a href="form_commande_soir.php" rel="menu7" id="billetterie"><img border ="0" src="" alt="Billetterie"><br></a></li>
                 <li><a href="form_commande_attente.php" rel="menu4" id="attente"><img border ="0" src="" alt="Listes d'attente"><br></a></li>
-		<li><a href="lister_articles.php" rel="menu3"><img border ="0" src="image/spectacle.png" alt="Spectacles"><br>Spectacles</a></li>
-		<li><a href="lister_caisse.php" rel="menu5"><img border ="0" src="image/caisse.png" alt="caisse"><br>Caisse</a></li>
-		<li><a href="agenda.php" rel="menu9"><img border ="0" src="image/outil.png" alt="outils"><br>Outils </a></li>
-		<li><a href="logout.php" rel="menu10"><img border ="0" src="image/sortir.png" alt="Quiter"><br>Quiter </a></li>
+		<li><a href="lister_articles.php" rel="menu3" id="spectacle"><img border ="0" src="" alt="Spectacles"><br></a></li>
+		<li><a href="lister_caisse.php" rel="menu5"><img border ="0" src="" alt="Caisse"><br></a></li>
+                <li><a href="agenda.php" rel="menu9" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
+		<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
 	</ul>
 
 <!--deroulant du menu1 niveau2-->
