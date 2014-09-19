@@ -1,63 +1,83 @@
 <?php
-/* Net Billetterie Copyright(C)2012 JosÈ Das Neves
+/* Net Billetterie Copyright(C)2012 Jos√© Das Neves
  Logiciel de billetterie libre. 
-DÈveloppÈ depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
+D√©velopp√© depuis Factux Copyright (C) 2003-2004 Guy Hendrickx
 Licensed under the terms of the GNU  General Public License:http://www.opensource.org/licenses/gpl-license.php
-File Authors:JosÈ Das Neves pitu69@hotmail.fr*/
+File Authors:Jos√© Das Neves pitu69@hotmail.fr*/
 require('mysql_table.php');
 include("../include/config/common.php");
 include("../include/config/var.php");
 include("../include/language/fr.php");
 include_once("../include/configav.php");
 //on GET le numero du spectacle
-$article_numero=isset($_GET['article'])?$_GET['article']:"";
 
 define('FPDF_FONTPATH','font/');
+$article_numero = isset($_GET['article'])?$_GET['article']:"";
 
-//on recupËre les infos du spectacle
-$sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, article, stock, num, lieu, horaire FROM ".$tblpref."article WHERE num=$article_numero";
-$req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-$data = mysql_fetch_array($req2);
+class PDF extends PDF_MySQL_Table
+{
+    public $article_numero;
+    public $logo;
+    
+    public function createData($input){
+        $this->article_numero = $input;
+    }
+    
+    public function Logo($logo){
+        $this->logo = $logo;
+    }
+    
+function Header()
+{
+    //on recup√®re les infos du spectacle
+    $sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, article, stock, num, lieu, horaire FROM ".$tblpref."article WHERE num=$this->article_numero";
+    $req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
+    while($data = mysql_fetch_array($req2)){
     $article = $data['article'];
     $article_numero= $data['num'];
     $date = $data['date_spectacle'];
     $stock = $data['stock'];
-	
-//on compte le nombre de ligne de la liste des spectateurs
-$sql = "SELECT *
-FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC , ".$tblpref."tarif T,".$tblpref."article A
-WHERE CB.bon_num=BC.num_bon
-AND BC.client_num=C.num_client
-AND CB.article_num = $article_numero
-AND A.num = $article_numero
-AND CB.id_tarif = T.id_tarif
-AND BC.attente=0
-";
-$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-$nb_li = mysql_num_rows($req);
-$nb_pa1 = $nb_li /40 ;
-$nb_pa = ceil($nb_pa1);
-$nb_li =$nb_pa * 40 ;
+    }
+    
+    //On r√©cup√®re le nombre de billet vendu
+    $select_nb_billet = "SELECT COUNT(num_bon) FROM bon_comm WHERE id_article=$article_numero";
+    $req_nb_billet = mysql_query($select_nb_billet) or die ('Erreur comptage billet');
+    while ($data_nb_billet = mysql_fetch_array($req_nb_billet)){
+        $nb_billet = $data_nb_billet['COUNT(num_bon)'];
+    }
 
-//on recupËre le nombre de places vendus
-$sql3 = "SELECT SUM(quanti)as q
-FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC , ".$tblpref."tarif T,".$tblpref."article A
-WHERE CB.bon_num=BC.num_bon
-AND BC.client_num=C.num_client
-AND CB.article_num = $article_numero
-AND A.num = $article_numero
-AND CB.id_tarif = T.id_tarif
-AND BC.attente=0
-";
-$req3 = mysql_query($sql3) or die('Erreur SQL !<br>'.$sql3.'<br>'.mysql_error());
-$data = mysql_fetch_array($req3);
-    $q = $data['q'];
+    //le logo
+$this->Image("$this->logo",20,8,0,15,'jpg');
+$this->SetFillColor(255,238,204);
 
-class PDF extends PDF_MySQL_Table
+    
+//les infos du spectacle
+$this->SetFont('big_noodle_titling','',10);
+$this->SetY(12);
+$this->SetX(60);
+$this->MultiCell(130,6,"Liste des spectateurs pour :  \n - $article -  le $date. \n Il reste $stock places. $nb_billet places de vendus",0,C,0);
+
+if ($this->header ==1 ){
+            $this->cell(50,5, utf8_decode('nom Pr√©nom'), 1, 0, L, 0);
+            $this->cell(23,5, utf8_decode('T√©l√©phone'), 1,0, L, 0);
+            $this->cell(40,5, 'Tarif', 1, 0, L, 0);
+            $this->cell(80, 5, 'Commentaire', 1, 0, L, 0);
+            $this->setXY(10, $this->GetY()+5);
+}
+elseif ($this->header == 2){
+    
+}
+}
+function Footer()
 {
+    // Go to 1.5 cm from bottom
+    $this->SetY(-15);
+    // Select Arial italic 8
+    $this->SetFont('calibri','',8);
+    // Print current and total page numbers
+    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+}
 
-function Header()
-{		}
 //debut Js
 var $javascript;
     var $n_js;
@@ -96,78 +116,69 @@ var $javascript;
     }
 		function AutoPrint($dialog=false, $nb_impr)
 {
-    //Ajoute du JavaScript pour lancer la boÓte d'impression ou imprimer immediatement
+    //Ajoute du JavaScript pour lancer la boÔøΩte d'impression ou imprimer immediatement
     $param=($dialog ? 'true' : 'false');
     $script=str_repeat("print($param);",$nb_impr);
 		
     $this->IncludeJS($script);
 }
 //fin js
+
+function TableParticulier(){
+    
+    $article_numero = $this->article_numero;
+    
+    $this->setXY(10, $this->GetY()+5);
+    
+    $select_spectateurs = "SELECT DISTINCT(BC.num_bon), nom, prenom, tel, nom_tarif, coment FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC , ".$tblpref."tarif T,".$tblpref."article A
+	WHERE BC.client_num=C.num_client
+	AND BC.id_article = $article_numero
+	AND A.num = $article_numero
+	AND BC.id_tarif = T.id_tarif 
+	ORDER BY C.nom, BC.id_tarif";
+$req_spectateurs = mysql_query($select_spectateurs) or die('Erreur s√©l√©ction spectateur');
+
+    while($result_spectateurs = mysql_fetch_array($req_spectateurs))
+	{
+            $nom = $result_spectateurs['nom'];
+            $prenom = $result_spectateurs['prenom'];
+            $this->cell(50,5, $nom.' '.$prenom, 1, 0, L, 0);
+            $telephone = $result_spectateurs['tel'];
+            $this->cell(23,5, $telephone, 1,0, L, 0);
+            $tarif = $result_spectateurs['nom_tarif'];
+            $this->cell(40,5, $tarif, 1, 0, L, 0);
+            $commentaire = $result_spectateurs['coment'];
+            $this->cell(80, 5, $commentaire, 1, 0, L, 0);
+            $this->setXY(10, $this->GetY()+5);
+	}     
+        }
+
 }
 $pdf=new PDF('p','mm','a4');
-$pdf->Open();
-
-for ($i=0;$i<$nb_pa;$i++)
-{
-$nb = $i *40;
-$num_pa = $i;
-$num_pa2 = $num_pa +1;
+//On ajoute les polices
+$pdf->AddFont('calibri','','calibri.php');
+$pdf->AddFont('big_noodle_titling','','big_noodle_titling.php');
+$pdf->createData($article_numero);
+$pdf->AliasNbPages();
+$pdf->Logo($logo);
+$pdf->header = 1;
 $pdf->AddPage();
-$file="liste_pour_spectacle$article_numero.pdf";
+$file="liste_pour_spectacle.pdf";
 
-
-//la date
-$date_print= date("d M Y");
-$pdf->SetFillColor(255,238,204);
-$pdf->SetFont('Arial','B',10);
-$pdf->SetY(8);
-$pdf->SetX(135);
-$pdf->MultiCell(50,6,"Liste imprimÈe le: \n  $date_print",1,C,1);
-
-
-//les infos du spectacle
-$pdf->SetFont('Arial','B',10);
-$pdf->SetY(12);
-$pdf->SetX(10);
-$pdf->MultiCell(100,6,"Liste des spectateurs pour :  \n - $article -  le $date. \n Il reste $stock places.  $q places de vendus",1,C,1);
-
-//Le tableau : on dÈfinit les colonnes
-$pdf->SetFont('Arial','',8);
+//Le tableau : on d√©finit les colonnes
+$pdf->SetFont('calibri','',8);
 $pdf->SetY(32);
 $pdf->SetX(10);
-$pdf->AddCol('nom',30,"Nom Prenom",'C');
-$pdf->AddCol('ville',36,"Ville",'C');
-$pdf->AddCol('tel',20,"Telephone",'C');
-$pdf->AddCol('quanti',8,"Nbr",'C');
-$pdf->AddCol('nom_tarif',28,"Type de tarif",'C');
-$pdf->AddCol('coment',70,"Commentaire",'C');
-$prop=array('HeaderColor'=>array(255,150,100),
-'color1'=>array(255,255,210),
-'color2'=>array(255,238,204),
-'padding'=>2);
-$pdf->Table("SELECT * FROM ".$tblpref."client C, ".$tblpref."cont_bon CB, ".$tblpref."bon_comm BC , ".$tblpref."tarif T,".$tblpref."article A
-	WHERE CB.bon_num=BC.num_bon
-	AND BC.client_num=C.num_client
-	AND CB.article_num = $article_numero
-	AND A.num = $article_numero
-	AND CB.id_tarif = T.id_tarif 
-	ORDER BY C.nom ASC
-	LIMIT $nb, 40",$prop);
+$pdf->TableParticulier();
 
-//le nombre de page 
-$pdf->SetFont('Arial','B',10);
-$pdf->SetY(260);
-$pdf->SetX(30);
-$pdf->MultiCell(160,4,"$lang_page $num_pa2 $lang_de $nb_pa\n",0,C,0);
-}
-
+$pdf->header = 2;
+$pdf->AddPage();
 
 $pdf->AutoPrint(false, $nbr_impr);
 
 //Sauvegarde du PDF dans le fichier
-$pdf->Output($file);
+$pdf->Output($file,"I");
 
 echo "<HTML><SCRIPT>document.location='$file';</SCRIPT></HTML>";
-
 
 ?>
