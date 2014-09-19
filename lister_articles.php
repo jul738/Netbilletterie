@@ -14,6 +14,7 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once("include/fonction.php");
 
 //=============================================
 //pour que les articles soit classés par saison
@@ -105,7 +106,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 		<th><?php echo $langCommentaire2; ?></th>
 		<?php if ($user_art != n) 
 		{ ?> 
-		<th><a href="lister_articles.php?ordre=stomax">Liste des spectateurs</a></th>
+		<th><a href="lister_aticles.php?ordre=stomax">Liste des spectateurs</a></th>
 		<th colspan="3"><?php echo $lang_action; ?></th>
 		<?php } ?> 
   </tr>
@@ -120,7 +121,8 @@ while($data = mysql_fetch_array($req))
 		$lieu = $data['lieu'];
 		$lieu_html=stripslashes($lieu);
 		$horaire = $data['horaire'];
-		$date = $data['date_spectacle'];
+		$date_timestamp = strtotime($data['date_spectacle']);
+                $date = date_fr("l d-m-Y", $date_timestamp);
 		$num =$data['num'];
 		$prix = $data['prix_htva'];
 		$tva = $data['taux_tva'];
@@ -152,7 +154,7 @@ while($data = mysql_fetch_array($req))
  <!--               <td class="highlight"><small><?php // echo  $numero_representation; ?></small></td>  -->
 		<td class="highlight"><?php echo $lieu_html; ?></td>
 		<td class="highlight"><?php echo $horaire; ?></td>
-		<td class="highlight"><?php echo $jour . '-' . $mois . '-' . $annee; ?></td>		
+		<td class="highlight"><?php echo $date; ?></td>		
 		<td class="highlight"><?php echo $stock; ?></td>
 		<td class="highlight"><?php echo $max; ?></td>
 		<td class="highlight"><?php echo $commentaire; ?></td>
