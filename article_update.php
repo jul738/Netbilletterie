@@ -24,7 +24,6 @@ $annule=isset($_POST['annule'])?$_POST['annule']:"";
 $max=isset($_POST['max'])?$_POST['max']:"";
 $min=isset($_POST['min'])?$_POST['min']:"";
 $commentaire=isset($_POST['commentaire'])?addslashes($_POST['commentaire']):"";
-echo $commentaire;
 $image=isset($_POST['image'])?$_POST['image']:"";
 
 
