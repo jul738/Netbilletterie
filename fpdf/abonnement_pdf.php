@@ -62,7 +62,7 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
         }
 
 //On récupère les infos sur l'abonnement et sur le client
-$select_abo = "SELECT ac.date, nom_abonnement, tarif_abonnement, commentaire, p.nom AS nom_paiement, c.nom AS client_nom, prenom, rue, ville, cp
+$select_abo = "SELECT ac.date, nom_abonnement, tarif_abonnement, commentaire, p.nom AS nom_paiement, c.nom AS client_nom, prenom, rue, ville, cp, tel
                 FROM ".$tblpref."abonnement_comm AS ac, ".$tblpref."abonnement AS a, ".$tblpref."type_paiement AS p, ".$tblpref."client AS c
                 WHERE ac.num_abo_com = $num_abo_com 
                 AND ac.num_abonnement = a.num_abonnement
@@ -75,6 +75,7 @@ while($data_abo = mysql_fetch_array($req_abo)){
     $rue = $data_abo['rue'];
     $cp = $data_abo['cp'];
     $ville = $data_abo['ville'];
+    $telephone = $data_abo['tel'];
     $nom_abo = $data_abo['nom_abonnement'];
     $date_abo = $data_abo['date'];
     $total = $data_abo['tarif_abonnement'].' EUROS';
@@ -142,7 +143,7 @@ $pdf->AddPage();
 
 //Le type de concert
 if ($type_abonnement == 'Concert'){
-    $pdf->Image("guitare.jpg",15,10,0,20,'jpg');
+    $pdf->Image("guitare.jpg",15,10,0,30,'jpg');
     $pdf->SetFont('big_noodle_titling','',20);
     $pdf->SetY(15);
     $pdf->SetX(40);
@@ -150,7 +151,7 @@ if ($type_abonnement == 'Concert'){
     $pdf->SetTextColor(0,0,255);
 }
 if ($type_abonnement == 'Spectacle_JP'){
-    $pdf->Image("clown.jpg",15,10,0,20,'jpg');
+    $pdf->Image("clown.jpg",15,10,0,30,'jpg');
     $pdf->SetFont('big_noodle_titling','',20);
     $pdf->SetY(15);
     $pdf->SetX(40);
@@ -166,14 +167,12 @@ $pdf->MultiCell(71,6,"$slogan $annee_2-$annee_1",0,C,0);
 $pdf->SetTextColor(0,0,0);
 
 //deuxieme cellule les coordonées clients
-$pdf->SetFont('Arial','',12);
+$pdf->SetFont('calibri','',12);
 $pdf->SetY(40);
 $pdf->SetX(30);
-$pdf->MultiCell(90,8,"$nom $prenom \n $rue \n $cp  $ville \n ",0,C,0);
+$pdf->MultiCell(90,6,"$nom $prenom \n $rue \n $cp  $ville \n $telephone",0,C,0);
 
 //Le tableau des spectacles
-$pdf->SetX(30);
-$pdf->cell(90,5,'Liste des spectacles choisis',0,1,C,0,0);
 
 // On récupère les spectacles associés à l'article et on les affiche
 $select_resa = "SELECT article, lieu, horaire, date_spectacle, num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, num_resa_6, num_resa_7
@@ -184,16 +183,15 @@ AND bc.num_bon IN (num_resa_1, num_resa_2, num_resa_3, num_resa_4, num_resa_5, n
 ORDER BY date_spectacle";
 $result_resa = mysql_query($select_resa) or die ('Erreur de séléction des réservations');
 
-                $pdf->SetFont('Arial','',10);
-                $pdf->SetXY(20,$pdf->GetY()+1);
+                $pdf->SetFont('calibri','',10);
+                $pdf->SetXY(20,$pdf->GetY()+10);
 		while($data_resa = mysql_fetch_array($result_resa))
 		{
 		$article = utf8_decode($data_resa['article']);
-		$lieu = utf8_decode($data_resa['lieu']);
 		$date_brute = strtotime($data_resa['date_spectacle']);
                 $date = date_fr('l d-m-Y', $date_brute);
                 $horaire = $data_resa['horaire'];
-                $pdf->MultiCell(110,4,"$article \n $lieu $date $horaire",0,C,0);
+                $pdf->MultiCell(110,4,"$article \n $date $horaire",0,C,0);
 		$pdf->SetTextColor(0,0,0);
 		$pdf->SetXY(20,$pdf->GetY()+1);
 		}
@@ -204,7 +202,7 @@ $result_resa = mysql_query($select_resa) or die ('Erreur de séléction des rés
 $pdf->SetFont('Arial','',9);
 $pdf->SetY(150);
 $pdf->SetX(20);
-$pdf->MultiCell(110,4,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place à d'heure avant la séance. \n Attention  ! Passé  l'heure du spectacle  la réservation sera  levée et  la place pourra être réattribuée."),0,C,0);
+$pdf->MultiCell(110,4,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place au plus tard 15 minutes avant la séance. \n Attention  ! Après l'heure annoncée de la séance, l'accès à la salle n'est plus garanti."),0,C,0);
 
 //le logo
 $pdf->Image("$logo",15,170,0,20,'jpg');
@@ -214,7 +212,7 @@ $pdf->SetFillColor(255,238,204);
 $pdf->SetFont('Arial','',8);
 $pdf->SetY(172);
 $pdf->SetX(50);
-$pdf->MultiCell(80,3,utf8_decode("$entrep_nom\n$social\n$c_postal $ville\n $tel\n $mail"),0,C,0);//
+$pdf->MultiCell(80,3,utf8_decode("$entrep_nom\n$social \n $tel\n $mail"),0,C,0);//
 
 
 if($autoprint=='y' and $_POST['mail']!='y' and $_POST['user']=='adm'){
