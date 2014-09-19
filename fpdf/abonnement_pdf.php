@@ -199,17 +199,17 @@ $result_resa = mysql_query($select_resa) or die ('Erreur de séléction des rés
 //$pdf->ln(10);
 
 //Troisieme cellule info pratique
-$pdf->SetFont('Arial','',9);
+$pdf->SetFont('calibri','',9);
 $pdf->SetY(150);
-$pdf->SetX(20);
-$pdf->MultiCell(110,4,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place au plus tard 15 minutes avant la séance. \n Attention  ! Après l'heure annoncée de la séance, l'accès à la salle n'est plus garanti."),0,C,0);
+$pdf->SetX(30);
+$pdf->MultiCell(90,4,utf8_decode("Abonnement à presenter à l'entrée des spectacles. \n Retrait des billets sur place au plus tard 15 minutes avant la séance. \n Attention  ! Après l'heure annoncée de la séance, l'accès à la salle n'est plus garanti."),0,C,0);
 
 //le logo
 $pdf->Image("$logo",15,170,0,20,'jpg');
 $pdf->SetFillColor(255,238,204);
 
 //Troisieme cellule les coordonées vendeur
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('calibri','',8);
 $pdf->SetY(172);
 $pdf->SetX(50);
 $pdf->MultiCell(80,3,utf8_decode("$entrep_nom\n$social \n $tel\n $mail"),0,C,0);//
