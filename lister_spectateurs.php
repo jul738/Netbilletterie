@@ -55,7 +55,7 @@ if ( isset ( $_GET['ordre'] ) && $_GET['ordre'] != '')
 {
 $sql .= " ORDER BY " . $_GET[ordre] . " ASC";
 }else{
-$sql .= " ORDER BY BC.num_bon ASC ";
+$sql .= " ORDER BY nom, BC.id_tarif ASC ";
 }
 
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
@@ -110,6 +110,7 @@ while($data = mysql_fetch_array($req2))
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue">Telephone</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp">Mail</a></th>
                     <th>Modifier le client</th>
+                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=coment">Commentaire</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville">Type de tarif</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Tarif</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Paiement</a></th>
@@ -137,8 +138,9 @@ while($data = mysql_fetch_array($req))
 		$tel = $data['tel'];
 		$fax = $data['fax'];
 		$nom_tarif = $data['nom_tarif'];
-		$prix_tarif = $data['prix_tarif'];		
-		
+		$prix_tarif = $data['prix_tarif'];
+                $id_tarif = $data['id_tarif'];
+		$commentaire = $data['coment'];
     if($nombre & 1){
                     $line="0";
                     }else{
@@ -153,6 +155,7 @@ while($data = mysql_fetch_array($req))
                     <td class="highlight"><?php echo $tel; ?></td>
                     <td class="highlight"><a href="mailto:<?php echo $mail; ?>" ><?php echo "$mail"; ?></a></td>
                     <td><a href="edit_client.php?num=<?php echo $num_client;?>"><img src="image/edit.png" title="Modifier le spectateur" alt="Bouton pour modifier le spectateur" /></a></td>
+                    <td class="highlight"><?php echo $commentaire; ?></td>
                     <td class="highlight"><?php echo $nom_tarif; ?></td>
                     <td class="highlight">
                         <?php $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
@@ -164,13 +167,13 @@ while($data = mysql_fetch_array($req))
 											<OPTION VALUE="">Choisir le<?php echo "$lang_tarif";?></OPTION>
 											<?php
 											while ( $row = mysql_fetch_array( $result3)) {
-													$id_tarif = $row["id_tarif"];
-													$nom_tarif = $row["nom_tarif"];
-													$prix_tarif = $row["prix_tarif"];
+													$id_tarif2 = $row["id_tarif"];
+													$nom_tarif2 = $row["nom_tarif"];
+													$prix_tarif2 = $row["prix_tarif"];
 													?>
-											<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
+                                                                                        <OPTION VALUE='<?php echo $id_tarif2; ?>' <?php if($id_tarif==$id_tarif2){echo 'selected';}?>><?php echo "$nom_tarif2 $prix_tarif2 $devise "; ?></OPTION>
 											<?php }
-												if ($user_admin != 'n'){
+												if ($user_admin == 'y'){
 													//tarif gratuit pour admin 
 														$sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date FROM ".$tblpref."tarif
 													WHERE saison
