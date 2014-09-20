@@ -95,6 +95,17 @@ class PDF extends PDF_MySQL_Table
         }
     }
     
+    public function chexkParticulier() {
+        $select_bon_comm = "SELECT num_bon FROM bon_comm WHERE id_article = $this->article_numero";
+        $result_bon_comm = mysql_query($select_bon_comm) or die ('Erreur sql check particulier');
+        if (mysql_num_rows($result_bon_comm)==0){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
 //debut Js
 var $javascript;
     var $n_js;
@@ -199,16 +210,19 @@ $pdf->AddFont('big_noodle_titling','','big_noodle_titling.php');
 $pdf->createData($article_numero);
 $pdf->AliasNbPages();
 $pdf->Logo($logo);
-$pdf->header = 1;
-$pdf->AddPage();
 $file="liste_pour_spectacle.pdf";
 
-//Le tableau : on définit les colonnes
 $pdf->SetFont('calibri','',8);
 $pdf->SetY(32);
 $pdf->SetX(10);
-$pdf->TableParticulier();
 
+//On vérifie s'il y a des résas de particuliers
+$resa = $pdf->chexkParticulier();
+if ($resa ==TRUE){
+$pdf->header = 1;
+$pdf->AddPage();
+$pdf->TableParticulier();
+}
 //On vérifie s'il y a des groupes pour savoir s'il faut afficher la page
 $groupe = $pdf->checkGroupe();
 if ($groupe == TRUE){
