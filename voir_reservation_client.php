@@ -11,21 +11,12 @@ include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/head.php");
+include_once("include/fonction.php");
 
 $num_client=isset($_GET['num_client'])?$_GET['num_client']:"";
 ?>
 
-<?php             
-        $req_recup_horaire_date = "SELECT a.horaire, a.date_spectacle
-                                   FROM cont_bon AS cb, article AS a
-                                   WHERE cb.article_num = '$num_article'";
-$recup_horaire_date_brut = mysql_query($req_recup_horaire_date) or die('Erreur SQL1 !<br>'.$$req_recup_horaire_date.'<br>'.mysql_error());
-                            while($data2 = mysql_fetch_array($recup_horaire_date_brut))
-                                {
-                                $horaire = $data2['horaire'];
-                                $date_spectacle = $data2['date_spectacle'];
-                                }                    
-                    
+<?php                       
 
 //Recupere les info client
 $req_recup_info_client = "SELECT c.nom, c.prenom, c.rue, c.ville, c.cp, c.mail, c.tel
@@ -103,6 +94,65 @@ while($data_client_lie = mysql_fetch_array($recup_infos_client_lies)){
                 }
             ?>
             
+</table>
+
+<?php
+//On récupère le nombre de réservations par spectacle et par tarif
+    $select_nb = "SELECT client_num, id_article, bc.id_tarif, a.article, a.date_spectacle, a.horaire, t.nom_tarif, COUNT( num_bon ) AS compteur
+FROM bon_comm AS bc, article AS a, tarif AS t
+WHERE bc.client_num = $num_client
+AND bc.id_article = a.num
+AND bc.id_tarif = t.id_tarif
+GROUP BY id_article, bc.id_tarif
+ORDER BY a.date_spectacle, a.horaire";
+    
+   $result_nb = mysql_query($select_nb) or die ('Erreur nb résas par spectacle et tarif');
+   
+   ?>
+<table class="page" align="center">
+    
+    <tr>
+        <td class="page" align="center">
+             <h3>Nombre de réservations :</h3>
+        </td>
+    </tr>
+    <tr>
+        <td  class="page" align="center">
+                            <center>
+        <table class="boiteaction">
+                <tr>
+                    <th>Nom de la representation</a></th>
+                    <th>Date</th>
+                    <th>Horaire</th>
+                    <th>Tarif</th>
+                    <th>Nombre</th>
+                </tr>
+<?php   
+   //On ajoute les infos dans le tableau
+   
+   while($data_nb = mysql_fetch_array($result_nb)){
+       $nb_article = $data_nb['article'];
+       $nb_date_timestamp = strtotime($data_nb['date_spectacle']);
+       $nb_date = date_fr('l d-m-Y', $nb_date_timestamp);
+       $nb_horaire = $data_nb['horaire'];
+       $nb_tarif = $data_nb['nom_tarif'];
+       $nb_count = $data_nb['compteur'];
+       ?>
+                <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo $line ?>'">
+                    <td class="highlight"><?php echo "$nb_article"; ?></td>
+                    <td class="highlight"><?php echo "$nb_date"; ?></td>
+                    <td class="highlight"><?php echo "$nb_horaire" ; ?></td>
+                    <td class="highlight"><?php echo "$nb_tarif"; ?></td>
+                    <td class="highlight"><?php echo "$nb_count"; ?></td>
+                </tr>
+<?php
+   } // fin du while nb resa
+?>
+        </table>
+
+                </center>
+        </td>
+    </tr>
 </table>
 
 <table  class="page" align="center">
