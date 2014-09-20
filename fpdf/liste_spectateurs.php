@@ -27,57 +27,74 @@ class PDF extends PDF_MySQL_Table
         $this->logo = $logo;
     }
     
-function Header()
-{
-    //on recupère les infos du spectacle
-    $sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, article, stock, num, lieu, horaire FROM ".$tblpref."article WHERE num=$this->article_numero";
-    $req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-    while($data = mysql_fetch_array($req2)){
-    $article = $data['article'];
-    $article_numero= $data['num'];
-    $date = $data['date_spectacle'];
-    $stock = $data['stock'];
+    function Header()
+    {
+        //on recupère les infos du spectacle
+        $sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, article, stock, num, lieu, horaire FROM ".$tblpref."article WHERE num=$this->article_numero";
+        $req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
+        while($data = mysql_fetch_array($req2)){
+        $article = $data['article'];
+        $article_numero= $data['num'];
+        $date = $data['date_spectacle'];
+        $stock = $data['stock'];
+        }
+
+        //On récupère le nombre de billet vendu
+        $select_nb_billet = "SELECT COUNT(num_bon) FROM bon_comm WHERE id_article=$article_numero";
+        $req_nb_billet = mysql_query($select_nb_billet) or die ('Erreur comptage billet');
+        while ($data_nb_billet = mysql_fetch_array($req_nb_billet)){
+            $nb_billet = $data_nb_billet['COUNT(num_bon)'];
+        }
+
+        //le logo
+    $this->Image("$this->logo",20,8,0,15,'jpg');
+    $this->SetFillColor(255,238,204);
+
+
+    //les infos du spectacle
+    $this->SetFont('big_noodle_titling','',10);
+    $this->SetY(12);
+    $this->SetX(60);
+    $this->MultiCell(130,6,"Liste des spectateurs pour :  \n - $article -  le $date. \n Il reste $stock places. $nb_billet places de vendus",0,C,0);
+
+    if ($this->header ==1 ){
+                $this->cell(50,5, utf8_decode('nom Prénom'), 1, 0, L, 0);
+                $this->cell(23,5, utf8_decode('Téléphone'), 1,0, L, 0);
+                $this->cell(40,5, 'Tarif', 1, 0, L, 0);
+                $this->cell(80, 5, 'Commentaire', 1, 0, L, 0);
+                $this->setXY(10, $this->GetY()+5);
+    }
+    elseif ($this->header == 2){
+                $this->cell(50,5, utf8_decode('nom du groupe'), 1, 0, L, 0);
+                $this->cell(30,5, utf8_decode('Nom du référent'), 1,0, L, 0);
+                $this->cell(20,5, utf8_decode('Téléphone'), 1, 0, L, 0);
+                $this->cell(5, 5, 'En', 1, 0, L, 0);
+                $this->cell(5, 5, 'Ad', 1, 0, L, 0);
+                $this->cell(80, 5, 'Commentaire', 1, 0, L, 0);
+                $this->setXY(10, $this->GetY()+5);
+    }
+    }
+    function Footer()
+    {
+        // Go to 1.5 cm from bottom
+        $this->SetY(-15);
+        // Select Arial italic 8
+        $this->SetFont('calibri','',8);
+        // Print current and total page numbers
+        $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+    }
+
+    public function checkGroupe(){
+        $select_comm_groupe = "SELECT num_bon_groupe FROM bon_comm_groupe WHERE id_article = $this->article_numero";
+        $result_comm_groupe = mysql_query($select_comm_groupe) or die ('Erreur sql check groupe');
+        if (mysql_num_rows($result_comm_groupe)==0){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
     
-    //On récupère le nombre de billet vendu
-    $select_nb_billet = "SELECT COUNT(num_bon) FROM bon_comm WHERE id_article=$article_numero";
-    $req_nb_billet = mysql_query($select_nb_billet) or die ('Erreur comptage billet');
-    while ($data_nb_billet = mysql_fetch_array($req_nb_billet)){
-        $nb_billet = $data_nb_billet['COUNT(num_bon)'];
-    }
-
-    //le logo
-$this->Image("$this->logo",20,8,0,15,'jpg');
-$this->SetFillColor(255,238,204);
-
-    
-//les infos du spectacle
-$this->SetFont('big_noodle_titling','',10);
-$this->SetY(12);
-$this->SetX(60);
-$this->MultiCell(130,6,"Liste des spectateurs pour :  \n - $article -  le $date. \n Il reste $stock places. $nb_billet places de vendus",0,C,0);
-
-if ($this->header ==1 ){
-            $this->cell(50,5, utf8_decode('nom Prénom'), 1, 0, L, 0);
-            $this->cell(23,5, utf8_decode('Téléphone'), 1,0, L, 0);
-            $this->cell(40,5, 'Tarif', 1, 0, L, 0);
-            $this->cell(80, 5, 'Commentaire', 1, 0, L, 0);
-            $this->setXY(10, $this->GetY()+5);
-}
-elseif ($this->header == 2){
-    
-}
-}
-function Footer()
-{
-    // Go to 1.5 cm from bottom
-    $this->SetY(-15);
-    // Select Arial italic 8
-    $this->SetFont('calibri','',8);
-    // Print current and total page numbers
-    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-}
-
 //debut Js
 var $javascript;
     var $n_js;
@@ -152,6 +169,27 @@ $req_spectateurs = mysql_query($select_spectateurs) or die('Erreur séléction s
             $this->setXY(10, $this->GetY()+5);
 	}     
         }
+        
+        function TableGroupe(){
+            $select_groupe = "SELECT nom_structure, nom_referent, telephone_referent, nb_enfants, nb_accompagnateurs, coment FROM bon_comm_groupe AS bcg, groupe AS g WHERE bcg.id_article = $this->article_numero AND bcg.num_groupe = g.num_groupe";
+            $result_groupe = mysql_query($select_groupe) or die ('Erreur séléction groupe');
+            while($data_groupe = mysql_fetch_array($result_groupe)){
+                $nom_groupe = $data_groupe['nom_structure'];
+                $this->cell(50,5, utf8_decode($nom_groupe), 1, 0, L, 0);
+                $nom_referent = $data_groupe['nom_referent'];
+                $this->cell(30,5, utf8_decode($nom_referent), 1,0, L, 0);
+                $tel_referent = $data_groupe['telephone_referent'];
+                $this->cell(20,5, utf8_decode($tel_referent), 1, 0, L, 0);
+                $enfant = $data_groupe['nb_enfants'];
+                $this->cell(5, 5, $enfant, 1, 0, L, 0);
+                $adulte = $data_groupe['nb_accompagnateurs'];
+                $this->cell(5, 5, $adulte, 1, 0, L, 0);
+                $commentaire = $data_groupe['coment'];
+                $this->cell(80, 5, utf8_decode($commentaire), 1, 0, L, 0);
+                $this->setXY(10, $this->GetY()+5);
+            }
+            
+        }
 
 }
 $pdf=new PDF('p','mm','a4');
@@ -171,9 +209,13 @@ $pdf->SetY(32);
 $pdf->SetX(10);
 $pdf->TableParticulier();
 
+//On vérifie s'il y a des groupes pour savoir s'il faut afficher la page
+$groupe = $pdf->checkGroupe();
+if ($groupe == TRUE){
 $pdf->header = 2;
 $pdf->AddPage();
-
+$pdf->TableGroupe();
+}
 $pdf->AutoPrint(false, $nbr_impr);
 
 //Sauvegarde du PDF dans le fichier
