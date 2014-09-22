@@ -22,8 +22,9 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
 
 // ON affiche les groupes dans un tableau
 ?>
-<center><table class="boiteaction page">
+<center><table class="boiteaction page display" id="datatables">
         <caption>Liste des réservations de groupes</caption>
+        <thead>
         <tr>
             <th>Nom de la structure</th>
             <th>Nom du spectacle</th>
@@ -39,7 +40,8 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
             <th>Modifier</th>
             <th>Supprimer</th>
         </tr>
-        
+        </thead>
+        <tbody>
         <?php
         while($data_resa_groupes = mysql_fetch_array($req_resa_groupes)){
           $num_resa_groupe = $data_resa_groupes['num_bon_groupe'];
@@ -73,7 +75,7 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
         </tr>
         <?php
         } // fin du while data_groupes
-        ?>
+        ?></tbody>
     </table></center>
 <?php
 include_once("include/bas.php");
