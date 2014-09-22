@@ -22,7 +22,7 @@ if(!empty($_GET['num_resa_groupe'])){
     $num_resa_groupe = $_GET['num_resa_groupe'];
     // On récupère les valeurs de la BDD pour l'id sélectionner
     // Récupération des informations de la réservation du groupe
-    $sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+    $sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
     $requete_select_resa_groupe = mysql_query($sql_select_resa_groupe) or die('Erreur SQL sélection groupe !<br>'.$sql_select_resa_groupe.'<br>'.mysql_error());
     while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
         $nom_structure = $data_resa_groupe['nom_structure'];
@@ -34,6 +34,7 @@ if(!empty($_GET['num_resa_groupe'])){
         $nb_accompagnateurs = $data_resa_groupe['nb_accompagnateurs'];
         $nb_gratuit = $data_resa_groupe['nb_gratuit'];
         $num_article_resa = $data_resa_groupe['id_article'];
+        $comment_resa_groupe = $data_resa_groupe['coment'];
     }
 }
 
@@ -105,6 +106,8 @@ if(!empty($_GET['num_resa_groupe'])){
                     }
                 ?>
             </select><br />
+            <label for="coment">Commentaire pour la réservation</label>
+            <textarea name="coment" id="coment" cols="45" rows="3" <?php if(isset($coment)){ echo "value=".$coment.""; }; ?>><?php if(isset($coment)){ echo $coment;}; ?></textarea>
             <?php 
             if(isset($num_resa_groupe)){
               ?>
