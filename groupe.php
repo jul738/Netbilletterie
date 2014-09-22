@@ -27,10 +27,10 @@ elseif(isset($_POST)){
     if(isset($_POST['num-groupe'])){
         $num_groupe = $_POST['num-groupe'];
     }
-    $nom_structure = $_POST['nom-groupe'];
-    $rue_structure = $_POST['rue-groupe'];
-    $cp_structure = $_POST['cp-groupe'];
-    $ville_structure = $_POST['ville-groupe'];
+    $nom_structure = mysql_escape_string($_POST['nom-groupe']);
+    $rue_structure = mysql_escape_string($_POST['rue-groupe']);
+    $cp_structure = mysql_escape_string($_POST['cp-groupe']);
+    $ville_structure = mysql_escape_string($_POST['ville-groupe']);
     $telephone_structure = $_POST['telephone-groupe'];
     $email_structure = $_POST['email-groupe'];
 
