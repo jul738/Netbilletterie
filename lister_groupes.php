@@ -21,8 +21,9 @@ $req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_
 
 // ON affiche les groupes dans un tableau
 ?>
-<center><table class="boiteaction page">
+<center><table class="boiteaction" id="datatables">
         <caption>Liste des groupes</caption>
+        <thead>
         <tr>
             <th>Nom de la structure</th>
             <th>Rue</th>
@@ -34,7 +35,8 @@ $req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_
             <th>Modifier</th>
             <th>Supprimer</th>
         </tr>
-        
+        </thead>
+        <tbody>
         <?php
         while($data_groupes = mysql_fetch_array($req_groupes)){
           $num_groupe = $data_groupes['num_groupe'];
@@ -58,7 +60,7 @@ $req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_
         </tr>
         <?php
         } // fin du while data_groupes
-        ?>
+        ?></tbody>
     </table></center>
 <?php
 include_once("include/bas.php");
