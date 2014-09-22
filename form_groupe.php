@@ -32,7 +32,7 @@ if(isset($_GET['num_groupe'])){
 // On crée le fomulaire
 ?>
 <div id="form-groupe">
-    <h3>Formulaire de création d'un groupe</h3>
+    <h3><?php if(!isset($_GET['num_groupe'])){echo "Formulaire de création d'un groupe";} else { echo "Formulaire de modification d'un groupe";}?></h3>
         <form action="groupe.php" method="post" name="form-groupe" id="form-groupe">
             <label for="nom-groupe">Nom de la structure</label> : <input type='text' name="nom-groupe" id="nom-groupe" required <?php if(isset($nom_structure)){ echo "value='".$nom_structure."'"; }; ?>></input><br />
             <label for="rue-groupe">Rue de la structure</label> : <textarea name="rue-groupe" id="rue-groupe" required <?php if(isset($rue_structure)){ echo "value='".$rue_structure."'";}; ?>><?php if(isset($rue_structure)){ echo $rue_structure;}; ?></textarea><br />
@@ -46,7 +46,7 @@ if(isset($_GET['num_groupe'])){
             <?php
             }
             ?>
-            <input type="submit" name="valider-groupe" id="valider-groupe" value="Créer le groupe"></input>
+            <input type="submit" name="valider-groupe" id="valider-groupe" value="<?php if(!isset($_GET['num_groupe'])){ echo 'Créer le groupe';} else { echo 'Enregistrer le groupe'; } ?>"></input>
         </form>
 </div>
 <?php
