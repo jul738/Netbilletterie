@@ -40,6 +40,15 @@ elseif(isset($_POST)){
         $sql_insert_groupe = "INSERT INTO " . $tblpref ."groupe(nom_structure, rue, cp, ville, telephone, email) VALUES('$nom_structure', '$rue_structure', '$cp_structure', '$ville_structure', '$telephone_structure', '$email_structure')";
         $requete_insert_groupe = mysql_query($sql_insert_groupe) or die('Erreur SQL création groupe !<br>'.$requete_insert_groupe.'<br>'.mysql_error());
         $num_groupe = mysql_insert_id();
+        
+        //Affichage du bouton de réservation
+        ?>
+        <div class='page'>
+        <div class='submit bouton-seul'>
+        <a href='form_resa_groupe.php?num_groupe=<?php echo $num_groupe; ?>'>Créer une réservation pour <?php echo $nom_structure; ?> </a>
+            </div>
+        </div>
+<?php
     }
     // Si existant alors MAJ de la ligne
     else{

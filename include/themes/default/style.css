@@ -707,7 +707,7 @@ div.bouton {
     padding : 5px
 }
 
-div.bouton a, tr.bouton a {
+div.bouton a, tr.bouton a, div.bouton-seul a {
     color : #FFFFFF;
     text-decoration: none;
 }

@@ -38,6 +38,9 @@ if(!empty($_GET['num_resa_groupe'])){
         $num_groupe_resa = $data_resa_groupe['num_groupe'];
     }
 }
+elseif(!empty($_GET['num_groupe'])){
+    $num_groupe_resa = $_GET['num_groupe'];
+}
 
 // On récupère la liste de groupe
     $select_groupe = "SELECT num_groupe, nom_structure FROM " . $tblpref ."groupe";
