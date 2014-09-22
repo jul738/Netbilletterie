@@ -244,7 +244,7 @@ echo"</td></tr>";
             $nb_enfant = $data_resa_groupe['nb_enfants'];
             $nb_accompagnateur = $data_resa_groupe['nb_accompagnateurs'];
             $nb_gratuit = $data_resa_groupe['nb_gratuit'];
-            $commentaire = $data_resa_groupe['coment'];
+            $commentaire_groupe = $data_resa_groupe['coment'];
             
             ?>
         <tr>
@@ -255,6 +255,7 @@ echo"</td></tr>";
             <td><?php echo $nb_enfant; ?></td>
             <td><?php echo $nb_accompagnateur; ?></td>
             <td><?php echo $nb_gratuit; ?></td>
+            <td><?php echo $commentaire_groupe; ?></td>
         </tr>
             <?php
         }
