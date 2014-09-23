@@ -62,11 +62,10 @@ $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
         }
 
 //On récupère les infos sur l'abonnement et sur le client
-$select_abo = "SELECT ac.date, nom_abonnement, tarif_abonnement, commentaire, p.nom AS nom_paiement, c.nom AS client_nom, prenom, rue, ville, cp, tel
-                FROM ".$tblpref."abonnement_comm AS ac, ".$tblpref."abonnement AS a, ".$tblpref."type_paiement AS p, ".$tblpref."client AS c
+$select_abo = "SELECT ac.date, nom_abonnement, commentaire, c.nom AS client_nom, prenom, rue, ville, cp, tel
+                FROM ".$tblpref."abonnement_comm AS ac, ".$tblpref."abonnement AS a, ".$tblpref."client AS c
                 WHERE ac.num_abo_com = $num_abo_com 
                 AND ac.num_abonnement = a.num_abonnement
-                AND ac.paiement = p.id_type_paiement
                 AND ac.client_num = c.num_client";
 $req_abo = mysql_query($select_abo) or die ('Erreur séléction abonnement <br>'.$sql.'<br>'.mysql_error());
 while($data_abo = mysql_fetch_array($req_abo)){
@@ -78,7 +77,6 @@ while($data_abo = mysql_fetch_array($req_abo)){
     $telephone = $data_abo['tel'];
     $nom_abo = $data_abo['nom_abonnement'];
     $date_abo = $data_abo['date'];
-    $total = $data_abo['tarif_abonnement'].' EUROS';
 }
 
 class PDF extends PDF_MySQL_Table
