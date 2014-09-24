@@ -74,7 +74,7 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
             <td class="highlight"><a href='resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" title="Voir la réservation du groupe" src="image/voir.gif" alt="voir"></a></td>
             <td class="highlight"><a href='form_resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" alt="Modifier"  title="Modifier la réservation du groupe"src="image/edit.png"></a></td>
             <td class="highlight"><a href='delete_resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" title="Supprimer la réservation du groupe" alt="delete" src="image/delete.png"></a></td>
-            <td class="highlight"><a href="form_facture.php?num_groupe=<?php echo $num_groupe; ?>&num_resa=<?php echo $num_resa_groupe;?>&type=acompte"><img src="image/facture.png" title="Créer la facture d'accompte" alt="Création de la facture d'acompte"></a></td>        
+            <td class="highlight"><a href="form_facture.php?num_groupe=<?php echo $num_groupe; ?>&num_resa=<?php echo $num_resa_groupe;?>&type=acompte&type_resa=groupe"><img src="image/facture.png" title="Créer la facture d'accompte" alt="Création de la facture d'acompte"></a></td>        
         </tr>
         <?php
         } // fin du while data_groupes
