@@ -24,7 +24,7 @@ while($data = mysql_fetch_array($req))
 		$prix_tarif = $data['prix_tarif'];
 		$carnet = $data['carnet'];
 		$selection =$data['selection'];
-
+                $tarif_groupe = $data['tarif_groupe'];
 		}
 	?>			
 <table width="760" border="0" class="page" align="center">
@@ -39,16 +39,23 @@ while($data = mysql_fetch_array($req))
 		<th><?php echo "$lang_prix_tarif"; ?></th>
 		<th><?PHP echo "Num&eacute;ro du ticket de d&eacute;part";?></th>
 		<th>Selectionnable</th>
+                <th>Tarif de groupe?</th>
 	</tr>
 	<tr>
 		<td><input name="nom_tarif" type="text"  value ="<?php echo"$nom_tarif" ?> "></td>
 		<td><input name="prix_tarif" type="text" value ="<?php echo"$prix_tarif $devise" ?>"</td>
 		<td><input name="carnet" type="text" value ="<?php echo"$carnet" ?>"></td>
 		<td><select name="selection" >
-			  <option value="0">Non selectionnable</option>
-			  <option value="1">Selectionnable</option>
+                          <option value="0" <?php if($selection == 0) {echo 'selected';}?>>Non selectionnable</option>
+			  <option value="1" <?php if($selection == 1) {echo 'selected';}?>>Selectionnable</option>
 			</select>
 		</td>
+                <td>
+                    <select name="tarif-groupe">
+                        <option value="0" <?php if($tarif_groupe == 0) { echo 'selected';} ?>>Non</option>
+                        <option value="1" <?php if($tarif_groupe == 1) { echo 'selected';} ?>>Oui</option>
+                    </select>
+                </td>
 		
 	</tr>
 	<tr>

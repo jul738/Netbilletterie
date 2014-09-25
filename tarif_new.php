@@ -15,6 +15,7 @@ $carnet=isset($_POST['carnet'])?$_POST['carnet']:"";
 $jour=isset($_POST['jour'])?$_POST['jour']:"";
 $mois=isset($_POST['mois'])?$_POST['mois']:"";
 $annee=isset($_POST['annee'])?$_POST['annee']:"";
+$tarif_groupe = isset($_POST['tarif-groupe'])?$_POST['tarif-groupe']:"";
 $nom_tarif= AddSlashes($nom_tarif);
 $nom_tarif= ucfirst($nom_tarif);
 
@@ -27,7 +28,7 @@ exit;
 $date= "$annee-$mois-$jour";
 
 mysql_select_db($db) or die ("Could not select $db database");
-$sql1 = "INSERT INTO ".$tblpref."tarif (nom_tarif, prix_tarif,saison, carnet) VALUES ('$nom_tarif', '$prix_tarif','$date','$carnet')";
+$sql1 = "INSERT INTO ".$tblpref."tarif (nom_tarif, prix_tarif,saison, carnet, tarif_groupe) VALUES ('$nom_tarif', '$prix_tarif','$date','$carnet', '$tarif_groupe')";
 mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
 $message= "<center><h2>$lang_nouv_tarif</h2>";
 include("form_tarif.php");

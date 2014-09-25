@@ -14,11 +14,11 @@ $nom_tarif= AddSlashes($nom_tarif);
 $prix_tarif=isset($_POST['prix_tarif'])?$_POST['prix_tarif']:"";
 $carnet=isset($_POST['carnet'])?$_POST['carnet']:"";
 $selection=isset($_POST['selection'])?$_POST['selection']:"";
-
+$tarif_groupe = isset($_POST['tarif-groupe'])?$_POST['tarif-groupe']:"";
 
 mysql_select_db($db) or die ("Could not select $db database");
 $sql2 = "UPDATE ".$tblpref."tarif 
-		SET `id_tarif`='".$id_tarif."',`nom_tarif`='".$nom_tarif."',`prix_tarif`='".$prix_tarif."',`carnet`='".$carnet."', `selection`='".$selection."'
+		SET `id_tarif`='".$id_tarif."',`nom_tarif`='".$nom_tarif."',`prix_tarif`='".$prix_tarif."',`carnet`='".$carnet."', `selection`='".$selection."', tarif_groupe='".$tarif_groupe."'
 		WHERE id_tarif ='".$id_tarif."' LIMIT 1 ";
 
 mysql_query($sql2) OR die("<p>Erreur Mysql<br/>$sql2<br/>".mysql_error()."</p>");

@@ -55,6 +55,15 @@ include_once("include/finhead.php");
 							<td class='<?php echo couleur_alternee (); ?>'>Premier Numero du carnet</td>
 							<td class='<?php echo couleur_alternee (FALSE); ?>'><input name='carnet' type='text'></td>
 						</tr>
+                                                <tr>
+                                                    <td class="texte0">Tarif de groupe?</td>
+                                                    <td>
+                                                            <select name="tarif-groupe">
+                                                                <option value="0">Non</option>
+                                                                <option value="1">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                </tr>
 							<td class="submit" colspan="2"> <input type="image" name="Submit" src="image/valider.png" value="Demarrer"  border="0"> 
 								
 							</td>
