@@ -32,7 +32,7 @@ else{
     //On récupère les tarifs de la résa et le nombre en cas de groupe
     switch($type_resa) {
         case 'groupe':
-            $select_nb_resa_groupe = "SELECT nb_enfants, nb_accompagnateurs, nb_gratuit, nb_enfants_reel, nb_accompagnateurs_reel, nb_gratuit_reel, prix_tarif FROM bon_comm_groupe AS bcg, tarif AS t WHERE bcg.num_bon_groupe = '$num_resa'";
+            $select_nb_resa_groupe = "SELECT nb_enfants, nb_accompagnateurs, nb_gratuit, nb_enfants_reel, nb_accompagnateurs_reel, nb_gratuit_reel, prix_tarif FROM bon_comm_groupe AS bcg, tarif AS t WHERE bcg.num_bon_groupe = '$num_resa' AND bcg.id_tarif = t.id_tarif";
             $req_nb_resa_groupe = mysql_query($select_nb_resa_groupe) or die ('Erreur séléction réservation du groupe');
             while($data_nb_resa_groupe = mysql_fetch_array($req_nb_resa_groupe)){
                 $nb_enfants_prevus = $data_nb_resa_groupe['nb_enfants'];
@@ -78,5 +78,4 @@ else{
        $sql_update_facture = "UPDATE facture WHERE num_facture='$num_facture'";
    }
 }
-
 ?>
