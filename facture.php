@@ -70,12 +70,43 @@ else{
     }
     //Si num_facture est vide alors on créé la facture
    if(empty($num_facture)){
-        $sql_insert_facture = "INSERT INTO " . $tblpref ."facture(type_facture, type_resa, id_resa, id_paiement, total, date_paiement, numero_facture, commentaire) VALUES('$type_facture', '$type_resa', '$num_resa', '$moyen_paiement', '$total', '$date_paiement', '$numero_facture', '$commentaire')";
+        $sql_insert_facture = "INSERT INTO " . $tblpref ."facture(type_facture, type_resa, id_resa, id_paiement, total, date_paiement, numero_facture, commentaire) VALUES('$type_facture', '$type_resa', '$num_resa', '$moyen_paiement', '$total', '$date_paiement', '$numero_facture', '$commentaire_facture')";
         $requete_insert_facture = mysql_query($sql_insert_facture) or die('Erreur SQL création facture!<br>'.$requete_insert_facture.'<br>'.mysql_error());
-        $num_facture = mysql_insert_id();   
+        $num_facture = mysql_insert_id(); 
+        $message = "Votre facture a bien été enregistrée.";
    }
    else{
        $sql_update_facture = "UPDATE facture WHERE num_facture='$num_facture'";
+   
+       $message = "Votre facture a bien été mise à jour.";
    }
 }
+//On récupère les information de la facture
+switch($type_resa){
+    case 'groupe' : 
+    $select_facture = "SELECT type_facture, nom_structure, article, date_spectacle, total, date_paiement, commentaire, p.nom FROM facture AS f, groupe AS g, article AS a, type_paiement AS p, bon_comm_groupe AS bcg WHERE f.num_facture = '$num_facture' AND f.id_resa = bcg.id_resa AND bcg.id_article = a.num";
+    echo $select_facture;
+        $req_facture = mysql_query($select_facture) or die ('Erreur Selection facture');
+    break;
+    case 'particulier' : 
+    break;
+    case 'abonnement' : 
+    break;
+}
+while ($data_facture = mysql_fetch_array($req_facture)){
+    $structure = $data_facture['nom_structure'];
+    $nom_spectacle = $data_facture['article'];
+}
+//On affiche la facture
+echo $message;
 ?>
+<div id="facture">
+    <h3>Facture N°<?php echo $numero_facture;?></h3>
+    <div id="facture-structure">Nom du groupe : <?php echo $structure;?></div>
+    <div id="facture-spectacle">Spectacle : <?php echo $nom_spectacle.'<br />'.$date_spectacle; ?></div>
+    <div id="facture-type">Type de facture : <?php echo $facture_type; ?></div>
+    <div id="facture-total">Montant de la facture : <?php echo $facture_total; ?></div>
+    <div id="facture-paiement">Paiement : <?php echo $facture_moyen_paiement; ?></div>
+    <div id="facture-date">Date du paiement : <?php echo $facture_date_paiement; ?></div>
+    <div id="facture-commentaire">Commentaire : <?php echo $facture_scommentaire; ?></div>
+</div>
