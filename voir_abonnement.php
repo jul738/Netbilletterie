@@ -270,19 +270,19 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                 </td>
         
         
-            <form>
                 <td>
                     <a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>'><img border =0 src="image/edit.png" alt=""> <br> Modifier l'abonnement </a>
                 </td>
                 <td>
-                    <a href='print_ticket_abo.php?num_abo_com=<?php echo "$num_abo_com"; ?>' onclick="edition();return false;"><img border=0 src="image/billetterie_v2.png"><br> Imprimer l'abonnement </a>
-                </td>
+                    <form action="fpdf/abonnement_pdf.php" method="post" target="_blank" >
+                                <input type="hidden" name="num_abo_com" value="<?php echo $num_abo_com ?>" />
+                                <input type="hidden" name="user" value="adm" />
+                                <input type="image" src="image/print.png" style=" border: none; margin: 0;" alt="<?php echo $lang_imprimer; ?>" Title="Imprimer"/><br />Imprimer l'abonnement
+                    </form>
                 
                 <td>
                     <a href='dupliquer_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' onclick="edition();return false;"><img border=0 src="image/duplicat.png"><br> Dupliquer l'abonnement </a>
-                </td>
-            </form>
-        
+                </td>        
         </tr> 
         
 </table>

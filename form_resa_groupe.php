@@ -22,7 +22,7 @@ if(!empty($_GET['num_resa_groupe'])){
     $num_resa_groupe = $_GET['num_resa_groupe'];
     // On récupère les valeurs de la BDD pour l'id sélectionner
     // Récupération des informations de la réservation du groupe
-    $sql_select_resa_groupe = "SELECT bcg.num_groupe,nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+    $sql_select_resa_groupe = "SELECT bcg.num_groupe,nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, id_tarif FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
     $requete_select_resa_groupe = mysql_query($sql_select_resa_groupe) or die('Erreur SQL sélection groupe !<br>'.$sql_select_resa_groupe.'<br>'.mysql_error());
     while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
         $nom_structure = $data_resa_groupe['nom_structure'];
@@ -36,7 +36,8 @@ if(!empty($_GET['num_resa_groupe'])){
         $num_article_resa = $data_resa_groupe['id_article'];
         $comment_resa_groupe = $data_resa_groupe['coment'];
         $num_groupe_resa = $data_resa_groupe['num_groupe'];
-    }
+        $tarif_groupe_resa = $data_resa_groupe['id_tarif'];
+        }
 }
 elseif(!empty($_GET['num_groupe'])){
     $num_groupe_resa = $_GET['num_groupe'];
@@ -68,6 +69,10 @@ elseif(!empty($_GET['num_groupe'])){
     {
         $date_spectacle[] = date_fr("l d-m-Y", $date);
     }
+    
+    //On récupère la liste des tarifs de groupes
+    $select_tarif_groupe = "SELECT nom_tarif, prix_tarif, id_tarif FROM tarif WHERE tarif_groupe=1";
+    $req_tarif_groupe = mysql_query($select_tarif_groupe) or die ('Erreur SQL selection tarif de groupe');    
     
 // On affiche le formulaire
     ?>
@@ -110,11 +115,20 @@ elseif(!empty($_GET['num_groupe'])){
                     }
                 ?>
             </select><br />
+            <label for="tarif-groupe">Tarif</label>
+            <select id="tarif-groupe" name="tarf-groupe">
+                <?php while($data_tarif_groupe = mysql_fetch_array($req_tarif_groupe)){
+                    ?>
+                <option value="<?php echo $data_tarif_groupe['id_tarif'];?>" <?php if($tarif_groupe_resa == $data_tarif_groupe['id_tarif']){echo 'selected';}?>><?php echo $data_tarif_groupe['nom_tarif'].' - '.$data_tarif_groupe['prix_tarif']; ?></option>
+                <?php
+                } ?>
+            </select><br />
             <label for="coment">Commentaire pour la réservation</label>
             <textarea name="coment" id="coment" cols="45" rows="3" <?php if(isset($coment)){ echo "value=".$coment.""; }; ?>><?php if(isset($coment)){ echo $coment;}; ?></textarea>
             <?php 
             if(isset($num_resa_groupe)){
               ?>
+            <br />
             <input type="hidden" name="num-resa-groupe" id="num-resa-groupe" value="<?php echo $num_resa_groupe; ?>"></input>
             <input type="hidden" name="ancien_nb_enfant" id="ancien_nb_enfant" value="<?php echo $nb_enfants; ?>"></input>
             <input type="hidden" name="ancien_nb_accompagnateur" id="ancien_nb_accompagnateur" value="<?php echo $nb_accompagnateurs; ?>"></input>

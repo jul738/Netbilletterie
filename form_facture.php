@@ -17,6 +17,7 @@ include_once("include/finhead.php");
 
 //On récupère la facture si elle existe
 if(isset($_GET['num_facture'])){
+    $num_facture = $_GET['num_facture'];
     //On fait une requête pour récupérer les infos
 }
 //Sinon on récupère les infos pour créer la facture
@@ -43,16 +44,13 @@ else {
             <option value="acompte">Acompte</option>
             <option value="finale">Finale</option>
         </select><br />
-        <label for="type-résa">Type de réservation</label><select id="type-resa" name="type-resa" readonly>
-            <option value="Groupe">Groupe</option>
-            <option value="Billet particulier">Billet Particulier</option>
-            <option value="abonnement">Abonnement</option>
-        </select><br />
-        <label for="total">Total (calculé automatiquement en fonction du type de facture)</label><input type="text" name="total" id="total" readonly></input><br />
-        <label for="type-paiement">Moyen de paiement</label><select id="type-paiement" name="type-paiement">
-            <!-- On boucle sur les moyen de paiement -->
-        </select><br />
+        <label for="paiement">Moyen de paiement</label>
+            <?php include_once("include/paiemment.php"); ?><br />
         <label for="date-paiement">Date du paiement</label><input type="date" id="date-paiement" name="date-paiement"></input><br />
-        <label for="commentaire-facture">Commentaire sur la facture</label>x<textarea id="commentaire-facture" name="commentaire-facture"></textarea><br />
+        <label for="commentaire-facture">Commentaire sur la facture</label><textarea id="commentaire-facture" name="commentaire-facture"></textarea><br />
+        <input type="hidden" id="num-resa" name="num-resa" value="<?php echo $num_resa; ?>" />
+        <input type="hidden" id="type-resa" name="type-resa" value="<?php echo $type_resa; ?>" />
+        <input type="hidden" id="num-facture" name="num-facture" value="<?php if(!empty($num_facture)){echo $num_facture;} ?>" />
+        <input type="submit" id="submit-facture" name="submit-facture" value="<?php if(!empty($num_facture)){echo "Enregistrer la facture";} else{ echo "Créer la facture";}?>" />
     </form>
 </div>

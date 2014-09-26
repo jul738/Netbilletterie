@@ -117,7 +117,7 @@ elseif(isset($_GET['num_resa_groupe'])){
 // On affiche un groupe
 
 // Récupération des informations de la réservation du groupe
-$sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+$sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, nom_tarif FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a, " . $tblpref ."tarif AS t WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe AND bcg.id_tarif = t.id_tarif";
 $requete_select_resa_groupe = mysql_query($sql_select_resa_groupe) or die('Erreur SQL sélection groupe !<br>'.$sql_select_resa_groupe.'<br>'.mysql_error());
 while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
     $nom_structure = $data_resa_groupe['nom_structure'];
@@ -131,6 +131,7 @@ while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
     $nb_accompagnateurs = $data_resa_groupe['nb_accompagnateurs'];
     $nb_gratuit = $data_resa_groupe['nb_gratuit'];
     $coment = $data_resa_groupe['coment'];
+    $tarif = $data_resa_groupe['nom_tarif'];
 }
 
 $date_article = date_fr("l d-m-Y", $date);
@@ -145,6 +146,7 @@ $date_article = date_fr("l d-m-Y", $date);
     <div id="classe-groupe">Classe / Age du groupe : <?php echo $classe_groupe; ?></div>
     <div id="nb_enfants">Nombre d'enfants : <?php echo $nb_enfants; ?></div>
     <div id="nb-accompagnateurs">Nombres d'accompagnateurs : <?php echo $nb_accompagnateurs; ?> dont gratuit : <?php echo $nb_gratuit; ?></div>
+    <div id="tarif-groupe">Tarif : <?php echo $tarif; ?></div>
     <div id="comentaire-resa-groupe">Commentaire de la réservation : <?php echo $coment; ?></div>
 </div>
 <?php
