@@ -67,6 +67,7 @@ include_once("include/configav.php");
     $sql_art = "SELECT image_article, article, type_article, numero_representation, lieu, horaire, date_spectacle, commentaire, stock
                 FROM article 
                 WHERE date_spectacle > CURRENT_DATE
+                ORDER BY date_spectacle
                 LIMIT 3";
     $recup_art_brut = mysql_query($sql_art)or die('Erreur !<br>'.$sql_art.'<br>'.mysql_error());
     // est egale ou superieur a CURRENT_DATE, limit 3
