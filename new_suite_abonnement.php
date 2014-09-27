@@ -14,6 +14,7 @@ include_once("include/head.php");
 include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once("include/fonction.php");
 
 ///=============================================
 //pour que les articles soit classes par saison
@@ -180,11 +181,13 @@ $annee_2= $annee_1 -1;
                                 
                                 <?php
                                  // lister les numero et les nom des spectacle active (pas ceux complet)
-                                $sql_liste_article = "SELECT num, article, type_article, horaire, date_spectacle
+                                $sql_liste_article = "SELECT num, article, type_article, horaire, date_spectacle, stock
                                                       FROM article 
                                                       WHERE actif != 'non'
                                                       AND stock > '0'
-                                                      AND type_article = '$type_abonnement'";
+                                                      AND type_article = '$type_abonnement'
+                                                      AND date_spectacle >= NOW()
+                                                      ORDER BY date_spectacle ASC";
                                 $liste_article = mysql_query( $sql_liste_article )or die( "Execution requete -liste_article- impossible.");
 
                                 while ( $liste_spectacle = mysql_fetch_array( $liste_article))  
@@ -192,10 +195,12 @@ $annee_2= $annee_1 -1;
                                     $liste_spectacle_contenu_nom = $liste_spectacle["article"];
                                     $liste_spectacle_contenu_num = $liste_spectacle["num"];
                                     $liste_spectacle_contenu_type_article = $liste_spectacle["type_article"];
+                                    $liste_spectacle_contenu_stock = $liste_spectacle['stock'];
                                     $liste_spectacle_contenu_horaire = $liste_spectacle["horaire"];
-                                    $liste_spectacle_contenu_date_spectacle = $liste_spectacle["date_spectacle"];
+                                    $liste_spectacle_contenu_date_spectacle_timestamp = strtotime($liste_spectacle["date_spectacle"]);
+                                    $liste_spectacle_contenu_date_spectacle = date_fr('l d-m-Y', $liste_spectacle_contenu_date_spectacle_timestamp);
                                     ?>
-                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> <?php echo $liste_spectacle_contenu_date_spectacle; ?> [<?php echo $liste_spectacle_contenu_horaire; ?>]</OPTION>
+                                    <OPTION VALUE='<?php echo $liste_spectacle_contenu_num; ?>'><?php echo $liste_spectacle_contenu_type_article; ?> : <?php echo $liste_spectacle_contenu_nom; ?> - <?php echo $liste_spectacle_contenu_stock; ?> places restantes - <?php echo $liste_spectacle_contenu_date_spectacle; ?> [<?php echo $liste_spectacle_contenu_horaire; ?>]</OPTION>
                                     <?php
                                 }
                                 ?>
