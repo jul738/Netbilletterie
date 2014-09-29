@@ -171,11 +171,12 @@ function verif_formulaire()
           <tr>
           <td class="texte0">Choisir le  <?php echo "$lang_article"; ?></td>
           <?php
+          echo date();
           //pour n 'affiches que les articles  en stock
           $select_article = "SELECT uni, num, article, date_spectacle AS date, prix_htva, stock, stomin, stomax, type_article, horaire
                     FROM " . $tblpref ."article
                     WHERE stock > '0'
-                    AND date_spectacle BETWEEN NOW() AND '$annee_1-$fin_saison'
+                    AND date_spectacle >= NOW() - INTERVAL 1 DAY
                     ORDER BY date_spectacle, horaire ASC";
           $result_article = mysql_query($select_article)or die( "Execution requete impossible.");
 
