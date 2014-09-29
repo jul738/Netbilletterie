@@ -53,7 +53,7 @@ elseif(!empty($_GET['num_groupe'])){
     
 // On récupère la liste des articles
     $select_articles = "SELECT num, article, date_spectacle, horaire FROM " . $tblpref ."article
-                        WHERE date_spectacle >= NOW()
+                        WHERE date_spectacle >= NOW()  - INTERVAL 1 DAY
                         AND type_article = 'Spectacle_JP'
                         ORDER BY date_spectacle ASC";
     $req_articles = mysql_query($select_articles) or die ('Erreur SQL selection articles');
