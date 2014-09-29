@@ -37,17 +37,18 @@ if (!empty($_POST)){
     $nb_gratuit = $_POST['nb-accompagnateurs-gratuit']; 
     $id_article = $_POST['id-article'];
     $coment = mysql_escape_string($_POST['coment']);
+    $id_tarif = $_POST['tarif-groupe'];
     
     // Insert dans la base
     // Si nouveau alors création de la réservation du groupe
     if(empty($num_resa_groupe)){
-        $sql_insert_resa_groupe = "INSERT INTO " . $tblpref ."bon_comm_groupe(num_groupe, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment) VALUES('$num_groupe', '$nom_referent', '$telephone_referent', '$classe_groupe', '$nb_enfants', '$nb_accompagnateurs', '$nb_gratuit', '$id_article', '$coment')";
+        $sql_insert_resa_groupe = "INSERT INTO " . $tblpref ."bon_comm_groupe(num_groupe, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, id_tarif) VALUES('$num_groupe', '$nom_referent', '$telephone_referent', '$classe_groupe', '$nb_enfants', '$nb_accompagnateurs', '$nb_gratuit', '$id_article', '$coment', '$id_tarif')";
         $requete_insert_resa_groupe = mysql_query($sql_insert_resa_groupe) or die('Erreur SQL création réservation groupe !<br>'.$requete_insert_resa_groupe.'<br>'.mysql_error());
         $num_resa_groupe = mysql_insert_id();
     }
     // Si existant alors MAJ de la ligne
     else{
-        $sql_update_resa_groupe = "UPDATE " . $tblpref ."bon_comm_groupe SET num_groupe='".$num_groupe."', nom_referent='".$nom_referent."', telephone_referent='".$telephone_referent."', classe_groupe='".$classe_groupe."', nb_enfants='".$nb_enfants."', nb_accompagnateurs='".$nb_accompagnateurs."', nb_gratuit='".$nb_gratuit."', id_article='".$id_article."', coment='".$coment."' WHERE num_bon_groupe='".$num_resa_groupe."' ";
+        $sql_update_resa_groupe = "UPDATE " . $tblpref ."bon_comm_groupe SET num_groupe='".$num_groupe."', nom_referent='".$nom_referent."', telephone_referent='".$telephone_referent."', classe_groupe='".$classe_groupe."', nb_enfants='".$nb_enfants."', nb_accompagnateurs='".$nb_accompagnateurs."', nb_gratuit='".$nb_gratuit."', id_article='".$id_article."', coment='".$coment."', id_tarif='".$id_tarif."' WHERE num_bon_groupe='".$num_resa_groupe."' ";
         $requete_update_resa_groupe = mysql_query($sql_update_resa_groupe) or die('Erreur SQL modification réservation groupe !<br>'.$sql_update_resa_groupe.'<br>'.mysql_error());
     }
     
