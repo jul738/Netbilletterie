@@ -99,7 +99,7 @@ elseif(!empty($_GET['num_groupe'])){
                     }
                 ?>
             </select><br />
-            <label for="nom-referent-groupe">Nom du référent</label> : <input type="text" name="nom-referent-groupe" id="nom-referent-groupe" required <?php if(isset($nom_referent)){ echo "value=".$nom_referent."";}; ?>><?php if(isset($nom_referent)){ echo $nom_referent;}; ?></input><br />
+            <label for="nom-referent-groupe">Nom du référent</label> : <input type="text" name="nom-referent-groupe" id="nom-referent-groupe" required <?php if(isset($nom_referent)){ echo "value='".$nom_referent."'";}; ?>><?php if(isset($nom_referent)){ echo $nom_referent;}; ?></input><br />
             <label for="telephone-referent-groupe">Téléphone du référent</label> : <input type="tel" name="telephone-referent-groupe" id="telephone-referent-groupe" required <?php if(isset($telephone_referent)){ echo "value=".$telephone_referent.""; }; ?>><?php if(isset($telephone_referent)){ echo $telephone_referent;}; ?></input><br />
             <label for="classe-groupe">Classe / Age</label> : <input type="text" name="classe-groupe" id="classe-groupe" <?php if(isset($classe_groupe)){ echo "value=".$classe_groupe.""; }; ?>><?php if(isset($classe_groupe)){ echo $classe_groupe;}; ?></input><br />
             <label for="nb-enfants">Nombre d'enfants</label> : <input type="number" name="nb-enfants" id="nb-enfants" <?php if(isset($nb_enfants)){ echo "value=".$nb_enfants.""; }; ?>><?php if(isset($nb_enfants)){ echo $nb_enfants;}; ?></input><br />
@@ -124,7 +124,7 @@ elseif(!empty($_GET['num_groupe'])){
                 } ?>
             </select><br />
             <label for="coment">Commentaire pour la réservation</label>
-            <textarea name="coment" id="coment" cols="45" rows="3" <?php if(isset($coment)){ echo "value=".$coment.""; }; ?>><?php if(isset($coment)){ echo $coment;}; ?></textarea>
+            <textarea name="coment" id="coment" cols="45" rows="3" <?php if(isset($comment_resa_groupe)){ echo "value=".$comment_resa_groupe.""; }; ?>><?php if(isset($comment_resa_groupe)){ echo $comment_resa_groupe;}; ?></textarea>
             <?php 
             if(isset($num_resa_groupe)){
               ?>
