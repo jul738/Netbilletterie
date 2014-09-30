@@ -24,7 +24,6 @@ if (!empty($_POST)){
         $num_groupe = $_POST['num-resa-groupe'];
         $ancien_nb_enfants = $_POST['ancien_nb_enfant'];
         $ancien_nb_accompagnateurs = $_POST['ancien_nb_accompagnateur'];
-        $ancien_nb_accompagnateurs;
         $quanti_ancien = $ancien_nb_accompagnateurs + $ancien_nb_enfants;
         $ancien_article = $_POST['ancien_article'];
     }
@@ -90,13 +89,7 @@ if (!empty($_POST)){
             while ( $row_stock_ancien = mysql_fetch_array( $result_stock_ancien_article)) {
                 $stock_ancien = $row_stock_ancien["stock"];
             }
-            if ($stock_ancien >=1){
-                $quanti_ancien = '+'.$quanti_ancien;
-            }
-            else {
-                $quanti_ancien = '-'.$quanti_ancien;
-            }
-            $update_stock_ancien = "UPDATE ".$tblpref."article SET stock= ($stock_ancien $quanti_ancien) WHERE num=$ancien_article";
+            $update_stock_ancien = "UPDATE ".$tblpref."article SET stock= ($stock_ancien + $quanti_ancien) WHERE num=$ancien_article";
             mysql_query($update_stock_ancien) or die ('Erreur MAJ Stock de l\'ancien article');
             
             // MAJ du stock du nouvel article
