@@ -14,8 +14,8 @@ require_once("include/configav.php");
 $article=isset($_POST['article'])?$_POST['article']:"";
 $num_bon=isset($_POST['num_bon'])?$_POST['num_bon']:"";
 $id_tarif=isset($_POST['id_tarif'])?$_POST['id_tarif']:"";
-$ancien_article = isset($_POST['id_article'])?$_POST['id_article']:"";
-$commentaire = isset($_POST['coment'])?$_POST['coment']:"";
+$ancien_article = isset($_POST['ancien_article'])?$_POST['ancien_article']:"";
+$commentaire = isset($_POST['coment'])?mysql_escape_string($_POST['coment']):"";
 $date = date('Y-m-d');
 
 // On met à jour la réservation
