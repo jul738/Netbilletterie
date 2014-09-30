@@ -116,7 +116,7 @@ elseif(!empty($_GET['num_groupe'])){
                 ?>
             </select><br />
             <label for="tarif-groupe">Tarif</label>
-            <select id="tarif-groupe" name="tarf-groupe">
+            <select id="tarif-groupe" name="tarif-groupe">
                 <?php while($data_tarif_groupe = mysql_fetch_array($req_tarif_groupe)){
                     ?>
                 <option value="<?php echo $data_tarif_groupe['id_tarif'];?>" <?php if($tarif_groupe_resa == $data_tarif_groupe['id_tarif']){echo 'selected';}?>><?php echo $data_tarif_groupe['nom_tarif'].' - '.$data_tarif_groupe['prix_tarif']; ?></option>
