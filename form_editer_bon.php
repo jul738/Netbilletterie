@@ -101,7 +101,7 @@ if ($annee_1=='')
 $annee_2= $annee_1 -1;
 //=============================================
 //on recupère les infos des spectacles
-$rqSql1 = "SELECT uni, num, article, date_spectacle AS date, prix_htva, stock, stomin, stomax
+$rqSql1 = "SELECT uni, num, article, date_spectacle AS date, horaire prix_htva, stock, stomin, stomax
                                             FROM ".$tblpref."article
                                             WHERE stock > '0'
                                             AND date_spectacle BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
@@ -159,7 +159,7 @@ function edition()
 					<td class="texte0"><br>choisir le <?php echo $lang_article; ?>(s)    
 							<?php
 						include_once("include/configav.php");
-							$rqSql = "SELECT uni, num, article, date_spectacle AS date, prix_htva, stock, stomin, stomax
+							$rqSql = "SELECT uni, num, article, date_spectacle AS date, horaire, prix_htva, stock, stomin, stomax
 										FROM ".$tblpref."article
 										WHERE stock > '0'
 										AND date_spectacle BETWEEN NOW() AND '$annee_1-$fin_saison'
@@ -176,18 +176,19 @@ function edition()
 								$article = stripslashes($row["article"]);
 								$date_timestampt = strtotime($row["date"]);
                                                                 $date = date_fr('l d-m-Y', $date_timestampt);
+                                                                $horaire = $row['horaire'];
 								$stock = $row['stock'];
 								$min = $row['stomin'];
 																	
 								if ($stock <= $min && $stock >= 1  ){
 									$stock="Attention plus que $stock places";
 									$style= 'style="color:#961a1a; background:#ece9d8;"';
-									$option="".$article." ---". $date." ---".$stock."";
+									$option="".$article." ---". $date." ---".$horaire."---".$stock."";
 								}
 								else{
 									 $stock= "Le stock est de ".$stock." places";
 									 $style= 'style="color:black; background-color:##99fe98;"';
-									 $option="".$article." ---". $date." ---".$stock."";
+									 $option="".$article." ---". $date."---".$horaire."---".$stock."";
 								}
 						?>
                                                 <input  type="radio" VALUE='<?php echo $num; ?>' name="article" <?php if ($id_article == $num){ echo "checked";}?> ><b <?php echo$style; ?>><?php echo" $option"; ?><b><br>
