@@ -17,7 +17,8 @@ comptable-->
 		<li><a href="lister_caisse_billetterie.php" rel="menu5" id="caisse"><img border ="0" src="" alt="Caisse"><br></a></li>
 		<li><a href="ca_spectacle.php" rel="menu6" id="statistique"><img border ="0" src="" alt="Statistiques"><br></a></li>
 		<li><a href="agenda.php" rel="menu9" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
-		<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
+		<li><a href="listerèfacture.php" rel="menu15" id="factures"><img border ="0" src="" alt="Facture"><br></a></li>		
+                <li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
 	</ul>
 
 <!--deroulant du menu2 niveau2-->

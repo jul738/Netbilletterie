@@ -262,6 +262,18 @@ padding-top:80px;
 background-image: url("images/outil_v2.png");
 }
 
+#factures{
+background-image: url("images/facture_menu.png");
+background-repeat:no-repeat;
+background-position:center;
+text-align:center;
+height:20px;
+padding-top:80px;
+}
+#factures:hover{
+background-image: url("images/facture_menu_v2.png");
+}
+
 #quitter{
 background-image: url("images/sortir.png");
 background-repeat:no-repeat;

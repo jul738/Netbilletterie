@@ -35,6 +35,7 @@ Modification : Jose Das Neves pitu69@hotmail.-->
 				<li><a href="form_mailing.php" rel="menu8 [left]" id="mailing"><img border ="0" src="" alt="Mailing"><br></a></li>
 				<li><a href="accueil_print.php" rel="menu12" id="impression"><img border ="0" src="" alt="Impression"><br></a></li>
 				<li><a href="agenda.php" rel="menu9 [left]" id="outils"><img border ="0" src="" alt="Outils"><br></a></li>
+				<li><a href="lister_facture.php" rel="menu15" id="factures"><img border ="0" src="" alt="Facture"><br></a></li>
 				<li><a href="logout.php" rel="menu10" id="quitter"><img border ="0" src="" alt="Quiter"><br></a></li>
 			</ul>
 		
