@@ -17,7 +17,13 @@ include_once("include/finhead.php");
 
 //On récupère la facture si elle existe
 if(isset($_GET['num_facture'])){
+            $num_facture = $_GET['num_facture'];
+            $sql_select_facture = "SELECT type_resa FROM facture AS f WHERE f.id = ".$num_facture."";
+            $result_facture = mysql_query($sql_select_facture) or die ('erreur sélection facture');
     //On fait une requête pour récupérer les infos
+    while ($data_facture = mysql_fetch_array($result_facture)){
+        $type_resa = $data_facture['type_resa'];
+    }
 }
 //Sinon on récupère les informations passées dans le formulaire pour enregistrer la facture
 else{
@@ -87,7 +93,7 @@ else{
 //On récupère les information de la facture
 switch($type_resa){
     case 'groupe' : 
-        $select_facture = "SELECT type_facture, nom_structure, article, date_spectacle, total, date_paiement, f.commentaire, p.nom FROM facture AS f, groupe AS g, article AS a, type_paiement AS p, bon_comm_groupe AS bcg WHERE f.id = '$num_facture' AND f.id_resa = bcg.num_bon_groupe AND bcg.id_article = a.num AND bcg.num_groupe = g.num_groupe AND f.id_paiement = p.id_type_paiement";
+        $select_facture = "SELECT type_facture, numero_facture, nom_structure, article, date_spectacle, total, date_paiement, f.commentaire, p.nom FROM facture AS f, groupe AS g, article AS a, type_paiement AS p, bon_comm_groupe AS bcg WHERE f.id = '$num_facture' AND f.id_resa = bcg.num_bon_groupe AND bcg.id_article = a.num AND bcg.num_groupe = g.num_groupe AND f.id_paiement = p.id_type_paiement";
         $req_facture = mysql_query($select_facture) or die ('Erreur Selection facture');
     break;
     case 'particulier' : 
@@ -100,15 +106,16 @@ while ($data_facture = mysql_fetch_array($req_facture)){
     $nom_spectacle = $data_facture['article'];
     $facture_type = $data_facture['type_facture'];
     $facture_total = $data_facture['total'];
-    $facture_moyen_paiement = $data_facture['p.nom'];
+    $facture_moyen_paiement = $data_facture['nom'];
     $facture_date_paiement = $data_facture['date_paiement'];
     $facture_commentaire = $data_facture['f.commentaire'];
+    $numero_facture = $data_facture['numero_facture'];
 }
 //On affiche la facture
 echo $message;
 ?>
 <div id="facture">
-    <h3>Facture N°<?php echo $numero_facture;?></h3>
+    <h3>Facture N° <?php echo $numero_facture;?></h3>
     <div id="facture-structure">Nom du groupe : <?php echo $structure;?></div>
     <div id="facture-spectacle">Spectacle : <?php echo $nom_spectacle.'<br />'.$date_spectacle; ?></div>
     <div id="numero-facture">Numéro de facture : <?php echo $numero_facture;?></div>
