@@ -16,6 +16,7 @@ include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
 include_once("include/head.php");
+include_once("include/fonction.php");
 
 $quanti=isset($_POST['quanti'])?$_POST['quanti']:"";
 $num_client=isset($_POST['num_client'])?$_POST['num_client']:"";
@@ -183,7 +184,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 				</tr>
 						 <?php
 						//on recherche tout les contenus du bon et on les detaille
-						$sql = "SELECT bc.num_bon, bc.id_tarif, DATE_FORMAT(a.date_spectacle,'%d-%m-%Y') AS date, a.article, t.nom_tarif, t.prix_tarif
+						$sql = "SELECT bc.num_bon, bc.id_tarif, DATE_FORMAT(a.date_spectacle,'%d-%m-%Y') AS date, horaire, a.article, t.nom_tarif, t.prix_tarif
 							FROM ".$tblpref."bon_comm AS bc, ".$tblpref."article AS a, ".$tblpref."tarif AS t
 							WHERE  bc.client_num = '".$num_client."' 
                                                             AND bc.id_article = a.num
@@ -196,7 +197,9 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 								$article = stripslashes($data['article']);
 								$id_tarif = $data['id_tarif'];
 								$prix_tarif = $data['prix_tarif'];
-                                                                $date = $data['date'];
+                                                                $date_timestamp = strtotime($data['date']);
+                                                                $date = date_fr('l d-m-Y', $date_timestamp);
+                                                                $horaire = $data['horaire'];
 								$nom_tarif = $data['nom_tarif'];
 								$nombre = $nombre +1;
 								if($nombre & 1){
@@ -255,7 +258,7 @@ $rqSql33= "SELECT id_tarif, nom_tarif, prix_tarif FROM ".$tblpref."tarif WHERE i
 				} 
 										?>
 					</td-->
-					<td class ='highlight'><?php echo"$type_article | $article | $date| $nom_tarif";?></td>
+					<td class ='highlight'><?php echo"$type_article | $article | $date| $horaire| $nom_tarif";?></td>
 					<td class ='highlight'><?php echo"$prix_tarif $devise"; ?></td>
 					<?php if ($impression=="y") { 
 						if ($print_user=="y") { ?>
