@@ -27,6 +27,9 @@ else{
     $type_facture = $_POST['type-facture'];
     $numero_facture = mysql_escape_string($_POST['numero-facture']);
     $moyen_paiement = $_POST['paiement'];
+    if($moyen_paiement == 'non'){
+        $moyen_paiement = 4;
+    }
     $date_paiement = $_POST['date-paiement'];
     $commentaire_facture = mysql_escape_string($_POST['commentaire-facture']);
     //On récupère les tarifs de la résa et le nombre en cas de groupe
@@ -84,8 +87,7 @@ else{
 //On récupère les information de la facture
 switch($type_resa){
     case 'groupe' : 
-    $select_facture = "SELECT type_facture, nom_structure, article, date_spectacle, total, date_paiement, commentaire, p.nom FROM facture AS f, groupe AS g, article AS a, type_paiement AS p, bon_comm_groupe AS bcg WHERE f.num_facture = '$num_facture' AND f.id_resa = bcg.id_resa AND bcg.id_article = a.num";
-    echo $select_facture;
+        $select_facture = "SELECT type_facture, nom_structure, article, date_spectacle, total, date_paiement, f.commentaire, p.nom FROM facture AS f, groupe AS g, article AS a, type_paiement AS p, bon_comm_groupe AS bcg WHERE f.id = '$num_facture' AND f.id_resa = bcg.num_bon_groupe AND bcg.id_article = a.num AND bcg.num_groupe = g.num_groupe AND f.id_paiement = p.id_type_paiement";
         $req_facture = mysql_query($select_facture) or die ('Erreur Selection facture');
     break;
     case 'particulier' : 
@@ -96,6 +98,11 @@ switch($type_resa){
 while ($data_facture = mysql_fetch_array($req_facture)){
     $structure = $data_facture['nom_structure'];
     $nom_spectacle = $data_facture['article'];
+    $facture_type = $data_facture['type_facture'];
+    $facture_total = $data_facture['total'];
+    $facture_moyen_paiement = $data_facture['p.nom'];
+    $facture_date_paiement = $data_facture['date_paiement'];
+    $facture_commentaire = $data_facture['f.commentaire'];
 }
 //On affiche la facture
 echo $message;
@@ -104,9 +111,10 @@ echo $message;
     <h3>Facture N°<?php echo $numero_facture;?></h3>
     <div id="facture-structure">Nom du groupe : <?php echo $structure;?></div>
     <div id="facture-spectacle">Spectacle : <?php echo $nom_spectacle.'<br />'.$date_spectacle; ?></div>
+    <div id="numero-facture">Numéro de facture : <?php echo $numero_facture;?></div>
     <div id="facture-type">Type de facture : <?php echo $facture_type; ?></div>
     <div id="facture-total">Montant de la facture : <?php echo $facture_total; ?></div>
     <div id="facture-paiement">Paiement : <?php echo $facture_moyen_paiement; ?></div>
     <div id="facture-date">Date du paiement : <?php echo $facture_date_paiement; ?></div>
-    <div id="facture-commentaire">Commentaire : <?php echo $facture_scommentaire; ?></div>
+    <div id="facture-commentaire">Commentaire : <?php echo $facture_commentaire; ?></div>
 </div>
