@@ -25,11 +25,11 @@ exit;
 
 //On enregistre le paiement de la réservation
 
-if(!empty($_POST)){
+if(!empty($_POST['id_tarif'])){
     $id_tarif = $_POST['id_tarif'];
     $paiement_resa = $_POST['paiement'];
     $num_bon = $_POST['num_bon'];
-    
+    //On met à jour la réservation de groupe
     $sql_update_resa = "UPDATE ".$tblpref ."bon_comm
                         SET id_tarif = ".$id_tarif.",
                             paiement = '".$paiement_resa."'
@@ -37,6 +37,41 @@ if(!empty($_POST)){
     mysql_query($sql_update_resa) or die('Erreur SQL !<br>'.$sql_update_resa.'<br>'.mysql_error());
     
     echo "Le paiement de la réservation ".$num_bon." a été enregistré.";
+}
+
+elseif(!empty($_POST['num-bon-groupe'])){
+    $num_bon_groupe = $_POST['num-bon-groupe'];
+    $nb_enfant_reel = $_POST['nb-enfant-reel'];
+    $nb_accompagnateurs_reel = $_POST['nb-accompagnateur-reel'];
+    $nb_gratuits_reel = $_POST['nb-gratuit-reel'];
+    
+    $sql_update_resa_groupe = "UPDATE ".$tblpref ."bon_comm_groupe
+                                SET nb_enfants_reel = ".$nb_enfant_reel.",
+                                    nb_accompagnateurs_reel = ".$nb_accompagnateurs_reel.",
+                                    nb_gratuit_reel = ".$nb_gratuits_reel."
+                                WHERE num_bon_groupe = ".$num_bon_groupe."";
+    mysql_query($sql_update_resa_groupe) or die('Erreur Update resa groupe'.mysql_error());
+    
+    //On met à jour le stock de l'article
+    $select_resa_groupe = "SELECT nb_enfants, nb_enfants_reel, nb_accompagnateurs, nb_accompagnateurs_reel, nb_gratuit, nb_gratuit_reel, stock, id_article FROM bon_comm_groupe AS bcg, article AS a WHERE num_bon_groupe=".$num_bon_groupe." AND bcg.id_article = a.num";
+    $req_resa_groupe = mysql_query($select_resa_groupe) or die ('Erreur Selection résa groupe');
+    while ($data_resa_groupe = mysql_fetch_array($req_resa_groupe)){
+        $nb_enfants_prevus = $data_resa_groupe['nb_enfants'];
+        $nb_accompagnateurs_prevus = $data_resa_groupe['nb_accompagnateurs'];
+        $nb_gratuit_prevus = $data_resa_groupe['nb_gratuit'];
+        $nb_enfants_reel = $data_resa_groupe['nb_enfants_reel'];
+        $nb_accompagnateurs_reel = $data_resa_groupe['nb_accompagnateurs_reel'];
+        $nb_gratuit_reel = $data_resa_groupe['nb_gratuit_reel'];
+        $id_article = $data_resa_groupe['id_article'];
+        $stock = $data_resa_groupe['stock'];
+    }
+    $nb_enfant = $nb_enfants_prevus - $nb_enfant_reel;
+    $nb_accompagnateur = $nb_accompagnateurs_prevus - $nb_accompagnateurs_reel;
+    $nb_gratuit = $nb_gratuit_prevus - $nb_gratuit_reel;
+    $difference = $nb_enfant + $nb_accompagnateur + $nb_gratuit;
+    $update_stock = "UPDATE article SET stock = ".$stock." - ".$difference." WHERE num = ".$id_article."";
+    mysql_query($update_stock) or die ('Erreur Maj stock');
+    echo "Les nombres réels pour le groupe ont été enregistrés";
 }
 
 
@@ -229,14 +264,19 @@ echo"</td></tr>";
             <th>Nom du référent du groupe</th>
             <th>Téléphone du référent</th>
             <th>Classe / Âge</th>
-            <th>Nombre d'enfants</th>
-            <th>Nombres d'accompagnateurs</th>
-            <th>Nombre d'accompgnateurs gratuit</th>
+            <th>Nombre d'enfants prévus</th>
+            <th>Nombre d'enfants réels</th>
+            <th>Nombres d'accompagnateurs prévus</th>
+            <th>Nombres d'accompagnateurs réels</th>
+            <th>Nombre d'accompgnateurs gratuit prévus</th>
+            <th>Nombre d'accompgnateurs gratuit réels</th>
             <th>Commentaire sur la réservation</th>
+            <th>Valider le groupe</th>
         </tr>
         <?php
         /* ON boucle sur les réservation de groupes pour les afficher */
         while($data_resa_groupe = mysql_fetch_array($req_resa_groupes)){
+            $num_bon_groupe = $data_resa_groupe['num_bon_groupe'];
             $nom_structure = $data_resa_groupe['nom_structure'];
             $nom_referent = $data_resa_groupe['nom_referent'];
             $tel_referent = $data_resa_groupe['telephone_referent'];
@@ -245,18 +285,29 @@ echo"</td></tr>";
             $nb_accompagnateur = $data_resa_groupe['nb_accompagnateurs'];
             $nb_gratuit = $data_resa_groupe['nb_gratuit'];
             $commentaire_groupe = $data_resa_groupe['coment'];
-            
+            $nb_enfants_reel = $data_resa_groupe['nb_enfants_reel'];
+            $nb_accompagnateurs_reel = $data_resa_groupe['nb_accompagnateurs_reel'];
+            $nb_gratuits_reel = $data_resa_groupe['nb_gratuit_reel'];
             ?>
+        <form action="lister_spectateurs.php?article=<?php echo $article_numero;?>" id="spectacle-resa-groupe" method="POST">
         <tr>
             <td><?php echo $nom_structure; ?></td>
             <td><?php echo $nom_referent; ?></td>
             <td><?php echo $tel_referent; ?></td>
             <td><?php echo $classe; ?></td>
             <td><?php echo $nb_enfant; ?></td>
+            <td><?php if(empty($nb_enfants_reel)){?><input type="text" id="nb-enfant-reel" name="nb-enfant-reel" size="3" value="0" /><?php } else { echo $nb_enfants_reel;}?></td>
             <td><?php echo $nb_accompagnateur; ?></td>
+            <td><?php if(empty($nb_accompagnateurs_reel)){?><input type="text" id="nb-accompagnateur-reel" name="nb-accompagnateur-reel" size="3" value="0" /><?php } else {echo $nb_accompagnateurs_reel;}?></td>
             <td><?php echo $nb_gratuit; ?></td>
+            <td><?php if(empty($nb_gratuits_reel)) { ?><input type="text" id="nb-gratuit-reel" name="nb-gratuit-reel" size="3" value="0" /><?php } else { echo $nb_gratuits_reel;}?></td>
             <td><?php echo $commentaire_groupe; ?></td>
+            <td>
+                <input type="hidden" id="num-bon-groupe" name="num-bon-groupe" value="<?php echo $num_bon_groupe;?>" />
+                <input type="submit" id="Enregistrer le groupe" value="Enregistrer le groupe" />
+            </td>
         </tr>
+        </form>
             <?php
         }
         ?>
