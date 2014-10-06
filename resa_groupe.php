@@ -29,7 +29,7 @@ if (!empty($_POST)){
     }
     $num_groupe = mysql_escape_string($_POST['nom-groupe']);
     $nom_referent = mysql_escape_string($_POST['nom-referent-groupe']);
-    $telephone_referent = $_POST['telephone-referent-groupe'];
+    $telephone_referent = mysql_escape_string($_POST['telephone-referent-groupe']);
     $classe_groupe = $_POST['classe-groupe'];
     $nb_enfants = $_POST['nb-enfants'];
     $nb_accompagnateurs = $_POST['nb-accompagnateurs'];
