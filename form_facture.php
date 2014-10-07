@@ -28,12 +28,6 @@ else {
     $type_resa = $_GET['type_resa'];
 }
 
-//on récupère le nombre de billet
-
-//On récupère le tarif
-
-//On récupère les infos pour le calcul du total
-
 ?>
 <!-- On affiche le formulaire -->
 <div id="form-facture">
