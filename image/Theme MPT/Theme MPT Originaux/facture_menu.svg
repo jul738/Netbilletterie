@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="facture_menu.svg"
+   inkscape:export-filename="/home/kovalsky/NetBeansProjects/Netbilletterie/include/themes/default/menu/images/facture_menu.png"
+   inkscape:export-xdpi="8.3201981"
+   inkscape:export-ydpi="8.3201981">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="75.022433"
+     inkscape:cy="725.10027"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1364"
+     inkscape:window-height="720"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       id="rect3770"
+       width="486.89352"
+       height="519.21838"
+       x="155.56349"
+       y="112.92032"
+       ry="0"
+       inkscape:export-xdpi="8.3201981"
+       inkscape:export-ydpi="8.3201981"
+       inkscape:export-filename="/home/kovalsky/NetBeansProjects/Netbilletterie/include/themes/default/menu/images/facture_menu_v2.png" />
+    <path
+       style="fill:#009dde;fill-opacity:1;stroke:#009edf;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 419.34375,141.78125 c -68.33597,1.02624 -122.002,66.81524 -141.90625,172 l -37.15625,0 -1.4375,37.15625 31.4375,2.84375 0.9375,25.40625 -0.9375,25.375 -31.4375,2.84375 1.4375,37.15625 37.15625,0 C 310.52508,619.41509 436.95271,685.43435 568.84375,526 l 2.875,-45.71875 C 422.0783,641.31532 336.49151,523.89666 315.625,443.90625 c -1.66452,-6.3808 201.1846,-2.88782 199.96875,-9.53125 -1.09669,-5.99236 2.56199,-19.90797 -8.09375,-27.0625 -13.67689,-9.18301 -179.23412,-0.43698 -194.3125,-10.125 -3.70852,-2.38277 -6.04947,-4.93756 -7.46875,-7.5625 -0.48748,-3.19861 -1.4753,-6.75719 -1.8125,-10.4375 0.33835,-3.69663 1.32723,-7.29038 1.8125,-10.5 1.42058,-2.61643 3.77164,-5.15581 7.46875,-7.53125 15.07838,-9.68802 180.63561,-0.94199 194.3125,-10.125 10.65574,-7.15453 6.99706,-21.07014 8.09375,-27.0625 1.21585,-6.64343 -201.63327,-3.15045 -199.96875,-9.53125 20.86651,-79.99041 106.4533,-197.40907 256.09375,-36.375 l -2.875,-45.6875 c -52.55034,-63.52463 -104.23851,-91.27347 -149.5,-90.59375 z"
+       id="path3755"
+       inkscape:export-filename="/var/www/Netbilletterie/image/Theme MPT/48x48/facture.png"
+       inkscape:export-xdpi="9.0035572"
+       inkscape:export-ydpi="9.0035572"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
