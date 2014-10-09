@@ -60,8 +60,8 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
           $nb_gratuit = $data_resa_groupes['nb_gratuit'];
           $commentaire = $data_resa_groupes['coment'];
           
-          
           $date_paiement = "0000-00-00";
+		  $id_facture = "";
           //On regarde si une facture d'accompte existe et si oui si elle a été réglée
         $select_facture_acompte = "SELECT id, date_paiement FROM facture AS f WHERE id_resa = ".$num_resa_groupe." AND type_facture = 'acompte'";
         $req_select_facture =  mysql_query($select_facture_acompte) or die ('erreur selection facture');
