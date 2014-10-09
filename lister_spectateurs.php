@@ -11,7 +11,8 @@ include_once("include/language/$lang.php");
 include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/head.php");
-include_once("include/finhead.php");?>
+include_once("include/finhead.php");
+include_once("include/fonction.php");?>
 <script type="text/javascript" src="javascripts/confdel.js"></script>
 
 <table class="page" >
@@ -95,13 +96,15 @@ $sql .= " ORDER BY nom, BC.id_tarif ASC ";
 
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
-$sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, article, stock, num FROM " . $tblpref ."article WHERE num=$article_numero";
+$sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, horaire, article, stock, num FROM " . $tblpref ."article WHERE num=$article_numero";
 $req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 while($data = mysql_fetch_array($req2))
     {
     $article = $data['article'];
     $article_numero= $data['num'];
-    $date = $data['date_spectacle'];
+    $date_timestamp = strtotime($data['date_spectacle']);
+    $date = date_fr('l d-m-Y', $date_timestamp);
+    $horaire = $data['horaire'];
     $stock = $data['stock'];
 
 
@@ -109,11 +112,11 @@ while($data = mysql_fetch_array($req2))
 <center><table class="boiteaction">
   <caption>Liste des spectateurs pour: <br><?php
   if ($stock>0){
-  echo "$article le $date - Il reste $stock places";
+  echo "$article le $date - $horaire - Il reste $stock places";
   
   }
  else {
-   echo "$article le $date - La liste d'attente est a $stock places";
+   echo "$article le $date - $horaire - La liste d'attente est a $stock places";
     }
     ?> <br>
     <!-- On ajoute le nombre de personne avec une résa et le nombre de personnes arrivées-->
