@@ -35,7 +35,6 @@ include_once("include/language/$lang.php");
 if($client=='0')
     {
     $message="<h1> $lang_choix_client</h1>";
-    /* include('form_commande.php'); */
     exit;
     }
 //pour la 1er ligne de la page
@@ -109,7 +108,7 @@ $annee_2= $annee_1 -1;
 //=============================================
 
 	// pour ne montrer que les articles dont le stock est "0" ou inf.
-				 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date, prix_htva, stock, stomin, stomax
+				 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date,horaire,  prix_htva, stock, stomin, stomax
                                             FROM " . $tblpref ."article
                                             WHERE stock < '1'
                                             AND date_spectacle
@@ -126,13 +125,14 @@ $annee_2= $annee_1 -1;
     							$num = $row["num"];
     							$article = $row["article"];
 								$date = $row["date"];
+                                                                $horaire = $row['horaire'];
 								$stock = $row['stock'];
 								$min = $row['stomin'];
 								if ($stock<=0 ) 
 								{
                                                                     $stock="Liste d'attente est de $stock places";
                                                                     $style= 'style="color:red; background:#cccccc;"';
-                                                                    $option="".$article." ---". $date." ---".$stock."";
+                                                                    $option="".$article." ---". $date."-----".$horaire." ---".$stock."";
                                                         }
                                                         
     							?>
