@@ -136,7 +136,7 @@ elseif(!empty($_GET['num_groupe'])){
             <?php
             }
             ?>
-            <input type="submit" name="valider-groupe" id="valider-groupe" value="<?php
+            <br /><input type="submit" name="valider-groupe" id="valider-groupe" value="<?php
                    if(empty($num_resa_groupe)){
                         echo "Créer la réservation de groupe";
                    }

@@ -30,7 +30,7 @@ if (!empty($_POST)){
     $num_groupe = mysql_escape_string($_POST['nom-groupe']);
     $nom_referent = mysql_escape_string($_POST['nom-referent-groupe']);
     $telephone_referent = mysql_escape_string($_POST['telephone-referent-groupe']);
-    $classe_groupe = $_POST['classe-groupe'];
+    $classe_groupe = mysql_escape_string($_POST['classe-groupe']);
     $nb_enfants = $_POST['nb-enfants'];
     $nb_accompagnateurs = $_POST['nb-accompagnateurs'];
     $nb_gratuit = $_POST['nb-accompagnateurs-gratuit']; 
@@ -44,6 +44,20 @@ if (!empty($_POST)){
         $sql_insert_resa_groupe = "INSERT INTO " . $tblpref ."bon_comm_groupe(num_groupe, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, id_tarif) VALUES('$num_groupe', '$nom_referent', '$telephone_referent', '$classe_groupe', '$nb_enfants', '$nb_accompagnateurs', '$nb_gratuit', '$id_article', '$coment', '$id_tarif')";
         $requete_insert_resa_groupe = mysql_query($sql_insert_resa_groupe) or die('Erreur SQL création réservation groupe !<br>'.$requete_insert_resa_groupe.'<br>'.mysql_error());
         $num_resa_groupe = mysql_insert_id();
+        
+        //Calcul du montant de l'accompte 
+        //On récupère le tarif
+        $select_tarif = "SELECT prix_tarif FROM tarif WHERE id_tarif = '$id_tarif'";
+        $requete_tarif = mysql_query($select_tarif) or die ('Erreur sélection tarif');
+        while ($data_tarif = mysql_fetch_array($requete_tarif)){
+            $tarif = $data_tarif['prix_tarif'];
+        }
+        $nb_resa = $nb_enfants + ($nb_accompagnateurs - $nb_gratuit);
+        $total = ceil(($nb_resa * $tarif) /2);
+
+        //Enregistrement de l'accompte
+        $sql_insert_accompte = "INSERT INTO " . $tblpref ."accompte(num_bon_groupe, montant) VALUES ('$num_resa_groupe', '$total')";
+        $requete_insert_accompte = mysql_query($sql_insert_accompte) or die('Erreur SQL insertion accompte');    
     }
     // Si existant alors MAJ de la ligne
     else{
@@ -110,7 +124,7 @@ elseif(isset($_GET['num_resa_groupe'])){
 
 // On affiche un groupe
 // Récupération des informations de la réservation du groupe
-$sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, nom_tarif FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a, " . $tblpref ."tarif AS t WHERE num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe AND bcg.id_tarif = t.id_tarif";
+$sql_select_resa_groupe = "SELECT nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, nom_tarif, montant FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a, " . $tblpref ."tarif AS t, " . $tblpref ."accompte AS ac WHERE bcg.num_bon_groupe='".$num_resa_groupe."' AND bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe AND bcg.id_tarif = t.id_tarif AND bcg.num_bon_groupe = ac.num_bon_groupe";
 $requete_select_resa_groupe = mysql_query($sql_select_resa_groupe) or die('Erreur SQL sélection groupe !<br>'.$sql_select_resa_groupe.'<br>'.mysql_error());
 while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
     $nom_structure = $data_resa_groupe['nom_structure'];
@@ -125,8 +139,8 @@ while($data_resa_groupe = mysql_fetch_array($requete_select_resa_groupe)){
     $nb_gratuit = $data_resa_groupe['nb_gratuit'];
     $coment = $data_resa_groupe['coment'];
     $tarif = $data_resa_groupe['nom_tarif'];
+    $accompte = $data_resa_groupe['montant'];
 }
-
 $date_article = date_fr("l d-m-Y", $date);
 ?>
 <div id="resa-groupe">
@@ -140,6 +154,7 @@ $date_article = date_fr("l d-m-Y", $date);
     <div id="nb_enfants">Nombre d'enfants : <?php echo $nb_enfants; ?></div>
     <div id="nb-accompagnateurs">Nombres d'accompagnateurs : <?php echo $nb_accompagnateurs; ?> dont gratuit : <?php echo $nb_gratuit; ?></div>
     <div id="tarif-groupe">Tarif : <?php echo $tarif; ?></div>
+    <div id="accompte-groupe">Montant de l'accompte : <?php echo $accompte;?></div>
     <div id="comentaire-resa-groupe">Commentaire de la réservation : <?php echo $coment; ?></div>
 </div>
 <?php
