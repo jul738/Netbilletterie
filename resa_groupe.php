@@ -38,6 +38,19 @@ if (!empty($_POST)){
     $coment = mysql_escape_string($_POST['coment']);
     $id_tarif = $_POST['tarif-groupe'];
     
+    //On vérifie le stock
+    $quanti = $nb_enfants + $nb_accompagnateurs;
+     $rqSql11= "SELECT stock, article FROM ".$tblpref."article WHERE num=$id_article ";
+                  $result11 = mysql_query( $rqSql11 ) or die( "Execution requete rqsql11 impossible.");
+                          while ( $row = mysql_fetch_array( $result11)) {
+                                  $stock = $row["stock"];
+                                  $nom_article= stripslashes($row["article"]);}
+                                  $tre=$stock-$quanti;
+                                  if($tre<0){
+                                      echo "<h1>Impossibilite d'enregister <font color=red>$nom_article</font> <br> Car vous avez demande <font color=red>$quanti</font> place(s) et il n'en reste que <font color=red>$stock</font></h1>";
+                                      continue;
+                                      }
+    
     // Insert dans la base
     // Si nouveau alors création de la réservation du groupe
     if(empty($num_resa_groupe)){

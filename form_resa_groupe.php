@@ -52,7 +52,7 @@ elseif(!empty($_GET['num_groupe'])){
     }
     
 // On récupère la liste des articles
-    $select_articles = "SELECT num, article, date_spectacle, horaire FROM " . $tblpref ."article
+    $select_articles = "SELECT num, article, date_spectacle, horaire, stock FROM " . $tblpref ."article
                         WHERE date_spectacle >= NOW()  - INTERVAL 1 DAY
                         AND type_article = 'Spectacle_JP'
                         ORDER BY date_spectacle ASC";
@@ -62,6 +62,7 @@ elseif(!empty($_GET['num_groupe'])){
         $nom_articles[] = $articles['article'];
         $timestamp[] = strtotime($articles['date_spectacle']);
         $horaire[] = $articles['horaire'];
+        $stock[] = $articles['stock'];
     }
     // On met les dates dans le bon format
  
@@ -110,7 +111,7 @@ elseif(!empty($_GET['num_groupe'])){
                 foreach($num_articles as $key2 => $num_article)
                     {
                     ?>
-                    <option value="<?php echo $num_article; ?>"<?php if($num_article_resa == $num_article){ echo "selected"; }; ?>><?php echo $nom_articles[$key2].' - '.$date_spectacle[$key2].' - '.$horaire[$key2]; ?></option>
+                    <option value="<?php echo $num_article; ?>"<?php if($num_article_resa == $num_article){ echo "selected"; }; ?>><?php echo $nom_articles[$key2].' - '; if($stock[$key2]<=0){echo 'COMPLET';}else{ echo 'le stock est de '.$stock[$key2].' places';}; echo ' - '.$date_spectacle[$key2].' - '.$horaire[$key2]; ?></option>
                     <?php
                     }
                 ?>
