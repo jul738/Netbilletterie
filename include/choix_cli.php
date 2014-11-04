@@ -27,7 +27,8 @@ foreach ($lettre as $value) {
 
 $nom=  addslashes($data['nom']);
 $nom2=  addslashes($data['nom2']);
-echo"ville[\"p$l\"][\"$v\"]= new Array(\"$data[num_client]\", \" $nom \");";
+$prenom = addslashes($data['prenom']);
+echo"ville[\"p$l\"][\"$v\"]= new Array(\"$data[num_client]\", \" $nom \", \" $prenom \");";
 
 $v=$v+1;
 }
@@ -67,6 +68,6 @@ for (i=l; i>=0; i--)
 <select class="OPTION" ID="cluster2"name="listeville" onChange='javascript:filltheselect(this.name, this.value)'> 
    <script type="text/javascript"> 
    for (i=0; i<ville["p0"].length; i++) 
-      document.write("<option value=\"" +ville["p0"][i][0]+ "\">" +ville["p0"][i][1]); 
+      document.write("<option value=\"" +ville["p0"][i][0]+ "\">" +ville["p0"][i][1] +ville["p0"][i][]); 
    </script> 
 </select> 
