@@ -161,8 +161,7 @@ function edition()
 						include_once("include/configav.php");
 							$rqSql = "SELECT uni, num, article, date_spectacle AS date, horaire, prix_htva, stock, stomin, stomax
 										FROM ".$tblpref."article
-										WHERE stock > '0'
-										AND date_spectacle BETWEEN NOW() AND '$annee_1-$fin_saison'
+										WHERE date_spectacle BETWEEN NOW() AND '$annee_1-$fin_saison'
 										ORDER BY date_spectacle, horaire ASC";
 						$result = mysql_query( $rqSql )or die( "Exécution requête impossible3.<br> <a href='lister_commandes.php'>retour a la liste</a>");
 						?>
