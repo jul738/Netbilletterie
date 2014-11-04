@@ -13,6 +13,7 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once('include/fonction.php');
 ?>
 <table width="760" border="0" class="page" align="center">
 <tr>
@@ -38,15 +39,16 @@ if($client=='0')
     exit;
     }
 //pour la 1er ligne de la page
-$sql_nom = "SELECT  nom, nom2 FROM " . $tblpref ."client WHERE num_client = $client";
+$sql_nom = "SELECT  nom, nom2, prenom FROM " . $tblpref ."client WHERE num_client = $client";
 $req = mysql_query($sql_nom) or die('Erreur SQL  !<br>'.$sql.'<br>'.mysql_error());
 while($data = mysql_fetch_array($req))
     {
 		$nom = $data['nom'];
 		$nom2 = $data['nom2'];
+                $prenom  = $data['prenom'];
 		$phrase = "$lang_bon_cree";
                 ?>
-		<h1><?php echo "$phrase: $nom - $nom2 $lang_bon_cree2 $date<br>";?></h1><br>
+		<h1><?php echo "$phrase: $nom - $prenom $lang_bon_cree2 $date<br>";?></h1><br>
                 <?PHP
 		}
 		
@@ -124,7 +126,8 @@ $annee_2= $annee_1 -1;
 						while ( $row = mysql_fetch_array( $result)) {
     							$num = $row["num"];
     							$article = $row["article"];
-								$date = $row["date"];
+								$date_timestamp = strtotime($row["date"]);
+                                                                $date = date_fr('l d-m-Y', $date_timestamp);
                                                                 $horaire = $row['horaire'];
 								$stock = $row['stock'];
 								$min = $row['stomin'];
