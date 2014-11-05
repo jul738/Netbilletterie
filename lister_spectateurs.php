@@ -96,13 +96,13 @@ $sql .= " ORDER BY nom, BC.id_tarif ASC ";
 
 $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 
-$sql2="SELECT DATE_FORMAT(date_spectacle,'%d/%m/%Y') AS date_spectacle, horaire, article, stock, num FROM " . $tblpref ."article WHERE num=$article_numero";
+$sql2="SELECT DATE_FORMAT(date_spectacle,'%d-%m-%Y') AS date, horaire, article, stock, num FROM " . $tblpref ."article WHERE num=$article_numero";
 $req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 while($data = mysql_fetch_array($req2))
     {
     $article = $data['article'];
     $article_numero= $data['num'];
-    $date_timestamp = strtotime($data['date_spectacle']);
+    $date_timestamp = strtotime($data['date']);
     $date = date_fr('l d-m-Y', $date_timestamp);
     $horaire = $data['horaire'];
     $stock = $data['stock'];
