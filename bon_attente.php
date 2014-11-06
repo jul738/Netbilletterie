@@ -111,7 +111,7 @@ $annee_2= $annee_1 -1;
 //=============================================
 
 	// pour ne montrer que les articles dont le stock est "0" ou inf.
-				 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d/%m/%Y' ) AS date,horaire,  prix_htva, stock, stomin, stomax
+				 $rqSql = "SELECT uni, num, article, DATE_FORMAT( date_spectacle, '%d-%m-%Y' ) AS date,horaire,  prix_htva, stock, stomin, stomax
                                             FROM " . $tblpref ."article
                                             WHERE stock < '1'
                                             AND date_spectacle
