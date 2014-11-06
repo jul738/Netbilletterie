@@ -107,7 +107,6 @@ while($data = mysql_fetch_array($req2))
     $horaire = $data['horaire'];
     $stock = $data['stock'];
 
-
 ?>
 <center><table class="boiteaction">
   <caption>Liste des spectateurs pour: <br><?php
@@ -256,8 +255,8 @@ echo"</td></tr>";
 <tr><td>
      <?php
      /* Récupèration des informations sur les réservations de groupes */
-     $sql_resa_groupe = "SELECT * FROM bon_comm_groupe AS bcg, groupe AS g WHERE bcg.id_article='$article_numero' AND bcg.num_groupe = g.num_groupe";
-     $req_resa_groupes = mysql_query($sql_resa_groupe) or die ('Erreur SQL séléction des réservations de groupes');
+     $sql_resa_groupe = "SELECT * FROM bon_comm_groupe AS bcg, groupe AS g, accompte AS a WHERE bcg.id_article='$article_numero' AND bcg.num_groupe = g.num_groupe AND a.num_bon_groupe = bcg.num_bon_groupe";
+     $req_resa_groupes = mysql_query($sql_resa_groupe) or die ('Erreur SQL séléction des réservations de groupes'.mysql_error());
      
      ?>
 <center><table class="boiteaction">
@@ -274,6 +273,7 @@ echo"</td></tr>";
             <th>Nombre d'accompgnateurs gratuit prévus</th>
             <th>Nombre d'accompgnateurs gratuit réels</th>
             <th>Commentaire sur la réservation</th>
+            <th>Montant de l'accompte</th>
             <th>Valider le groupe</th>
         </tr>
         <?php
@@ -291,6 +291,7 @@ echo"</td></tr>";
             $nb_enfants_reel = $data_resa_groupe['nb_enfants_reel'];
             $nb_accompagnateurs_reel = $data_resa_groupe['nb_accompagnateurs_reel'];
             $nb_gratuits_reel = $data_resa_groupe['nb_gratuit_reel'];
+            $montant = $data_resa_groupe['montant'];
             ?>
         <form action="lister_spectateurs.php?article=<?php echo $article_numero;?>" id="spectacle-resa-groupe" method="POST">
         <tr>
@@ -305,6 +306,7 @@ echo"</td></tr>";
             <td><?php echo $nb_gratuit; ?></td>
             <td><?php if(empty($nb_gratuits_reel)) { ?><input type="text" id="nb-gratuit-reel" name="nb-gratuit-reel" size="3" value="0" /><?php } else { echo $nb_gratuits_reel;}?></td>
             <td><?php echo $commentaire_groupe; ?></td>
+            <td><?php echo $montant;?></td>
             <td>
                 <input type="hidden" id="num-bon-groupe" name="num-bon-groupe" value="<?php echo $num_bon_groupe;?>" />
                 <input type="submit" id="Enregistrer le groupe" value="Enregistrer le groupe" />
