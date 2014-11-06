@@ -135,6 +135,7 @@ function verif_formulaire()
 													 BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
 													 AND nom_tarif<>'gratuit'
 													 AND selection='1'
+                                                                                                         AND nom_tarif NOT LIKE '%abonnement%'
 													 ORDER BY nom_tarif ASC";
 											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
 									<td class="texte0" colspan='2'>
