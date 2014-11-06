@@ -137,4 +137,13 @@ saisie abonnement-->
 			</ul>
 		</div>
 	</div>
+        	<!--deroulant du menu -->
+		<div id="menu15" class="mega solidblocktheme">
+			<p style="margin:5px 0 10px 0"><b>Facturation</b></p>
+			<div class="column">
+				<ul>
+                                    <li><a href="lister_accompte.php"><b>Liste des accomptes</b></a></li><hr/>
+				</ul>
+			</div>
+		</div>
 </div>
