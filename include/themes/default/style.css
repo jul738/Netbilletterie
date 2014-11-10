@@ -715,3 +715,12 @@ div.bouton a, tr.bouton a, div.bouton-seul a {
 td > strong {
     color : red;
 }
+
+/* Bouton dupliquer sur les résas de groupe */
+.duplication{
+    background-image : url('../../../image/duplicat.png');
+    background-repeat : no-repeat;
+    border : none;
+    width : 22px;
+    height : 30px;
+}
