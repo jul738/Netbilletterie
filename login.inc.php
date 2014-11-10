@@ -6,6 +6,10 @@ Licensed under the terms of the GNU  General Public License:http://www.opensourc
 File Authors:Guy Hendrickx
 Modification : José Das Neves pitu69@hotmail.fr*/
 
+if(isset($_SESSION['login'])){
+    header("Location: accueil.php");
+}
+
 // include the Zebra_Session class
 include_once("include/config/common.php");
 include_once 'include/lib/Zebra_Session.php';
