@@ -39,6 +39,18 @@ if(!empty($_GET['num_resa_groupe'])){
         $tarif_groupe_resa = $data_resa_groupe['id_tarif'];
         }
 }
+
+elseif(!empty($_POST['num-groupe'])){
+    $nom_referent = $_POST['nom-referent'];
+    $telephone_referent = $_POST['telephone-referent'];
+    $classe_groupe = $_POST['classe-groupe'];
+    $nb_enfants = $_POST['nb-enfants'];
+    $nb_accompagnateurs = $_POST['nb-accompagnateurs'];
+    $nb_gratuit = $_POST['nb-gratuit'];
+    $num_groupe_resa = $_POST['num-groupe'];
+    $tarif_groupe_resa = $_POST['id-tarif'];
+}
+
 elseif(!empty($_GET['num_groupe'])){
     $num_groupe_resa = $_GET['num_groupe'];
 }

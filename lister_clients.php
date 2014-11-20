@@ -116,7 +116,7 @@ $req_recup_abo = "SELECT ab.type_abonnement
                   FROM abonnement AS ab, abonnement_comm AS ac
                   WHERE ab.num_abonnement = ac.num_abonnement
                   AND ac.client_num = '$num'
-                  AND ac.date_fin <= CURRENT_DATE";
+                  AND ac.date_fin >= CURDATE()";
 
 $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_abo.'<br>'.mysql_error());
             $type_abonnement = '';

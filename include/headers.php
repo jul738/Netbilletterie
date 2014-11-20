@@ -58,7 +58,6 @@ ddmegamenu.docinit({
 	
 </script>
 <script language="JavaScript">
-window.history.forward();
 var layers = false;
 var ie4 = (document.all) ? true : false;
 var ns6 = (document.getElementById&&!document.all) ? true : false;
@@ -87,10 +86,6 @@ if (ns6) {
 }
 }
 
-function noBack(){window.history.forward()} 
-noBack(); 
-window.onload=noBack; 
-window.onpageshow=function(evt){if(evt.persisted)noBack()} 
 window.onunload=function(){void(0)} 
 </script> 
 

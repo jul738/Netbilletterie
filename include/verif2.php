@@ -47,19 +47,13 @@ include_once("../include/config/var.php");
 include_once '../include/lib/Zebra_Session.php';
 $session = new Zebra_Session;
 
-if(Auth::isLogged()){
-}
-else{
-	header('location:login.inc.php');
-}
-
  $login=$_SESSION['Auth']['login'];
  $lang=$_SESSION['Auth']['lang'];
  $tblpref=$_SESSION['Auth']['tblpref'];
 
 if($_SESSION['Auth']=='')
 {
-	echo "Vous n'�tes pas autoris� � acc�der � cette zone";
+	echo "Vous n'êtes pas autorisé à accéder à cette zone";
 	include('login.inc.php');
 	exit;
 }
@@ -88,7 +82,7 @@ while($data = mysql_fetch_array($req))
     $user_menu   = $data['menu'];
 }
  if ($entrep_nom==""){
-    $message="<h1>Il semblerait que vous n'ayez pas encore configur� Net-Billetterie</h1>";
+    $message="<h1>Il semblerait que vous n'ayez pas encore configuré Net-Billetterie</h1>";
     include("../admin.php");
   }
 		?>

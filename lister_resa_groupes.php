@@ -17,7 +17,7 @@ include_once("include/fonction.php");
 
 // On récupère la liste des réservations de groupes
 
-$select_resa_groupes = "SELECT num_bon_groupe, bcg.num_groupe, nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
+$select_resa_groupes = "SELECT num_bon_groupe, bcg.num_groupe, nom_structure, article, date_spectacle, horaire, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, id_tarif FROM " . $tblpref ."bon_comm_groupe AS bcg, " . $tblpref ."groupe AS g, " . $tblpref ."article AS a WHERE bcg.id_article=a.num AND bcg.num_groupe=g.num_groupe";
 $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes'.$select_resa_groupes.'<br>'.mysql_error());
 
 // ON affiche les groupes dans un tableau
@@ -59,6 +59,7 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
           $nb_accompagnateurs = $data_resa_groupes['nb_accompagnateurs'];
           $nb_gratuit = $data_resa_groupes['nb_gratuit'];
           $commentaire = $data_resa_groupes['coment'];
+          $id_tarif = $data_resa_groupes['id_tarif'];
           
           $date_paiement = "0000-00-00";
 		  $id_facture = "";
@@ -83,6 +84,19 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
             <td class="highlight"><?php echo $commentaire; ?></td>
             <td class="highlight"><a href='resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" title="Voir la réservation du groupe" src="image/voir.gif" alt="voir"></a></td>
             <td class="highlight"><a href='form_resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" alt="Modifier"  title="Modifier la réservation du groupe"src="image/edit.png"></a></td>
+            <td>
+                <form action="form_resa_groupe.php" name="dupliquer-resa-groupe" id="dupliquer-resa-groupe" method="POST">
+                    <input type="hidden" name="num-groupe" value="<?php echo $num_groupe;?>"></input>
+                    <input type="hidden" name="nom-referent" value="<?php echo $nom_referent;?>"></input>
+                    <input type="hidden" name="telephone-referent" value="<?php echo $telephone_referent;?>"></input>
+                    <input type="hidden" name="classe-groupe" value="<?php echo $classe_groupe;?>"></input>
+                    <input type="hidden" name="nb-enfants" value="<?php echo $nb_enfants;?>"></input>
+                    <input type="hidden" name="nb-accompagnateurs" value="<?php echo $nb_accompagnateurs;?>"></input>
+                    <input type="hidden" name="nb-gratuit" value="<?php echo $nb_gratuit;?>"></input>
+                    <input type="hidden" name="id-tarif" value="<?php echo $id_tarif;?>"></input>                    
+                    <input type="submit" value="" class="duplication"</input>
+                </form>
+            </td>
             <td class="highlight"><a href='delete_resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" title="Supprimer la réservation du groupe" alt="delete" src="image/delete.png"></a></td>
             <td class="highlight"><?php if(empty($id_facture)){?><a href="form_facture.php?num_groupe=<?php echo $num_groupe; ?>&num_resa=<?php echo $num_resa_groupe;?>&type=acompte&type_resa=groupe"><img src="image/facture.png" title="Créer la facture d'accompte" alt="Création de la facture d'acompte"></a><?php } else { if ($date_paiement == "0000-00-00") { echo 'Non payé';} else { echo 'Payé';}}?></td>        
         </tr>
