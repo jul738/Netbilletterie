@@ -12,6 +12,9 @@ include_once("include/utils.php");
 include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
+if(isset($_GET['num_client'])){
+$new_client = $_GET['num_client'];
+}
 ?>
 
 <table border="0" class="page" align="center">
@@ -73,7 +76,7 @@ include_once("include/finhead.php");
                 $nom2 = $row["nom2"];
                 $prenom = $row["prenom"];
 ?>
-                <OPTION VALUE='<?php echo $numclient; ?>'><?php echo $nom." ".$prenom; ?></OPTION>
+                <OPTION VALUE='<?php echo $numclient; ?>'<?php if($numclient == $new_client){echo 'selected';}?>><?php echo $nom." ".$prenom; ?></OPTION>
 <?php
                 }
 ?>

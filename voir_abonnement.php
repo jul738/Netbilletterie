@@ -14,6 +14,7 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once("include/fonction.php");
 
 // on récupère le numero de vente de l'abonnement
 $num_abo_com=isset($_GET['num_abo_com'])?$_GET['num_abo_com']:"";
@@ -51,11 +52,12 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
     $nom = $data['nom'];  
     $prenom = $data['prenom'];
     $commentaire = $data['commentaire'];
+    $paiement = $data['paiement'];
         }
         
         // On récupère le nom du paiement 
         if ((!empty($paiement)) || ($paiement == 'non')){
-            $sql_nom_paiement = "SELECT nom FROM type_paiement AS id_type_paiement = '$paiement'";
+            $sql_nom_paiement = "SELECT nom FROM type_paiement WHERE id_type_paiement = '$paiement'";
             $req_nom_paiement = mysql_query($sql_nom_paiement) or die ('Erreur SQL selection nom paiement');
             while ($nom_paiement = mysql_fetch_array($req_nom_paiement)){
                 $paiement = $nom_paiement['nom'];
@@ -73,7 +75,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                             $choix_spectacle_1 = $data['article'];
                                             $horaire_spectacle_1_vendu = $data['horaire'];
-                                            $date_spectacle_1_vendu = $data['date_spectacle'];
+                                            $date1 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_1_vendu = date_fr('l d-m-Y', $date1);
                                             $type_spectacle_1_vendu = $data['type_article'];
                                             $numero_repre_spectacle_1_vendu = $data['numero_representation'];
                                             }
@@ -89,7 +92,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                             $choix_spectacle_2 = $data['article'];
                                             $horaire_spectacle_2_vendu = $data['horaire'];
-                                            $date_spectacle_2_vendu = $data['date_spectacle'];
+                                            $date2 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_2_vendu = date_fr('l d-m-Y', $date2);
                                             $type_spectacle_2_vendu = $data['type_article'];
                                             $numero_repre_spectacle_2_vendu = $data['numero_representation'];
                                             }  
@@ -105,7 +109,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                             $choix_spectacle_3 = $data['article'];
                                             $horaire_spectacle_3_vendu = $data['horaire'];
-                                            $date_spectacle_3_vendu = $data['date_spectacle'];
+                                            $date3 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_3_vendu = date_fr('l d-m-Y', $date3);
                                             $type_spectacle_3_vendu = $data['type_article'];
                                             $numero_repre_spectacle_3_vendu = $data['numero_representation'];
                                             }                                            
@@ -121,7 +126,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                               $choix_spectacle_4 = $data['article'];
                                             $horaire_spectacle_4_vendu = $data['horaire'];
-                                            $date_spectacle_4_vendu = $data['date_spectacle'];
+                                            $date4 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_4_vendu = date_fr('l d-m-Y', $date4);
                                             $type_spectacle_4_vendu = $data['type_article'];
                                             $numero_repre_spectacle_4_vendu = $data['numero_representation'];
                                             }                                            
@@ -137,7 +143,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                               $choix_spectacle_5 = $data['article'];
                                             $horaire_spectacle_5_vendu = $data['horaire'];
-                                            $date_spectacle_5_vendu = $data['date_spectacle'];
+                                            $date5 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_5_vendu = date_fr('l d-m-Y', $date5);
                                             $type_spectacle_5_vendu = $data['type_article'];
                                             $numero_repre_spectacle_5_vendu = $data['numero_representation'];
                                             }                                            
@@ -153,7 +160,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                               $choix_spectacle_6 = $data['article'];
                                             $horaire_spectacle_6_vendu = $data['horaire'];
-                                            $date_spectacle_6_vendu = $data['date_spectacle'];
+                                            $date6 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_6_vendu = date_fr('l d-m-Y', $date6);
                                             $type_spectacle_6_vendu = $data['type_article'];
                                             $numero_repre_spectacle_6_vendu = $data['numero_representation'];
                                             }
@@ -169,7 +177,8 @@ $recup_info_vente_brut = mysql_query($req_recup_info_vente) or die ( 'Execution 
                                             {
                                               $choix_spectacle_7 = $data['article'];
                                             $horaire_spectacle_7_vendu = $data['horaire'];
-                                            $date_spectacle_7_vendu = $data['date_spectacle'];
+                                            $date7 = strtotime($data['date_spectacle']);
+                                            $date_spectacle_7_vendu = date_fr('l d-m-Y', $date7);
                                             $type_spectacle_7_vendu = $data['type_article'];
                                             $numero_repre_spectacle_7_vendu = $data['numero_representation'];
                                             }                                            
