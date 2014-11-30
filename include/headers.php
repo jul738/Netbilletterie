@@ -20,10 +20,13 @@ include_once("include/configav.php");
 <link rel="stylesheet" type="text/css" href="include/themes/default/menu/menu.css" />
 <style type="text/css">
 	@import "include/themes/default/table_jui.css";
+	@import "include/themes/default/jquery.dataTables.css";
+	@import "include/themes/default/dataTables.fixedHeader.css";
 	@import "include/themes/ui-lightness/jquery-ui-1.8.4.custom.css";
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+<script src="javascripts/jquery.js" type="text/javascript"></script>
 <script src="javascripts/jquery.dataTables.js" type="text/javascript"></script>
+<script src="javascripts/dataTables.fixedHeader.js" type="text/javascript"></script>
 <script src="javascripts/menu.js"></script>
 
 <script>
