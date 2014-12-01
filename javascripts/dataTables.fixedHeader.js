@@ -699,6 +699,7 @@ FixedHeader.prototype = {
 
 		if ( s.bInitComplete && !s.oCloneOnDraw.top )
 		{
+			this._fnClassUpdate( $('caption', s.nTable)[0], $('caption', nTable)[0] );
 			this._fnClassUpdate( $('thead', s.nTable)[0], $('thead', nTable)[0] );
 			return;
 		}
@@ -711,12 +712,15 @@ FixedHeader.prototype = {
 		/* Remove any children the cloned table has */
 		while ( nTable.childNodes.length > 0 )
 		{
+			$('caption', nTable).unbind( 'click' );
 			$('thead th', nTable).unbind( 'click' );
 			nTable.removeChild( nTable.childNodes[0] );
 		}
 
 		/* Clone the DataTables header */
+		var nCaption = $('caption', s.nTable).clone(true)[0];
 		var nThead = $('thead', s.nTable).clone(true)[0];
+		nTable.appendChild( nCaption );
 		nTable.appendChild( nThead );
 
 		/* Copy the widths across - apparently a clone isn't good enough for this */
