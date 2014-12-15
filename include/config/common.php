@@ -1,8 +1,8 @@
 <?php
 //common.php cr�� grace � l'installeur de Net-Billetterie, soyez prudent si vous l'�ditez
-$user= "user";//l'utilisateur de la base de donn�es mysql
-$pwd= "password";//le mot de passe � la base de donn�es mysql
-$db= "netbilleterie";//le nom de la base de donn�es mysql
+$user= "root";//l'utilisateur de la base de donn�es mysql
+$pwd= "b2Emi0902";//le mot de passe � la base de donn�es mysql
+$db= "netbilletterie";//le nom de la base de donn�es mysql
 $host= "localhost";//l'adresse de la base de donn�es mysql 
 $default_lang= "fr";//la langue de l'interface et des factures cr��es par Net-Billetterie : voir la doc pour les abbr�viations
 $tblpref= "";//prefixe des tables 

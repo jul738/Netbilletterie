@@ -26,4 +26,3 @@ include_once("include/language/$lang.php");
 	</tr>
 </table>
 </body> 
-
