@@ -26,7 +26,7 @@ if (!empty($_POST)){
         $ancien_nb_accompagnateurs = $_POST['ancien_nb_accompagnateur'];
         $quanti_ancien = $ancien_nb_accompagnateurs + $ancien_nb_enfants;
         $ancien_article = $_POST['ancien_article'];
-    }
+        }
     $num_groupe = mysql_escape_string($_POST['nom-groupe']);
     $nom_referent = mysql_escape_string($_POST['nom-referent-groupe']);
     $telephone_referent = mysql_escape_string($_POST['telephone-referent-groupe']);
@@ -38,9 +38,14 @@ if (!empty($_POST)){
     $coment = mysql_escape_string($_POST['coment']);
     $id_tarif = $_POST['tarif-groupe'];
     
-    //On vérifie le stock
     $quanti = $nb_enfants + $nb_accompagnateurs;
-     $rqSql11= "SELECT stock, article FROM ".$tblpref."article WHERE num=$id_article ";
+    
+    // Insert dans la base
+    // Si nouveau alors création de la réservation du groupe
+    if(empty($num_resa_groupe)){
+        
+            //On vérifie le stock
+             $rqSql11= "SELECT stock, article FROM ".$tblpref."article WHERE num=$id_article ";
                   $result11 = mysql_query( $rqSql11 ) or die( "Execution requete rqsql11 impossible.");
                           while ( $row = mysql_fetch_array( $result11)) {
                                   $stock = $row["stock"];
@@ -50,10 +55,7 @@ if (!empty($_POST)){
                                       echo "<h1>Impossibilite d'enregister <font color=red>$nom_article</font> <br> Car vous avez demande <font color=red>$quanti</font> place(s) et il n'en reste que <font color=red>$stock</font></h1>";
                                       continue;
                                       }
-    
-    // Insert dans la base
-    // Si nouveau alors création de la réservation du groupe
-    if(empty($num_resa_groupe)){
+        //On enregistre la réservation de groupe                              
         $sql_insert_resa_groupe = "INSERT INTO " . $tblpref ."bon_comm_groupe(num_groupe, nom_referent, telephone_referent, classe_groupe, nb_enfants, nb_accompagnateurs, nb_gratuit, id_article, coment, id_tarif) VALUES('$num_groupe', '$nom_referent', '$telephone_referent', '$classe_groupe', '$nb_enfants', '$nb_accompagnateurs', '$nb_gratuit', '$id_article', '$coment', '$id_tarif')";
         $requete_insert_resa_groupe = mysql_query($sql_insert_resa_groupe) or die('Erreur SQL création réservation groupe !<br>'.$requete_insert_resa_groupe.'<br>'.mysql_error());
         $num_resa_groupe = mysql_insert_id();
