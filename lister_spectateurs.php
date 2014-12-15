@@ -145,10 +145,8 @@ while($data = mysql_fetch_array($req2))
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom">Nom</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=prenom">Prenom</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue">Telephone</a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=cp">Mail</a></th>
-                    <th>Modifier le client</th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=coment">Commentaire</a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=ville">Type de tarif</a></th>
+                    <th>Modifier la réservation</th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Tarif</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Paiement</a></th>
                     <th>Valider</th>
@@ -190,10 +188,8 @@ while($data = mysql_fetch_array($req))
                     <td class="highlight"><?php echo $nom_html; ?></td>
                     <td class="highlight"><?php echo $prenom ; ?></td> 
                     <td class="highlight"><?php echo $tel; ?></td>
-                    <td class="highlight"><a href="mailto:<?php echo $mail; ?>" ><?php echo "$mail"; ?></a></td>
-                    <td><a href="edit_client.php?num=<?php echo $num_client;?>"><img src="image/edit.png" title="Modifier le spectateur" alt="Bouton pour modifier le spectateur" /></a></td>
                     <td class="highlight"><?php echo $commentaire; ?></td>
-                    <td class="highlight"><?php echo $nom_tarif; ?></td>
+                    <td><a href="form_editer_bon.php?num_bon=<?php echo $bon_num;?>&id_tarif=<?php echo $id_tarif;?>"><img src="image/edit.png" title="Modifier le spectateur" alt="Bouton pour modifier le spectateur" /></a></td>
                     <td class="highlight">
                         <?php $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
 													 WHERE nom_tarif<>'gratuit'
