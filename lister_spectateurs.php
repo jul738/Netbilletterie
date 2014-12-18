@@ -131,7 +131,7 @@ while($data = mysql_fetch_array($req2))
     While($data_count_arrive = mysql_fetch_array($req_count_arrive)) {
         $count_arrive = $data_count_arrive['COUNT(num_bon)'];
     }
-    echo 'Nombre de personnes arrivées / Nombre de personnes à venir <br />'.$count_arrive.' / '.$count_resa;
+    echo 'Nombre de particuliers arrivées / Nombre de particulier à venir <br />'.$count_arrive.' / '.$count_resa;
     ?>
     <br>
   <?php if ($user_admin != n) { ?>
@@ -254,9 +254,22 @@ echo"</td></tr>";
      $sql_resa_groupe = "SELECT * FROM bon_comm_groupe AS bcg, groupe AS g, accompte AS a WHERE bcg.id_article='$article_numero' AND bcg.num_groupe = g.num_groupe AND a.num_bon_groupe = bcg.num_bon_groupe";
      $req_resa_groupes = mysql_query($sql_resa_groupe) or die ('Erreur SQL séléction des réservations de groupes'.mysql_error());
      
-     ?>
+    $sql_count_resa_groupe = "SELECT COUNT(num_bon_groupe) FROM bon_comm_groupe AS bcg WHERE bcg.id_article='$article_numero'";
+    $req_count_resa_groupe = mysql_query($sql_count_resa_groupe) or die ('Erreur SQL compte résas groupes'.mysql_error());
+            while($data_count_groupe = mysql_fetch_array($req_count_resa_groupe)){
+                $count_nb_groupes = $data_count_groupe['COUNT(num_bon_groupe)'];
+                }
+    $sql_count_resa_groupe2 = "SELECT nb_accompagnateurs, nb_enfants FROM bon_comm_groupe AS bcg WHERE bcg.id_article='$article_numero'";
+    $req_count_resa_groupe2 = mysql_query($sql_count_resa_groupe2) or die ('Erreur SQL compte résas groupes'.mysql_error());
+            while($data_count_groupe2 = mysql_fetch_array($req_count_resa_groupe2)){
+                $count_nb_enfants = $count_nb_enfants + $data_count_groupe2['nb_enfants'];
+                $count_nb_adultes = $count_nb_adultes + $data_count_groupe2['nb_accompagnateurs'];
+                }
+    ?>
 <center><table class="boiteaction">
-        <caption>Réservations de groupe</th>
+        <caption>Réservations de groupe<br />
+            Nombres de groupe : <?php echo $count_nb_groupes;?><br />
+            Nombre de personnes dans les groupes : <?php echo $count_nb_enfants + $count_nb_adultes;?></th>
         <tr>
             <th>Nom de la structure</th>
             <th>Nom du référent du groupe</th>

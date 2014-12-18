@@ -45,6 +45,18 @@ class PDF extends PDF_MySQL_Table
         while ($data_nb_billet = mysql_fetch_array($req_nb_billet)){
             $nb_billet = $data_nb_billet['COUNT(num_bon)'];
         }
+        
+        $sql_count_resa_groupe = "SELECT COUNT(num_bon_groupe) FROM bon_comm_groupe AS bcg WHERE bcg.id_article='$article_numero'";
+    $req_count_resa_groupe = mysql_query($sql_count_resa_groupe) or die ('Erreur SQL compte résas groupes'.mysql_error());
+            while($data_count_groupe = mysql_fetch_array($req_count_resa_groupe)){
+                $count_nb_groupes = $data_count_groupe['COUNT(num_bon_groupe)'];
+                }
+    $sql_count_resa_groupe2 = "SELECT nb_accompagnateurs, nb_enfants FROM bon_comm_groupe AS bcg WHERE bcg.id_article='$article_numero'";
+    $req_count_resa_groupe2 = mysql_query($sql_count_resa_groupe2) or die ('Erreur SQL compte résas groupes'.mysql_error());
+            while($data_count_groupe2 = mysql_fetch_array($req_count_resa_groupe2)){
+                $count_nb_enfants = $count_nb_enfants + $data_count_groupe2['nb_enfants'];
+                $count_nb_adultes = $count_nb_adultes + $data_count_groupe2['nb_accompagnateurs'];
+                }
 
         //le logo
     $this->Image("$this->logo",20,8,0,15,'jpg');
@@ -55,7 +67,7 @@ class PDF extends PDF_MySQL_Table
     $this->SetFont('big_noodle_titling','',10);
     $this->SetY(12);
     $this->SetX(60);
-    $this->MultiCell(130,6,"Liste des spectateurs pour :  \n - $article -  le $date. \n Il reste $stock places. $nb_billet places de vendus",0,C,0);
+    $this->MultiCell(130,6,"Liste des spectateurs pour :  \n - $article -  le $date. \n Il reste $stock places. $nb_billet particuliers attendus \n $count_nb_groupes groupes attendus - $count_nb_enfants enfants et $count_nb_adultes adultes",0,C,0);
 
     if ($this->header ==1 ){
                 $this->cell(50,5, utf8_decode('nom Prénom'), 1, 0, L, 0);
@@ -70,7 +82,10 @@ class PDF extends PDF_MySQL_Table
                 $this->cell(20,5, utf8_decode('Téléphone'), 1, 0, L, 0);
                 $this->cell(5, 5, 'En', 1, 0, L, 0);
                 $this->cell(5, 5, 'Ad', 1, 0, L, 0);
-                $this->cell(80, 5, 'Commentaire', 1, 0, L, 0);
+                $this->cell(10, 5, 'Acc.', 1, 0, L, 0);
+                $this->cell(10, 5, utf8_decode('Payé'), 1, 0, L, 0);
+                $this->cell(10, 5, 'Classe', 1, 0, L, 0);
+                $this->cell(140, 5, 'Commentaire', 1, 0, L, 0);
                 $this->setXY(10, $this->GetY()+5);
     }
     }
@@ -182,7 +197,7 @@ $req_spectateurs = mysql_query($select_spectateurs) or die('Erreur séléction s
         }
         
         function TableGroupe(){
-            $select_groupe = "SELECT nom_structure, nom_referent, telephone_referent, nb_enfants, nb_accompagnateurs, coment FROM bon_comm_groupe AS bcg, groupe AS g WHERE bcg.id_article = $this->article_numero AND bcg.num_groupe = g.num_groupe";
+            $select_groupe = "SELECT nom_structure, nom_referent, telephone_referent, nb_enfants, nb_accompagnateurs, coment, classe_groupe, montant, paye FROM bon_comm_groupe AS bcg, groupe AS g, accompte AS a WHERE bcg.id_article = $this->article_numero AND bcg.num_groupe = g.num_groupe AND bcg.num_bon_groupe = a.num_bon_groupe";
             $result_groupe = mysql_query($select_groupe) or die ('Erreur séléction groupe');
             while($data_groupe = mysql_fetch_array($result_groupe)){
                 $nom_groupe = $data_groupe['nom_structure'];
@@ -195,8 +210,20 @@ $req_spectateurs = mysql_query($select_spectateurs) or die('Erreur séléction s
                 $this->cell(5, 5, $enfant, 1, 0, L, 0);
                 $adulte = $data_groupe['nb_accompagnateurs'];
                 $this->cell(5, 5, $adulte, 1, 0, L, 0);
+                $montant = $data_groupe['montant'];
+                $this->cell(10, 5, $montant, 1, 0, L, 0);
+                $paye_bool = $data_groupe['nb_accompagnateurs'];
+                if($paye_bool == '0'){
+                    $paye = 'oui';
+                }
+                else {
+                    $paye = 'non';
+                };
+                $this->cell(10, 5, $paye, 1, 0, L, 0);
+                $classe = $data_groupe['classe_groupe'];
+                $this->cell(10, 5, $classe, 1, 0, L, 0);
                 $commentaire = $data_groupe['coment'];
-                $this->cell(80, 5, utf8_decode($commentaire), 1, 0, L, 0);
+                $this->cell(140, 5, utf8_decode($commentaire), 1, 0, L, 0);
                 $this->setXY(10, $this->GetY()+5);
             }
             
@@ -227,7 +254,7 @@ $pdf->TableParticulier();
 $groupe = $pdf->checkGroupe();
 if ($groupe == TRUE){
 $pdf->header = 2;
-$pdf->AddPage();
+$pdf->AddPage('L');
 $pdf->TableGroupe();
 }
 $pdf->AutoPrint(false, $nbr_impr);
