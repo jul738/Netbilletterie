@@ -78,7 +78,7 @@ $annee_2= $annee_1 -1;
             if ($user_com =='y') 
             {
               $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, prenom, bc.id_tarif,
-              prix_tarif AS ttc, paiement, article, date_spectacle, horaire
+              prix_tarif AS ttc, paiement, article, num, date_spectacle, horaire
               FROM ".$tblpref."bon_comm AS bc, ".$tblpref."tarif AS t, client AS c, ".$tblpref."article AS a
               WHERE date BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
               AND bc.id_tarif = t.id_tarif
@@ -114,6 +114,7 @@ $annee_2= $annee_1 -1;
                     <th>Commentaires</th>
                     <th><small>Voir</small></th>
                     <th><small>Changer</small></th>
+                    <th><small>Dupliquer</small></th>
                     <th><small>Effacer</small></th>
                     <th><small>Print</small></th>
           <?php if ($user_admin == 'y'||$user_dev=='y') 
@@ -135,6 +136,7 @@ $annee_2= $annee_1 -1;
                       $date_spectacle = strtotime($data["date_spectacle"]);
                       $date = date_fr('l d-m-Y', $date_spectacle);
                       $article = $data["article"];
+                      $num = $data["num"];
                       $horaire = $data["horaire"];
                       $id_tarif = $data["id_tarif"];
                       $nom = $data['nom'];
@@ -169,6 +171,16 @@ $annee_2= $annee_1 -1;
                             <img border="0" alt="voir" src="image/voir.png" Title="Voir la commande"></a></td>
                     <td><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon"; ?>&amp;id_tarif=<?php echo "$id_tarif"; ?>' >
                             <img border="0" alt="editer" src="image/edit.png" Title="Modifier la commande"></a></td>
+                    <td>
+                        <form action="form_commande.php" method="post">
+                            <input type="hidden" name="id-client" value="<?php echo $num_client;?>"></input>
+                            <input type="hidden" name="commentaire" value="<?php echo $coment;?>"></input>
+                            <input type="hidden" name="id-paiement" value="<?php echo $paiement;?>"></input>
+                            <input type="hidden" name="id-article" value="<?php echo $num;?>"></input>
+                            <input type="hidden" name="id-tarif" value="<?php echo $id_tarif;?>"></input>                    
+                            <input type="submit" value="" class="duplication"</input>
+                        </form>
+                    </td>
                     <td><a href='delete_bon_suite.php?num_bon=<?php echo $num_bon; ?>&amp;nom=<?php echo "$nom_html"; ?>'
                             onClick="return confirmDelete('<?php echo"$lang_con_effa $num_bon"; ?>')">
                             <img border="0" src="image/delete.png" alt="delete" Title="Supprimer" ></a></td>

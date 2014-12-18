@@ -147,9 +147,11 @@ while($data = mysql_fetch_array($req2))
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue">Telephone</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=coment">Commentaire</a></th>
                     <th>Modifier la réservation</th>
+                    <th>Dupliquer la réservation</th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Tarif</a></th>
                     <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Paiement</a></th>
                     <th>Valider</th>
+                    <th>Supprimer la réservation</th>
                 </tr>
 
 <?php
@@ -183,13 +185,22 @@ while($data = mysql_fetch_array($req))
                     }
 		?>
                 <!--On ajoute un formulaire par ligne pour la transformation en billet-->
-                <form action="lister_spectateurs.php?article=<?php echo $article_numero;?>" method="POST" id="resa-billet" name="resa-billet">
 		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
                     <td class="highlight"><?php echo $nom_html; ?></td>
                     <td class="highlight"><?php echo $prenom ; ?></td> 
                     <td class="highlight"><?php echo $tel; ?></td>
                     <td class="highlight"><?php echo $commentaire; ?></td>
                     <td><a href="form_editer_bon.php?num_bon=<?php echo $bon_num;?>&id_tarif=<?php echo $id_tarif;?>"><img src="image/edit.png" title="Modifier le spectateur" alt="Bouton pour modifier le spectateur" /></a></td>
+                    <td>
+                        <form action="form_commande.php" method="post">
+                            <input type="hidden" name="id-client" value="<?php echo $num_client;?>"></input>
+                            <input type="hidden" name="commentaire" value="<?php echo $commentaire;?>"></input>
+                            <input type="hidden" name="id-article" value="<?php echo $article_num;?>"></input>
+                            <input type="hidden" name="id-tarif" value="<?php echo $id_tarif;?>"></input>                    
+                            <input type="submit" value="" class="duplication"</input>
+                        </form>
+                    </td>
+                <form action="lister_spectateurs.php?article=<?php echo $article_numero;?>" method="POST" id="resa-billet" name="resa-billet">
                     <td class="highlight">
                         <?php $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
 													 WHERE nom_tarif<>'gratuit'
@@ -233,6 +244,9 @@ while($data = mysql_fetch_array($req))
                     <td class="highlight">
                         <input type="hidden" name="num_bon" value="<?php echo $bon_num;?>">
                         <input type="submit" name="Submit" value='Enregistrer le billet'></td>
+                    <td><a href='delete_bon_suite.php?num_bon=<?php echo $bon_num; ?>&amp;nom=<?php echo "$nom_html"; ?>'
+                            onClick="return confirmDelete('<?php echo"$lang_con_effa $bon_num"; ?>')">
+                            <img border="0" src="image/delete.png" alt="delete" Title="Supprimer" ></a></td>
                 </tr></form>
 		
 

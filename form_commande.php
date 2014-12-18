@@ -17,6 +17,13 @@ include_once("include/fonction.php");
     if(isset($_GET['num_client'])){
         $client = $_GET['num_client'];
     }
+    elseif(isset($_POST)){
+        $client = $_POST['id-client'];
+        $commentaire = $_POST['commentaire'];
+        $paiement = $_POST['id-paiement'];
+        $tarif = $_POST['id-tarif'];
+        $id_article = $_POST['id-article'];        
+    }
 
     //pour que les articles soit classés par saison
 $mois=date("n");
@@ -147,7 +154,7 @@ function verif_formulaire()
 													$nom_tarif = $row["nom_tarif"];
 													$prix_tarif = $row["prix_tarif"];
 													?>
-											<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
+											<OPTION VALUE='<?php echo $id_tarif; ?>' <?php if($id_tarif==$tarif){ echo 'selected';} ?>><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
 											<?php }
 												if ($user_admin != 'n'){
 													//tarif gratuit pour admin 
@@ -162,7 +169,6 @@ function verif_formulaire()
 																	$prix_tarif = $data['prix_tarif'];
 																	$id_tarif =$data['id_tarif'];
 											?>
-										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
 											<?php
 													}
 												}?>
@@ -211,8 +217,10 @@ function verif_formulaire()
                   $stock= "Le stock est de ".$stock." places";
                   $option="$type_article - ".$article." - <strong>". $date."</strong> -" .$horaire." - ".$stock."";
                 }
+                echo $num;
+                echo $id_article;
             ?>
-            <input  type="radio" VALUE='<?php echo $num; ?>' name="article"  ><?php echo" $option"; ?><br>
+            <input  type="radio" VALUE='<?php echo $num; ?>' name="article" <?php if($num==$id_article){ echo 'checked';} ?> ><?php echo" $option"; ?><br>
             <?php 
             }
             ?>
@@ -225,7 +233,7 @@ function verif_formulaire()
               </td></tr>
                                                                 <tr>
                                                                     <td>Commentaire pour la réservation </td>
-                                                                    <td colspan="2"><textarea name="coment" cols="45" rows="3"></textarea></td>
+                                                                    <td colspan="2"><textarea name="coment" cols="45" rows="3"><?php if(!empty($commentaire)){ echo $commentaire;}?></textarea></td>
                                                                 </tr>
 								<tr>
 									<td class="submit" colspan="6"> 
