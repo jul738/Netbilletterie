@@ -99,19 +99,19 @@ var ddmegamenu={
 
 }
 //pour le retour en haut de la page
-$(function(){
-  $('#btn_up').click(function() {
-    $('html,body').animate({scrollTop: 0}, 'slow');
-  });
-  
-  $(window).scroll(function(){
-     if($(window).scrollTop()<100){
-        $('#btn_up').fadeOut();
-     }else{
-        $('#btn_up').fadeIn();
-     }
-  });
-});
+//$(function(){
+//  $('#btn_up').click(function() {
+//    $('html,body').animate({scrollTop: 0}, 'slow');
+//  });
+//  
+//  $(window).scroll(function(){
+//     if($(window).scrollTop()<100){
+//        $('#btn_up').fadeOut();
+//     }else{
+//        $('#btn_up').fadeIn();
+//     }
+//  });
+//});
 
 
 

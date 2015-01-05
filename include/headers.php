@@ -36,27 +36,27 @@ ddmegamenu.docinit({
 	dur:200 //<--no comma after last setting
 })
 
- jQuery(document).ready(function(){
-	 var oTable = jQuery('#datatables').dataTable({
-		"sPaginationType":"full_numbers",
-		"aaSorting":[[0, "desc"]],
-		"bJQueryUI":true,
-		"bStateSave": true,
-		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-            if ( aData[4] == "non" ){
-            jQuery('td:eq(4)', nRow).addClass('high');
-			  } 
-			  if ( aData[5] == "non" ){
-            jQuery('td:eq(5)', nRow).addClass('high');
-			  } 
-			  if ( aData[6] == "non" ){
-            jQuery('td:eq(6)', nRow).addClass('high');
-			  }
-			  return nRow;
-			        }
-	});
-	 new FixedHeader( oTable );
-})
+// jQuery(document).ready(function(){
+//	 var oTable = jQuery('#datatables').dataTable({
+//		"sPaginationType":"full_numbers",
+//		"aaSorting":[[0, "desc"]],
+//		"bJQueryUI":true,
+//		"bStateSave": true,
+//		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+//            if ( aData[4] == "non" ){
+//            jQuery('td:eq(4)', nRow).addClass('high');
+//			  } 
+//			  if ( aData[5] == "non" ){
+//            jQuery('td:eq(5)', nRow).addClass('high');
+//			  } 
+//			  if ( aData[6] == "non" ){
+//            jQuery('td:eq(6)', nRow).addClass('high');
+//			  }
+//			  return nRow;
+//			        }
+//	});
+//	 new FixedHeader( oTable );
+//})
 
 	
 </script>

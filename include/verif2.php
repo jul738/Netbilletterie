@@ -44,8 +44,8 @@ class Auth{
 }
 //===============================================
 include_once("../include/config/var.php");
-include_once '../include/lib/Zebra_Session.php';
-$session = new Zebra_Session;
+//include_once '../include/lib/Zebra_Session.php';
+//$session = new Zebra_Session;
 
  $login=$_SESSION['Auth']['login'];
  $lang=$_SESSION['Auth']['lang'];

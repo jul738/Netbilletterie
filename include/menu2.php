@@ -80,7 +80,8 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Gestion des spectacles</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="lister_articles.php"><b>Lister les spectacles</b></a></li><hr/>
+                            <li><a href="form_article.php"><b>Creer un spectacle</b></a></li><hr/>
+                            <li><a href="lister_articles.php"><b>Lister les spectacles</b></a></li><hr/>
 			</ul>
 		</div>
 	</div>
@@ -108,7 +109,7 @@ saisie abonnement-->
 				<li><a href="form_caisse.php?retrait=y"><b>Retrait de caisse</b></a></li><hr/>
 				<li><a href="lister_caisse_billetterie.php"><b>Caisse "Billetterie"</b></a></li><hr/>
 				<li><a href="lister_caisse_bar.php"><b>Caisse "Buvette"</b></a></li><hr/>
-				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">&nbsp;&nbsp;Imprimer les op�rations de caisse</b></a></li><hr/>
+				<li><a href="impression_caisse.php"><b><img src="image/imprimante.png">Imprimer les opérations de caisse</b></a></li><hr/>
 			</ul>
 		</div>
 		</div>
@@ -118,8 +119,8 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Gestion de la billetterie</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="form_commande_soir.php"><b>Cr�er un enregistrement de billet</b></a></li><hr/>
-				<li><a href="form_commande_caisse_postdate.php"><b>Cr�er un enregistrement postdat�</b></a></li><hr/>
+				<li><a href="form_commande_soir.php"><b>Créer un enregistrement de billet</b></a></li><hr/>
+				<li><a href="form_commande_caisse_postdate.php"><b>Créer un enregistrement postdaté</b></a></li><hr/>
 				<li><a href="lister_billetterie.php"><b>Voir la liste de la billetterie</b></a></li><hr/>
 			</ul>
 		</div>
@@ -131,7 +132,8 @@ saisie abonnement-->
 		<p style="margin:5px 0 10px 0"><b>Quelques outils d'administration</b></p>
 		<div class="column">
 			<ul>
-				<li><a href="projection.php">Vid�o projection</a></li><hr/>
+                            	<li><a href="lister_tarif.php"><img border ="0" src="image/tarif.png" alt="Tarifs"><br>Gérer les Tarifs</a></li><hr/>
+				<li><a href="projection.php">Vidéo projection</a></li><hr/>
 				<li><a href="agenda.php">Agenda</a></li><hr/>
 				<li><a href="include/calculette.html" onclick="window.open('','popup','width=500,height=420,top=200,left=150,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0')" target="popup"><?php echo $lang_calculette; ?></a></li><hr/>
 			</ul>
