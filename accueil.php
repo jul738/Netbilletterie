@@ -64,7 +64,7 @@ include_once("include/configav.php");
                         
 <?php
     $nb="1";
-    $sql_art = "SELECT image_article, article, type_article, numero_representation, lieu, horaire, date_spectacle, commentaire, stock
+    $sql_art = "SELECT num, image_article, article, type_article, numero_representation, lieu, horaire, date_spectacle, commentaire, stock
                 FROM article 
                 WHERE date_spectacle > CURRENT_DATE
                 ORDER BY date_spectacle ASC
@@ -73,6 +73,7 @@ include_once("include/configav.php");
     // est egale ou superieur a CURRENT_DATE, limit 3
                         while ($data1 = mysql_fetch_assoc($recup_art_brut))
                 {
+                            $num = $data1['num'];
                             $image = $data1['image_article'];
                             $nom_spectacle = $data1['article'];
                             $type = $data1['type_article'];
@@ -93,9 +94,9 @@ include_once("include/configav.php");
                                             } 
 ?>
         <tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
-        <td class="highlight"><img src="<?php echo$image; ?>" height="100"></td>
+            <td class="highlight"><img src="<?php echo$image; ?>" height="100"></td>
         <td class="highlight"><?php echo $type ; ?></td>
-        <td class="highlight"><?php echo $nom_spectacle ; ?></td>
+        <td class="highlight">        <a href="lister_spectateurs.php?article=<?php echo $num;?>"><?php echo $nom_spectacle ; ?></a></td>
         <td class="highlight"><?php echo $num_representation ; ?></td>
         <td class="highlight"><?php echo $com ; ?></td>
         <td class="highlight"><?php echo $lieu ; ?> </br>-</br> <?php echo $horaire ; ?></td>

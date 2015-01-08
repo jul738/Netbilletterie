@@ -14,6 +14,7 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 include_once("include/configav.php");
+include_once("include/fonction.php");
 
 
 $date = date('Y-m-d');
@@ -98,7 +99,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_1))
                                             {
                                             $horaire_spectacle_1_vendu = $data['horaire'];
-                                            $date_spectacle_1_vendu = $data['date_spectacle'];
+                                            $date_spectacle_1_vendu_timestamp = strtotime($data['date_spectacle']);
+                                            $date_spectacle_1_vendu = date_fr('l d-m-Y', $date_spectacle_1_vendu_timestamp);
                                             $type_spectacle_1_vendu = $data['type_article'];
                                             }
 
@@ -111,7 +113,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_2))
                                             {
                                             $horaire_spectacle_2_vendu = $data['horaire'];
-                                            $date_spectacle_2_vendu = $data['date_spectacle'];
+                                            $date_spectacle_2_vendu_timestamp = $data['date_spectacle'];
+                                            $date_spectacle_2_vendu = date_fr('l d-m-Y', $date_spectacle_2_vendu_timestamp);
                                             $type_spectacle_2_vendu = $data['type_article'];
                                             }  
                                             
@@ -124,7 +127,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_3))
                                             {
                                             $horaire_spectacle_3_vendu = $data['horaire'];
-                                            $date_spectacle_3_vendu = $data['date_spectacle'];
+                                            $date_spectacle_3_vendu_timestamp = strtotime($data['date_spectacle']);
+                                            $date_spectacle_3_vendu = date_fr('l d-m-Y', $date_spectacle_3_vendu_timestamp);
                                             $type_spectacle_3_vendu = $data['type_article'];
                                             }                                            
                                             
@@ -137,7 +141,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_4))
                                             {
                                             $horaire_spectacle_4_vendu = $data['horaire'];
-                                            $date_spectacle_4_vendu = $data['date_spectacle'];
+                                            $date_spectacle_4_vendu_timestamp = strtotime($data['date_spectacle']);
+                                            $date_spectacle_4_vendu = date_fr('l d-m-Y', $date_spectacle_4_vendu_timestamp);
                                             $type_spectacle_4_vendu = $data['type_article'];
                                             }                                            
                                             
@@ -150,7 +155,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_5))
                                             {
                                             $horaire_spectacle_5_vendu = $data['horaire'];
-                                            $date_spectacle_5_vendu = $data['date_spectacle'];
+                                            $date_spectacle_5_vendu_timestamp = strtotime($data['date_spectacle']);
+                                            $date_spectacle_5_vendu = date_fr('l d-m-Y', $date_spectacle_5_vendu_timestamp);
                                             $type_spectacle_5_vendu = $data['type_article'];
                                             }                                            
                                             
@@ -163,7 +169,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_6))
                                             {
                                             $horaire_spectacle_6_vendu = $data['horaire'];
-                                            $date_spectacle_6_vendu = $data['date_spectacle'];
+                                            $date_spectacle_6_vendu_timestamp = strtotime($data['date_spectacle']);
+                                            $date_spectacle_6_vendu = date_fr('l d-m-Y', $date_spectacle_6_vendu_timestamp);
                                             $type_spectacle_6_vendu = $data['type_article'];
                                             }
                                             
@@ -176,7 +183,8 @@ if (isset($duplication))
                                           while($data = mysql_fetch_array($horaire_spectacle_brut_7))
                                             {
                                             $horaire_spectacle_7_vendu = $data['horaire'];
-                                            $date_spectacle_7_vendu = $data['date_spectacle'];
+                                            $date_spectacle_7_vendu_timestamp = strtotime($data['date_spectacle']);
+                                            $date_spectacle_7_vendu = date_fr('l d-m-Y', $date_spectacle_7_vendu_timestamp);
                                             $type_spectacle_7_vendu = $data['type_article'];
                                             }                                            
                                             
