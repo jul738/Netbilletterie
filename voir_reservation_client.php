@@ -50,6 +50,8 @@ while($data_client_lie = mysql_fetch_array($recup_infos_client_lies)){
     <tr>
         <td class="page" align="center">
         <h3> Informations sur <?php echo $nom ;?> <?php echo $prenom ;?> :</h3>
+            <a href="fpdf/liste_reservation_specteurs.php?client_num=<?php echo $num_client;?>" target="_blank">Imprimer la liste des réservations de ce spectateur</a>
+
         </td>
     </tr>
       
@@ -159,7 +161,7 @@ ORDER BY a.date_spectacle, a.horaire";
     
     <tr>
         <td class="page" align="center">
-             <h3>Réservations en cours :</h3>
+            <h3>Réservations en cours :</h3>
         </td>
     </tr>
     
