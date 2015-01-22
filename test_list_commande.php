@@ -10,7 +10,6 @@ include_once("include/fonction.php");?>
 <?php
 include_once("include/head.php");
 include_once("include/finhead.php");
-//include_once("test_list_commande_sql.php");
 ?>
 
 
@@ -73,11 +72,11 @@ include_once("include/finhead.php");
                         { mDataProp: 'ttc' },
                         { mDataProp: 'paiement' },
                         { mDataProp: 'coment' },
-                        { mDataProp: '' },
-                        { mDataProp: '' },
-                        { mDataProp: '' },
-                        { mDataProp: '' },
-                        { mDataProp: '' }
+                        { mDataProp: 'voir' },
+                        { mDataProp: 'changer' },
+                        { mDataProp: 'dupliquer' },
+                        { mDataProp: 'effacer' },
+                        { mDataProp: 'print' }
                 ]
     } );
 } );
