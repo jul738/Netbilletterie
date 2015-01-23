@@ -38,6 +38,7 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
             <th>Commentaire</th>
             <th>Voir</th>
             <th>Modifier</th>
+            <th>Dupliquer</th>
             <th>Supprimer</th>
             <th>Acompte</th>
         </tr>

@@ -173,6 +173,8 @@ $date_article = date_fr("l d-m-Y", $date);
     <div id="tarif-groupe">Tarif : <?php echo $tarif; ?></div>
     <div id="accompte-groupe">Montant de l'accompte : <?php echo $accompte;?></div>
     <div id="comentaire-resa-groupe">Commentaire de la réservation : <?php echo $coment; ?></div>
+    <br />
+    <div id="dupliquer-resa-groupe">Dupliquer la réservation de groupe : 
     <form action="form_resa_groupe.php" name="dupliquer-resa-groupe" id="dupliquer-resa-groupe" method="POST">
         <input type="hidden" name="num-groupe" value="<?php echo $num_groupe;?>"></input>
         <input type="hidden" name="nom-referent" value="<?php echo $nom_referent;?>"></input>
@@ -184,6 +186,7 @@ $date_article = date_fr("l d-m-Y", $date);
         <input type="hidden" name="id-tarif" value="<?php echo $id_tarif;?>"></input>                    
         <input type="submit" value="" class="duplication"</input>
     </form>
+    </div>
 </div>
 <?php
 include("include/bas.php");

@@ -92,7 +92,10 @@ elseif(!empty($_GET['num_groupe'])){
 
 <div id="form-resa-groupe">
     <h3><?php 
-    if(empty($num_resa_groupe))
+    if(!empty($_POST['num-groupe'])){
+        echo "Formulaire de duplication d'une réservation de groupe";
+    }
+    elseif(empty($num_resa_groupe))
     {
         echo "Formulaire de création d'une réservation de groupe";
     }
