@@ -5,16 +5,14 @@ include_once("include/config/var.php");
 include_once("include/language/$lang.php");
 include_once("include/utils.php"); 
 include_once("include/headers.php");
-include_once("include/fonction.php");?>
-<script type="text/javascript" src="javascripts/confdel.js"></script>
-<?php
+include_once("include/fonction.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 ?>
 
 
 <center>
-        <table id="datatables" class="display">
+        <table id="datatables-liste-resa" class="display" width="100%">
             <caption> Les commandes de la saison culturelle <?php echo "$annee_2 - $annee_1"; ?> </caption>
                 
       <thead>
@@ -52,17 +50,17 @@ include_once("include/finhead.php");
           </tr>
       </tfoot>
         </table>
+    <div id="dialogue" style="display : none">Voulez vous supprimer la réservation?</div>
 </center>
 <script>
 
     jQuery(document).ready(function() {
-    jQuery('#datatables').dataTable( {
+    var table = jQuery('#datatables-liste-resa').dataTable( {
         "sPaginationType":"full_numbers",
-	"aaSorting":[[0, "desc"]],
 	"bJQueryUI":true,
 	"bStateSave": true,
         "bProcessing": true,
-        "bServerSide": true,
+        "aaSorting": [[0,"asc"]],
         "sAjaxSource": 'test_list_commande_sql.php',
         "aoColumns": [
                         { mDataProp: 'num_bon' },
@@ -79,5 +77,28 @@ include_once("include/finhead.php");
                         { mDataProp: 'print' }
                 ]
     } );
+    jQuery("#dialogue").dialog({
+        resizable: false,
+        height:160,
+        width:500,
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            "Oui": function() {
+                jQuery( this ).dialog( "close" );
+                window.location.href = theHREF;
+            },
+            "Annuler": function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+
+    jQuery('#datatables-liste-resa tbody').on('click', 'a.confirm', function () {
+        theHREF = jQuery(this).attr("href");
+        jQuery("#dialogue").dialog("open")
+    });
+        jQuery('#datatables-liste-resa').stickyTableHeaders();
 } );
+
 </script>

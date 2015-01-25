@@ -90,7 +90,7 @@ while ($data = mysql_fetch_assoc($req)) {
                             <input type='submit' value='' class='duplication'</input>
                         </form>",
         'effacer' => "<a href='delete_bon_suite.php?num_bon=".$data['num_bon'].".amp;nom=".$data['nom']."'
-                            onClick='return confirmDelete(".$lang_con_effa." ".$data['num_bon'].")'>
+                            class='confirm'>
                             <img border='0' src='image/delete.png' alt='delete' Title='Supprimer' ></a>",
         'print' => "<form action='fpdf/bon_pdf.php' method='post' target='_blank' >
                         <input type='hidden' name='num_bon' value=".$data['num_bon']." />
