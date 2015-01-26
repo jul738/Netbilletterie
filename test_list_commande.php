@@ -94,7 +94,8 @@ include_once("include/finhead.php");
         }
     });
 
-    jQuery('#datatables-liste-resa tbody').on('click', 'a.confirm', function () {
+    jQuery('#datatables-liste-resa tbody').on('click', 'a.confirm', function (e) {
+        e.preventDefault();
         theHREF = jQuery(this).attr("href");
         jQuery("#dialogue").dialog("open")
     });
