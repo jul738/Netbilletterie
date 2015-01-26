@@ -41,6 +41,7 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
             <th>Dupliquer</th>
             <th>Supprimer</th>
             <th>Acompte</th>
+            <th>Facture</th>
         </tr>
         </thead>
         <tbody>
@@ -99,7 +100,8 @@ $req_resa_groupes = mysql_query($select_resa_groupes) or die('Erreur sql groupes
                 </form>
             </td>
             <td class="highlight"><a href='delete_resa_groupe.php?num_resa_groupe=<?php echo $num_resa_groupe;?>'><img border="0" title="Supprimer la réservation du groupe" alt="delete" src="image/delete.png"></a></td>
-            <td class="highlight"><?php if(empty($id_facture)){?><a href="form_facture.php?num_groupe=<?php echo $num_groupe; ?>&num_resa=<?php echo $num_resa_groupe;?>&type=acompte&type_resa=groupe"><img src="image/facture.png" title="Créer la facture d'accompte" alt="Création de la facture d'acompte"></a><?php } else { if ($date_paiement == "0000-00-00") { echo 'Non payé';} else { echo 'Payé';}}?></td>        
+            <td class="highlight"><?php if ($date_paiement == "0000-00-00") { echo 'Non payé';} else { echo 'Payé';}?></td> 
+            <td class="highlight"><?php if(empty($id_facture)){?><a href="form_facture.php?num_groupe=<?php echo $num_groupe; ?>&num_resa=<?php echo $num_resa_groupe;?>&type=facture&type_resa=groupe"><img src="image/facture.png" title="Créer la facture d'accompte" alt="Création de la facture d'acompte"></a><?php }?></td> 
         </tr>
         <?php
         } // fin du while data_groupes

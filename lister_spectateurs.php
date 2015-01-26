@@ -298,11 +298,15 @@ echo"</td></tr>";
             <th>Commentaire sur la réservation</th>
             <th>Montant de l'accompte</th>
             <th>Valider le groupe</th>
+            <th>Modifier la résa de groupe</th>
+            <th>Dupliquer la résa de groupe</th>
+            <th>Supprimer la résa de groupe</th>
         </tr>
         <?php
         /* ON boucle sur les réservation de groupes pour les afficher */
         while($data_resa_groupe = mysql_fetch_array($req_resa_groupes)){
             $num_bon_groupe = $data_resa_groupe['num_bon_groupe'];
+            $num_groupe = $data_resa_groupe['num_groupe'];
             $nom_structure = $data_resa_groupe['nom_structure'];
             $nom_referent = $data_resa_groupe['nom_referent'];
             $tel_referent = $data_resa_groupe['telephone_referent'];
@@ -334,8 +338,23 @@ echo"</td></tr>";
                 <input type="hidden" id="num-bon-groupe" name="num-bon-groupe" value="<?php echo $num_bon_groupe;?>" />
                 <input type="submit" id="Enregistrer le groupe" value="Enregistrer le groupe" />
             </td>
+            </form>
+            <td class="highlight"><a href='form_resa_groupe.php?num_resa_groupe=<?php echo $num_bon_groupe;?>'><img border="0" alt="Modifier"  title="Modifier la réservation du groupe"src="image/edit.png"></a></td>
+            <td>
+                <form action="form_resa_groupe.php" name="dupliquer-resa-groupe" id="dupliquer-resa-groupe" method="POST">
+                    <input type="hidden" name="num-groupe" value="<?php echo $num_groupe;?>"></input>
+                    <input type="hidden" name="nom-referent" value="<?php echo $nom_referent;?>"></input>
+                    <input type="hidden" name="telephone-referent" value="<?php echo $tel_referent;?>"></input>
+                    <input type="hidden" name="classe-groupe" value="<?php echo $classe;?>"></input>
+                    <input type="hidden" name="nb-enfants" value="<?php echo $nb_enfant;?>"></input>
+                    <input type="hidden" name="nb-accompagnateurs" value="<?php echo $nb_accompagnateur;?>"></input>
+                    <input type="hidden" name="nb-gratuit" value="<?php echo $nb_gratuit;?>"></input>
+                    <input type="hidden" name="id-tarif" value="<?php echo $id_tarif;?>"></input>                    
+                    <input type="submit" value="" class="duplication"</input>
+                </form>
+            </td>
+            <td class="highlight"><a href='delete_resa_groupe.php?num_resa_groupe=<?php echo $num_bon_groupe;?>'><img border="0" title="Supprimer la réservation du groupe" alt="delete" src="image/delete.png"></a></td>
         </tr>
-        </form>
             <?php
         }
         ?>
