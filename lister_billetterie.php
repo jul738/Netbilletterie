@@ -12,7 +12,6 @@ include_once("include/language/$lang.php");
 include_once("include/utils.php"); 
 include_once("include/headers.php");
 include_once("include/fonction.php");?>
-<script type="text/javascript" src="javascripts/confdel.js"></script>
 <?php
 include_once("include/head.php");
 include_once("include/finhead.php");
@@ -20,11 +19,11 @@ include_once("include/finhead.php");
 ?> 
 
 
-<table  class="page" align="center">
+<table class="page" align="center">
 
   <tr>
     <td class="page" align="center">
-       <h3>Liste des reservations 
+       <h3>Liste de la billeterie 
          <?php if ($user_admin == 'y'||$user_dev=='y'){?>
         <SCRIPT LANGUAGE="JavaScript">
         if(window.print)
@@ -49,34 +48,7 @@ include_once("include/finhead.php");
             exit;
             }
 
-//=============================================
-//pour que les articles soit class�s par saison
-$mois=date("n");
-if ($mois=="10"||$mois=="11"||$mois=="12") {
- $mois=date("n");
-}
-else{
-  $mois =date("0n");
-}
-$jour =date("d");
-$date_ref="$mois-$jour";
-$annee = date("Y");
-//pour le formulaire
-$annee_1=isset($_POST['annee_1'])?$_POST['annee_1']:"";
-if ($annee_1=='') 
-{
-  $annee_1= $annee ;
-  if ($mois.'-'.$jour <= $fin_saison)
-  {
-  $annee_1=$annee_1;
-  }
-  if ($mois.'-'.$jour >= $fin_saison)
-  {
-  $annee_1=$annee_1+1;
-  }  
-}
-$annee_2= $annee_1 -1;
-//=============================================
+
 $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, tot_tva, nom, soir, id_tarif,
             DATE_FORMAT(date,'%d-%m-%Y') AS date, tot_tva as ttc, paiement
             FROM ".$tblpref."bon_comm
@@ -97,7 +69,7 @@ $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, to
             $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 ?>
     <center>
-        <table id="datatables" class="display">
+        <table id="datatables-liste-billeterie" class="display">
             <caption> Les commandes de la saison culturelle <?php echo "$annee_2 - $annee_1"; ?> </caption>
                 
       <thead>
@@ -107,12 +79,9 @@ $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, to
                     <th><?php echo $lang_client; ?></th>
                     <th><?php echo $lang_date; ?></th>
                     <th><?php echo $lang_total_ttc; ?></th>
-                    <th>Regle?</th>
-          <?php if ($user_admin == 'y'||$user_dev=='y') 
-            { ?>                  
-          <th>Encaisse</th>
-          <th>Controle</th>
-          <?php }?>
+                    <th>Regle?</th>               
+                    <th>Encaisse</th>
+                    <th>Controle</th>
                     <th>Commentaires</th>
                     <th><small>Voir</small></th>
                     <th><small>Changer</small></th>
@@ -122,88 +91,29 @@ $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, to
                     
           </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    $nombre = 1;
-                    while($data = mysql_fetch_array($req))
-                    {
-                      $num_bon = $data['num_bon'];
-                      $pointage = $data['fact'];
-                      $ctrl = $data['ctrl'];
-                      $paiement = $data['paiement'];
-                      $tva = $data["tot_tva"];
-                      $date = $data["date"];
-                      $id_tarif = $data["id_tarif"];
-                      $nom = $data['nom'];
-                      $nom=stripslashes($nom);
-                            $nom = htmlentities($nom, ENT_QUOTES);
-                            $nom_html = htmlentities (urlencode ($nom));
-                      $soir = $data['soir'];
-                      $soir=stripslashes($soir);
-                      if ($soir=="0"){$soir="";}
-                      if ($soir==""){$soir="";}
-          else {$soir= "pour \"$soir\"";}
-                      $num_client = $data['num_client'];
-                      $mail = $data['mail'];
-                      $login = $data['login'];
-                      $coment = $data['coment'];
-                      $coment=stripslashes($coment);
-                      $ttc = $data['ttc'];
-                      //echo "$ctrl";
-                      ?>
+      <tfoot>
+               
                 <tr>
-                    <td><?php echo "$num_bon"; ?></td>
-                    <td><?php echo "$nom $soir"; ?></td>
-                    <td><?php echo "$date"; ?></td>
-                    <td><?php echo montant_financier($ttc); ?></td>
-                    <td><?php echo "$paiement"; ?></td>
-                     <?php if ($user_admin == 'y'||$user_dev=='y') { ?> 
-                    <td><?php echo "$pointage"; ?></td>
-                    <td><?php echo "$ctrl"; ?></td>
-                      <?php }?>
-                              <td><?php echo "$coment"; ?></td>
-                    <td><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon"; ?>&amp;id_tarif=<?php echo "$id_tarif"; ?>&amp;voir=ok' >
-                            <img border="0" alt="voir" src="image/voir.gif" Title="Voir la commande"></a></td>
-                    <td><a href='form_editer_bon.php?num_bon=<?php echo "$num_bon"; ?>&amp;id_tarif=<?php echo "$id_tarif"; ?>' >
-                            <img border="0" alt="editer" src="image/edit.gif" Title="Modifier la commande"></a></td>
-                    <td><a href='delete_bon_suite.php?num_bon=<?php echo $num_bon; ?>&amp;nom=<?php echo "$nom_html"; ?>'
-                            onClick="return confirmDelete('<?php echo"$lang_con_effa $num_bon"; ?>')">
-                            <img border="0" src="image/delete.png" alt="delete" Title="Supprimer" ></a></td>
-                    <td>
-                        <form action="fpdf/bon_pdf.php" method="post" target="_blank" >
-                        <input type="hidden" name="num_bon" value="<?php echo $num_bon ?>" />
-                        <input type="hidden" name="nom" value="<?php echo $nom ?>" /> 
-                        <input type="hidden" name="user" value="adm" />
-                        <input type="image" src="image/printer.gif" style=" border: none; margin: 0;" alt="<?php echo $lang_imprimer; ?>" Title="Imprimer"/>
-                        </form>
-                    </td>
+                    <th><?php echo $lang_numero; ?></th>
+                    <th><?php echo $lang_client; ?></th>
+                    <th><?php echo $lang_date; ?></th>
+                    <th><?php echo $lang_total_ttc; ?></th>
+                    <th>Regle?</th>               
+                    <th>Encaisse</th>
+                    <th>Controle</th>
+                    <th>Commentaires</th>
+                    <th><small>Voir</small></th>
+                    <th><small>Changer</small></th>
+                    <th><small>Effacer</small></th>
+                    <th><small>Imprimer</small></th>
+                    <th><small>Envoyer</small></th>
+                    
+          </tr>
+                </tfoot>
 
-                      <?php if ($user_admin != n) 
-                      {
-                      
-                      if ($mail != '' )
-                      {
-                      ?>
-                    <td>
-                        <form action="fpdf/bon_pdf.php" method="post" onClick="return confirmDelete('<?php echo"$lang_con_env_pdf $num_bon"; ?>')">
-                                <input type="hidden" name="num_bon" value="<?php echo $num_bon; ?>"/>
-                                <input type="hidden" name="nom" value="<?php echo $nom; ?>"/>
-                                <input type="hidden" name="user" VALUE="adm"/>
-                                <input type="hidden" name="ext" VALUE=".pdf"/>
-                                <input type="hidden" name="mail" VALUE="y"/>
-                                <input type="image" src="image/mail.gif" alt="mail" Title="Envoyer par mail"/>
-                        </form> 
-                    </td>
-                                <?php
-                                }
-                                else
-                                {
-                                ?>
-                    <td></td>
-                                <?php } } } ?>
-                </tr>
-                </tbody>
         </table>
+            <div id="dialogue" style="display : none">Voulez vous supprimer le billet?</div>
+
     </center>
         </td>
     </tr>
@@ -212,6 +122,60 @@ $sql = "SELECT mail, login, num_client, num_bon, fact, ctrl, attente, coment, to
 </tr>
 
 </table>
+
+<script>
+
+    jQuery(document).ready(function() {
+    var table = jQuery('#datatables-liste-billeterie').dataTable( {
+        "sPaginationType":"full_numbers",
+	"bJQueryUI":true,
+	"bStateSave": true,
+        "bProcessing": true,
+        "aaSorting": [[0,"asc"]],
+        "sAjaxSource": 'lister_billetterie_sql.php',
+        "aoColumns": [
+                        { mDataProp: 'num_bon' },
+                        { mDataProp: 'nom' },
+                        { mDataProp: 'date' },
+                        { mDataProp: 'total' },
+                        { mDataProp: 'regle' },
+                        { mDataProp: 'encaisse' },
+                        { mDataProp: 'controle' },
+                        { mDataProp: 'coment' },
+                        { mDataProp: 'voir' },
+                        { mDataProp: 'changer' },
+                        { mDataProp: 'effacer' },
+                        { mDataProp: 'print' },
+                        { mDataProp: 'envoyer' }
+                ]
+    } );
+    jQuery("#dialogue").dialog({
+        resizable: false,
+        height:160,
+        width:500,
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            "Oui": function() {
+                jQuery( this ).dialog( "close" );
+                window.location.href = theHREF;
+            },
+            "Annuler": function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+
+    jQuery('#datatables-liste-billeterie tbody').on('click', 'a.confirm', function (e) {
+        e.preventDefault();
+        theHREF = jQuery(this).attr("href");
+        jQuery("#dialogue").dialog("open")
+    });
+        jQuery('#datatables-liste-billeterie').stickyTableHeaders();
+} );
+
+</script>
+
 <?php
 
 include_once("include/bas.php");
