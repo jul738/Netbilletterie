@@ -1,8 +1,8 @@
 <?
-$dbhost="127.0.0.1";
-$dbuser="netbilleterie";
-$dbpass="joo4aPho";
-$dbname="netbilleterie";
+$dbhost="mysql51-41.perso";
+$dbuser="lapasserrsaison";
+$dbpass="r1IJlztX";
+$dbname="lapasserrsaison";
 $path="";
 $table0=". $tblpref .admin";
 $table1=". $tblpref .article";

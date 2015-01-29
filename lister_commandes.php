@@ -18,35 +18,6 @@ include_once("include/head.php");
 include_once("include/finhead.php");
 ?> 
 
-<script>
- jQuery(document).ready(function(){
-   var oTable = jQuery('#listeCommandes').dataTable({
-    "sPaginationType":"full_numbers",
-    "aaSorting":[[0, "desc"]],
-    "bJQueryUI":true,
-    "bStateSave": true,
-    serverSide: true,
-    ajax:  {
-        url: 'test_list_commande.php',
-        type: 'POST',
-    },
-		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-            if ( aData[4] == "non" ){
-            jQuery('td:eq(4)', nRow).addClass('high');
-			  } 
-			  if ( aData[5] == "non" ){
-            jQuery('td:eq(5)', nRow).addClass('high');
-			  } 
-			  if ( aData[6] == "non" ){
-            jQuery('td:eq(6)', nRow).addClass('high');
-			  }
-			  return nRow;
-			        }
-	});
-	 new FixedHeader( oTable );
-})
-</script>
-
 <table class="page" align="center">
 
   <tr>
@@ -123,7 +94,7 @@ $annee_2= $annee_1 -1;
 
 ?>
     <center>
-        <table id="listeCommandes" class="display">
+        <table id="datatables" class="display">
             <caption> Les commandes de la saison culturelle <?php echo "$annee_2 - $annee_1"; ?> </caption>
                 
       <thead>

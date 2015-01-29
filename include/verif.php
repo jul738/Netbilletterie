@@ -38,10 +38,8 @@ $session = new Zebra_Session;
 
 if($_SESSION['Auth']=='')
 {
-	echo "Vous n'êtes pas autorisé à accéder à cette zone\n\n";
-	echo print_r($HTTP_SESSION_VARS);
-	echo "\n\n";
-	//include('login.inc.php');
+	echo "Vous n'êtes pas autorisé à accéder à cette zone";
+	include('login.inc.php');
 	exit;
 }
 
