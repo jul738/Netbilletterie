@@ -724,3 +724,8 @@ td > strong {
     width : 22px;
     height : 30px;
 }
+
+/* Boite de dialogue de confirmation de suppression */
+.ui-dialog {
+    z-index : 1;
+}

@@ -61,7 +61,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
         <td>
 
 
-<table id="datatables" class="display">
+<table id="datatables-liste-abo" class="display">
     
 <caption> Les Abonnements de la saison :  <?php echo "$annee_2 - $annee_1"; ?> </caption>
     <thead>
@@ -233,7 +233,7 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
                                 <img border="0" alt="voir" src="image/voir.png" Title="Voir les details"></a></td>
                         <td><a href='edit_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
                                 <img border="0" alt="modifier" src="image/edit.png" Title="Modifier l'abonnement"></a></td>
-                        <td><a href='delete_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' >
+                        <td><a href='delete_abonnement.php?num_abo_com=<?php echo "$num_abo_com"; ?>' class="confirm" >
                                 <img border="0" alt="supprimer" src="image/delete.png" Title="Supprimer l'abonnement"></a></td>
                         <td><form action="fpdf/abonnement_pdf.php" method="post" target="_blank" >
                                 <input type="hidden" name="num_abo_com" value="<?php echo $num_abo_com ?>" />
@@ -251,7 +251,59 @@ $liste_abo_vendu = mysql_query($req_liste_abo_vendu) or die('Erreur Req_liste_ab
     </tbody>
 </table>
 </table>
+    <div id="dialogue" style="display : none">Voulez vous supprimer l'abonnement?</div>
 
+<script>
+
+    jQuery(document).ready(function() {
+    /*var table = jQuery('#datatables-liste-resa').dataTable( {
+        "sPaginationType":"full_numbers",
+	"bJQueryUI":true,
+	"bStateSave": true,
+        "bProcessing": true,
+        "aaSorting": [[0,"asc"]],
+        "sAjaxSource": 'test_list_commande_sql.php',
+        "aoColumns": [
+                        { mDataProp: 'num_bon' },
+                        { mDataProp: 'nom' },
+                        { mDataProp: 'prenom' },
+                        { mDataProp: 'article' },
+                        { mDataProp: 'ttc' },
+                        { mDataProp: 'paiement' },
+                        { mDataProp: 'coment' },
+                        { mDataProp: 'voir' },
+                        { mDataProp: 'changer' },
+                        { mDataProp: 'dupliquer' },
+                        { mDataProp: 'effacer' },
+                        { mDataProp: 'print' }
+                ]
+    } );*/
+    jQuery("#dialogue").dialog({
+        resizable: false,
+        height:160,
+        width:500,
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            "Oui": function() {
+                jQuery( this ).dialog( "close" );
+                window.location.href = theHREF;
+            },
+            "Annuler": function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+
+    jQuery('#datatables-liste-abo tbody').on('click', 'a.confirm', function (e) {
+        e.preventDefault();
+        theHREF = jQuery(this).attr("href");
+        jQuery("#dialogue").dialog("open")
+    });
+        /*jQuery('#datatables-liste-resa').stickyTableHeaders();*/
+} );
+
+</script>
 
 <?php
 include_once("include/bas.php");

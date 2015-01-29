@@ -25,8 +25,9 @@ include_once("include/configav.php");
 	@import "include/themes/ui-lightness/jquery-ui-1.8.4.custom.css";
 </style>
 <script src="javascripts/jquery.js" type="text/javascript"></script>
+<script src="javascripts/jquery-ui.min.js" type="text/javascript"></script>
 <script src="javascripts/jquery.dataTables.js" type="text/javascript"></script>
-<script src="javascripts/dataTables.fixedHeader.js" type="text/javascript"></script>
+<script src="javascripts/jquery.stickytableheaders.min.js" type="text/javascript"></script>
 <script src="javascripts/menu.js"></script>
 
 <script>
