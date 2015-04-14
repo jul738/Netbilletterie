@@ -78,24 +78,6 @@ elseif(!empty($_POST['num-bon-groupe'])){
 
 $article_numero=isset($_GET['article'])?$_GET['article']:"";
 
-//Lister reservation non payées
-$sql = "SELECT *
-        FROM client C, bon_comm BC , tarif T
-        WHERE BC.client_num=C.num_client
-        AND BC.id_article = $article_numero
-        AND BC.attente=0
-        AND BC.id_tarif = T.id_tarif
-        AND BC.paiement = 'non'";
-
-if ( isset ( $_GET['ordre'] ) && $_GET['ordre'] != '')
-{
-$sql .= " ORDER BY " . $_GET[ordre] . " ASC";
-}else{
-$sql .= " ORDER BY nom, BC.id_tarif ASC ";
-}
-
-$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
-
 $sql2="SELECT DATE_FORMAT(date_spectacle,'%d-%m-%Y') AS date, horaire, article, stock, num FROM " . $tblpref ."article WHERE num=$article_numero";
 $req2 = mysql_query($sql2) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
 while($data = mysql_fetch_array($req2))
@@ -108,7 +90,7 @@ while($data = mysql_fetch_array($req2))
     $stock = $data['stock'];
 
 ?>
-<center><table class="boiteaction">
+<center><table class="boiteaction" id="datatables-liste-spectateur-particulier">
   <caption>Liste des spectateurs pour: <br><?php
   if ($stock>0){
   echo "$article le $date - $horaire - Il reste $stock places";
@@ -141,119 +123,35 @@ while($data = mysql_fetch_array($req2))
         
       <?php } ?>
     <br /> Réservations : </caption>
+        <thead>
                 <tr>        
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=nom">Nom</a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=prenom">Prenom</a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=rue">Telephone</a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>&ordre=coment">Commentaire</a></th>
+                    <th>Nom</a></th>
+                    <th>Prenom</th>
+                    <th>Telephone</th>
+                    <th>Commentaire</th>
                     <th>Modifier la réservation</th>
                     <th>Dupliquer la réservation</th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Tarif</a></th>
-                    <th><a href="lister_spectateurs.php?article=<?php echo $article_numero;?>">Paiement</a></th>
+                    <th>Tarif</th>
+                    <th>Paiement</th>
                     <th>Valider</th>
                     <th>Supprimer la réservation</th>
                 </tr>
+        </thead>
+        <tfoot>
+                <tr>        
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Telephone</th>
+                    <th>Commentaire</th>
+                    <th>Modifier la réservation</th>
+                    <th>Dupliquer la réservation</th>
+                    <th>Tarif</th>
+                    <th>Paiement</th>
+                    <th>Valider</th>
+                    <th>Supprimer la réservation</th>
+                </tr>
+        </tfoot>
 
-<?php
-$nombre =1;
-while($data = mysql_fetch_array($req))
-    {
-		$article_num = $data['id_article'];
-		$bon_num = $data['num_bon'];
-		$num_client = $data['client_num'];
-		$nom = $data['nom'];
-		$nom_html= stripslashes($nom);
-		$nom2 = $data['nom2'];
-                $prenom = $data['prenom'];
-		$rue = $data['rue'];
-		$ville = $data['ville'];
-		$cp = $data['cp'];
-		$tva = $data['num_tva'];
-		$mail =$data['mail'];
-		$num = $data['num_client'];
-		$civ = $data['civ'];
-		$tel = $data['tel'];
-		$fax = $data['fax'];
-		$nom_tarif = $data['nom_tarif'];
-		$prix_tarif = $data['prix_tarif'];
-                $id_tarif = $data['id_tarif'];
-		$commentaire = $data['coment'];
-    if($nombre & 1){
-                    $line="0";
-                    }else{
-                    $line="1"; 
-                    }
-		?>
-                <!--On ajoute un formulaire par ligne pour la transformation en billet-->
-		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
-                    <td class="highlight"><?php echo $nom_html; ?></td>
-                    <td class="highlight"><?php echo $prenom ; ?></td> 
-                    <td class="highlight"><?php echo $tel; ?></td>
-                    <td class="highlight"><?php echo $commentaire; ?></td>
-                    <td><a href="form_editer_bon.php?num_bon=<?php echo $bon_num;?>&id_tarif=<?php echo $id_tarif;?>"><img src="image/edit.png" title="Modifier le spectateur" alt="Bouton pour modifier le spectateur" /></a></td>
-                    <td>
-                        <form action="form_commande.php" method="post">
-                            <input type="hidden" name="id-client" value="<?php echo $num_client;?>"></input>
-                            <input type="hidden" name="commentaire" value="<?php echo $commentaire;?>"></input>
-                            <input type="hidden" name="id-article" value="<?php echo $article_num;?>"></input>
-                            <input type="hidden" name="id-tarif" value="<?php echo $id_tarif;?>"></input>                    
-                            <input type="submit" value="" class="duplication"</input>
-                        </form>
-                    </td>
-                <form action="lister_spectateurs.php?article=<?php echo $article_numero;?>" method="POST" id="resa-billet" name="resa-billet">
-                    <td class="highlight">
-                        <?php $rqSql3= "SELECT id_tarif, nom_tarif, prix_tarif, saison FROM " . $tblpref ."tarif
-													 WHERE nom_tarif<>'gratuit'
-													 AND selection='1'
-													 ORDER BY nom_tarif ASC";
-											$result3 = mysql_query( $rqSql3 )or die( mysql_error()."Execution requete impossible.");?>
-									   <SELECT NAME='id_tarif'>
-											<OPTION VALUE="">Choisir le<?php echo "$lang_tarif";?></OPTION>
-											<?php
-											while ( $row = mysql_fetch_array( $result3)) {
-													$id_tarif2 = $row["id_tarif"];
-													$nom_tarif2 = $row["nom_tarif"];
-													$prix_tarif2 = $row["prix_tarif"];
-													?>
-                                                                                        <OPTION VALUE='<?php echo $id_tarif2; ?>' <?php if($id_tarif==$id_tarif2){echo 'selected';}?>><?php echo "$nom_tarif2 $prix_tarif2 $devise "; ?></OPTION>
-											<?php }
-												if ($user_admin == 'y'){
-													//tarif gratuit pour admin 
-														$sqltarifgratuit = "SELECT nom_tarif, prix_tarif, id_tarif, DATE_FORMAT(saison, '%d/%m/%Y' ) AS date FROM ".$tblpref."tarif
-													WHERE saison
-														BETWEEN '$annee_2-$debut_saison' AND '$annee_1-$fin_saison'
-														AND nom_tarif='gratuit'";
-													$reqtarifgratuit = mysql_query($sqltarifgratuit) or die('Erreur SQLtarifgratuit !<br>'.$sqltarifgratuit.'<br>'.mysql_error());
-													while($data = mysql_fetch_array($reqtarifgratuit))
-													{
-																	$nom_tarif = $data['nom_tarif'];
-																	$prix_tarif = $data['prix_tarif'];
-																	$id_tarif =$data['id_tarif'];
-											?>
-										<OPTION VALUE='<?php echo $id_tarif; ?>'><?php echo "$nom_tarif $prix_tarif $devise "; ?></OPTION>
-											<?php
-													}
-												}?>
-										</SELECT>
-                    </td>
-                    <td class="highlight">
-                        <?php 
-                            include("include/paiemment.php");
-			?>
-                    </td>
-                    <td class="highlight">
-                        <input type="hidden" name="num_bon" value="<?php echo $bon_num;?>">
-                        <input type="submit" name="Submit" value='Enregistrer le billet'></td>
-                    <td><a href='delete_bon_suite.php?num_bon=<?php echo $bon_num; ?>&amp;nom=<?php echo "$nom_html"; ?>'
-                            onClick="return confirmDelete('<?php echo"$lang_con_effa $bon_num"; ?>')">
-                            <img border="0" src="image/delete.png" alt="delete" Title="Supprimer" ></a></td>
-                </tr></form>
-		
-
-		<?php
-		}
-
-?>
 </table></center>
 
 <?php
@@ -459,5 +357,56 @@ if ($file=="form_client.php") {
 echo"</table>"; 
 } ?>
 </table>
+            <div id="dialogue" style="display : none">Voulez vous supprimer la réservation?</div>
+
+<script>
+
+    jQuery(document).ready(function() {
+    var table = jQuery('#datatables-liste-spectateur-particulier').dataTable( {
+        "sPaginationType":"full_numbers",
+	"bJQueryUI":true,
+	"bStateSave": true,
+        "bProcessing": true,
+        "aaSorting": [[0,"asc"]],
+        "sAjaxSource": 'lister_spectateurs_particulier_sql.php?article_numero=<?php echo $article_numero;?>',
+        "aoColumns": [
+                        { mDataProp: 'nom' },
+                        { mDataProp: 'prenom' },
+                        { mDataProp: 'telephone' },
+                        { mDataProp: 'coment' },
+                        { mDataProp: 'modifier' },
+                        { mDataProp: 'dupliquer' },
+                        { mDataProp: 'tarif' },
+                        { mDataProp: 'paiement' },
+                        { mDataProp: 'valider' },
+                        { mDataProp: 'supprimer' }
+                ]
+    } );
+    jQuery("#dialogue").dialog({
+        resizable: false,
+        height:160,
+        width:500,
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            "Oui": function() {
+                jQuery( this ).dialog( "close" );
+                window.location.href = theHREF;
+            },
+            "Annuler": function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+
+    jQuery('#datatables-lister-spectateur-particulier tbody').on('click', 'a.confirm', function (e) {
+        e.preventDefault();
+        theHREF = jQuery(this).attr("href");
+        jQuery("#dialogue").dialog("open")
+    });
+        jQuery('#datatables-liste-spectateur-particulier').stickyTableHeaders();
+} );
+
+</script>
 </body>
 </html>
