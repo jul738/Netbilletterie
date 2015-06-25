@@ -14,14 +14,9 @@ include_once("include/headers.php");
 include_once("include/head.php");
 include_once("include/finhead.php");
 
-// On récupère la liste des groupes
-
-$select_groupes = "SELECT * FROM groupe";
-$req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_groupes.'<br>'.mysql_error());
-
 // ON affiche les groupes dans un tableau
 ?>
-<center><table class="boiteaction" id="datatables">
+<center><table class="boiteaction" id="datatables-liste-groupes">
         <caption>Liste des groupes</caption>
         <thead>
         <tr>
@@ -36,32 +31,67 @@ $req_groupes = mysql_query($select_groupes) or die('Erreur sql groupes'.$select_
             <th>Supprimer</th>
         </tr>
         </thead>
-        <tbody>
-        <?php
-        while($data_groupes = mysql_fetch_array($req_groupes)){
-          $num_groupe = $data_groupes['num_groupe'];
-          $nom_structure = $data_groupes['nom_structure'];
-          $rue_structure = $data_groupes['rue'];
-          $cp_structure = $data_groupes['cp'];
-          $ville_structure = $data_groupes['ville'];
-          $telephone_structure = $data_groupes['telephone'];
-          $email_structure = $data_groupes['email'];
-          ?>
-        <tr onmouseover="this.className='highlight'" onmouseout="this.className='texte <?php echo "$line" ?>'">
-            <td class="highlight"><?php echo $nom_structure;?></td>
-            <td class="highlight"><?php echo $rue_structure;?></td>
-            <td class="highlight"><?php echo $cp_structure;?></td>
-            <td class="highlight"><?php echo $ville_structure;?></td>
-            <td class="highlight"><?php echo $telephone_structure;?></td>
-            <td class="highlight"><?php echo $email_structure;?></td>
-            <td class="highlight"><a href='groupe.php?num_groupe=<?php echo $num_groupe;?>'><img border="0" title="Voir le groupe" src="image/voir.gif" alt="voir"></a></td>
-            <td class="highlight"><a href='form_groupe.php?num_groupe=<?php echo $num_groupe;?>'><img border="0" alt="Modifier"  title="Modifier le groupe"src="image/edit.png"></a></td>
-            <td class="highlight"><a href='delete_groupe.php?num_groupe=<?php echo $num_groupe;?>'><img border="0" title="Supprimer le groupe" alt="delete" src="image/delete.png"></a></td>
+        <tfoot>
+        <tr>
+            <th>Nom de la structure</th>
+            <th>Rue</th>
+            <th>Code postal</th>
+            <th>Ville</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Voir</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
         </tr>
-        <?php
-        } // fin du while data_groupes
-        ?></tbody>
+        </tfoot>
     </table></center>
 <?php
 include_once("include/bas.php");
 ?>
+<script>
+    jQuery(document).ready(function() {
+    var table = jQuery('#datatables-liste-groupes').dataTable( {
+        "sPaginationType":"full_numbers",
+	"bJQueryUI":true,
+	"bStateSave": true,
+        "bProcessing": true,
+        "aaSorting": [[0,"asc"]],
+        "sAjaxSource": 'lister_groupes_sql.php',
+        "aoColumns": [
+                        { mDataProp: 'nom' },
+                        { mDataProp: 'rue' },
+                        { mDataProp: 'cp' },
+                        { mDataProp: 'ville' },
+                        { mDataProp: 'telephone' },
+                        { mDataProp: 'email' },
+                        { mDataProp: 'voir' },
+                        { mDataProp: 'modifier' },
+                        { mDataProp: 'supprimer' }
+                ]
+    } );
+    jQuery("#dialogue").dialog({
+        resizable: false,
+        height:160,
+        width:500,
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            "Oui": function() {
+                jQuery( this ).dialog( "close" );
+                window.location.href = theHREF;
+            },
+            "Annuler": function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+
+    jQuery('#datatables-liste-groupes tbody').on('click', 'a.confirm', function (e) {
+        e.preventDefault();
+        theHREF = jQuery(this).attr("href");
+        jQuery("#dialogue").dialog("open")
+    });
+        jQuery('#datatables-liste-groupes').stickyTableHeaders();
+} );
+
+</script>

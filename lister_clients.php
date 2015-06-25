@@ -66,7 +66,7 @@ $date_ajd = date('Y-m-d');
 
 		?>
 			<center>
-				<table id="datatables" class="display">
+				<table id="datatables-liste-clients" class="boiteaction">
 					<caption><?php echo $lang_clients_existants; ?></caption>
 					<thead>
 						<tr>
@@ -84,68 +84,22 @@ $date_ajd = date('Y-m-d');
                                                         
 						</tr>
 					</thead>
-					<tbody>
-						<?php
-						$nombre =1;
-						while($data = mysql_fetch_array($req))
-							{
-								$num_client = $data['num_client'];
-                                                                $nom = $data['nom'];
-								$nom=stripslashes($nom);
-								$nom2 = $data['nom2'];
-								$rue = $data['rue'];
-								$rue=stripslashes($rue);
-								$ville = $data['ville'];
-								$ville=stripslashes($ville);
-								$cp = $data['cp'];
-								$tva = $data['num_tva'];
-								$mail =$data['mail'];
-								$num = $data['num_client'];
-								$prenom = $data['prenom'];
-								$tel = $data['tel'];
-								$fax = $data['fax'];
-								$nombre = $nombre +1;
-								if($nombre & 1){
-								$line="0";
-								}else{
-								$line="1"; 
-								}
-                                                                
-//Rq si abonnement afficher jp afficher oui sinon non / afficher concert oui sinon non 
-$req_recup_abo = "SELECT ab.type_abonnement
-                  FROM abonnement AS ab, abonnement_comm AS ac
-                  WHERE ab.num_abonnement = ac.num_abonnement
-                  AND ac.client_num = '$num'
-                  AND ac.date_fin >= CURDATE()";
-
-$recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_abo.'<br>'.mysql_error());
-            $type_abonnement = '';
-            while ($data5 = mysql_fetch_array($recup_abo_brut))
-            {
-            $type_abonnement = $data5['type_abonnement'];
-            }
-            ?>
-					<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
-                                                        <td><?php echo $num_client ;?></td>
-                                                        <td><?php echo $nom; ?></td>
-                                                        <td><?php echo $prenom; ?></td>
-							<td><?php echo $rue; ?></td>
-							<td><?php echo $cp; ?></td>
-							<td><?php echo $ville; ?></td>
-							<td><?php echo $tel; ?></td>
-                                                        <td><?php if ($type_abonnement == Concert) {echo "Oui";} else {echo "Non"; } ?></td>
-                                                        <td><?php if ($type_abonnement == Spectacle_JP) {echo "Oui";} else {echo "Non"; } ?></td>
-							<td><a href="form_mailing.php?nom=<?php echo "$num"; ?>" ><?php echo "$mail"; ?></a></td>
-							<td><a href="edit_client.php?num=<?php echo "$num" ?>">
-                                                                <img border='0'src='image/edit.png' alt='<?php echo $lang_editer; ?>'></a>
-                                                            <a href='voir_reservation_client.php?num_client=<?php echo "$num_client"; ?>' >
-                                                                <img border="0" alt="voir" src="image/voir.gif" Title="Voir les reservation"></a>
-                                                            <a href='dupliquer_client.php?num_client=<?php echo "$num_client"; ?>' >
-                                                                <img border="0" alt="voir" src="image/duplicat.png" Title="Dupliquer le spectateur"></a></td>
-                                                            <?php
-							} ?>
-					</tr>
-					</tbody>
+                                        <tfoot>
+						<tr>
+                                                    <th>Num Client</th>
+							<th>Nom</th>
+                                                        <th>Prenom</th>
+							<th><?php echo $lang_rue; ?></th>
+							<th><?php echo $lang_code_postal; ?></th>
+							<th><?php echo $lang_ville; ?></th>
+							<th><?php  echo $lang_tele;?></th>
+                                                        <th><?php echo $lang_abonne_chanson; ?></th>
+                                                        <th><?php echo $lang_abonne_jp; ?></th> 
+							<th><?php echo $lang_email; ?></th>                                                        
+    							<th>Action</th>
+                                                        
+						</tr>
+					</tfoot>                
 				</table>
 			</center>
 		</td>
@@ -155,3 +109,53 @@ $recup_abo_brut = mysql_query($req_recup_abo)or die('Erreur !<br>'.$req_recup_ab
 include_once("include/bas.php");
 ?>
 
+<script>
+
+    jQuery(document).ready(function() {
+    var table = jQuery('#datatables-liste-clients').dataTable( {
+        "sPaginationType":"full_numbers",
+	"bJQueryUI":true,
+	"bStateSave": true,
+        "bProcessing": true,
+        "aaSorting": [[0,"asc"]],
+        "sAjaxSource": 'lister_clients_sql.php',
+        "aoColumns": [
+                        { mDataProp: 'num_client' },
+                        { mDataProp: 'nom' },
+                        { mDataProp: 'prenom' },
+                        { mDataProp: 'rue' },
+                        { mDataProp: 'cp' },
+                        { mDataProp: 'ville' },
+                        { mDataProp: 'telephone' },
+                        { mDataProp: 'concert' },
+                        { mDataProp: 'jp' },
+                        { mDataProp: 'email' },
+                        { mDataProp: 'actions' }
+                ]
+    } );
+    jQuery("#dialogue").dialog({
+        resizable: false,
+        height:160,
+        width:500,
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            "Oui": function() {
+                jQuery( this ).dialog( "close" );
+                window.location.href = theHREF;
+            },
+            "Annuler": function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+
+    jQuery('#datatables-liste-clients tbody').on('click', 'a.confirm', function (e) {
+        e.preventDefault();
+        theHREF = jQuery(this).attr("href");
+        jQuery("#dialogue").dialog("open")
+    });
+        jQuery('#datatables-liste-clients').stickyTableHeaders();
+} );
+
+</script>

@@ -358,7 +358,6 @@ echo"</table>";
 } ?>
 </table>
             <div id="dialogue" style="display : none">Voulez vous supprimer la réservation?</div>
-
 <script>
 
     jQuery(document).ready(function() {
